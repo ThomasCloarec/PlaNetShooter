@@ -5,15 +5,15 @@ import com.esotericsoftware.kryonet.Client;
 
 import java.io.IOException;
 
-public class GameClient {
+public class GameClient extends Client {
     public GameClient(String IPHost) throws IOException {
-        Client client = new Client();
-        client.start();
-        client.connect(5000, IPHost, Network.tcpPort, Network.udpPort);
+        super();
+        this.start();
+        this.connect(5000, IPHost, Network.tcpPort, Network.udpPort);
 
-        Network.register(client);
+        Network.register(this);
 
-        client.addListener(new Listener() {
+        this.addListener(new Listener() {
         });
     }
 }
