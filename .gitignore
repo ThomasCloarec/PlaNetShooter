@@ -1,0 +1,8 @@
+# Temporary Files
+*~
+.*.swp
+.DS_STORE
+
+target/
+.idea/
+*.iml
