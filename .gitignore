@@ -4,5 +4,6 @@
 .DS_STORE
 
 target/
+manifests/
 .idea/
 *.iml
