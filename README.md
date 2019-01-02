@@ -1,5 +1,5 @@
 # PlaNetShooter
-PlaNetShooter is a platform game with server-based network multiplayer.
+PlaNetShooter is a platform shooter game with server-based network multiplayer.
 
 ## Installation
 The project is not finished yet.\

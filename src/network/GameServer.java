@@ -5,19 +5,15 @@ import com.esotericsoftware.kryonet.Server;
 
 import java.io.IOException;
 
-public class GameServer {
-    private Server server = new Server();
+public class GameServer extends Server {
     public GameServer() throws IOException {
-        server.start();
-        server.bind(Network.tcpPort, Network.udpPort);
+        super();
+        this.start();
+        this.bind(Network.tcpPort, Network.udpPort);
 
-        Network.register(server);
+        Network.register(this);
 
-        server.addListener(new Listener() {
+        this.addListener(new Listener() {
         });
-    }
-
-    public void stop() {
-        server.stop();
     }
 }
