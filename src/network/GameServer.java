@@ -33,6 +33,7 @@ public class GameServer extends Server {
             Network.RegisterName registerName = new Network.RegisterName();
             registerName.name = name;
             this.sendToAllExceptTCP(gameConnection.getID(), registerName);
+            System.out.println("\"" +registerName.name+ "\" is connected !");
         }
     }
 
