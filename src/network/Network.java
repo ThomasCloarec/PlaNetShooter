@@ -9,5 +9,10 @@ class Network {
 
     static void register(EndPoint endPoint) {
         Kryo kryo = endPoint.getKryo();
+        kryo.register(RegisterName.class);
+    }
+
+    static class RegisterName {
+        String name;
     }
 }

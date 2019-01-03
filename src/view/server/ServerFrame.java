@@ -34,13 +34,16 @@ public class ServerFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setLayout(new GridLayout(2,1));
 
-        JLabel closeInformation = new JLabel("Close to stop the chat server.");
+        JLabel closeInformation = new JLabel("Close to stop the game server.");
         closeInformation.setHorizontalAlignment(CENTER);
         this.getContentPane().add(closeInformation);
 
         if (ip != null) {
-            JLabel hostInformation = new JLabel("Host : " + ip);
-            hostInformation.setHorizontalAlignment(CENTER);
+            JTextPane hostInformation = new JTextPane();
+            hostInformation.setContentType("text/html");
+            hostInformation.setText("<html><center>Host : " +ip+ "</center></html>");
+            hostInformation.setEditable(false);
+            hostInformation.setBackground(null);
             this.getContentPane().add(hostInformation);
         }
 
