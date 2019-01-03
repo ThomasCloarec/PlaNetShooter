@@ -6,7 +6,7 @@ import java.awt.*;
 class MenuGame extends JPanel {
     MenuGame() {
         super();
-        this.setSize(768, 30);
-        this.setBackground(Color.blue);
+        this.setBackground(Color.gray);
+        this.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, Color.black));
     }
 }
