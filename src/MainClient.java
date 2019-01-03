@@ -2,6 +2,7 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import network.GameClient;
+import network.Network;
 import view.client.connection.AskClientName;
 import view.client.connection.AskIPHost;
 import view.client.connection.NoServerError;
@@ -11,7 +12,7 @@ import java.io.IOException;
 
 class MainClient {
     public static void main(String[] args) throws IOException {
-        if (new Client().discoverHost(30083, 5000) != null) {
+        if (new Client().discoverHost(Network.udpPort, 5000) != null) {
             GameClient gameClient = new GameClient(AskIPHost.getIPHost());
             gameClient.connectedListener(AskClientName.getClientName());
 
