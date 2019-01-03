@@ -6,30 +6,35 @@ import network.Network;
 import view.client.connection.AskClientName;
 import view.client.connection.AskIPHost;
 import view.client.connection.NoServerError;
+import view.client.game.GameFrame;
 
 import javax.swing.*;
 import java.io.IOException;
 
 class MainClient {
     public static void main(String[] args) throws IOException {
+        // If a game server is up on the network
         if (new Client().discoverHost(Network.udpPort, 5000) != null) {
-            GameClient gameClient = new GameClient(AskIPHost.getIPHost());
-            gameClient.connectedListener(AskClientName.getClientName());
+            launchGameClient();
 
-            gameClient.addListener(new Listener() {
-                @Override
-                public void received(Connection connection, Object object) {
-                    gameClient.receivedListener(object);
-                }
+            SwingUtilities.invokeLater(() -> {
+                GameFrame gameFrame = new GameFrame();
             });
-
-            // jFRAME : Just to not close the Client while test, will be removed asap
-            JFrame jFrame = new JFrame();
-            jFrame.setVisible(true);
-            // END jFRAME
         }
         else {
             new NoServerError();
         }
+    }
+
+    private static void launchGameClient() throws IOException {
+        GameClient gameClient = new GameClient(AskIPHost.getIPHost());
+        gameClient.connectedListener(AskClientName.getClientName());
+
+        gameClient.addListener(new Listener() {
+            @Override
+            public void received(Connection connection, Object object) {
+                gameClient.receivedListener(object);
+            }
+        });
     }
 }
