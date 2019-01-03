@@ -2,9 +2,9 @@ package view.client.connection;
 
 import javax.swing.*;
 
-public class AskIPHost {
+public class AskIPHost extends JOptionPane {
     public static String IPHost() {
-        final String input = (String) JOptionPane.showInputDialog(null, "Host:", "Connect to chat server",
+        final String input = (String) showInputDialog(null, "Host:", "Connect to chat server",
                 JOptionPane.QUESTION_MESSAGE, new ImageIcon(AskIPHost.class.getResource("/view/resources/host.png")), null, "localhost");
 
         if (input == null || input.trim().length() == 0)
