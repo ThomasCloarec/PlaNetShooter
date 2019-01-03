@@ -4,6 +4,7 @@
 .DS_STORE
 
 target/
+out/
 *.MF
 .idea/
 *.iml
