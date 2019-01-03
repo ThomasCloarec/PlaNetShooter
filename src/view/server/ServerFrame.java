@@ -29,8 +29,9 @@ public class ServerFrame extends JFrame {
     }
 
     private void createFrame() {
+        this.setTitle("PlaNetShooter Server");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.setSize(250, 100);
+        this.setSize(300, 100);
         this.setLocationRelativeTo(null);
         this.setLayout(new GridLayout(2,1));
 
