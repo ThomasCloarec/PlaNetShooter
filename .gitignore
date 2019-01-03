@@ -4,6 +4,6 @@
 .DS_STORE
 
 target/
-manifests/
+*.MF
 .idea/
 *.iml
