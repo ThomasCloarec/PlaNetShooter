@@ -12,9 +12,12 @@ import view.client.game_frame.game_only.GamePanel;
 import view.client.game_frame.game_only.PlatformView;
 
 import javax.swing.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 class MainClient {
+    private static GameClient gameClient;
     public static void main(String[] args) throws IOException {
         // If a game server is up on the network
         if (new Client().discoverHost(Network.udpPort, 5000) != null) {
@@ -22,6 +25,12 @@ class MainClient {
 
             SwingUtilities.invokeLater(() -> {
                 GameFrame gameFrame = new GameFrame();
+                gameFrame.addWindowListener(new WindowAdapter() {
+                    public void windowClosing (WindowEvent evt) {
+                        System.out.println("You are disconnected !");
+                        gameClient.stop();
+                    }
+                });
                 Platform[] platforms = new Platform[Platform.getPlatformNumber()];
                 GamePanel.setPlatformsView(new PlatformView[Platform.getPlatformNumber()]);
                 for (int i = 0; i < Platform.getPlatformNumber() ; i++) {
@@ -41,7 +50,7 @@ class MainClient {
 
     private static void launchGameClient() throws IOException {
         // TODO Handle when it's not a GameServer IP
-        GameClient gameClient = new GameClient(AskIPHost.getIPHost());
+        gameClient = new GameClient(AskIPHost.getIPHost());
         gameClient.connectedListener(AskClientName.getClientName());
 
         gameClient.addListener(new Listener() {
@@ -52,7 +61,6 @@ class MainClient {
 
             @Override
             public void disconnected (Connection connection) {
-                System.out.println("Server disconnected.");
                 System.exit(1);
             }
         });
