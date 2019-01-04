@@ -18,7 +18,7 @@ import java.io.IOException;
 
 class MainClient {
     private static GameClient gameClient;
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) {
         // If a game server is up on the network
         if (new Client().discoverHost(Network.udpPort, 5000) != null) {
             launchGameClient();
@@ -28,7 +28,7 @@ class MainClient {
                 gameFrame.addWindowListener(new WindowAdapter() {
                     public void windowClosing (WindowEvent evt) {
                         System.out.println("You are disconnected !");
-                        gameClient.stop();
+                        System.exit(0);
                     }
                 });
                 Platform[] platforms = new Platform[Platform.getPlatformNumber()];
@@ -48,9 +48,17 @@ class MainClient {
         }
     }
 
-    private static void launchGameClient() throws IOException {
-        // TODO Handle when it's not a GameServer IP
-        gameClient = new GameClient(AskIPHost.getIPHost());
+    private static void launchGameClient() {
+        while(true) {
+            try {
+                gameClient = new GameClient(AskIPHost.getIPHost());
+                break;
+            } catch (IOException e) {
+                System.out.println("No game server found with this IP on the network.");
+                AskIPHost.goBack = true;
+            }
+        }
+
         gameClient.connectedListener(AskClientName.getClientName());
 
         gameClient.addListener(new Listener() {
@@ -61,6 +69,7 @@ class MainClient {
 
             @Override
             public void disconnected (Connection connection) {
+                System.out.println("Server closed.");
                 System.exit(1);
             }
         });
