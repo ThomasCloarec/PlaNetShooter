@@ -7,27 +7,27 @@ import network.Network;
 import view.client.connection.AskClientName;
 import view.client.connection.AskIPHost;
 import view.client.connection.NoServerError;
-import view.client.game.GameFrame;
-import view.client.game.GamePanel;
-import view.client.game.objects.PlatformView;
+import view.client.game_frame.GameFrame;
+import view.client.game_frame.game_only.GamePanel;
+import view.client.game_frame.game_only.PlatformView;
 
 import javax.swing.*;
 import java.io.IOException;
 
 class MainClient {
     public static void main(String[] args) throws IOException {
-        // If a game server is up on the network
+        // If a game_frame server is up on the network
         if (new Client().discoverHost(Network.udpPort, 5000) != null) {
             launchGameClient();
 
             SwingUtilities.invokeLater(() -> {
                 GameFrame gameFrame = new GameFrame();
-                Platform[] platforms = new Platform[Platform.platformNumber];
-                GamePanel.platforms = new PlatformView[Platform.platformNumber];
-                for (int i = 0; i < Platform.platformNumber ; i++) {
+                Platform[] platforms = new Platform[Platform.getPlatformNumber()];
+                GamePanel.setPlatformsView(new PlatformView[Platform.getPlatformNumber()]);
+                for (int i = 0; i < Platform.getPlatformNumber() ; i++) {
                     platforms[i] = new Platform();
-                    GamePanel.platforms[i] = new PlatformView(platforms[i].relativeX,
-                            platforms[i].relativeY, Platform.relativeWidth, Platform.relativeHeight);
+                    GamePanel.setEachPlatformView(i, new PlatformView(platforms[i].getRelativeX(),
+                            platforms[i].getRelativeY(), Platform.getRelativeWidth(), Platform.getRelativeHeight()));
                 }
             });
         }

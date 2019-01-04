@@ -1,10 +1,12 @@
-package view.client.game;
+package view.client.game_frame;
+
+import view.client.game_frame.game_only.GamePanel;
+import view.client.game_frame.menu.GameMenuPanel;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class GameFrame extends JFrame {
-
     public GameFrame() {
         super();
         this.setTitle("PlaNetShooter Client");

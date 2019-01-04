@@ -1,12 +1,11 @@
 package model.platforms;
 
 public class Platform {
-    public static final float relativeWidth = 0.1f;
-    public static final float relativeHeight = 0.01f;
-    public float relativeX;
-    public float relativeY;
+    private static final float relativeWidth = 0.1f;
+    private static final float relativeHeight = 0.01f;
+    private float relativeX;
+    private float relativeY;
     private static int platformLoopCount = 0;
-    public static int platformNumber = 11;
 
     public Platform() {
         /* HOW THE PLATFORMS ARE :
@@ -41,5 +40,25 @@ public class Platform {
             this.relativeY = 0.55f;
         
         platformLoopCount++;
+    }
+
+    public float getRelativeX() {
+        return relativeX;
+    }
+
+    public float getRelativeY() {
+        return relativeY;
+    }
+
+    public static float getRelativeWidth() {
+        return relativeWidth;
+    }
+
+    public static float getRelativeHeight() {
+        return relativeHeight;
+    }
+
+    public static int getPlatformNumber() {
+        return 11;
     }
 }

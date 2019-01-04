@@ -37,7 +37,7 @@ public class ServerFrame extends JFrame {
         this.setLocationRelativeTo(null);
         this.setLayout(new GridLayout(2,1));
 
-        JLabel closeInformation = new JLabel("Close to stop the game server.");
+        JLabel closeInformation = new JLabel("Close to stop the game_frame server.");
         closeInformation.setHorizontalAlignment(CENTER);
         this.getContentPane().add(closeInformation);
 

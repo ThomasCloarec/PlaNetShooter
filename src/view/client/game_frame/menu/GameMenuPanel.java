@@ -1,10 +1,10 @@
-package view.client.game;
+package view.client.game_frame.menu;
 
 import javax.swing.*;
 import java.awt.*;
 
-class GameMenuPanel extends JPanel {
-    GameMenuPanel() {
+public class GameMenuPanel extends JPanel {
+    public GameMenuPanel() {
         super();
         this.setBackground(Color.gray);
         this.setLayout(new GridLayout(1,5));

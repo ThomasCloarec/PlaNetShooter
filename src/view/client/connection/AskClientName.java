@@ -4,7 +4,7 @@ import javax.swing.*;
 
 public class AskClientName extends JOptionPane {
     public static String getClientName() {
-        final String input = (String) showInputDialog(null, "Your name :", "Connect to game server",
+        final String input = (String) showInputDialog(null, "Your name :", "Connect to game_frame server",
                 JOptionPane.QUESTION_MESSAGE, new ImageIcon(AskClientName.class.getResource("/view/resources/client_connection/new_user.png")), null, "Guest");
 
         if (input == null || input.trim().length() == 0)
