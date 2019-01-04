@@ -26,5 +26,10 @@ public class GameClient extends Client {
             Network.RegisterName registerName = (Network.RegisterName)object;
             System.out.println("\"" +registerName.name+ "\" is connected !");
         }
+
+        if (object instanceof Network.RemoveName) {
+            Network.RemoveName removeName = (Network.RemoveName)object;
+            System.out.println("\"" +removeName.name+ "\" is disconnected !");
+        }
     }
 }

@@ -10,9 +10,14 @@ public class Network {
     static void register(EndPoint endPoint) {
         Kryo kryo = endPoint.getKryo();
         kryo.register(RegisterName.class);
+        kryo.register(RemoveName.class);
     }
 
     static class RegisterName {
+        String name;
+    }
+
+    static class RemoveName {
         String name;
     }
 }

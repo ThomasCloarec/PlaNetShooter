@@ -1,6 +1,7 @@
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import network.GameServer;
+import network.Network;
 import view.server.ServerFrame;
 
 import javax.swing.*;
@@ -15,6 +16,11 @@ class MainServer {
             @Override
             public void received(Connection connection, Object object) {
                 gameServer.receivedListener(connection, object);
+            }
+
+            @Override
+            public void disconnected(Connection connection) {
+                gameServer.disconnectedListener(connection);
             }
         });
 

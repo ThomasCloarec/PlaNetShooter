@@ -37,6 +37,16 @@ public class GameServer extends Server {
         }
     }
 
+    public void disconnectedListener(Connection connection) {
+        GameConnection gameConnection = (GameConnection) connection;
+        if (gameConnection.name != null) {
+            Network.RemoveName removeName = new Network.RemoveName();
+            removeName.name = gameConnection.name;
+            this.sendToAllTCP(removeName);
+            System.out.println("\"" +removeName.name+ "\" is disconnected !");
+        }
+    }
+
     @Override
     protected Connection newConnection() {
         return new GameConnection();
