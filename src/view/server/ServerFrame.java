@@ -20,6 +20,8 @@ public class ServerFrame extends JFrame {
             DatagramSocket socket = new DatagramSocket();
             socket.connect(InetAddress.getByName("8.8.8.8"), 42873);
             ip = socket.getLocalAddress().getHostAddress();
+            if (ip.equals("0.0.0.0"))
+                ip = "localhost";
         }
         catch (SocketException | UnknownHostException e) {
             e.printStackTrace();

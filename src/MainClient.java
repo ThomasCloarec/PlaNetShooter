@@ -22,8 +22,9 @@ class MainClient {
 
             SwingUtilities.invokeLater(() -> {
                 GameFrame gameFrame = new GameFrame();
-                Platform[] platforms = new Platform[9];
-                for (int i = 0; i < 9 ; i++) {
+                Platform[] platforms = new Platform[Platform.platformNumber];
+                GamePanel.platforms = new PlatformView[Platform.platformNumber];
+                for (int i = 0; i < Platform.platformNumber ; i++) {
                     platforms[i] = new Platform();
                     GamePanel.platforms[i] = new PlatformView(platforms[i].relativeX,
                             platforms[i].relativeY, Platform.relativeWidth, Platform.relativeHeight);

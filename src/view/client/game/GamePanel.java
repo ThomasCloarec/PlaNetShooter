@@ -6,7 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel {
-    public static PlatformView[] platforms = new PlatformView[9];
+    public static PlatformView[] platforms;
     GamePanel() {
         super();
         this.setBackground(Color.lightGray);
