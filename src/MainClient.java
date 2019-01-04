@@ -59,6 +59,7 @@ class MainClient {
             }
         }
 
+        // TODO : Handle multiple players with the same name
         gameClient.connectedListener(AskClientName.getClientName());
 
         gameClient.addListener(new Listener() {
@@ -69,7 +70,7 @@ class MainClient {
 
             @Override
             public void disconnected (Connection connection) {
-                System.out.println("Server closed.");
+                System.out.println("You are disconnected !\nServer closed.");
                 System.exit(1);
             }
         });

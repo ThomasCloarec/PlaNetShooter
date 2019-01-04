@@ -20,8 +20,10 @@ public class AskIPHost extends JOptionPane {
             if (input == null)
                 System.exit(0);
 
-            if (!(IPAddressValidator.validate(input.trim()) || input.trim().equals("localhost")))
-                messageBeginning = "(\"" +input.trim()+ "\" is not a valid IP) -> ";
+            if (!(IPAddressValidator.validate(input.trim()) || input.trim().equals("localhost"))) {
+                messageBeginning = "(\"" + input.trim() + "\" is not a valid IP) -> ";
+                System.out.println("The IP is not valid");
+            }
 
             goBack = false;
         } while (!(IPAddressValidator.validate(input.trim()) || input.trim().equals("localhost")));
