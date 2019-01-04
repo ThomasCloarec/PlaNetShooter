@@ -40,6 +40,7 @@ class MainClient {
     }
 
     private static void launchGameClient() throws IOException {
+        // TODO Handle when it's not a GameServer IP
         GameClient gameClient = new GameClient(AskIPHost.getIPHost());
         gameClient.connectedListener(AskClientName.getClientName());
 
