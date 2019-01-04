@@ -6,12 +6,14 @@ import com.esotericsoftware.kryonet.Server;
 import java.io.IOException;
 
 public class GameServer extends Server {
+    private static Network.RegisterNameList registerNameList = new Network.RegisterNameList();
+
     public GameServer() throws IOException {
         super();
-        this.start();
-        this.bind(Network.tcpPort, Network.udpPort);
-
         Network.register(this);
+        this.start();
+        // TODO : Show message when ports are already used
+        this.bind(Network.tcpPort, Network.udpPort);
     }
 
     public void receivedListener(Connection connection, Object object) {
@@ -33,7 +35,11 @@ public class GameServer extends Server {
             Network.RegisterName registerName = new Network.RegisterName();
             registerName.name = name;
             this.sendToAllExceptTCP(gameConnection.getID(), registerName);
-            System.out.println("\"" +registerName.name+ "\" is connected !");
+            System.out.println("\"" + registerName.name + "\" is connected !");
+
+            registerNameList.list.add(registerName.name);
+
+
         }
     }
 
@@ -44,7 +50,15 @@ public class GameServer extends Server {
             removeName.name = gameConnection.name;
             this.sendToAllTCP(removeName);
             System.out.println("\"" +removeName.name+ "\" is disconnected !");
+
+            registerNameList.list.remove(removeName.name);
         }
+    }
+
+    public void connectedListener(Connection connection) {
+        System.out.println("SEND TO " +connection.getID());
+        System.out.println(registerNameList.list);
+        this.sendToTCP(connection.getID(), registerNameList);
     }
 
     @Override
@@ -52,7 +66,7 @@ public class GameServer extends Server {
         return new GameConnection();
     }
 
-    static class GameConnection extends Connection {
+    class GameConnection extends Connection {
         String name;
     }
 }

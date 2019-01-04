@@ -59,9 +59,6 @@ class MainClient {
             }
         }
 
-        // TODO : Handle multiple players with the same name
-        gameClient.connectedListener(AskClientName.getClientName());
-
         gameClient.addListener(new Listener() {
             @Override
             public void received(Connection connection, Object object) {
@@ -74,5 +71,16 @@ class MainClient {
                 System.exit(1);
             }
         });
+
+        String clientName;
+        do {
+            clientName = AskClientName.getClientName();
+            if (gameClient.getRegisterNameList().list.indexOf(clientName) >= 0) {
+                AskClientName.setGoBack(true);
+            }
+        }
+        while (gameClient.getRegisterNameList().list.indexOf(clientName) >= 0);
+
+        gameClient.connectedListener(clientName);
     }
 }

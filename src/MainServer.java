@@ -18,6 +18,11 @@ class MainServer {
             }
 
             @Override
+            public void connected(Connection connection) {
+                gameServer.connectedListener(connection);
+            }
+
+            @Override
             public void disconnected(Connection connection) {
                 gameServer.disconnectedListener(connection);
             }
