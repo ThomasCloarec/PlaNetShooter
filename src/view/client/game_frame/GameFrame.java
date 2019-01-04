@@ -9,9 +9,10 @@ import java.awt.*;
 public class GameFrame extends JFrame {
     public GameFrame() {
         super();
+        // TODO : Add the name of the Client in the GameFrame title
         this.setTitle("PlaNetShooter Client");
-        this.setSize(768,432);
-        this.setMinimumSize(new Dimension(574,330));
+        this.setSize(768, 432);
+        this.setMinimumSize(new Dimension(574, 330));
         this.setLocationRelativeTo(null);
         this.setLayout(new BorderLayout());
 
