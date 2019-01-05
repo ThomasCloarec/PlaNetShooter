@@ -3,16 +3,18 @@ package model.characters;
 public class Character {
     private static final float relativeWidth = 0.025f;
     private static final float relativeHeight = 0.1f;
+    private float relativeX = 0.4875f;
+    private float relativeY = 0.3f;
 
     public Character() {
     }
 
-    public float getRelativePositionX() {
-        return 0.4875f;
+    public float getRelativeX() {
+        return relativeX;
     }
 
-    public float getRelativePositionY() {
-        return 0.3f;
+    public float getRelativeY() {
+        return relativeY;
     }
 
     public static float getRelativeWidth() {
@@ -21,5 +23,13 @@ public class Character {
 
     public static float getRelativeHeight() {
         return relativeHeight;
+    }
+
+    public void setRelativeX(float relativeX) {
+        this.relativeX = relativeX;
+    }
+
+    public void setRelativeY(float relativeY) {
+        this.relativeY = relativeY;
     }
 }

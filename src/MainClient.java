@@ -1,6 +1,7 @@
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import model.CollisionDetection;
 import model.platforms.Platform;
 import model.characters.Character;
 import network.GameClient;
@@ -18,10 +19,16 @@ import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 class MainClient {
     private static String clientName;
     private static GameClient gameClient;
+    private static List<Object> allSolidObjects = new ArrayList<>();
+    private static boolean stopRight = false;
+    private static boolean stopLeft = false;
+
     public static void main(String[] args) {
         // If a game server is up on the network
         if (new Client().discoverHost(Network.udpPort, 5000) != null) {
@@ -45,22 +52,52 @@ class MainClient {
                             platforms[i].getRelativeY(),
                             Platform.getRelativeWidth(),
                             Platform.getRelativeHeight()));
+
+                    allSolidObjects.add(platforms[i]);
                 }
 
                 Character character = new Character();
                 gameFrame.getGamePanel().setCharacterView(new CharacterView(
-                        character.getRelativePositionX(),
-                        character.getRelativePositionY(),
+                        character.getRelativeX(),
+                        character.getRelativeY(),
                         Character.getRelativeWidth(),
                         Character.getRelativeHeight()));
 
                 gameFrame.getGamePanel().addKeyListener(new KeyAdapter() {
                     @Override
                     public void keyPressed(KeyEvent e) {
-                        if (e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)
-                            gameFrame.getGamePanel().getCharacterView().setRelativeX(gameFrame.getGamePanel().getCharacterView().getRelativeX()+ 0.01f);
-                        else if (e.getKeyCode() == KeyEvent.VK_Q || e.getKeyCode() == KeyEvent.VK_LEFT)
-                            gameFrame.getGamePanel().getCharacterView().setRelativeX(gameFrame.getGamePanel().getCharacterView().getRelativeX()- 0.01f);
+                        if (e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT) {
+                            for (int i = 0; i < 64; i++) {
+                                stopLeft = false;
+                                if (!stopRight) {
+                                    character.setRelativeX(character.getRelativeX() + 0.00015625f);
+                                    for (Object object : allSolidObjects) {
+                                        if (CollisionDetection.isCollisionBetween(character, object)) {
+                                            stopRight = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else if (e.getKeyCode() == KeyEvent.VK_Q || e.getKeyCode() == KeyEvent.VK_LEFT) {
+                            for (int i = 0; i < 64; i++) {
+                                stopRight = false;
+                                if (!stopLeft) {
+                                    character.setRelativeX(character.getRelativeX() - 0.00015625f);
+                                    for (Object object : allSolidObjects) {
+                                        if (CollisionDetection.isCollisionBetween(character, object)) {
+                                            stopLeft = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+
+                        gameFrame.getGamePanel().setCharacterView(new CharacterView(
+                                character.getRelativeX(),
+                                character.getRelativeY(),
+                                Character.getRelativeWidth(),
+                                Character.getRelativeHeight()));
 
                         gameFrame.getGamePanel().repaint();
                     }
@@ -99,6 +136,8 @@ class MainClient {
 
         do {
             clientName = AskClientName.getClientName();
+            System.out.println(gameClient.getRegisterNameList());
+            System.out.println(gameClient.getRegisterNameList().getList());
             if (gameClient.getRegisterNameList().getList().indexOf(clientName) >= 0) {
                 AskClientName.setGoBack(true);
             }
