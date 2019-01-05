@@ -2,12 +2,14 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import model.platforms.Platform;
+import model.characters.Character;
 import network.GameClient;
 import network.Network;
 import view.client.connection.AskClientName;
 import view.client.connection.AskIPHost;
 import view.client.connection.NoServerError;
 import view.client.game_frame.GameFrame;
+import view.client.game_frame.game_only.CharacterView;
 import view.client.game_frame.game_only.GamePanel;
 import view.client.game_frame.game_only.PlatformView;
 
@@ -32,6 +34,7 @@ class MainClient {
                         System.exit(0);
                     }
                 });
+
                 Platform[] platforms = new Platform[Platform.getPlatformNumber()];
                 GamePanel.setPlatformsView(new PlatformView[Platform.getPlatformNumber()]);
                 for (int i = 0; i < Platform.getPlatformNumber() ; i++) {
@@ -42,6 +45,15 @@ class MainClient {
                             Platform.getRelativeWidth(),
                             Platform.getRelativeHeight()));
                 }
+
+                Character character = new Character();
+                GamePanel.setCharacterView(new CharacterView(
+                        character.getRelativePositionX(),
+                        character.getRelativePositionY(),
+                        Character.getRelativeWidth(),
+                        Character.getRelativeHeight()));
+
+
             });
         }
         else {

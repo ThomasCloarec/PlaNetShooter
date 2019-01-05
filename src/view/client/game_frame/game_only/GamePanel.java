@@ -5,6 +5,7 @@ import java.awt.*;
 
 public class GamePanel extends JPanel {
     private static PlatformView[] platforms;
+    private static CharacterView characterView;
 
     public GamePanel() {
         super();
@@ -23,6 +24,13 @@ public class GamePanel extends JPanel {
                         (int)(platform.getRelativeHeight()*this.getHeight()));
             }
         }
+
+        if (characterView != null) {
+            g.setColor(Color.red);
+            g.fillRect((int)(characterView.getRelativeX()*this.getWidth()),
+                    (int)(characterView.getRelativeY()*this.getHeight()),
+                    (int)(characterView.getRelativeWidth()*this.getWidth()),
+                    (int)(characterView.getRelativeHeight()*this.getHeight()));        }
     }
 
     public static void setPlatformsView(PlatformView[] platforms) {
@@ -31,5 +39,9 @@ public class GamePanel extends JPanel {
 
     public static void setEachPlatformView(int i, PlatformView platformView) {
         GamePanel.platforms[i] = platformView;
+    }
+
+    public static void setCharacterView(CharacterView characterView) {
+        GamePanel.characterView = characterView;
     }
 }
