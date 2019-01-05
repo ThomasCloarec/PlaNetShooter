@@ -2,36 +2,15 @@ package view.client.game_frame.game_only;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 public class GamePanel extends JPanel {
-    private static PlatformView[] platforms;
-    private static CharacterView characterView;
+    private PlatformView[] platforms;
+    private CharacterView characterView;
 
     public GamePanel() {
         super();
         this.setBackground(Color.lightGray);
         this.setFocusable(true);
-        this.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-
-            }
-
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)
-                    characterView.setRelativeX(characterView.getRelativeX()+ 0.01f);
-                else if (e.getKeyCode() == KeyEvent.VK_Q || e.getKeyCode() == KeyEvent.VK_LEFT)
-                    characterView.setRelativeX(characterView.getRelativeX()- 0.01f);
-                repaint();
-            }
-
-            @Override
-            public void keyReleased(KeyEvent e) {
-            }
-        });
     }
 
     @Override
@@ -55,15 +34,19 @@ public class GamePanel extends JPanel {
                     (int)(characterView.getRelativeHeight()*this.getHeight()));        }
     }
 
-    public static void setPlatformsView(PlatformView[] platforms) {
-        GamePanel.platforms = platforms;
+    public void setPlatformsView(PlatformView[] platforms) {
+        this.platforms = platforms;
     }
 
-    public static void setEachPlatformView(int i, PlatformView platformView) {
-        GamePanel.platforms[i] = platformView;
+    public void setEachPlatformView(int i, PlatformView platformView) {
+        this.platforms[i] = platformView;
     }
 
-    public static void setCharacterView(CharacterView characterView) {
-        GamePanel.characterView = characterView;
+    public void setCharacterView(CharacterView characterView) {
+        this.characterView = characterView;
+    }
+
+    public CharacterView getCharacterView() {
+        return this.characterView;
     }
 }

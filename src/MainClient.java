@@ -10,10 +10,11 @@ import view.client.connection.AskIPHost;
 import view.client.connection.NoServerError;
 import view.client.game_frame.GameFrame;
 import view.client.game_frame.game_only.CharacterView;
-import view.client.game_frame.game_only.GamePanel;
 import view.client.game_frame.game_only.PlatformView;
 
 import javax.swing.*;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.IOException;
@@ -36,10 +37,10 @@ class MainClient {
                 });
 
                 Platform[] platforms = new Platform[Platform.getPlatformNumber()];
-                GamePanel.setPlatformsView(new PlatformView[Platform.getPlatformNumber()]);
+                gameFrame.getGamePanel().setPlatformsView(new PlatformView[Platform.getPlatformNumber()]);
                 for (int i = 0; i < Platform.getPlatformNumber() ; i++) {
                     platforms[i] = new Platform();
-                    GamePanel.setEachPlatformView(i, new PlatformView(
+                    gameFrame.getGamePanel().setEachPlatformView(i, new PlatformView(
                             platforms[i].getRelativeX(),
                             platforms[i].getRelativeY(),
                             Platform.getRelativeWidth(),
@@ -47,11 +48,23 @@ class MainClient {
                 }
 
                 Character character = new Character();
-                GamePanel.setCharacterView(new CharacterView(
+                gameFrame.getGamePanel().setCharacterView(new CharacterView(
                         character.getRelativePositionX(),
                         character.getRelativePositionY(),
                         Character.getRelativeWidth(),
                         Character.getRelativeHeight()));
+
+                gameFrame.getGamePanel().addKeyListener(new KeyAdapter() {
+                    @Override
+                    public void keyPressed(KeyEvent e) {
+                        if (e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT)
+                            gameFrame.getGamePanel().getCharacterView().setRelativeX(gameFrame.getGamePanel().getCharacterView().getRelativeX()+ 0.01f);
+                        else if (e.getKeyCode() == KeyEvent.VK_Q || e.getKeyCode() == KeyEvent.VK_LEFT)
+                            gameFrame.getGamePanel().getCharacterView().setRelativeX(gameFrame.getGamePanel().getCharacterView().getRelativeX()- 0.01f);
+
+                        gameFrame.getGamePanel().repaint();
+                    }
+                });
 
 
             });
@@ -87,11 +100,11 @@ class MainClient {
 
         do {
             clientName = AskClientName.getClientName();
-            if (gameClient.getRegisterNameList().list.indexOf(clientName) >= 0) {
+            if (gameClient.getRegisterNameList().getList().indexOf(clientName) >= 0) {
                 AskClientName.setGoBack(true);
             }
         }
-        while (gameClient.getRegisterNameList().list.indexOf(clientName) >= 0);
+        while (gameClient.getRegisterNameList().getList().indexOf(clientName) >= 0);
 
         gameClient.connectedListener(clientName);
     }

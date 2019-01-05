@@ -12,7 +12,7 @@ public class CharacterView {
         this.relativeHeight = relativeHeight;
     }
 
-    float getRelativeX() {
+    public float getRelativeX() {
         return relativeX;
     }
 
@@ -28,11 +28,7 @@ public class CharacterView {
         return relativeHeight;
     }
 
-    void setRelativeX(float relativeX) {
+    public void setRelativeX(float relativeX) {
         this.relativeX = relativeX;
-    }
-
-    void setRelativeY(float relativeY) {
-        this.relativeY = relativeY;
     }
 }

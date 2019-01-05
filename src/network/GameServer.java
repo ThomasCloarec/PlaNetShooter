@@ -44,7 +44,7 @@ public class GameServer extends Server {
             this.sendToAllExceptTCP(gameConnection.getID(), registerName);
             System.out.println("\"" + registerName.name + "\" is connected !");
 
-            registerNameList.list.add(registerName.name);
+            registerNameList.getList().add(registerName.name);
 
 
         }
@@ -58,7 +58,7 @@ public class GameServer extends Server {
             this.sendToAllTCP(removeName);
             System.out.println("\"" +removeName.name+ "\" is disconnected !");
 
-            registerNameList.list.remove(removeName.name);
+            registerNameList.getList().remove(removeName.name);
         }
     }
 

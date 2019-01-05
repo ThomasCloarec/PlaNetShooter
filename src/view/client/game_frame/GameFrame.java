@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameFrame extends JFrame {
+    private GamePanel gamePanel = new GamePanel();
     public GameFrame (String clientName) {
         super();
         this.setTitle("PlaNetShooter Client : (" +clientName+ ")");
@@ -19,9 +20,12 @@ public class GameFrame extends JFrame {
         gameMenuPanel.setPreferredSize(new Dimension(this.getWidth(), 30));
         this.add(gameMenuPanel, BorderLayout.NORTH);
 
-        GamePanel gamePanel = new GamePanel();
         this.add(gamePanel, BorderLayout.CENTER);
 
         this.setVisible(true);
+    }
+
+    public GamePanel getGamePanel() {
+        return gamePanel;
     }
 }

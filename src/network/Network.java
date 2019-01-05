@@ -27,6 +27,10 @@ public class Network {
     }
 
     public static class RegisterNameList {
-        public final List<String> list = new ArrayList<>();
+        private final List<String> list = new ArrayList<>();
+
+        public List<String> getList() {
+            return list;
+        }
     }
 }
