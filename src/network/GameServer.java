@@ -2,18 +2,25 @@ package network;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
+import view.server.PortAlreadyUsedError;
 
 import java.io.IOException;
 
 public class GameServer extends Server {
-    private static Network.RegisterNameList registerNameList = new Network.RegisterNameList();
+    private static final Network.RegisterNameList registerNameList = new Network.RegisterNameList();
 
-    public GameServer() throws IOException {
+    public GameServer() {
         super();
         Network.register(this);
         this.start();
-        // TODO : Show message when ports are already used
-        this.bind(Network.tcpPort, Network.udpPort);
+
+        try {
+            this.bind(Network.tcpPort, Network.udpPort);
+        }
+        catch (IOException e) {
+            new PortAlreadyUsedError();
+            System.exit(1);
+        }
     }
 
     public void receivedListener(Connection connection, Object object) {
@@ -56,8 +63,6 @@ public class GameServer extends Server {
     }
 
     public void connectedListener(Connection connection) {
-        System.out.println("SEND TO " +connection.getID());
-        System.out.println(registerNameList.list);
         this.sendToTCP(connection.getID(), registerNameList);
     }
 

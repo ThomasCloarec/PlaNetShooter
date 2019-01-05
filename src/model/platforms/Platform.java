@@ -58,6 +58,7 @@ public class Platform {
         return relativeHeight;
     }
 
+    @SuppressWarnings("SameReturnValue")
     public static int getPlatformNumber() {
         return 11;
     }

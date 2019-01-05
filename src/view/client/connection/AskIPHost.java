@@ -3,7 +3,7 @@ package view.client.connection;
 import javax.swing.*;
 
 public class AskIPHost extends JOptionPane {
-    public static boolean goBack = false;
+    private static boolean goBack = false;
     private static String input = "localhost";
 
     public static String getIPHost() {
@@ -29,5 +29,9 @@ public class AskIPHost extends JOptionPane {
         } while (!(IPAddressValidator.validate(input.trim()) || input.trim().equals("localhost")));
 
         return input.trim();
+    }
+
+    public static void setGoBack(boolean goBack) {
+        AskIPHost.goBack = goBack;
     }
 }

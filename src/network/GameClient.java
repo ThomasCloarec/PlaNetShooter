@@ -9,8 +9,6 @@ public class GameClient extends Client {
 
     public GameClient(String IPHost) throws IOException {
         super();
-        // NEVER put register() after connect() !
-        // wasted two hours of my life because of this x)
         Network.register(this);
         this.start();
         this.connect(5000, IPHost, Network.tcpPort, Network.udpPort);
@@ -35,7 +33,6 @@ public class GameClient extends Client {
             System.out.println("\"" +removeName.name+ "\" is disconnected !");
         }
         if(object instanceof Network.RegisterNameList) {
-            System.out.println("RECEIVED");
             registerNameList = (Network.RegisterNameList)object;
         }
     }

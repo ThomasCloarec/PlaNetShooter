@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameMenuPanel extends JPanel {
-    private JButton jButton = new JButton("Button");
+    private final JButton jButton = new JButton("Button");
 
     // TODO : Change the GameMenuPanel by some background images for the panel and the buttons
     public GameMenuPanel() {

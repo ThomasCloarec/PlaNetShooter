@@ -55,7 +55,7 @@ class MainClient {
                 break;
             } catch (IOException e) {
                 System.out.println("No game server found with this IP on the network.");
-                AskIPHost.goBack = true;
+                AskIPHost.setGoBack(true);
             }
         }
 
