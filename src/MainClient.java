@@ -14,10 +14,7 @@ import view.client.game_frame.game_only.CharacterView;
 import view.client.game_frame.game_only.PlatformView;
 
 import javax.swing.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
+import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +22,17 @@ import java.util.List;
 class MainClient {
     private static String clientName;
     private static GameClient gameClient;
+
     private static List<Object> allSolidObjects = new ArrayList<>();
     private static boolean stopRight = false;
     private static boolean stopLeft = false;
+
+    private static GameFrame gameFrame;
+    private static Character character;
+
+    private static final String MOVE_LEFT = "move left";
+    private static final String MOVE_RIGHT = "move right";
+    private static final String MOVE_STOP = "move stop";
 
     public static void main(String[] args) {
         // If a game server is up on the network
@@ -35,9 +40,9 @@ class MainClient {
             launchGameClient();
 
             SwingUtilities.invokeLater(() -> {
-                GameFrame gameFrame = new GameFrame(clientName);
+                gameFrame = new GameFrame(clientName);
                 gameFrame.addWindowListener(new WindowAdapter() {
-                    public void windowClosing (WindowEvent evt) {
+                    public void windowClosing(WindowEvent evt) {
                         System.out.println("You are disconnected !");
                         System.exit(0);
                     }
@@ -45,7 +50,7 @@ class MainClient {
 
                 Platform[] platforms = new Platform[Platform.getPlatformNumber()];
                 gameFrame.getGamePanel().setPlatformsView(new PlatformView[Platform.getPlatformNumber()]);
-                for (int i = 0; i < Platform.getPlatformNumber() ; i++) {
+                for (int i = 0; i < Platform.getPlatformNumber(); i++) {
                     platforms[i] = new Platform();
                     gameFrame.getGamePanel().setEachPlatformView(i, new PlatformView(
                             platforms[i].getRelativeX(),
@@ -56,52 +61,69 @@ class MainClient {
                     allSolidObjects.add(platforms[i]);
                 }
 
-                Character character = new Character();
+                character = new Character();
                 gameFrame.getGamePanel().setCharacterView(new CharacterView(
                         character.getRelativeX(),
                         character.getRelativeY(),
                         Character.getRelativeWidth(),
                         Character.getRelativeHeight()));
 
-                gameFrame.getGamePanel().addKeyListener(new KeyAdapter() {
-                    @Override
-                    public void keyPressed(KeyEvent e) {
-                        if (e.getKeyCode() == KeyEvent.VK_D || e.getKeyCode() == KeyEvent.VK_RIGHT) {
-                            for (int i = 0; i < 64; i++) {
-                                stopLeft = false;
-                                if (!stopRight) {
-                                    character.setRelativeX(character.getRelativeX() + 0.00015625f);
-                                    for (Object object : allSolidObjects) {
-                                        if (CollisionDetection.isCollisionBetween(character, object)) {
-                                            stopRight = true;
-                                        }
+
+                final InputMap IM = gameFrame.getGamePanel().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+                final ActionMap AM = gameFrame.getGamePanel().getActionMap();
+                MovementState movementState = new MovementState();
+
+                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, 0, true), MOVE_STOP);
+                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, true), MOVE_STOP);
+                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true), MOVE_STOP);
+                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, true), MOVE_STOP);
+                AM.put(MOVE_STOP, new MoveXAction(movementState, 0f));
+
+                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, false), MOVE_RIGHT);
+                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false), MOVE_RIGHT);
+                AM.put(MOVE_RIGHT, new MoveXAction(movementState, 0.00015625f));
+
+                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, 0, false), MOVE_LEFT);
+                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, false), MOVE_LEFT);
+                AM.put(MOVE_LEFT, new MoveXAction(movementState, -0.00015625f));
+
+                Timer timer = new Timer(40, e -> {
+                    System.out.println(movementState.xDirection);
+                    if (movementState.xDirection < 0) {
+                        stopRight = false;
+                        for (int i = 0; i < 64; i++) {
+                            if (!stopLeft) {
+                                character.setRelativeX(character.getRelativeX() + movementState.xDirection);
+                                for (Object object : allSolidObjects) {
+                                    if (CollisionDetection.isCollisionBetween(character, object)) {
+                                        stopLeft = true;
                                     }
                                 }
                             }
                         }
-                        else if (e.getKeyCode() == KeyEvent.VK_Q || e.getKeyCode() == KeyEvent.VK_LEFT) {
-                            for (int i = 0; i < 64; i++) {
-                                stopRight = false;
-                                if (!stopLeft) {
-                                    character.setRelativeX(character.getRelativeX() - 0.00015625f);
-                                    for (Object object : allSolidObjects) {
-                                        if (CollisionDetection.isCollisionBetween(character, object)) {
-                                            stopLeft = true;
-                                        }
+                    } else if (movementState.xDirection > 0) {
+                        stopLeft = false;
+                        for (int i = 0; i < 64; i++) {
+                            if (!stopRight) {
+                                character.setRelativeX(character.getRelativeX() + movementState.xDirection);
+                                for (Object object : allSolidObjects) {
+                                    if (CollisionDetection.isCollisionBetween(character, object)) {
+                                        stopRight = true;
                                     }
                                 }
                             }
                         }
-
-                        gameFrame.getGamePanel().setCharacterView(new CharacterView(
-                                character.getRelativeX(),
-                                character.getRelativeY(),
-                                Character.getRelativeWidth(),
-                                Character.getRelativeHeight()));
-
-                        gameFrame.getGamePanel().repaint();
                     }
+
+                    gameFrame.getGamePanel().setCharacterView(new CharacterView(
+                            character.getRelativeX(),
+                            character.getRelativeY(),
+                            Character.getRelativeWidth(),
+                            Character.getRelativeHeight()));
+
+                    gameFrame.getGamePanel().repaint();
                 });
+                timer.start();
 
             });
         }
@@ -136,8 +158,8 @@ class MainClient {
 
         do {
             clientName = AskClientName.getClientName();
+            // TODO : Figure out why sometimes, the below variable is null
             System.out.println(gameClient.getRegisterNameList());
-            System.out.println(gameClient.getRegisterNameList().getList());
             if (gameClient.getRegisterNameList().getList().indexOf(clientName) >= 0) {
                 AskClientName.setGoBack(true);
             }
@@ -145,5 +167,32 @@ class MainClient {
         while (gameClient.getRegisterNameList().getList().indexOf(clientName) >= 0);
 
         gameClient.connectedListener(clientName);
+    }
+
+    public static class MoveXAction extends AbstractAction {
+        private final MovementState movementState;
+        private final float value;
+
+        MoveXAction(MovementState movementState, float value) {
+            this.movementState = movementState;
+            this.value = value;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            getMovementState().xDirection = getValue();
+        }
+
+        float getValue() {
+            return value;
+        }
+
+        MovementState getMovementState() {
+            return movementState;
+        }
+    }
+
+    public static class MovementState {
+        float xDirection;
     }
 }
