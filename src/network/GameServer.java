@@ -7,7 +7,7 @@ import view.server.PortAlreadyUsedError;
 import java.io.IOException;
 
 public class GameServer extends Server {
-    private static final Network.RegisterNameList registerNameList = new Network.RegisterNameList();
+    private Network.RegisterNameList registerNameList = new Network.RegisterNameList();
 
     public GameServer() {
         super();
@@ -15,7 +15,7 @@ public class GameServer extends Server {
         this.start();
 
         try {
-            this.bind(Network.tcpPort, Network.udpPort);
+            this.bind(Network.getTcpPort(), Network.getUdpPort());
         }
         catch (IOException e) {
             new PortAlreadyUsedError();

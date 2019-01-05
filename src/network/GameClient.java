@@ -11,7 +11,7 @@ public class GameClient extends Client {
         super();
         Network.register(this);
         this.start();
-        this.connect(5000, IPHost, Network.tcpPort, Network.udpPort);
+        this.connect(5000, IPHost, Network.getTcpPort(), Network.getUdpPort());
     }
 
     public void connectedListener(String name) {

@@ -7,8 +7,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Network {
-    static final int tcpPort = 30082;
-    public static final int udpPort = 30083;
+    private static final int TCP_PORT = 30082;
+    private static final int UDP_PORT = 30083;
 
     static void register(EndPoint endPoint) {
         Kryo kryo = endPoint.getKryo();
@@ -32,5 +32,13 @@ public class Network {
         public List<String> getList() {
             return list;
         }
+    }
+
+    static int getTcpPort() {
+        return TCP_PORT;
+    }
+
+    public static int getUdpPort() {
+        return UDP_PORT;
     }
 }

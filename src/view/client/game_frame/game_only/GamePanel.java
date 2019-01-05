@@ -4,6 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GamePanel extends JPanel {
+    private int i = 0;
     private PlatformView[] platforms;
     private CharacterView characterView;
 
@@ -44,9 +45,5 @@ public class GamePanel extends JPanel {
 
     public void setCharacterView(CharacterView characterView) {
         this.characterView = characterView;
-    }
-
-    public CharacterView getCharacterView() {
-        return this.characterView;
     }
 }
