@@ -7,10 +7,9 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameFrame extends JFrame {
-    public GameFrame() {
+    public GameFrame (String clientName) {
         super();
-        // TODO : Add the name of the Client in the GameFrame title
-        this.setTitle("PlaNetShooter Client");
+        this.setTitle("PlaNetShooter Client : (" +clientName+ ")");
         this.setSize(768, 432);
         this.setMinimumSize(new Dimension(574, 330));
         this.setLocationRelativeTo(null);
@@ -23,6 +22,5 @@ public class GameFrame extends JFrame {
         GamePanel gamePanel = new GamePanel();
         this.add(gamePanel, BorderLayout.CENTER);
 
-        this.setVisible(true);
-    }
+        this.setVisible(true);    }
 }

@@ -17,6 +17,7 @@ import java.awt.event.WindowEvent;
 import java.io.IOException;
 
 class MainClient {
+    private static String clientName;
     private static GameClient gameClient;
     public static void main(String[] args) {
         // If a game server is up on the network
@@ -24,7 +25,7 @@ class MainClient {
             launchGameClient();
 
             SwingUtilities.invokeLater(() -> {
-                GameFrame gameFrame = new GameFrame();
+                GameFrame gameFrame = new GameFrame(clientName);
                 gameFrame.addWindowListener(new WindowAdapter() {
                     public void windowClosing (WindowEvent evt) {
                         System.out.println("You are disconnected !");
@@ -72,7 +73,6 @@ class MainClient {
             }
         });
 
-        String clientName;
         do {
             clientName = AskClientName.getClientName();
             if (gameClient.getRegisterNameList().list.indexOf(clientName) >= 0) {
