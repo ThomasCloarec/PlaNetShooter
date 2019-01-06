@@ -1,7 +1,7 @@
 package model.characters;
 
 public class Character {
-    private static final float RELATIVE_SPEED = 0.003f;
+    private static final float RELATIVE_SPEED = 0.004f;
     private static final float RELATIVE_WIDTH = 0.025f;
     private static final float RELATIVE_HEIGHT = 0.1f;
     private float relativeX = 0.45f;

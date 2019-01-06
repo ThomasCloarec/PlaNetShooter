@@ -18,6 +18,8 @@ import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 class MainClient {
 private static String clientName;
@@ -27,8 +29,9 @@ private static boolean stopRight = false, stopLeft = false;
 private static GameFrame gameFrame;
 private static Character character;
 private static CharacterView characterView;
-private static final String MOVE_LEFT = "move left", MOVE_RIGHT = "move right", MOVE_STOP = "move stop";
 private static final int FPS = 60;
+private static final String RELEASE_LEFT = "Release.left", RELEASE_RIGHT = "Release.right", PRESS_LEFT = "Press.left", PRESS_RIGHT = "Press.right";
+private static Set<Direction> movements = new TreeSet<>();
 
     public static void main(String[] args) {
         // If a game server is up on the network
@@ -68,37 +71,45 @@ private static final int FPS = 60;
 
                 final InputMap IM = gameFrame.getGamePanel().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
                 final ActionMap AM = gameFrame.getGamePanel().getActionMap();
-                MovementState movementState = new MovementState();
 
-                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, 0, true), MOVE_STOP);
-                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, true), MOVE_STOP);
-                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true), MOVE_STOP);
-                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, true), MOVE_STOP);
-                AM.put(MOVE_STOP, new MoveXAction(movementState, 0f));
+                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, 0, true), RELEASE_LEFT);
+                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, true), RELEASE_LEFT);
 
-                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, false), MOVE_RIGHT);
-                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false), MOVE_RIGHT);
-                AM.put(MOVE_RIGHT, new MoveXAction(movementState, Character.getRelativeSpeed()));
+                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true), RELEASE_RIGHT);
+                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, true), RELEASE_RIGHT);
 
-                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, 0, false), MOVE_LEFT);
-                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, false), MOVE_LEFT);
-                AM.put(MOVE_LEFT, new MoveXAction(movementState, -Character.getRelativeSpeed()));
+                AM.put(RELEASE_LEFT, new ReleaseAction(movements, Direction.LEFT));
+                AM.put(RELEASE_RIGHT, new ReleaseAction(movements, Direction.RIGHT));
+
+                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, false), PRESS_RIGHT);
+                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false), PRESS_RIGHT);
+
+                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_Q, 0, false), PRESS_LEFT);
+                IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, false), PRESS_LEFT);
+
+                AM.put(PRESS_LEFT, new PressAction(movements, Direction.LEFT));
+                AM.put(PRESS_RIGHT, new PressAction(movements, Direction.RIGHT));
+
                 Timer timer = new Timer(1000/FPS, e -> {
+                    float movement = 0;
+                    for (Direction direction : movements) {
+                        movement += direction.getDelta();
+                    }
                     gameClient.sendPlayerPosition(character);
-                    if (movementState.xDirection < 0) {
+                    if (movement < 0) {
                         stopRight = false;
                         if (!stopLeft) {
-                            character.setRelativeX(character.getRelativeX() + movementState.xDirection);
+                            character.setRelativeX(character.getRelativeX() + movement);
                             for (Object object : allSolidObjects) {
                                 if (CollisionDetection.isCollisionBetween(character, object)) {
                                     stopLeft = true;
                                 }
                             }
                         }
-                    } else if (movementState.xDirection > 0) {
+                    } else if (movement > 0) {
                         stopLeft = false;
                         if (!stopRight) {
-                            character.setRelativeX(character.getRelativeX() + movementState.xDirection);
+                            character.setRelativeX(character.getRelativeX() + movement);
                             for (Object object : allSolidObjects) {
                                 if (CollisionDetection.isCollisionBetween(character, object)) {
                                     stopRight = true;
@@ -109,12 +120,9 @@ private static final int FPS = 60;
 
                     characterView.setRelativeX(character.getRelativeX());
                     characterView.setRelativeY(character.getRelativeY());
-                    gameFrame.getGamePanel().setCharacterView(characterView);
-
                     gameFrame.getGamePanel().repaint();
                 });
                 timer.start();
-
             });
         }
         else {
@@ -148,11 +156,6 @@ private static final int FPS = 60;
 
     do {
         clientName = AskClientName.getClientName();
-        /*
-        TODO : Figure out why sometimes, the below variable is null
-         6 jan, 00:27 | Put client/server register() right after the start(), before the connect()/bind()
-         Have to see if it fix the problem
-         */
         if (gameClient.getRegisterNameList().getList().indexOf(clientName) >= 0) {
             AskClientName.setGoBack(true);
         }
@@ -162,22 +165,48 @@ private static final int FPS = 60;
     gameClient.connectedListener(clientName);
 }
 
-    static class MoveXAction extends AbstractAction {
-        private final MovementState movementState;
-        private final float value;
+    static public class PressAction extends AbstractAction {
 
-        MoveXAction(MovementState movementState, float value) {
-            this.movementState = movementState;
+        private final Set<Direction> movements;
+        private final Direction value;
+
+        PressAction(Set<Direction> movementState, Direction value) {
+            this.movements = movementState;
             this.value = value;
         }
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            this.movementState.xDirection = this.value;
+            movements.add(value);
+        }
+    }
+    static public class ReleaseAction extends AbstractAction {
+
+        private final Set<Direction> movements;
+        private final Direction value;
+
+        ReleaseAction(Set<Direction> movementState, Direction value) {
+            this.movements = movementState;
+            this.value = value;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            movements.remove(value);
         }
     }
 
-    static class MovementState {
-        float xDirection;
+    public enum Direction {
+        LEFT(-Character.getRelativeSpeed()), RIGHT(Character.getRelativeSpeed());
+
+        private float delta;
+
+        Direction(float delta) {
+            this.delta = delta;
+        }
+
+        public float getDelta() {
+            return delta;
+        }
     }
 }
