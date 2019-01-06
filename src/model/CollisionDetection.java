@@ -1,33 +1,44 @@
 package model;
 
-import model.characters.Character;
+import model.characters.PlayableCharacter;
 import model.platforms.Platform;
 
 import java.awt.geom.Rectangle2D;
 
 public class CollisionDetection {
-    public static boolean isCollisionBetween(Object object1, Object object2) {
-        if (object1 instanceof Character && object2 instanceof Platform) {
-            Character solidObject1 = (Character)object1;
-            Platform solidObject2 = (Platform)object2;
-
-            Rectangle2D rectangle1 = new Rectangle2D.Float(solidObject1.getRelativeX(), solidObject1.getRelativeY(), Character.getRelativeWidth(), Character.getRelativeHeight());
-            Rectangle2D rectangle2 = new Rectangle2D.Float(solidObject2.getRelativeX(), solidObject2.getRelativeY(), Platform.getRelativeWidth(), Platform.getRelativeHeight());
-
-            return rectangle1.intersects(rectangle2);
+    private static PlayableCharacter solidObject1;
+    private static Platform solidObject2;
+    public static PlayerCollisionSide isCollisionBetween(Object object1, Object object2) {
+        if (object1 instanceof PlayableCharacter && object2 instanceof Platform) {
+            solidObject1 = (PlayableCharacter)object1;
+            solidObject2 = (Platform)object2;
         }
-        else if (object1 instanceof Platform && object2 instanceof Character) {
-            Platform solidObject1 = (Platform)object1;
-            Character solidObject2 = (Character)object2;
-
-            Rectangle2D rectangle1 = new Rectangle2D.Float(solidObject1.getRelativeX(), solidObject1.getRelativeY(), Character.getRelativeWidth(), Character.getRelativeHeight());
-            Rectangle2D rectangle2 = new Rectangle2D.Float(solidObject2.getRelativeX(), solidObject2.getRelativeY(), Platform.getRelativeWidth(), Platform.getRelativeHeight());
-
-            return rectangle1.intersects(rectangle2);
+        else if (object1 instanceof Platform && object2 instanceof PlayableCharacter) {
+            solidObject1 = (PlayableCharacter)object2;
+            solidObject2 = (Platform)object1;
         }
         else
             System.err.println("Trying to use isCollisionBetween() method on an unregistered object");
 
-        return false;
+        if (solidObject1 != null && solidObject2 != null) {
+            Rectangle2D rectangleCharacter = new Rectangle2D.Float(solidObject1.getRelativeX(), solidObject1.getRelativeY(), PlayableCharacter.getRelativeWidth(), PlayableCharacter.getRelativeHeight());
+
+            Rectangle2D lineTopPlatform = new Rectangle2D.Float(solidObject2.getRelativeX(), solidObject2.getRelativeY(), Platform.getRelativeWidth(), 0.000000000001f);
+            Rectangle2D lineBottomPlatform = new Rectangle2D.Float(solidObject2.getRelativeX(), Platform.getRelativeHeight(), Platform.getRelativeWidth(), 0.000000000001f);
+            Rectangle2D lineRightPlatform = new Rectangle2D.Float(solidObject2.getRelativeX(), solidObject2.getRelativeY(),0.000000000001f, Platform.getRelativeHeight());
+            Rectangle2D lineLeftPlatform = new Rectangle2D.Float(Platform.getRelativeWidth(), solidObject2.getRelativeY(), 0.000000000001f, Platform.getRelativeHeight());
+
+            // Inversely because for example, that's the BOTTOM of the player that collide with the TOP of the platform
+            if (rectangleCharacter.intersects(lineTopPlatform))
+                return PlayerCollisionSide.BOTTOM;
+            else if (rectangleCharacter.intersects(lineBottomPlatform))
+                return PlayerCollisionSide.TOP;
+            else if (rectangleCharacter.intersects(lineRightPlatform))
+                return PlayerCollisionSide.LEFT;
+            else if (rectangleCharacter.intersects(lineLeftPlatform))
+                return PlayerCollisionSide. RIGHT;
+        }
+
+        return PlayerCollisionSide.NONE;
     }
 }

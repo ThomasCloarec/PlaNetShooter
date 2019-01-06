@@ -1,4 +1,4 @@
-package view.client.game_frame.game_only.action;
+package view.client.game_frame.game_only.keyboard_actions;
 
 import model.characters.Direction;
 
@@ -6,18 +6,18 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.util.Set;
 
-public class PressAction extends AbstractAction {
+public class ReleaseAction extends AbstractAction {
 
     private final Set<Direction> movements;
     private final Direction value;
 
-    public PressAction(Set<Direction> movementState, Direction value) {
+    public ReleaseAction(Set<Direction> movementState, Direction value) {
         this.movements = movementState;
         this.value = value;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        movements.add(value);
+        movements.remove(value);
     }
 }

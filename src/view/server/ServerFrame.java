@@ -34,6 +34,7 @@ public class ServerFrame extends JFrame {
         this.setTitle("PlaNetShooter Server");
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.setSize(300, 100);
+        this.setResizable(false);
         this.setLocationRelativeTo(null);
         this.setLayout(new GridLayout(2,1));
 

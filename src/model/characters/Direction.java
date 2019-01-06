@@ -1,15 +1,15 @@
 package model.characters;
 
 public enum Direction {
-    LEFT(-Character.getRelativeSpeed()), RIGHT(Character.getRelativeSpeed());
+    LEFT(-1), RIGHT(1);
 
-    private float delta;
+    private final float DELTA;
 
     Direction(float delta) {
-        this.delta = delta;
+        this.DELTA = delta;
     }
 
     public float getDelta() {
-        return delta;
+        return DELTA;
     }
 }

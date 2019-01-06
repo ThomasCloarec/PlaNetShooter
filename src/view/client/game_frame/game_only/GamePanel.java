@@ -31,7 +31,8 @@ public class GamePanel extends JPanel {
             g.fillRect((int)(characterView.getRelativeX()*this.getWidth()),
                     (int)(characterView.getRelativeY()*this.getHeight()),
                     (int)(characterView.getRelativeWidth()*this.getWidth()),
-                    (int)(characterView.getRelativeHeight()*this.getHeight()));        }
+                    (int)(characterView.getRelativeHeight()*this.getHeight()));
+        }
     }
 
     public void setPlatformsView(PlatformView[] platforms) {

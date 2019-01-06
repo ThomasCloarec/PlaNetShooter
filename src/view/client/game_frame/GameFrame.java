@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameFrame extends JFrame {
-    private GamePanel gamePanel = new GamePanel();
+    private final GamePanel gamePanel = new GamePanel();
     public GameFrame (String clientName) {
         super();
         this.setTitle("PlaNetShooter Client : (" +clientName+ ")");

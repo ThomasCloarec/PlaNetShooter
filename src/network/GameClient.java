@@ -1,7 +1,7 @@
 package network;
 
 import com.esotericsoftware.kryonet.Client;
-import model.characters.Character;
+import model.characters.PlayableCharacter;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -42,13 +42,13 @@ public class GameClient extends Client {
         if (object instanceof ArrayList) {
             List arrayList = (ArrayList)object;
             if (arrayList.size() == 2)
-                if (arrayList.get(0) instanceof Network.RegisterName && arrayList.get(1) instanceof Character) {
+                if (arrayList.get(0) instanceof Network.RegisterName && arrayList.get(1) instanceof PlayableCharacter) {
                     System.out.println(((Network.RegisterName)arrayList.get(0)).name+ " : " +arrayList.get(1));
                 }
         }
     }
 
-    public void sendPlayerPosition(Character character) {
+    public void sendPlayerPosition(PlayableCharacter character) {
         List<Object> playerPositionAndName = new ArrayList<>();
         playerPositionAndName.add(registerName);
         playerPositionAndName.add(character);

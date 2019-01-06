@@ -8,8 +8,15 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 class MainServer {
+    private static GameServer gameServer;
+
     public static void main(String[] args) {
-        GameServer gameServer = new GameServer();
+        launchGameServer();
+        SwingUtilities.invokeLater(MainServer::launchServerFrame);
+    }
+
+    private static void launchGameServer() {
+        gameServer = new GameServer();
         gameServer.addListener(new Listener() {
             @Override
             public void received(Connection connection, Object object) {
@@ -26,15 +33,15 @@ class MainServer {
                 gameServer.disconnectedListener(connection);
             }
         });
+    }
 
-        SwingUtilities.invokeLater(() -> {
-            ServerFrame serverFrame = new ServerFrame();
-            serverFrame.addWindowListener(new WindowAdapter() {
-                public void windowClosed (WindowEvent evt) {
-                    gameServer.stop();
-                    System.out.println("Server closed.");
-                }
-            });
+    private static void launchServerFrame() {
+        ServerFrame serverFrame = new ServerFrame();
+        serverFrame.addWindowListener(new WindowAdapter() {
+            public void windowClosed (WindowEvent evt) {
+                gameServer.stop();
+                System.out.println("Server closed.");
+            }
         });
     }
 }
