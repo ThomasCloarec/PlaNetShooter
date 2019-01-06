@@ -35,7 +35,7 @@ public class Character {
         this.relativeX = relativeX;
     }
 
-    public static float getRelativeSpeed() {
+    static float getRelativeSpeed() {
         return RELATIVE_SPEED;
     }
 }
