@@ -2,18 +2,20 @@ package network;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
+import model.characters.Character;
 import view.server.PortAlreadyUsedError;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameServer extends Server {
     private Network.RegisterNameList registerNameList = new Network.RegisterNameList();
 
     public GameServer() {
         super();
-        Network.register(this);
         this.start();
-
+        Network.register(this);
         try {
             this.bind(Network.getTcpPort(), Network.getUdpPort());
         }
@@ -45,8 +47,12 @@ public class GameServer extends Server {
             System.out.println("\"" + registerName.name + "\" is connected !");
 
             registerNameList.getList().add(registerName.name);
-
-
+        }
+        if (object instanceof ArrayList) {
+            List arrayList = (ArrayList)object;
+            if (arrayList.size() == 2)
+                if (arrayList.get(0) instanceof Network.RegisterName && arrayList.get(1) instanceof Character)
+                    this.sendToAllExceptUDP(gameConnection.getID(), arrayList);
         }
     }
 

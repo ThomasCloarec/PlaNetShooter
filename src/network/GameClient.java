@@ -1,21 +1,25 @@
 package network;
 
 import com.esotericsoftware.kryonet.Client;
+import model.characters.Character;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GameClient extends Client {
+    private Network.RegisterName registerName;
     private Network.RegisterNameList registerNameList;
 
     public GameClient(String IPHost) throws IOException {
         super();
-        Network.register(this);
         this.start();
+        Network.register(this);
         this.connect(5000, IPHost, Network.getTcpPort(), Network.getUdpPort());
     }
 
     public void connectedListener(String name) {
-        Network.RegisterName registerName = new Network.RegisterName();
+        registerName = new Network.RegisterName();
 
         registerName.name = name;
 
@@ -32,9 +36,23 @@ public class GameClient extends Client {
             Network.RemoveName removeName = (Network.RemoveName)object;
             System.out.println("\"" +removeName.name+ "\" is disconnected !");
         }
-        if(object instanceof Network.RegisterNameList) {
+        if (object instanceof Network.RegisterNameList) {
             registerNameList = (Network.RegisterNameList)object;
         }
+        if (object instanceof ArrayList) {
+            List arrayList = (ArrayList)object;
+            if (arrayList.size() == 2)
+                if (arrayList.get(0) instanceof Network.RegisterName && arrayList.get(1) instanceof Character) {
+                    System.out.println(((Network.RegisterName)arrayList.get(0)).name+ " : " +arrayList.get(1));
+                }
+        }
+    }
+
+    public void sendPlayerPosition(Character character) {
+        List<Object> playerPositionAndName = new ArrayList<>();
+        playerPositionAndName.add(registerName);
+        playerPositionAndName.add(character);
+        this.sendUDP(playerPositionAndName);
     }
 
     public Network.RegisterNameList getRegisterNameList() {

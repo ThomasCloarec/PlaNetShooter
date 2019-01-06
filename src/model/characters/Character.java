@@ -1,11 +1,18 @@
 package model.characters;
 
 public class Character {
+    private static final float RELATIVE_SPEED = 0.003f;
     private static final float RELATIVE_WIDTH = 0.025f;
     private static final float RELATIVE_HEIGHT = 0.1f;
     private float relativeX = 0.45f;
+    private float relativeY = 0.1f;
 
     public Character() {
+    }
+
+    @Override
+    public String toString() {
+        return "Character (" +relativeX+ ", " +relativeY+ ", " +RELATIVE_WIDTH+ ", " +RELATIVE_HEIGHT+ ", " +RELATIVE_SPEED+ ")";
     }
 
     public float getRelativeX() {
@@ -13,7 +20,7 @@ public class Character {
     }
 
     public float getRelativeY() {
-        return 0.1f;
+        return relativeY;
     }
 
     public static float getRelativeWidth() {
@@ -29,6 +36,6 @@ public class Character {
     }
 
     public static float getRelativeSpeed() {
-        return 0.003f;
+        return RELATIVE_SPEED;
     }
 }

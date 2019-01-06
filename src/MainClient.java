@@ -84,6 +84,7 @@ private static final int FPS = 60;
                 IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_LEFT, 0, false), MOVE_LEFT);
                 AM.put(MOVE_LEFT, new MoveXAction(movementState, -Character.getRelativeSpeed()));
                 Timer timer = new Timer(1000/FPS, e -> {
+                    gameClient.sendPlayerPosition(character);
                     if (movementState.xDirection < 0) {
                         stopRight = false;
                         if (!stopLeft) {
@@ -147,8 +148,11 @@ private static final int FPS = 60;
 
     do {
         clientName = AskClientName.getClientName();
-        // TODO : Figure out why sometimes, the below variable is null
-        System.out.println(gameClient.getRegisterNameList());
+        /*
+        TODO : Figure out why sometimes, the below variable is null
+         6 jan, 00:27 | Put client/server register() right after the start(), before the connect()/bind()
+         Have to see if it fix the problem
+         */
         if (gameClient.getRegisterNameList().getList().indexOf(clientName) >= 0) {
             AskClientName.setGoBack(true);
         }
