@@ -210,7 +210,19 @@ private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux
 
             if (collisionOnBottom) {
                 if (jumpKeyJustPressed) {
+                    while (collisionOnBottom) {
+                        playableCharacter.setRelativeY(playableCharacter.getRelativeY()-PlayableCharacter.getRelativeJumpStrength());
+
+                        for (Object object : allSolidObjects) {
+                            collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.BOTTOM);
+                            if (collisionOnBottom) {
+                                break;
+                            }
+                        }
+                    }
                     relativeMovementY -= PlayableCharacter.getRelativeJumpStrength();
+                    playableCharacter.setRelativeY(playableCharacter.getRelativeY()+PlayableCharacter.getRelativeJumpStrength());
+
                     jumpKeyJustPressed = false;
                 }
                 else
@@ -226,7 +238,6 @@ private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux
                 playableCharacter.setRelativeY(0.1f);
             }
 
-            System.out.println(relativeMovementX+ " | " +relativeMovementY);
             playableCharacter.setRelativeX(playableCharacter.getRelativeX()+relativeMovementX);
             playableCharacter.setRelativeY(playableCharacter.getRelativeY()+relativeMovementY);
             characterView.setRelativeX(playableCharacter.getRelativeX());
