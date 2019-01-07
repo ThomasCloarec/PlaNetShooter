@@ -29,15 +29,15 @@ public class Platform {
             this.relativeX = 0.45f;
 
         if (platformLoopCount == 0 || platformLoopCount == 1)
-            this.relativeY = 0.95f;
+            this.relativeY = 0.99f;
         else if (platformLoopCount == 2 || platformLoopCount == 3)
-            this.relativeY = 0.75f;
+            this.relativeY = 0.825f;
         else if (platformLoopCount == 7 || platformLoopCount == 8)
-            this.relativeY = 0.35f;
+            this.relativeY = 0.49f;
         else if (platformLoopCount == 9 || platformLoopCount == 10)
-            this.relativeY = 0.15f;
+            this.relativeY = 0.33f;
         else if (platformLoopCount == 4 || platformLoopCount == 5 || platformLoopCount == 6)
-            this.relativeY = 0.55f;
+            this.relativeY = 0.66f;
         
         platformLoopCount++;
     }

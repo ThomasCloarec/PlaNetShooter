@@ -16,6 +16,8 @@ public class GamePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        System.out.println(this.getSize());
+        g.setColor(Color.blue);
         for (PlatformView platform : platforms) {
             if (platform != null) {
                 // Will be replaced by some images to make it look better

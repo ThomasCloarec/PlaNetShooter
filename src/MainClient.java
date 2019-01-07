@@ -154,7 +154,8 @@ private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP)
-                    jumpKeyJustPressed = true;
+                    if (collisionOnBottom)
+                        jumpKeyJustPressed = true;
             }
         });
     }
@@ -219,8 +220,6 @@ private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux
                 relativeMovementY = Terrain.getRelativeGravityGrowth();
             else if (relativeMovementY < Terrain.getRelativeMaxGravity())
                 relativeMovementY += Terrain.getRelativeGravityGrowth();
-
-
 
             playableCharacter.setRelativeX(playableCharacter.getRelativeX()+relativeMovementX);
             playableCharacter.setRelativeY(playableCharacter.getRelativeY()+relativeMovementY);
