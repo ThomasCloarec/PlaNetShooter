@@ -180,8 +180,6 @@ private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux
                     collisionOnLeft = true;
             }
 
-            System.out.println(collisionOnBottom+" "+collisionOnTop+" "+collisionOnLeft+" "+collisionOnRight);
-
             float totalDirection = 0;
             for (Direction direction : directions) {
                 totalDirection += direction.getDelta();

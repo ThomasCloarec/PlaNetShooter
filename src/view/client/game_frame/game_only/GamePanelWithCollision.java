@@ -3,11 +3,12 @@ package view.client.game_frame.game_only;
 import javax.swing.*;
 import java.awt.*;
 
-public class GamePanel extends JPanel {
+@SuppressWarnings("unused")
+class GamePanelWithCollision extends JPanel {
     private PlatformView[] platforms;
     private CharacterView characterView;
 
-    public GamePanel() {
+    public GamePanelWithCollision() {
         super();
         this.setBackground(Color.lightGray);
         this.setFocusable(true);
@@ -25,6 +26,32 @@ public class GamePanel extends JPanel {
                         (int)(platform.getRelativeY()*this.getHeight()),
                         (int)(platform.getRelativeWidth()*this.getWidth()),
                         (int)(platform.getRelativeHeight()*this.getHeight()));
+
+                g.setColor(Color.red);
+                // Line top
+                g.fillRect((int)(platform.getRelativeX()*this.getWidth()),
+                        (int)(platform.getRelativeY()*this.getHeight()),
+                        (int)(platform.getRelativeWidth()*this.getWidth()),
+                        2);
+
+                // Line bottom
+                g.fillRect((int)(platform.getRelativeX()*this.getWidth()),
+                        (int)((platform.getRelativeY()+platform.getRelativeHeight())*this.getHeight()-1),
+                        (int)(platform.getRelativeWidth()*this.getWidth()),
+                        2);
+
+                // Line left
+                g.fillRect((int)(platform.getRelativeX()*this.getWidth()),
+                        (int)(platform.getRelativeY()*this.getHeight()),
+                        2,
+                        (int)(platform.getRelativeHeight()*this.getHeight()));
+
+                // Line right
+                g.fillRect((int)((platform.getRelativeX()+platform.getRelativeWidth())*this.getWidth()-3),
+                        (int)(platform.getRelativeY()*this.getHeight()+1),
+                        2,
+                        (int)(platform.getRelativeHeight()*this.getHeight()));
+
             }
         }
 
