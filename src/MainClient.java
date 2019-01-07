@@ -193,7 +193,9 @@ private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux
                 else if (totalDirection == -1 && relativeMovementX > -PlayableCharacter.getRelativeMaxSpeed())
                     relativeMovementX -= PlayableCharacter.getRelativeSpeedGrowth();
                 else if (totalDirection == 0) {
-                    if (relativeMovementX > 0)
+                    if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction())
+                        relativeMovementX = 0;
+                    else if (relativeMovementX > 0)
                         relativeMovementX -= Terrain.getRelativeFriction();
                     else if (relativeMovementX < 0)
                         relativeMovementX += Terrain.getRelativeFriction();
@@ -219,6 +221,12 @@ private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux
             else if (relativeMovementY < Terrain.getRelativeMaxGravity())
                 relativeMovementY += Terrain.getRelativeGravityGrowth();
 
+            if (playableCharacter.getRelativeY() >= 1) {
+                playableCharacter.setRelativeX(0.45f);
+                playableCharacter.setRelativeY(0.1f);
+            }
+
+            System.out.println(relativeMovementX+ " | " +relativeMovementY);
             playableCharacter.setRelativeX(playableCharacter.getRelativeX()+relativeMovementX);
             playableCharacter.setRelativeY(playableCharacter.getRelativeY()+relativeMovementY);
             characterView.setRelativeX(playableCharacter.getRelativeX());

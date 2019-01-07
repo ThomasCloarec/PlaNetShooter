@@ -38,7 +38,7 @@ public class Platform {
             this.relativeY = 0.15f;
         else if (platformLoopCount == 4 || platformLoopCount == 5 || platformLoopCount == 6)
             this.relativeY = 0.55f;
-        
+
         platformLoopCount++;
     }
 
