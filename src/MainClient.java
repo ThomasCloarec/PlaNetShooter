@@ -19,6 +19,7 @@ import view.client.game_frame.game_only.CharacterView;
 import view.client.game_frame.game_only.PlatformView;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -39,6 +40,8 @@ private static PlayableCharacter playableCharacter;
 private static CharacterView characterView;
 private static final String RELEASE_LEFT = "Release.left", RELEASE_RIGHT = "Release.right", PRESS_LEFT = "Press.left", PRESS_RIGHT = "Press.right";
 private static final Set<Direction> directions = new TreeSet<>();
+private static final String OS = System.getProperty("os.name").toLowerCase();
+private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux") || OS.contains("aix");
 
     public static void main(String[] args) {
         if (new Client().discoverHost(Network.getUdpPort(), 5000) != null) {
@@ -224,6 +227,9 @@ private static final Set<Direction> directions = new TreeSet<>();
             characterView.setRelativeX(playableCharacter.getRelativeX());
             characterView.setRelativeY(playableCharacter.getRelativeY());
             gameFrame.getGamePanel().repaint();
+
+            if (IS_UNIX_OS)
+                Toolkit.getDefaultToolkit().sync();
         });
         timer.start();
     }

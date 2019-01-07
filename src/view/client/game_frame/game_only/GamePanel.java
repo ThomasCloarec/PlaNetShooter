@@ -14,8 +14,8 @@ public class GamePanel extends JPanel {
     }
 
     @Override
-    public void paint(Graphics g) {
-        super.paint(g);
+    public void paintComponent(Graphics g) {
+        super.paintComponent(g);
         for (PlatformView platform : platforms) {
             if (platform != null) {
                 // Will be replaced by some images to make it look better
