@@ -61,13 +61,6 @@ private static boolean gameServerFull = false;
         while(true) {
             try {
                 gameClient = new GameClient(AskIPHost.getIPHost());
-                while (true) {
-                    if (gameClient.getRegisterNameList() != null) {
-                        if (gameClient.getRegisterNameList().getList().size() == 10)
-                            gameServerFull = true;
-                        break;
-                    }
-                }
                 break;
             } catch (IOException e) {
                 System.out.println("No game server found with this IP on the network.");
@@ -87,6 +80,14 @@ private static boolean gameServerFull = false;
                 System.exit(1);
             }
         });
+
+        while (true) {
+            if (gameClient.getRegisterNameList() != null) {
+                if (gameClient.getRegisterNameList().getList().size() == 10)
+                    gameServerFull = true;
+                break;
+            }
+        }
 
         AskClientName.setRegisterNameList(gameClient.getRegisterNameList().getList());
         clientName = AskClientName.getClientName();

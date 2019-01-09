@@ -9,7 +9,7 @@ import java.util.List;
 
 public class GameClient extends Client {
     private Network.RegisterName registerName;
-    private Network.RegisterNameList registerNameList = new Network.RegisterNameList();
+    private Network.RegisterNameList registerNameList;
 
     public GameClient(String IPHost) throws IOException {
         super();
