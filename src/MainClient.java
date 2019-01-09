@@ -77,15 +77,16 @@ private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux
             }
         });
 
-        do {
-            clientName = AskClientName.getClientName();
-            if (gameClient.getRegisterNameList().getList().indexOf(clientName) >= 0) {
-                AskClientName.setGoBack(true);
+        while (true) {
+            if (gameClient.getRegisterNameList() != null) {
+                AskClientName.setRegisterNameList(gameClient.getRegisterNameList().getList());
+                clientName = AskClientName.getClientName();
+
+                gameClient.connectedListener(clientName);
+                break;
             }
         }
-        while (gameClient.getRegisterNameList().getList().indexOf(clientName) >= 0);
 
-        gameClient.connectedListener(clientName);
     }
 
     private static void launchGameFrame() {
