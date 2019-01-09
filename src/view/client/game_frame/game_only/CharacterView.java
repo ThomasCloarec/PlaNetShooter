@@ -7,7 +7,7 @@ public class CharacterView {
     private float relativeY;
     private final float RELATIVE_WIDTH;
     private final float RELATIVE_HEIGHT;
-    private JLabel nameLabel = new JLabel();
+    private final JLabel nameLabel = new JLabel();
 
     public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name) {
         this.relativeX = relativeX;

@@ -199,7 +199,7 @@ private static boolean gameServerFull = false;
                     relativeMovementX += PlayableCharacter.getRelativeSpeedGrowth();
                 else if (totalDirection == -1 && relativeMovementX > -PlayableCharacter.getRelativeMaxSpeed())
                     relativeMovementX -= PlayableCharacter.getRelativeSpeedGrowth();
-                else if (totalDirection == 0) {
+                else {
                     if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction())
                         relativeMovementX = 0;
                     else if (relativeMovementX > 0)
@@ -213,6 +213,14 @@ private static boolean gameServerFull = false;
                     relativeMovementX += PlayableCharacter.getRelativeSpeedGrowth()/2;
                 else if (totalDirection == -1 && relativeMovementX > -PlayableCharacter.getRelativeMaxSpeed())
                     relativeMovementX -= PlayableCharacter.getRelativeSpeedGrowth()/2;
+                else {
+                    if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction()/10)
+                        relativeMovementX = 0;
+                    else if (relativeMovementX > 0)
+                        relativeMovementX -= Terrain.getRelativeFriction()/10;
+                    else if (relativeMovementX < 0)
+                        relativeMovementX += Terrain.getRelativeFriction()/10;
+                }
             }
 
             if (collisionOnBottom) {
