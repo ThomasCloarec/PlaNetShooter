@@ -34,6 +34,16 @@ public class GamePanel extends JPanel {
                     (int)(characterView.getRelativeY()*this.getHeight()),
                     (int)(characterView.getRelativeWidth()*this.getWidth()),
                     (int)(characterView.getRelativeHeight()*this.getHeight()));
+
+            if (characterView.getNameLabel().getParent() == null)
+                this.add(characterView.getNameLabel());
+
+            // Could add the playerID on the hat/cap of the player
+            // And the first letter of the playerName on it's t-shirt
+            // Then we could have an array (visible through one of the menu button)
+            // that show all the full playerNames referenced by the PlayerID
+            // ALSO NEED TO PUT A RELATIVE FONT SIZE WHEN THE FRAME IS RESIZED
+            characterView.getNameLabel().setLocation((int)((characterView.getRelativeX()+characterView.getRelativeWidth()/2)*this.getWidth()-characterView.getNameLabel().getWidth()/2), (int)((characterView.getRelativeY()+characterView.getRelativeHeight()/2)*this.getHeight())-characterView.getNameLabel().getHeight()/2);
         }
     }
 

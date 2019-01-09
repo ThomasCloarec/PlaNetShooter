@@ -44,6 +44,7 @@ private static final Set<Direction> directions = new TreeSet<>();
 private static final String OS = System.getProperty("os.name").toLowerCase();
 private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux") || OS.contains("aix");
 private static boolean gameServerFull = false;
+
     public static void main(String[] args) {
         if (new Client().discoverHost(Network.getUdpPort(), 5000) != null) {
             launchGameClient();
@@ -128,7 +129,8 @@ private static boolean gameServerFull = false;
                 playableCharacter.getRelativeX(),
                 playableCharacter.getRelativeY(),
                 PlayableCharacter.getRelativeWidth(),
-                PlayableCharacter.getRelativeHeight());
+                PlayableCharacter.getRelativeHeight(),
+                clientName);
 
         gameFrame.getGamePanel().setCharacterView(characterView);
     }

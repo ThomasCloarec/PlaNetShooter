@@ -1,15 +1,21 @@
 package view.client.game_frame.game_only;
 
+import javax.swing.*;
+
 public class CharacterView {
     private float relativeX;
     private float relativeY;
     private final float RELATIVE_WIDTH;
     private final float RELATIVE_HEIGHT;
-    public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight) {
+    private JLabel nameLabel = new JLabel();
+
+    public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name) {
         this.relativeX = relativeX;
         this.relativeY = relativeY;
         this.RELATIVE_WIDTH = relativeWidth;
         this.RELATIVE_HEIGHT = relativeHeight;
+
+        nameLabel.setText(String.valueOf(name.charAt(0)));
     }
 
     float getRelativeX() {
@@ -34,5 +40,9 @@ public class CharacterView {
 
     public void setRelativeY(float relativeY) {
         this.relativeY = relativeY;
+    }
+
+    JLabel getNameLabel() {
+        return nameLabel;
     }
 }
