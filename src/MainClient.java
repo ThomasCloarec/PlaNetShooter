@@ -12,6 +12,7 @@ import network.Network;
 import view.client.connection.AskClientName;
 import view.client.connection.AskIPHost;
 import view.client.connection.NoServerError;
+import view.client.connection.ServerFullError;
 import view.client.game_frame.GameFrame;
 import view.client.game_frame.game_only.keyboard_actions.PressAction;
 import view.client.game_frame.game_only.keyboard_actions.ReleaseAction;
@@ -42,21 +43,30 @@ private static final String RELEASE_LEFT = "Release.left", RELEASE_RIGHT = "Rele
 private static final Set<Direction> directions = new TreeSet<>();
 private static final String OS = System.getProperty("os.name").toLowerCase();
 private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux") || OS.contains("aix");
-
+private static boolean gameServerFull = false;
     public static void main(String[] args) {
         if (new Client().discoverHost(Network.getUdpPort(), 5000) != null) {
             launchGameClient();
-            SwingUtilities.invokeLater(MainClient::launchGameFrame);
+            if (!gameServerFull)
+                SwingUtilities.invokeLater(MainClient::launchGameFrame);
+            else
+                new ServerFullError();
         }
-        else {
+        else
             new NoServerError();
-        }
     }
 
     private static void launchGameClient() {
         while(true) {
             try {
                 gameClient = new GameClient(AskIPHost.getIPHost());
+                while (true) {
+                    if (gameClient.getRegisterNameList() != null) {
+                        if (gameClient.getRegisterNameList().getList().size() == 10)
+                            gameServerFull = true;
+                        break;
+                    }
+                }
                 break;
             } catch (IOException e) {
                 System.out.println("No game server found with this IP on the network.");
@@ -77,16 +87,10 @@ private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux
             }
         });
 
-        while (true) {
-            if (gameClient.getRegisterNameList() != null) {
-                AskClientName.setRegisterNameList(gameClient.getRegisterNameList().getList());
-                clientName = AskClientName.getClientName();
+        AskClientName.setRegisterNameList(gameClient.getRegisterNameList().getList());
+        clientName = AskClientName.getClientName();
 
-                gameClient.connectedListener(clientName);
-                break;
-            }
-        }
-
+        gameClient.connectedListener(clientName);
     }
 
     private static void launchGameFrame() {
