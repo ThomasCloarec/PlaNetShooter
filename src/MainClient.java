@@ -83,16 +83,18 @@ private static boolean gameServerFull = false;
 
         while (true) {
             if (gameClient.getRegisterNameList() != null) {
-                if (gameClient.getRegisterNameList().getList().size() == 10)
+                if (gameClient.getRegisterNameList().getList().size() == 4) {
                     gameServerFull = true;
+                }
+                else {
+                    AskClientName.setRegisterNameList(gameClient.getRegisterNameList().getList());
+                    clientName = AskClientName.getClientName();
+
+                    gameClient.connectedListener(clientName);
+                }
                 break;
             }
         }
-
-        AskClientName.setRegisterNameList(gameClient.getRegisterNameList().getList());
-        clientName = AskClientName.getClientName();
-
-        gameClient.connectedListener(clientName);
     }
 
     private static void launchGameFrame() {
