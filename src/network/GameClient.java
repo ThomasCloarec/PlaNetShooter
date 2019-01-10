@@ -8,8 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameClient extends Client {
-    private Network.RegisterName registerName;
     private Network.RegisterNameList registerNameList;
+    private List<PlayableCharacter> otherPlayers = new ArrayList<>();
+
 
     public GameClient(String IPHost) throws IOException {
         super();
@@ -19,11 +20,11 @@ public class GameClient extends Client {
     }
 
     public void connectedListener(String name) {
-        registerName = new Network.RegisterName();
+        Network.RegisterName registerName = new Network.RegisterName();
 
         registerName.name = name;
 
-        System.out.println("\"" +registerName.name+ "\" (You) is connected !");
+        System.out.println("\"" + registerName.name+ "\" (You) is connected !");
         this.sendTCP(registerName);
     }
 
@@ -31,17 +32,27 @@ public class GameClient extends Client {
         if (object instanceof Network.RegisterName) {
             Network.RegisterName registerName = (Network.RegisterName)object;
             System.out.println("\"" +registerName.name+ "\" is connected !");
+            registerNameList.getList().add(registerName.name);
         }
         if (object instanceof Network.RemoveName) {
             Network.RemoveName removeName = (Network.RemoveName)object;
             System.out.println("\"" +removeName.name+ "\" is disconnected !");
+            otherPlayers.remove(registerNameList.getList().indexOf(removeName.name));
+            registerNameList.getList().remove(removeName.name);
         }
         if (object instanceof Network.RegisterNameList) {
             registerNameList = (Network.RegisterNameList)object;
         }
         if (object instanceof PlayableCharacter) {
             PlayableCharacter playableCharacter = (PlayableCharacter) object;
-            System.out.println(playableCharacter);
+            if (registerNameList.getList().contains(playableCharacter.getName())) {
+                if (otherPlayers.size() > registerNameList.getList().indexOf(playableCharacter.getName()))
+                    otherPlayers.set(registerNameList.getList().indexOf(playableCharacter.getName()), playableCharacter);
+                else
+                    otherPlayers.add(playableCharacter);
+
+                System.out.println(otherPlayers);
+            }
         }
     }
 

@@ -21,7 +21,7 @@ public class PlayableCharacter {
 
     @Override
     public String toString() {
-        return "PlayableCharacter (" +relativeX+ ", " +relativeY+ ", " +RELATIVE_WIDTH+ ", " +RELATIVE_HEIGHT+ ", " +RELATIVE_MAX_SPEED+ ")";
+        return "PlayableCharacter (" +relativeX+ ", " +relativeY+ ", " +RELATIVE_WIDTH+ ", " +RELATIVE_HEIGHT+ ", " +RELATIVE_MAX_SPEED+ ", " +name+ ")";
     }
 
     public float getRelativeX() {
