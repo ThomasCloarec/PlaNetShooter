@@ -260,11 +260,34 @@ class MainClient {
             playableCharacter.setRelativeY(playableCharacter.getRelativeY()+relativeMovementY);
             characterView.setRelativeX(playableCharacter.getRelativeX());
             characterView.setRelativeY(playableCharacter.getRelativeY());
+
+            otherPlayersPainting();
+
             gameFrame.getGamePanel().repaint();
 
             if (IS_UNIX_OS)
                 Toolkit.getDefaultToolkit().sync();
+
+
         });
         timer.start();
+    }
+
+    private static void otherPlayersPainting() {
+        // TODO Shouldn't create new Array and new CharacterView everytime,
+        //  it consumes memory and it creates lot of labels
+        List<CharacterView> otherPlayersViews = new ArrayList<>();
+
+        for (PlayableCharacter playableCharacter : gameClient.getOtherPlayers()) {
+            otherPlayersViews.add(new CharacterView(
+                    playableCharacter.getRelativeX(),
+                    playableCharacter.getRelativeY(),
+                    PlayableCharacter.getRelativeWidth(),
+                    PlayableCharacter.getRelativeHeight(),
+                    playableCharacter.getName()));
+        }
+
+        gameFrame.getGamePanel().setOtherPlayersViews(otherPlayersViews);
+
     }
 }

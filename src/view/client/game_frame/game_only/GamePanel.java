@@ -2,10 +2,13 @@ package view.client.game_frame.game_only;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class GamePanel extends JPanel {
     private PlatformView[] platforms;
     private CharacterView characterView;
+    private List<CharacterView> otherPlayersViews = new ArrayList<>();
 
     public GamePanel() {
         super();
@@ -45,6 +48,20 @@ public class GamePanel extends JPanel {
             // ALSO NEED TO PUT A RELATIVE FONT SIZE WHEN THE FRAME IS RESIZED
             characterView.getNameLabel().setLocation((int)((characterView.getRelativeX()+characterView.getRelativeWidth()/2)*this.getWidth()-characterView.getNameLabel().getWidth()/2), (int)((characterView.getRelativeY()+characterView.getRelativeHeight()/2)*this.getHeight())-characterView.getNameLabel().getHeight()/2);
         }
+        for (CharacterView otherPlayerView : otherPlayersViews) {
+            if (otherPlayerView != null) {
+                g.setColor(Color.red);
+                g.fillRect((int)(otherPlayerView.getRelativeX()*this.getWidth()),
+                        (int)(otherPlayerView.getRelativeY()*this.getHeight()),
+                        (int)(otherPlayerView.getRelativeWidth()*this.getWidth()),
+                        (int)(otherPlayerView.getRelativeHeight()*this.getHeight()));
+
+                if (otherPlayerView.getNameLabel().getParent() == null)
+                    this.add(otherPlayerView.getNameLabel());
+
+                otherPlayerView.getNameLabel().setLocation((int)((otherPlayerView.getRelativeX()+otherPlayerView.getRelativeWidth()/2)*this.getWidth()-otherPlayerView.getNameLabel().getWidth()/2), (int)((otherPlayerView.getRelativeY()+otherPlayerView.getRelativeHeight()/2)*this.getHeight())-otherPlayerView.getNameLabel().getHeight()/2);
+            }
+        }
     }
 
     public void setPlatformsView(PlatformView[] platforms) {
@@ -57,5 +74,9 @@ public class GamePanel extends JPanel {
 
     public void setCharacterView(CharacterView characterView) {
         this.characterView = characterView;
+    }
+
+    public void setOtherPlayersViews(List<CharacterView> otherPlayersViews) {
+        this.otherPlayersViews = otherPlayersViews;
     }
 }

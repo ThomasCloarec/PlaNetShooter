@@ -50,8 +50,6 @@ public class GameClient extends Client {
                     otherPlayers.set(registerNameList.getList().indexOf(playableCharacter.getName()), playableCharacter);
                 else
                     otherPlayers.add(playableCharacter);
-
-                System.out.println(otherPlayers);
             }
         }
     }
@@ -62,5 +60,9 @@ public class GameClient extends Client {
 
     public Network.RegisterNameList getRegisterNameList() {
         return registerNameList;
+    }
+
+    public List<PlayableCharacter> getOtherPlayers() {
+        return otherPlayers;
     }
 }
