@@ -48,11 +48,9 @@ public class GameServer extends Server {
 
             registerNameList.getList().add(registerName.name);
         }
-        if (object instanceof ArrayList) {
-            List arrayList = (ArrayList)object;
-            if (arrayList.size() == 2)
-                if (arrayList.get(0) instanceof Network.RegisterName && arrayList.get(1) instanceof PlayableCharacter)
-                    this.sendToAllExceptUDP(gameConnection.getID(), arrayList);
+        if (object instanceof PlayableCharacter) {
+            PlayableCharacter playableCharacter = (PlayableCharacter)object;
+            this.sendToAllExceptUDP(gameConnection.getID(), playableCharacter);
         }
     }
 

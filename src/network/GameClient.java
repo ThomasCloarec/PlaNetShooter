@@ -39,20 +39,14 @@ public class GameClient extends Client {
         if (object instanceof Network.RegisterNameList) {
             registerNameList = (Network.RegisterNameList)object;
         }
-        if (object instanceof ArrayList) {
-            List arrayList = (ArrayList)object;
-            if (arrayList.size() == 2)
-                if (arrayList.get(0) instanceof Network.RegisterName && arrayList.get(1) instanceof PlayableCharacter) {
-                    System.out.println(((Network.RegisterName)arrayList.get(0)).name+ " : " +arrayList.get(1));
-                }
+        if (object instanceof PlayableCharacter) {
+            PlayableCharacter playableCharacter = (PlayableCharacter) object;
+            System.out.println(playableCharacter);
         }
     }
 
-    public void sendPlayerPosition(PlayableCharacter character) {
-        List<Object> playerPositionAndName = new ArrayList<>();
-        playerPositionAndName.add(registerName);
-        playerPositionAndName.add(character);
-        this.sendUDP(playerPositionAndName);
+    public void sendPlayerInformation(PlayableCharacter character) {
+        this.sendUDP(character);
     }
 
     public Network.RegisterNameList getRegisterNameList() {

@@ -172,7 +172,7 @@ class MainClient {
 
     private static void launchGameLoop() {
         Timer timer = new Timer(1000/120, e -> {
-            gameClient.sendPlayerPosition(playableCharacter);
+            gameClient.sendPlayerInformation(playableCharacter);
 
             collisionOnTop = false;
             collisionOnBottom = false;
