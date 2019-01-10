@@ -29,21 +29,21 @@ import java.util.Set;
 import java.util.TreeSet;
 
 class MainClient {
-private static String clientName;
-private static GameClient gameClient;
-private static final List<Object> allSolidObjects = new ArrayList<>();
-private static float relativeMovementX = 0f;
-private static float relativeMovementY = 0f;
-private static boolean collisionOnRight = false, collisionOnLeft = false, collisionOnTop = false, collisionOnBottom = false;
-private static boolean jumpKeyJustPressed = false;
-private static GameFrame gameFrame;
-private static PlayableCharacter playableCharacter;
-private static CharacterView characterView;
-private static final String RELEASE_LEFT = "Release.left", RELEASE_RIGHT = "Release.right", PRESS_LEFT = "Press.left", PRESS_RIGHT = "Press.right";
-private static final Set<Direction> directions = new TreeSet<>();
-private static final String OS = System.getProperty("os.name").toLowerCase();
-private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux") || OS.contains("aix");
-private static boolean gameServerFull = false;
+    private static String clientName;
+    private static GameClient gameClient;
+    private static final List<Object> allSolidObjects = new ArrayList<>();
+    private static float relativeMovementX = 0f;
+    private static float relativeMovementY = 0f;
+    private static boolean collisionOnRight = false, collisionOnLeft = false, collisionOnTop = false, collisionOnBottom = false;
+    private static boolean jumpKeyJustPressed = false;
+    private static GameFrame gameFrame;
+    private static PlayableCharacter playableCharacter;
+    private static CharacterView characterView;
+    private static final String RELEASE_LEFT = "Release.left", RELEASE_RIGHT = "Release.right", PRESS_LEFT = "Press.left", PRESS_RIGHT = "Press.right";
+    private static final Set<Direction> directions = new TreeSet<>();
+    private static final String OS = System.getProperty("os.name").toLowerCase();
+    private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux") || OS.contains("aix");
+    private static boolean gameServerFull = false;
 
     public static void main(String[] args) {
         if (new Client().discoverHost(Network.getUdpPort(), 5000) != null) {

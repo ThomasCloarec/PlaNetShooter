@@ -1,6 +1,5 @@
 package model.characters;
 
-@SuppressWarnings("CanBeFinal")
 public class PlayableCharacter {
     private static final float RELATIVE_MAX_SPEED = 0.0015f;
     private static final float RELATIVE_SPEED_GROWTH = RELATIVE_MAX_SPEED/60;
@@ -11,7 +10,12 @@ public class PlayableCharacter {
     private float relativeY = 0.1f;
     private String name;
 
+    // Default constructor used for reflection (by Kryo serialization)
+    private PlayableCharacter() {
+    }
+
     public PlayableCharacter(String name) {
+        this();
         this.name = name;
     }
 
