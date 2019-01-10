@@ -9,8 +9,10 @@ public class PlayableCharacter {
     private static final float RELATIVE_HEIGHT = 0.1f;
     private float relativeX = 0.45f;
     private float relativeY = 0.1f;
+    private String name;
 
-    public PlayableCharacter() {
+    public PlayableCharacter(String name) {
+        this.name = name;
     }
 
     @Override
@@ -52,5 +54,9 @@ public class PlayableCharacter {
 
     public static float getRelativeJumpStrength() {
         return RELATIVE_JUMP_STRENGTH;
+    }
+
+    public String getName() {
+        return name;
     }
 }

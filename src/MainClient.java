@@ -127,13 +127,13 @@ private static boolean gameServerFull = false;
             allSolidObjects.add(platforms[i]);
         }
 
-        playableCharacter = new PlayableCharacter();
+        playableCharacter = new PlayableCharacter(clientName);
         characterView = new CharacterView(
                 playableCharacter.getRelativeX(),
                 playableCharacter.getRelativeY(),
                 PlayableCharacter.getRelativeWidth(),
                 PlayableCharacter.getRelativeHeight(),
-                clientName);
+                playableCharacter.getName());
 
         gameFrame.getGamePanel().setCharacterView(characterView);
     }
