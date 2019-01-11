@@ -14,6 +14,7 @@ import view.client.connection.AskIPHost;
 import view.client.connection.NoServerError;
 import view.client.connection.ServerFullError;
 import view.client.game_frame.GameFrame;
+import view.client.game_frame.game_only.keyboard_actions.JumpAction;
 import view.client.game_frame.game_only.keyboard_actions.PressAction;
 import view.client.game_frame.game_only.keyboard_actions.ReleaseAction;
 import view.client.game_frame.game_only.CharacterView;
@@ -35,11 +36,10 @@ class MainClient {
     private static float relativeMovementX = 0f;
     private static float relativeMovementY = 0f;
     private static boolean collisionOnRight = false, collisionOnLeft = false, collisionOnTop = false, collisionOnBottom = false;
-    private static boolean jumpKeyJustPressed = false;
     private static GameFrame gameFrame;
     private static PlayableCharacter playableCharacter;
     private static CharacterView characterView;
-    private static final String RELEASE_LEFT = "Release.left", RELEASE_RIGHT = "Release.right", PRESS_LEFT = "Press.left", PRESS_RIGHT = "Press.right";
+    private static final String RELEASE_LEFT = "Release.left", RELEASE_RIGHT = "Release.right", PRESS_LEFT = "Press.left", PRESS_RIGHT = "Press.right", PRESS_JUMP = "Press.jump";
     private static final Set<Direction> directions = new TreeSet<>();
     private static final String OS = System.getProperty("os.name").toLowerCase();
     private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux") || OS.contains("aix");
@@ -169,14 +169,10 @@ class MainClient {
         AM.put(PRESS_LEFT, new PressAction(directions, Direction.LEFT));
         AM.put(PRESS_RIGHT, new PressAction(directions, Direction.RIGHT));
 
-        gameFrame.getGamePanel().addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP)
-                    if (collisionOnBottom)
-                        jumpKeyJustPressed = true;
-            }
-        });
+        IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_SPACE, 0, false), PRESS_JUMP);
+        IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_UP, 0, false), PRESS_JUMP);
+
+        AM.put(PRESS_JUMP, new JumpAction());
     }
 
     private static void launchGameLoop() {
@@ -226,17 +222,17 @@ class MainClient {
                 else if (totalDirection == -1 && relativeMovementX > -PlayableCharacter.getRelativeMaxSpeed())
                     relativeMovementX -= PlayableCharacter.getRelativeSpeedGrowth()/2;
                 else {
-                    if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction()/10)
+                    if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction()/5)
                         relativeMovementX = 0;
                     else if (relativeMovementX > 0)
-                        relativeMovementX -= Terrain.getRelativeFriction()/10;
+                        relativeMovementX -= Terrain.getRelativeFriction()/5;
                     else if (relativeMovementX < 0)
-                        relativeMovementX += Terrain.getRelativeFriction()/10;
+                        relativeMovementX += Terrain.getRelativeFriction()/5;
                 }
             }
 
             if (collisionOnBottom) {
-                if (jumpKeyJustPressed) {
+                if (JumpAction.isJumpKeyJustPressed()) {
                     while (collisionOnBottom) {
                         playableCharacter.setRelativeY(playableCharacter.getRelativeY()-PlayableCharacter.getRelativeJumpStrength());
 
@@ -247,10 +243,10 @@ class MainClient {
                             }
                         }
                     }
-                    relativeMovementY -= PlayableCharacter.getRelativeJumpStrength();
                     playableCharacter.setRelativeY(playableCharacter.getRelativeY()+PlayableCharacter.getRelativeJumpStrength());
 
-                    jumpKeyJustPressed = false;
+                    relativeMovementY -= PlayableCharacter.getRelativeJumpStrength();
+                    JumpAction.setJumpKeyJustPressed(false);
                 }
                 else
                     relativeMovementY = 0;
@@ -267,6 +263,7 @@ class MainClient {
 
             playableCharacter.setRelativeX(playableCharacter.getRelativeX()+relativeMovementX);
             playableCharacter.setRelativeY(playableCharacter.getRelativeY()+relativeMovementY);
+
             characterView.setRelativeX(playableCharacter.getRelativeX());
             characterView.setRelativeY(playableCharacter.getRelativeY());
 
