@@ -25,8 +25,8 @@ public class CollisionDetection {
 
             Rectangle2D lineTopPlatform = new Rectangle2D.Float(solidObject2.getRelativeX()+(0.0000001f+PlayableCharacter.getRelativeMaxSpeed()), solidObject2.getRelativeY(), Platform.getRelativeWidth()-2*(0.0000001f+PlayableCharacter.getRelativeMaxSpeed()), 0.0000001f);
             Rectangle2D lineBottomPlatform = new Rectangle2D.Float(solidObject2.getRelativeX()+(0.0000001f+PlayableCharacter.getRelativeMaxSpeed()), solidObject2.getRelativeY()+Platform.getRelativeHeight(), Platform.getRelativeWidth()-2*(0.0000001f+PlayableCharacter.getRelativeMaxSpeed()), 0.0000001f);
-            Rectangle2D lineRightPlatform = new Rectangle2D.Float(solidObject2.getRelativeX() + Platform.getRelativeWidth(), solidObject2.getRelativeY()+(0.0000001f+Terrain.getRelativeMaxGravity()),0.0000001f, Platform.getRelativeHeight()-2*+(0.0000001f+Terrain.getRelativeMaxGravity()));
-            Rectangle2D lineLeftPlatform = new Rectangle2D.Float((solidObject2.getRelativeX()), solidObject2.getRelativeY()+(0.0000001f+Terrain.getRelativeMaxGravity()), 0.0000001f, Platform.getRelativeHeight()-2*+(0.0000001f+Terrain.getRelativeMaxGravity()));
+            Rectangle2D lineRightPlatform = new Rectangle2D.Float(solidObject2.getRelativeX() + Platform.getRelativeWidth(), solidObject2.getRelativeY()+(0.0000001f+Terrain.getRelativeMaxGravity()),0.0000001f, Platform.getRelativeHeight()-2*(0.0000001f+Terrain.getRelativeMaxGravity()));
+            Rectangle2D lineLeftPlatform = new Rectangle2D.Float((solidObject2.getRelativeX()), solidObject2.getRelativeY()+(0.0000001f+Terrain.getRelativeMaxGravity()), 0.0000001f, Platform.getRelativeHeight()-2*(0.0000001f+Terrain.getRelativeMaxGravity()));
 
             // Inversely because for example, that's the BOTTOM of the player that collide with the TOP of the platform
             if (rectangleCharacter.intersects(lineTopPlatform))
