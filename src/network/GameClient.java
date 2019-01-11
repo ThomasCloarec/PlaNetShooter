@@ -8,8 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameClient extends Client {
-    private Network.RegisterNameList registerNameList;
-    private List<PlayableCharacter> otherPlayers = new ArrayList<>();
+    public Network.RegisterNameList registerNameList;
+    private final List<PlayableCharacter> otherPlayers = new ArrayList<>();
 
 
     public GameClient(String IPHost) throws IOException {

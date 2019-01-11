@@ -24,8 +24,8 @@ public class Network {
         String name;
     }
 
-    static class RemoveName {
-        String name;
+    public static class RemoveName {
+        public String name;
     }
 
     public static class RegisterNameList {

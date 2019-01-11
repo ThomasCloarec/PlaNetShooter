@@ -6,8 +6,6 @@ import model.characters.PlayableCharacter;
 import view.server.PortAlreadyUsedError;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class GameServer extends Server {
     private final Network.RegisterNameList registerNameList = new Network.RegisterNameList();

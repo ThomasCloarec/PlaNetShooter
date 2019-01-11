@@ -42,7 +42,7 @@ public class CharacterView {
         this.relativeY = relativeY;
     }
 
-    JLabel getNameLabel() {
+    public JLabel getNameLabel() {
         return nameLabel;
     }
 }

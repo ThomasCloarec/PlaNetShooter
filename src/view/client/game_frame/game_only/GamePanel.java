@@ -8,7 +8,7 @@ import java.util.List;
 public class GamePanel extends JPanel {
     private PlatformView[] platforms;
     private CharacterView characterView;
-    private List<CharacterView> otherPlayersViews = new ArrayList<>();
+    private final List<CharacterView> otherPlayersViews = new ArrayList<>();
 
     public GamePanel() {
         super();
@@ -56,8 +56,10 @@ public class GamePanel extends JPanel {
                         (int)(otherPlayerView.getRelativeWidth()*this.getWidth()),
                         (int)(otherPlayerView.getRelativeHeight()*this.getHeight()));
 
-                if (otherPlayerView.getNameLabel().getParent() == null)
+                if (otherPlayerView.getNameLabel().getParent() == null) {
                     this.add(otherPlayerView.getNameLabel());
+                    this.revalidate();
+                }
 
                 otherPlayerView.getNameLabel().setLocation((int)((otherPlayerView.getRelativeX()+otherPlayerView.getRelativeWidth()/2)*this.getWidth()-otherPlayerView.getNameLabel().getWidth()/2), (int)((otherPlayerView.getRelativeY()+otherPlayerView.getRelativeHeight()/2)*this.getHeight())-otherPlayerView.getNameLabel().getHeight()/2);
             }
@@ -76,7 +78,11 @@ public class GamePanel extends JPanel {
         this.characterView = characterView;
     }
 
-    public void setOtherPlayersViews(List<CharacterView> otherPlayersViews) {
-        this.otherPlayersViews = otherPlayersViews;
+    public List<CharacterView> getOtherPlayersViews() {
+        return otherPlayersViews;
+    }
+
+    public void addOtherPlayerViewToArray(CharacterView characterView) {
+        otherPlayersViews.add(characterView);
     }
 }

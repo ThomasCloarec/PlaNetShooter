@@ -71,6 +71,15 @@ class MainClient {
         gameClient.addListener(new Listener() {
             @Override
             public void received(Connection connection, Object object) {
+                if (object instanceof Network.RemoveName) {
+                    Network.RemoveName removeName = (Network.RemoveName) object;
+                    System.out.println("\"" + removeName.name + "\" is disconnected !");
+
+                    if (gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getNameLabel().getParent() != null)
+                        gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getNameLabel());
+
+                    gameFrame.getGamePanel().getOtherPlayersViews().remove(gameClient.registerNameList.getList().indexOf(removeName.name));
+                }
                 gameClient.receivedListener(object);
             }
 
@@ -261,7 +270,7 @@ class MainClient {
             characterView.setRelativeX(playableCharacter.getRelativeX());
             characterView.setRelativeY(playableCharacter.getRelativeY());
 
-            otherPlayersPainting();
+            SwingUtilities.invokeLater(MainClient::otherPlayersPainting);
 
             gameFrame.getGamePanel().repaint();
 
@@ -274,20 +283,23 @@ class MainClient {
     }
 
     private static void otherPlayersPainting() {
-        // TODO Shouldn't create new Array and new CharacterView everytime,
-        //  it consumes memory and it creates lot of labels
-        List<CharacterView> otherPlayersViews = new ArrayList<>();
+        for (int i = 0; i < gameClient.getOtherPlayers().size(); i++) {
+            if (gameFrame.getGamePanel().getOtherPlayersViews().size() > i) {
+                System.out.println("gameFrame : " +gameFrame.getGamePanel().getOtherPlayersViews());
+                System.out.println("gameClient : " +gameClient.getOtherPlayers());
+                System.out.println("gameClient, indexOf : " +i);
 
-        for (PlayableCharacter playableCharacter : gameClient.getOtherPlayers()) {
-            otherPlayersViews.add(new CharacterView(
-                    playableCharacter.getRelativeX(),
-                    playableCharacter.getRelativeY(),
-                    PlayableCharacter.getRelativeWidth(),
-                    PlayableCharacter.getRelativeHeight(),
-                    playableCharacter.getName()));
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeX(gameClient.getOtherPlayers().get(i).getRelativeX());
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeY(gameClient.getOtherPlayers().get(i).getRelativeY());
+            }
+            else {
+                gameFrame.getGamePanel().addOtherPlayerViewToArray(new CharacterView(
+                        gameClient.getOtherPlayers().get(i).getRelativeX(),
+                        gameClient.getOtherPlayers().get(i).getRelativeY(),
+                        PlayableCharacter.getRelativeWidth(),
+                        PlayableCharacter.getRelativeHeight(),
+                        gameClient.getOtherPlayers().get(i).getName()));
+            }
         }
-
-        gameFrame.getGamePanel().setOtherPlayersViews(otherPlayersViews);
-
     }
 }
