@@ -9,6 +9,8 @@ public class PlayableCharacter {
     private float relativeX = 0.45f;
     private float relativeY = 0.1f;
     private String name;
+    private float relativeMovementX = 0f;
+    private float relativeMovementY = 0f;
 
     // Default constructor used for reflection (by Kryo serialization)
     private PlayableCharacter() {
@@ -62,5 +64,21 @@ public class PlayableCharacter {
 
     public String getName() {
         return name;
+    }
+
+    public float getRelativeMovementX() {
+        return relativeMovementX;
+    }
+
+    public float getRelativeMovementY() {
+        return relativeMovementY;
+    }
+
+    public void setRelativeMovementX(float relativeMovementX) {
+        this.relativeMovementX = relativeMovementX;
+    }
+
+    public void setRelativeMovementY(float relativeMovementY) {
+        this.relativeMovementY = relativeMovementY;
     }
 }

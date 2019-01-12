@@ -29,12 +29,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
-class MainClient {
+public class MainClient {
     private static String clientName;
     private static GameClient gameClient;
     private static final List<Object> allSolidObjects = new ArrayList<>();
-    private static float relativeMovementX = 0f;
-    private static float relativeMovementY = 0f;
     private static boolean collisionOnRight = false, collisionOnLeft = false, collisionOnTop = false, collisionOnBottom = false;
     private static GameFrame gameFrame;
     private static PlayableCharacter playableCharacter;
@@ -201,33 +199,33 @@ class MainClient {
             }
 
             if (collisionOnRight || collisionOnLeft)
-                relativeMovementX = 0;
+                playableCharacter.setRelativeMovementX(0);
             else if (collisionOnBottom) {
-                if (totalDirection == 1 && relativeMovementX < PlayableCharacter.getRelativeMaxSpeed())
-                    relativeMovementX += PlayableCharacter.getRelativeSpeedGrowth();
-                else if (totalDirection == -1 && relativeMovementX > -PlayableCharacter.getRelativeMaxSpeed())
-                    relativeMovementX -= PlayableCharacter.getRelativeSpeedGrowth();
+                if (totalDirection == 1 && playableCharacter.getRelativeMovementX() < PlayableCharacter.getRelativeMaxSpeed())
+                    playableCharacter.setRelativeMovementX(playableCharacter.getRelativeMovementX()+PlayableCharacter.getRelativeSpeedGrowth());
+                else if (totalDirection == -1 && playableCharacter.getRelativeMovementX() > -PlayableCharacter.getRelativeMaxSpeed())
+                    playableCharacter.setRelativeMovementX(playableCharacter.getRelativeMovementX() - PlayableCharacter.getRelativeSpeedGrowth());
                 else {
-                    if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction())
-                        relativeMovementX = 0;
-                    else if (relativeMovementX > 0)
-                        relativeMovementX -= Terrain.getRelativeFriction();
-                    else if (relativeMovementX < 0)
-                        relativeMovementX += Terrain.getRelativeFriction();
+                    if (Math.abs(playableCharacter.getRelativeX()) < Terrain.getRelativeFriction())
+                        playableCharacter.setRelativeMovementX(0);
+                    else if (playableCharacter.getRelativeMovementX() > 0)
+                        playableCharacter.setRelativeMovementX(playableCharacter.getRelativeMovementX() - Terrain.getRelativeFriction());
+                    else if (playableCharacter.getRelativeMovementX() < 0)
+                        playableCharacter.setRelativeMovementX(playableCharacter.getRelativeMovementX() + Terrain.getRelativeFriction());
                 }
             }
             else {
-                if (totalDirection == 1 && relativeMovementX < PlayableCharacter.getRelativeMaxSpeed())
-                    relativeMovementX += PlayableCharacter.getRelativeSpeedGrowth()/2;
-                else if (totalDirection == -1 && relativeMovementX > -PlayableCharacter.getRelativeMaxSpeed())
-                    relativeMovementX -= PlayableCharacter.getRelativeSpeedGrowth()/2;
+                if (totalDirection == 1 && playableCharacter.getRelativeMovementX() < PlayableCharacter.getRelativeMaxSpeed())
+                    playableCharacter.setRelativeMovementX(playableCharacter.getRelativeMovementX() + PlayableCharacter.getRelativeSpeedGrowth()/2);
+                else if (totalDirection == -1 && playableCharacter.getRelativeMovementX() > -PlayableCharacter.getRelativeMaxSpeed())
+                    playableCharacter.setRelativeMovementX(playableCharacter.getRelativeMovementX() - PlayableCharacter.getRelativeSpeedGrowth()/2);
                 else {
-                    if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction()/5)
-                        relativeMovementX = 0;
-                    else if (relativeMovementX > 0)
-                        relativeMovementX -= Terrain.getRelativeFriction()/5;
-                    else if (relativeMovementX < 0)
-                        relativeMovementX += Terrain.getRelativeFriction()/5;
+                    if (Math.abs(playableCharacter.getRelativeMovementX()) < Terrain.getRelativeFriction()/5)
+                        playableCharacter.setRelativeMovementX(0);
+                    else if (playableCharacter.getRelativeMovementX() > 0)
+                        playableCharacter.setRelativeMovementX(playableCharacter.getRelativeMovementX() - Terrain.getRelativeFriction()/5);
+                    else if (playableCharacter.getRelativeMovementX() < 0)
+                        playableCharacter.setRelativeMovementX(playableCharacter.getRelativeMovementX() + Terrain.getRelativeFriction()/5);
                 }
             }
 
@@ -245,24 +243,24 @@ class MainClient {
                     }
                     playableCharacter.setRelativeY(playableCharacter.getRelativeY()+PlayableCharacter.getRelativeJumpStrength());
 
-                    relativeMovementY -= PlayableCharacter.getRelativeJumpStrength();
+                    playableCharacter.setRelativeMovementY(playableCharacter.getRelativeMovementY() - PlayableCharacter.getRelativeJumpStrength());
                     JumpAction.setJumpKeyJustPressed(false);
                 }
                 else
-                    relativeMovementY = 0;
+                    playableCharacter.setRelativeMovementY(0);
             }
             else if (collisionOnTop)
-                relativeMovementY = Terrain.getRelativeGravityGrowth();
-            else if (relativeMovementY < Terrain.getRelativeMaxGravity())
-                relativeMovementY += Terrain.getRelativeGravityGrowth();
+                playableCharacter.setRelativeMovementY(Terrain.getRelativeGravityGrowth());
+            else if (playableCharacter.getRelativeMovementY() < Terrain.getRelativeMaxGravity())
+                playableCharacter.setRelativeMovementY(playableCharacter.getRelativeMovementY() + Terrain.getRelativeGravityGrowth());
 
             if (playableCharacter.getRelativeY() >= 1) {
                 playableCharacter.setRelativeX(0.45f);
                 playableCharacter.setRelativeY(0.1f);
             }
 
-            playableCharacter.setRelativeX(playableCharacter.getRelativeX()+relativeMovementX);
-            playableCharacter.setRelativeY(playableCharacter.getRelativeY()+relativeMovementY);
+            playableCharacter.setRelativeX(playableCharacter.getRelativeX()+playableCharacter.getRelativeMovementX());
+            playableCharacter.setRelativeY(playableCharacter.getRelativeY()+playableCharacter.getRelativeMovementY());
 
             characterView.setRelativeX(playableCharacter.getRelativeX());
             characterView.setRelativeY(playableCharacter.getRelativeY());
