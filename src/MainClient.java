@@ -206,7 +206,7 @@ public class MainClient {
                 else if (totalDirection == -1 && playableCharacter.getRelativeMovementX() > -PlayableCharacter.getRelativeMaxSpeed())
                     playableCharacter.setRelativeMovementX(playableCharacter.getRelativeMovementX() - PlayableCharacter.getRelativeSpeedGrowth());
                 else {
-                    if (Math.abs(playableCharacter.getRelativeX()) < Terrain.getRelativeFriction())
+                    if (Math.abs(playableCharacter.getRelativeMovementX()) < Terrain.getRelativeFriction())
                         playableCharacter.setRelativeMovementX(0);
                     else if (playableCharacter.getRelativeMovementX() > 0)
                         playableCharacter.setRelativeMovementX(playableCharacter.getRelativeMovementX() - Terrain.getRelativeFriction());
