@@ -230,19 +230,19 @@ public class MainClient {
             }
 
             if (collisionOnBottom) {
-                if (JumpAction.isJumpKeyJustPressed()) {
-                    while (collisionOnBottom) {
-                        playableCharacter.setRelativeY(playableCharacter.getRelativeY()-PlayableCharacter.getRelativeJumpStrength());
+                while (collisionOnBottom) {
+                    playableCharacter.setRelativeY(playableCharacter.getRelativeY()-PlayableCharacter.getRelativeJumpStrength());
 
-                        for (Object object : allSolidObjects) {
-                            collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.BOTTOM);
-                            if (collisionOnBottom) {
-                                break;
-                            }
+                    for (Object object : allSolidObjects) {
+                        collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.BOTTOM);
+                        if (collisionOnBottom) {
+                            break;
                         }
                     }
-                    playableCharacter.setRelativeY(playableCharacter.getRelativeY()+PlayableCharacter.getRelativeJumpStrength());
+                }
+                playableCharacter.setRelativeY(playableCharacter.getRelativeY()+PlayableCharacter.getRelativeJumpStrength());
 
+                if (JumpAction.isJumpKeyJustPressed()) {
                     playableCharacter.setRelativeMovementY(playableCharacter.getRelativeMovementY() - PlayableCharacter.getRelativeJumpStrength());
                     JumpAction.setJumpKeyJustPressed(false);
                 }
@@ -272,7 +272,7 @@ public class MainClient {
             if (IS_UNIX_OS)
                 Toolkit.getDefaultToolkit().sync();
 
-
+            System.out.println("bottom " +collisionOnBottom+ " |top " +collisionOnTop+ " |right " +collisionOnRight+ " |left " +collisionOnLeft);
         });
         timer.start();
     }
