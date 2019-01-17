@@ -209,7 +209,7 @@ class MainClient {
                 totalDirection += direction.getDelta();
             }
 
-            if (collisionOnRight || collisionOnLeft)
+            if ((collisionOnRight && relativeMovementX > 0) || (collisionOnLeft && relativeMovementX < 0))
                 relativeMovementX = 0;
             else if (collisionOnBottom) {
                 if (totalDirection == 1 && relativeMovementX < PlayableCharacter.getRelativeMaxSpeed())
