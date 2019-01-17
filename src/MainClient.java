@@ -204,6 +204,8 @@ class MainClient {
                     collisionOnLeft = true;
             }
 
+            System.out.println(collisionOnBottom+ "|" +collisionOnTop+ "|" +collisionOnLeft+ "|" +collisionOnRight);
+
             float totalDirection = 0;
             for (Direction direction : directions) {
                 totalDirection += direction.getDelta();
@@ -247,6 +249,7 @@ class MainClient {
 
                         for (Object object : allSolidObjects) {
                             collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.BOTTOM);
+                            System.out.println(collisionOnBottom+ "|" +collisionOnTop+ "|" +collisionOnLeft+ "|" +collisionOnRight);
                             if (collisionOnBottom) {
                                 break;
                             }
@@ -257,10 +260,10 @@ class MainClient {
 
                     jumpKeyJustPressed = false;
                 }
-                else
+                else if (relativeMovementY > 0)
                     relativeMovementY = 0;
             }
-            else if (collisionOnTop)
+            else if (collisionOnTop && relativeMovementY < 0)
                 relativeMovementY = Terrain.getRelativeGravityGrowth();
             else if (relativeMovementY < Terrain.getRelativeMaxGravity())
                 relativeMovementY += Terrain.getRelativeGravityGrowth();
