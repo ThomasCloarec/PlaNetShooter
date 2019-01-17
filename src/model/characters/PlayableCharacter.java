@@ -1,16 +1,14 @@
 package model.characters;
 
 public class PlayableCharacter {
-    private static final float RELATIVE_MAX_SPEED = 0.002f;
+    private static final float RELATIVE_MAX_SPEED = 0.0015f;
     private static final float RELATIVE_SPEED_GROWTH = RELATIVE_MAX_SPEED/60;
-    private static final float RELATIVE_JUMP_STRENGTH = 0.0045f;
+    private static final float RELATIVE_JUMP_STRENGTH = RELATIVE_MAX_SPEED*3f;
     private static final float RELATIVE_WIDTH = 0.025f;
     private static final float RELATIVE_HEIGHT = 0.1f;
     private float relativeX = 0.45f;
     private float relativeY = 0.1f;
     private String name;
-    private float relativeMovementX = 0f;
-    private float relativeMovementY = 0f;
 
     // Default constructor used for reflection (by Kryo serialization)
     private PlayableCharacter() {
@@ -64,21 +62,5 @@ public class PlayableCharacter {
 
     public String getName() {
         return name;
-    }
-
-    public float getRelativeMovementX() {
-        return relativeMovementX;
-    }
-
-    public float getRelativeMovementY() {
-        return relativeMovementY;
-    }
-
-    public void setRelativeMovementX(float relativeMovementX) {
-        this.relativeMovementX = relativeMovementX;
-    }
-
-    public void setRelativeMovementY(float relativeMovementY) {
-        this.relativeMovementY = relativeMovementY;
     }
 }
