@@ -19,6 +19,7 @@ public class GamePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         for (PlatformView platform : platforms) {
             if (platform != null) {
                 // Will be replaced by some images to make it look better
@@ -28,6 +29,23 @@ public class GamePanel extends JPanel {
                         (int)(platform.getRelativeY()*this.getHeight()),
                         (int)(platform.getRelativeWidth()*this.getWidth()),
                         (int)(platform.getRelativeHeight()*this.getHeight()));
+            }
+        }
+        
+        for (CharacterView otherPlayerView : otherPlayersViews) {
+            if (otherPlayerView != null) {
+                g.setColor(Color.red);
+                g.fillRect((int)(otherPlayerView.getRelativeX()*this.getWidth()),
+                        (int)(otherPlayerView.getRelativeY()*this.getHeight()),
+                        (int)(otherPlayerView.getRelativeWidth()*this.getWidth()),
+                        (int)(otherPlayerView.getRelativeHeight()*this.getHeight()));
+
+                if (otherPlayerView.getNameLabel().getParent() == null) {
+                    this.add(otherPlayerView.getNameLabel());
+                    this.revalidate();
+                }
+
+                otherPlayerView.getNameLabel().setLocation((int)((otherPlayerView.getRelativeX()+otherPlayerView.getRelativeWidth()/2)*this.getWidth()-otherPlayerView.getNameLabel().getWidth()/2), (int)((otherPlayerView.getRelativeY()+otherPlayerView.getRelativeHeight()/2)*this.getHeight())-otherPlayerView.getNameLabel().getHeight()/2);
             }
         }
 
@@ -47,22 +65,6 @@ public class GamePanel extends JPanel {
             // that show all the full playerNames referenced by the PlayerID
             // ALSO NEED TO PUT A RELATIVE FONT SIZE WHEN THE FRAME IS RESIZED
             characterView.getNameLabel().setLocation((int)((characterView.getRelativeX()+characterView.getRelativeWidth()/2)*this.getWidth()-characterView.getNameLabel().getWidth()/2), (int)((characterView.getRelativeY()+characterView.getRelativeHeight()/2)*this.getHeight())-characterView.getNameLabel().getHeight()/2);
-        }
-        for (CharacterView otherPlayerView : otherPlayersViews) {
-            if (otherPlayerView != null) {
-                g.setColor(Color.red);
-                g.fillRect((int)(otherPlayerView.getRelativeX()*this.getWidth()),
-                        (int)(otherPlayerView.getRelativeY()*this.getHeight()),
-                        (int)(otherPlayerView.getRelativeWidth()*this.getWidth()),
-                        (int)(otherPlayerView.getRelativeHeight()*this.getHeight()));
-
-                if (otherPlayerView.getNameLabel().getParent() == null) {
-                    this.add(otherPlayerView.getNameLabel());
-                    this.revalidate();
-                }
-
-                otherPlayerView.getNameLabel().setLocation((int)((otherPlayerView.getRelativeX()+otherPlayerView.getRelativeWidth()/2)*this.getWidth()-otherPlayerView.getNameLabel().getWidth()/2), (int)((otherPlayerView.getRelativeY()+otherPlayerView.getRelativeHeight()/2)*this.getHeight())-otherPlayerView.getNameLabel().getHeight()/2);
-            }
         }
     }
 
