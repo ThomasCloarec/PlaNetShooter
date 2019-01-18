@@ -36,7 +36,7 @@ public class Network {
         }
     }
 
-    static int getTcpPort() {
+    public static int getTcpPort() {
         return TCP_PORT;
     }
 

@@ -7,10 +7,17 @@ import javax.swing.*;
 import java.awt.*;
 
 public class GameFrame extends JFrame {
+    private static boolean isClientAdmin = false;
+
     private final GamePanel gamePanel = new GamePanel();
     public GameFrame (String clientName) {
         super();
-        this.setTitle("PlaNetShooter Client : (" +clientName+ ")");
+
+        if (isClientAdmin)
+            this.setTitle("ADMIN | PlaNetShooter Client : (" +clientName+ ")");
+        else
+            this.setTitle("PlaNetShooter Client : (" +clientName+ ")");
+
         this.setSize(768, 432);
         this.setMinimumSize(new Dimension(574, 330));
         this.setLocationRelativeTo(null);
@@ -27,5 +34,9 @@ public class GameFrame extends JFrame {
 
     public GamePanel getGamePanel() {
         return gamePanel;
+    }
+
+    public static void setIsClientAdmin(boolean isClientAdmin) {
+        GameFrame.isClientAdmin = isClientAdmin;
     }
 }

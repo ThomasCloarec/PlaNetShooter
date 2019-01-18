@@ -1,5 +1,6 @@
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.esotericsoftware.kryonet.Server;
 import model.CollisionDetection;
 import model.PlayerCollisionSide;
 import model.Terrain;
@@ -101,7 +102,21 @@ class MainClient {
     }
 
     private static void launchGameFrame() {
+        Server serverTest = new Server();
+        serverTest.start();
+
+        try {
+            serverTest.bind(Network.getTcpPort(), Network.getUdpPort());
+        }
+        catch (IOException e) {
+            GameFrame.setIsClientAdmin(true);
+        }
+        finally {
+            serverTest.stop();
+        }
+
         gameFrame = new GameFrame(clientName);
+
         gameFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt) {
                 System.out.println("You are disconnected !");
