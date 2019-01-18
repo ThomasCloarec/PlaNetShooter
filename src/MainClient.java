@@ -1,4 +1,3 @@
-import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import model.CollisionDetection;
@@ -11,7 +10,6 @@ import network.GameClient;
 import network.Network;
 import view.client.connection.AskClientName;
 import view.client.connection.AskIPHost;
-import view.client.connection.NoServerError;
 import view.client.connection.ServerFullError;
 import view.client.game_frame.GameFrame;
 import view.client.game_frame.game_only.keyboard_actions.PressAction;
@@ -46,21 +44,12 @@ class MainClient {
     private static boolean gameServerFull = false;
 
     public static void main(String[] args) {
-        if (new Client().discoverHost(Network.getUdpPort(), 5000) != null) {
-            launchGameClient();
-            if (!gameServerFull)
-                SwingUtilities.invokeLater(MainClient::launchGameFrame);
-            else
-                new ServerFullError();
-        }
+        launchGameClient();
+        if (!gameServerFull)
+            SwingUtilities.invokeLater(MainClient::launchGameFrame);
         else
-            new NoServerError();
+            new ServerFullError();
     }
-
-
-
-
-
 
     private static void launchGameClient() {
         while(true) {
