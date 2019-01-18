@@ -31,7 +31,7 @@ public class GamePanel extends JPanel {
                         (int)(platform.getRelativeHeight()*this.getHeight()));
             }
         }
-        
+
         for (CharacterView otherPlayerView : otherPlayersViews) {
             if (otherPlayerView != null) {
                 g.setColor(Color.red);

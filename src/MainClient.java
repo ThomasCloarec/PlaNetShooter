@@ -174,7 +174,7 @@ class MainClient {
     }
 
     private static void launchGameLoop() {
-        Timer timer = new Timer(1000/120, e -> {
+        Timer timer = new Timer(1000/60, e -> {
             gameClient.sendPlayerInformation(playableCharacter);
 
             collisionOnTop = false;
@@ -192,8 +192,6 @@ class MainClient {
                 if (CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.LEFT))
                     collisionOnLeft = true;
             }
-
-            System.out.println(collisionOnBottom+ "|" +collisionOnTop+ "|" +collisionOnLeft+ "|" +collisionOnRight);
 
             float totalDirection = 0;
             for (Direction direction : directions) {
@@ -238,7 +236,6 @@ class MainClient {
 
                         for (Object object : allSolidObjects) {
                             collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.BOTTOM);
-                            System.out.println(collisionOnBottom+ "|" +collisionOnTop+ "|" +collisionOnLeft+ "|" +collisionOnRight);
                             if (collisionOnBottom) {
                                 break;
                             }
