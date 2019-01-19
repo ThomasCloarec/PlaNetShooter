@@ -12,8 +12,8 @@ public class GameServer extends Server {
 
     public GameServer() {
         super();
-        this.start();
         Network.register(this);
+        this.start();
         try {
             this.bind(Network.getTcpPort(), Network.getUdpPort());
         }
