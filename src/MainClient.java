@@ -180,12 +180,15 @@ class MainClient {
     }
 
     private static void launchGameLoop() {
-        int[] fpsRecord = {-1};
+        int[] fpsRecord = new int[1];
+        fpsRecord[0] = -1;
         String gameFrameTitleWithoutFPS = gameFrame.getTitle();
         final long[] a = {System.currentTimeMillis()};
 
         Thread thread3 = new Thread(() -> {
-            Timer timer1 = new Timer(1000 / 30, e -> {
+            Timer timer1 = new Timer(1000 / 60, e -> {
+                fpsRecord[0]++;
+
                 gameClient.sendPlayerInformation(playableCharacter);
 
                 playableCharacter.setRelativeX(playableCharacter.getRelativeX() + relativeMovementX);
@@ -205,7 +208,7 @@ class MainClient {
         thread3.start();
 
         Thread thread4 = new Thread(() -> {
-            Timer checkCollisionTimer = new Timer(1000/30, e -> {
+            Timer checkCollisionTimer = new Timer(1000/60, e -> {
                 collisionOnTop = false;
                 collisionOnBottom = false;
                 collisionOnRight = false;
@@ -227,7 +230,7 @@ class MainClient {
         thread4.start();
 
         Thread thread2 = new Thread(() -> {
-            Timer timerHorizontalCheck = new Timer(1000/30, e -> {
+            Timer timerHorizontalCheck = new Timer(1000/60, e -> {
                 if ((collisionOnRight && relativeMovementX > 0) || (collisionOnLeft && relativeMovementX < 0))
                     relativeMovementX = 0;
                 else if (collisionOnBottom) {
@@ -264,7 +267,7 @@ class MainClient {
         thread2.start();
 
         Thread thread1 = new Thread(() -> {
-            Timer timerVerticalCheck = new Timer(1000/30, e -> {
+            Timer timerVerticalCheck = new Timer(1000/60, e -> {
                 if (collisionOnBottom) {
                     if (jumpKeyJustPressed) {
                         while (collisionOnBottom) {
@@ -299,12 +302,12 @@ class MainClient {
         });
         thread1.start();
 
+
         Thread thread = new Thread(() -> {
-            Timer timer = new Timer(1000/30, e -> {
-                fpsRecord[0]++;
+            Timer timer = new Timer(1000/60, e -> {
                 System.out.println(Thread.currentThread());
-                if (System.currentTimeMillis() - a[0] > 1000) {
-                    gameFrame.setTitle(gameFrameTitleWithoutFPS+ " | FPS : " +fpsRecord[0]);
+                if (System.currentTimeMillis() - a[0] > 250) {
+                    gameFrame.setTitle(gameFrameTitleWithoutFPS+ " | FPS : " +fpsRecord[0]*4);
                     fpsRecord[0] = -1;
                     a[0] = System.currentTimeMillis();
                 }

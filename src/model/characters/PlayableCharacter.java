@@ -1,9 +1,9 @@
 package model.characters;
 
 public class PlayableCharacter {
-    private static final float RELATIVE_MAX_SPEED = 0.0045f;
-    private static final float RELATIVE_SPEED_GROWTH = RELATIVE_MAX_SPEED/10;
-    private static final float RELATIVE_JUMP_STRENGTH = 0.0175f;
+    private static final float RELATIVE_MAX_SPEED = 0.0025f;
+    private static final float RELATIVE_SPEED_GROWTH = RELATIVE_MAX_SPEED/20;
+    private static final float RELATIVE_JUMP_STRENGTH = 0.0090f;
     private static final float RELATIVE_WIDTH = 0.025f;
     private static final float RELATIVE_HEIGHT = 0.1f;
     private float relativeX = 0.45f;
