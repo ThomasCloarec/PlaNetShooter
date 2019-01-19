@@ -20,6 +20,12 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
+        g.setColor(Color.magenta);
+        g.fillRect((int)(HomeView.getRelativeX()*this.getWidth()),
+                (int)(HomeView.getRelativeY()*this.getHeight()),
+                (int)(HomeView.getRelativeWidth()*this.getWidth()),
+                (int)(HomeView.getRelativeHeight()*this.getHeight()));
+
         for (PlatformView platform : platforms) {
             if (platform != null) {
                 g.setColor(Color.blue);
