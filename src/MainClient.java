@@ -290,19 +290,23 @@ class MainClient {
         });
         timerVerticalCheck.start();
 
-        Timer timer = new Timer(1000/60, e -> {
-            if (System.currentTimeMillis() - a[0] > 250) {
-                gameFrame.setTitle(gameFrameTitleWithoutFPS+ " | FPS : " +fpsRecord[0]*4);
-                fpsRecord[0] = -1;
-                a[0] = System.currentTimeMillis();
-            }
+        Thread thread = new Thread(() -> {
+            Timer timer = new Timer(1000/60, e -> {
+                if (System.currentTimeMillis() - a[0] > 250) {
+                    gameFrame.setTitle(gameFrameTitleWithoutFPS+ " | FPS : " +fpsRecord[0]*4);
+                    fpsRecord[0] = -1;
+                    a[0] = System.currentTimeMillis();
+                }
 
-            totalDirection = 0;
-            for (Direction direction : directions) {
-                totalDirection += direction.getDelta();
-            }
+                totalDirection = 0;
+                for (Direction direction : directions) {
+                    totalDirection += direction.getDelta();
+                }
+            });
+            timer.start();
         });
-        timer.start();
+        thread.start();
+
     }
 
     private static void otherPlayersPainting() {
