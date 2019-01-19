@@ -185,110 +185,116 @@ class MainClient {
         String gameFrameTitleWithoutFPS = gameFrame.getTitle();
         final long[] a = {System.currentTimeMillis()};
 
-        Timer checkCollisionTimer = new Timer(1000/60, e -> {
-            fpsRecord[0]++;
-            if (System.currentTimeMillis() - a[0] > 250) {
-                gameFrame.setTitle(gameFrameTitleWithoutFPS+ " | FPS : " +fpsRecord[0]*4);
-                fpsRecord[0] = -1;
-                a[0] = System.currentTimeMillis();
-            }
+        Thread thread = new Thread(() -> {
+            long lastTime = System.nanoTime();
+            while (true) {
+                if (System.nanoTime() - lastTime > 1_000_000_000L/60L) {
+                    lastTime = System.nanoTime();
+                    fpsRecord[0]++;
+                    if (System.currentTimeMillis() - a[0] > 250) {
+                        gameFrame.setTitle(gameFrameTitleWithoutFPS+ " | FPS : " +fpsRecord[0]*4);
+                        fpsRecord[0] = -1;
+                        a[0] = System.currentTimeMillis();
+                    }
 
-            totalDirection = 0;
-            for (Direction direction : directions) {
-                totalDirection += direction.getDelta();
-            }
+                    totalDirection = 0;
+                    for (Direction direction : directions) {
+                        totalDirection += direction.getDelta();
+                    }
 
-            gameClient.sendPlayerInformation(playableCharacter);
-            collisionOnTop = false;
-            collisionOnBottom = false;
-            collisionOnRight = false;
-            collisionOnLeft = false;
+                    gameClient.sendPlayerInformation(playableCharacter);
+                    collisionOnTop = false;
+                    collisionOnBottom = false;
+                    collisionOnRight = false;
+                    collisionOnLeft = false;
 
-            for (Object object : allSolidObjects) {
-                if (CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.TOP))
-                    collisionOnTop = true;
-                if (CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.BOTTOM))
-                    collisionOnBottom = true;
-                if (CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.RIGHT))
-                    collisionOnRight = true;
-                if (CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.LEFT))
-                    collisionOnLeft = true;
-            }
+                    for (Object object : allSolidObjects) {
+                        if (CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.TOP))
+                            collisionOnTop = true;
+                        if (CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.BOTTOM))
+                            collisionOnBottom = true;
+                        if (CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.RIGHT))
+                            collisionOnRight = true;
+                        if (CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.LEFT))
+                            collisionOnLeft = true;
+                    }
 
-            if ((collisionOnRight && relativeMovementX > 0) || (collisionOnLeft && relativeMovementX < 0))
-                relativeMovementX = 0;
-            else if (collisionOnBottom) {
-                if (totalDirection == 1 && relativeMovementX < PlayableCharacter.getRelativeMaxSpeed())
-                    relativeMovementX += PlayableCharacter.getRelativeSpeedGrowth();
-                else if (totalDirection == -1 && relativeMovementX > -PlayableCharacter.getRelativeMaxSpeed())
-                    relativeMovementX -= PlayableCharacter.getRelativeSpeedGrowth();
-                else {
-                    if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction())
+                    if ((collisionOnRight && relativeMovementX > 0) || (collisionOnLeft && relativeMovementX < 0))
                         relativeMovementX = 0;
-                    else if (relativeMovementX > 0)
-                        relativeMovementX -= Terrain.getRelativeFriction();
-                    else if (relativeMovementX < 0)
-                        relativeMovementX += Terrain.getRelativeFriction();
-                }
-            }
-            else {
-                if (totalDirection == 1 && relativeMovementX < PlayableCharacter.getRelativeMaxSpeed())
-                    relativeMovementX += PlayableCharacter.getRelativeSpeedGrowth()/2;
-                else if (totalDirection == -1 && relativeMovementX > -PlayableCharacter.getRelativeMaxSpeed())
-                    relativeMovementX -= PlayableCharacter.getRelativeSpeedGrowth()/2;
-                else {
-                    if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction()/10)
-                        relativeMovementX = 0;
-                    else if (relativeMovementX > 0)
-                        relativeMovementX -= Terrain.getRelativeFriction()/10;
-                    else if (relativeMovementX < 0)
-                        relativeMovementX += Terrain.getRelativeFriction()/10;
-                }
-            }
-
-            if (collisionOnBottom) {
-                if (jumpKeyJustPressed) {
-                    while (collisionOnBottom) {
-                        playableCharacter.setRelativeY(playableCharacter.getRelativeY()-PlayableCharacter.getRelativeJumpStrength());
-
-                        for (Object object : allSolidObjects) {
-                            collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.BOTTOM);
-                            if (collisionOnBottom) {
-                                break;
-                            }
+                    else if (collisionOnBottom) {
+                        if (totalDirection == 1 && relativeMovementX < PlayableCharacter.getRelativeMaxSpeed())
+                            relativeMovementX += PlayableCharacter.getRelativeSpeedGrowth();
+                        else if (totalDirection == -1 && relativeMovementX > -PlayableCharacter.getRelativeMaxSpeed())
+                            relativeMovementX -= PlayableCharacter.getRelativeSpeedGrowth();
+                        else {
+                            if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction())
+                                relativeMovementX = 0;
+                            else if (relativeMovementX > 0)
+                                relativeMovementX -= Terrain.getRelativeFriction();
+                            else if (relativeMovementX < 0)
+                                relativeMovementX += Terrain.getRelativeFriction();
                         }
                     }
-                    relativeMovementY -= PlayableCharacter.getRelativeJumpStrength();
-                    playableCharacter.setRelativeY(playableCharacter.getRelativeY()+PlayableCharacter.getRelativeJumpStrength());
+                    else {
+                        if (totalDirection == 1 && relativeMovementX < PlayableCharacter.getRelativeMaxSpeed())
+                            relativeMovementX += PlayableCharacter.getRelativeSpeedGrowth()/2;
+                        else if (totalDirection == -1 && relativeMovementX > -PlayableCharacter.getRelativeMaxSpeed())
+                            relativeMovementX -= PlayableCharacter.getRelativeSpeedGrowth()/2;
+                        else {
+                            if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction()/10)
+                                relativeMovementX = 0;
+                            else if (relativeMovementX > 0)
+                                relativeMovementX -= Terrain.getRelativeFriction()/10;
+                            else if (relativeMovementX < 0)
+                                relativeMovementX += Terrain.getRelativeFriction()/10;
+                        }
+                    }
 
-                    jumpKeyJustPressed = false;
+                    if (collisionOnBottom) {
+                        if (jumpKeyJustPressed) {
+                            while (collisionOnBottom) {
+                                playableCharacter.setRelativeY(playableCharacter.getRelativeY()-PlayableCharacter.getRelativeJumpStrength());
+
+                                for (Object object : allSolidObjects) {
+                                    collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.BOTTOM);
+                                    if (collisionOnBottom) {
+                                        break;
+                                    }
+                                }
+                            }
+                            relativeMovementY -= PlayableCharacter.getRelativeJumpStrength();
+                            playableCharacter.setRelativeY(playableCharacter.getRelativeY()+PlayableCharacter.getRelativeJumpStrength());
+
+                            jumpKeyJustPressed = false;
+                        }
+                        else if (relativeMovementY > 0)
+                            relativeMovementY = 0;
+                    }
+                    else if (collisionOnTop && relativeMovementY < 0)
+                        relativeMovementY = Terrain.getRelativeGravityGrowth();
+                    else if (relativeMovementY < Terrain.getRelativeMaxGravity())
+                        relativeMovementY += Terrain.getRelativeGravityGrowth();
+
+                    if (playableCharacter.getRelativeY() >= 1) {
+                        playableCharacter.setRelativeX(0.45f);
+                        playableCharacter.setRelativeY(0.1f);
+                    }
+
+                    playableCharacter.setRelativeX(playableCharacter.getRelativeX() + relativeMovementX);
+                    playableCharacter.setRelativeY(playableCharacter.getRelativeY() + relativeMovementY);
+                    characterView.setRelativeX(playableCharacter.getRelativeX());
+                    characterView.setRelativeY(playableCharacter.getRelativeY());
+
+                    SwingUtilities.invokeLater(MainClient::otherPlayersPainting);
+
+                    gameFrame.getGamePanel().repaint();
+
+                    if (IS_UNIX_OS)
+                        Toolkit.getDefaultToolkit().sync();
                 }
-                else if (relativeMovementY > 0)
-                    relativeMovementY = 0;
             }
-            else if (collisionOnTop && relativeMovementY < 0)
-                relativeMovementY = Terrain.getRelativeGravityGrowth();
-            else if (relativeMovementY < Terrain.getRelativeMaxGravity())
-                relativeMovementY += Terrain.getRelativeGravityGrowth();
-
-            if (playableCharacter.getRelativeY() >= 1) {
-                playableCharacter.setRelativeX(0.45f);
-                playableCharacter.setRelativeY(0.1f);
-            }
-
-            playableCharacter.setRelativeX(playableCharacter.getRelativeX() + relativeMovementX);
-            playableCharacter.setRelativeY(playableCharacter.getRelativeY() + relativeMovementY);
-            characterView.setRelativeX(playableCharacter.getRelativeX());
-            characterView.setRelativeY(playableCharacter.getRelativeY());
-
-            SwingUtilities.invokeLater(MainClient::otherPlayersPainting);
-
-            gameFrame.getGamePanel().repaint();
-
-            if (IS_UNIX_OS)
-                Toolkit.getDefaultToolkit().sync();
         });
-        checkCollisionTimer.start();
+        thread.start();
     }
 
     private static void otherPlayersPainting() {
