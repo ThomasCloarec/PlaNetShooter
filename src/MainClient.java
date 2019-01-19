@@ -1,6 +1,5 @@
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.esotericsoftware.kryonet.Server;
 import model.CollisionDetection;
 import model.PlayerCollisionSide;
 import model.Terrain;
@@ -43,6 +42,7 @@ class MainClient {
     private static final String OS = System.getProperty("os.name").toLowerCase();
     private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux") || OS.contains("aix");
     private static boolean gameServerFull = false;
+    private static String serverIP;
 
     public static void main(String[] args) {
         launchGameClient();
@@ -55,7 +55,8 @@ class MainClient {
     private static void launchGameClient() {
         while(true) {
             try {
-                gameClient = new GameClient(AskIPHost.getIPHost());
+                serverIP = AskIPHost.getIPHost();
+                gameClient = new GameClient(serverIP);
                 break;
             } catch (IOException e) {
                 System.out.println("No game server found with this IP on the network.");
@@ -102,18 +103,7 @@ class MainClient {
     }
 
     private static void launchGameFrame() {
-        Server serverTest = new Server();
-        serverTest.start();
-
-        try {
-            serverTest.bind(Network.getTcpPort(), Network.getUdpPort());
-        }
-        catch (IOException e) {
-            GameFrame.setIsClientAdmin(true);
-        }
-        finally {
-            serverTest.stop();
-        }
+        GameFrame.setIsClientAdmin(serverIP.equals("localhost"));
 
         gameFrame = new GameFrame(clientName);
 
