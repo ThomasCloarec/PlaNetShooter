@@ -15,3 +15,8 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 *All of them are managed by [Maven](https://maven.apache.org/)*
 - [Kryonet](https://github.com/EsotericSoftware/kryonet) which is a TCP/UDP client/server library for Java
 - [Kryo](https://github.com/EsotericSoftware/kryo) which is the serialization library used by Kryonet
+
+## Authors
+- Thomas Cloarec (Lead developer)
+- Hugo Brient (Lead animation/sound designer)
+- Lucas Sigler (Lead game-meta designer)

@@ -294,9 +294,6 @@ class MainClient {
     private static void otherPlayersPainting() {
         for (int i = 0; i < gameClient.getOtherPlayers().size(); i++) {
             if (gameFrame.getGamePanel().getOtherPlayersViews().size() > i) {
-                System.out.println("gameFrame : " +gameFrame.getGamePanel().getOtherPlayersViews());
-                System.out.println("gameClient : " +gameClient.getOtherPlayers());
-                System.out.println("gameClient, indexOf : " +i);
 
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeX(gameClient.getOtherPlayers().get(i).getRelativeX());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeY(gameClient.getOtherPlayers().get(i).getRelativeY());

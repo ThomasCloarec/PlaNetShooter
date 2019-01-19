@@ -6,7 +6,6 @@ import java.awt.*;
 public class GameMenuPanel extends JPanel {
     private final JButton jButton = new JButton("Button");
 
-    // TODO : Change the GameMenuPanel by some background images for the panel and the buttons
     public GameMenuPanel() {
         super();
         this.setLayout(new GridLayout(1, 5));
