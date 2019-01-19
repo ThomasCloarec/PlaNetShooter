@@ -184,10 +184,28 @@ class MainClient {
         String gameFrameTitleWithoutFPS = gameFrame.getTitle();
         final long[] a = {System.currentTimeMillis()};
 
+        Thread thread = new Thread(() -> {
+            Timer timer = new Timer(1000 / 60, e -> {
+                gameClient.sendPlayerInformation(playableCharacter);
+
+                playableCharacter.setRelativeX(playableCharacter.getRelativeX() + relativeMovementX);
+                playableCharacter.setRelativeY(playableCharacter.getRelativeY() + relativeMovementY);
+                characterView.setRelativeX(playableCharacter.getRelativeX());
+                characterView.setRelativeY(playableCharacter.getRelativeY());
+
+                SwingUtilities.invokeLater(MainClient::otherPlayersPainting);
+
+                gameFrame.getGamePanel().repaint();
+
+                if (IS_UNIX_OS)
+                    Toolkit.getDefaultToolkit().sync();
+            });
+            timer.start();
+        });
+
+        thread.start();
+
         Timer timer = new Timer(1000/60, e -> {
-
-            gameClient.sendPlayerInformation(playableCharacter);
-
             collisionOnTop = false;
             collisionOnBottom = false;
             collisionOnRight = false;
@@ -270,18 +288,6 @@ class MainClient {
                 playableCharacter.setRelativeY(0.1f);
             }
 
-            playableCharacter.setRelativeX(playableCharacter.getRelativeX()+relativeMovementX);
-            playableCharacter.setRelativeY(playableCharacter.getRelativeY()+relativeMovementY);
-            characterView.setRelativeX(playableCharacter.getRelativeX());
-            characterView.setRelativeY(playableCharacter.getRelativeY());
-
-            SwingUtilities.invokeLater(MainClient::otherPlayersPainting);
-
-            gameFrame.getGamePanel().repaint();
-
-            if (IS_UNIX_OS)
-                Toolkit.getDefaultToolkit().sync();
-
             fpsRecord[0]++;
 
             if (System.currentTimeMillis() - a[0] > 250) {
@@ -289,7 +295,6 @@ class MainClient {
                 fpsRecord[0] = -1;
                 a[0] = System.currentTimeMillis();
             }
-
         });
         timer.start();
     }
