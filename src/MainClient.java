@@ -179,7 +179,13 @@ class MainClient {
     }
 
     private static void launchGameLoop() {
+        int[] fpsRecord = new int[1];
+        fpsRecord[0] = -1;
+        String gameFrameTitleWithoutFPS = gameFrame.getTitle();
+        final long[] a = {System.currentTimeMillis()};
+
         Timer timer = new Timer(1000/60, e -> {
+
             gameClient.sendPlayerInformation(playableCharacter);
 
             collisionOnTop = false;
@@ -276,6 +282,13 @@ class MainClient {
             if (IS_UNIX_OS)
                 Toolkit.getDefaultToolkit().sync();
 
+            fpsRecord[0]++;
+
+            if (System.currentTimeMillis() - a[0] > 250) {
+                gameFrame.setTitle(gameFrameTitleWithoutFPS+ " | FPS : " +fpsRecord[0]*4);
+                fpsRecord[0] = -1;
+                a[0] = System.currentTimeMillis();
+            }
 
         });
         timer.start();
