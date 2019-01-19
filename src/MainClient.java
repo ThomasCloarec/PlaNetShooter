@@ -43,6 +43,7 @@ class MainClient {
     private static final boolean IS_UNIX_OS = OS.contains("nix") || OS.contains("nux") || OS.contains("aix");
     private static boolean gameServerFull = false;
     private static String serverIP;
+    private static float totalDirection = 0;
 
     public static void main(String[] args) {
         launchGameClient();
@@ -184,28 +185,32 @@ class MainClient {
         String gameFrameTitleWithoutFPS = gameFrame.getTitle();
         final long[] a = {System.currentTimeMillis()};
 
-        Thread thread = new Thread(() -> {
-            Timer timer = new Timer(1000 / 60, e -> {
-                gameClient.sendPlayerInformation(playableCharacter);
+        Timer timer1 = new Timer(1000 / 60, e -> {
+            fpsRecord[0]++;
 
-                playableCharacter.setRelativeX(playableCharacter.getRelativeX() + relativeMovementX);
-                playableCharacter.setRelativeY(playableCharacter.getRelativeY() + relativeMovementY);
-                characterView.setRelativeX(playableCharacter.getRelativeX());
-                characterView.setRelativeY(playableCharacter.getRelativeY());
+            if (System.currentTimeMillis() - a[0] > 250) {
+                gameFrame.setTitle(gameFrameTitleWithoutFPS+ " | FPS : " +fpsRecord[0]*4);
+                fpsRecord[0] = -1;
+                a[0] = System.currentTimeMillis();
+            }
 
-                SwingUtilities.invokeLater(MainClient::otherPlayersPainting);
+            gameClient.sendPlayerInformation(playableCharacter);
 
-                gameFrame.getGamePanel().repaint();
+            playableCharacter.setRelativeX(playableCharacter.getRelativeX() + relativeMovementX);
+            playableCharacter.setRelativeY(playableCharacter.getRelativeY() + relativeMovementY);
+            characterView.setRelativeX(playableCharacter.getRelativeX());
+            characterView.setRelativeY(playableCharacter.getRelativeY());
 
-                if (IS_UNIX_OS)
-                    Toolkit.getDefaultToolkit().sync();
-            });
-            timer.start();
+            SwingUtilities.invokeLater(MainClient::otherPlayersPainting);
+
+            gameFrame.getGamePanel().repaint();
+
+            if (IS_UNIX_OS)
+                Toolkit.getDefaultToolkit().sync();
         });
+        timer1.start();
 
-        thread.start();
-
-        Timer timer = new Timer(1000/60, e -> {
+        Timer checkCollisionTimer = new Timer(1000/60, e -> {
             collisionOnTop = false;
             collisionOnBottom = false;
             collisionOnRight = false;
@@ -221,12 +226,10 @@ class MainClient {
                 if (CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.LEFT))
                     collisionOnLeft = true;
             }
+        });
+        checkCollisionTimer.start();
 
-            float totalDirection = 0;
-            for (Direction direction : directions) {
-                totalDirection += direction.getDelta();
-            }
-
+        Timer timerHorizontalCheck = new Timer(1000/60, e -> {
             if ((collisionOnRight && relativeMovementX > 0) || (collisionOnLeft && relativeMovementX < 0))
                 relativeMovementX = 0;
             else if (collisionOnBottom) {
@@ -257,7 +260,10 @@ class MainClient {
                         relativeMovementX += Terrain.getRelativeFriction()/10;
                 }
             }
+        });
+        timerHorizontalCheck.start();
 
+        Timer timerVerticalCheck = new Timer(1000/60, e -> {
             if (collisionOnBottom) {
                 if (jumpKeyJustPressed) {
                     while (collisionOnBottom) {
@@ -287,13 +293,13 @@ class MainClient {
                 playableCharacter.setRelativeX(0.45f);
                 playableCharacter.setRelativeY(0.1f);
             }
+        });
+        timerVerticalCheck.start();
 
-            fpsRecord[0]++;
-
-            if (System.currentTimeMillis() - a[0] > 250) {
-                gameFrame.setTitle(gameFrameTitleWithoutFPS+ " | FPS : " +fpsRecord[0]*4);
-                fpsRecord[0] = -1;
-                a[0] = System.currentTimeMillis();
+        Timer timer = new Timer(1000/60, e -> {
+            totalDirection = 0;
+            for (Direction direction : directions) {
+                totalDirection += direction.getDelta();
             }
         });
         timer.start();
