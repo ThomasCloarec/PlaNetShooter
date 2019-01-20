@@ -1,4 +1,4 @@
-package view.client.game_frame.game_only;
+package view.client.game_frame;
 
 public class PlatformView {
     private final float relativeX;

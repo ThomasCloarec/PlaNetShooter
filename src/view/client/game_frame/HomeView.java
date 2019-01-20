@@ -1,4 +1,4 @@
-package view.client.game_frame.game_only;
+package view.client.game_frame;
 
 public class HomeView {
     private static final float relativeWidth = 0.075f;

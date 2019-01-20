@@ -12,11 +12,11 @@ import view.client.connection.AskClientName;
 import view.client.connection.AskIPHost;
 import view.client.connection.ServerFullError;
 import view.client.game_frame.GameFrame;
-import view.client.game_frame.game_only.HomeView;
-import view.client.game_frame.game_only.keyboard_actions.PressAction;
-import view.client.game_frame.game_only.keyboard_actions.ReleaseAction;
-import view.client.game_frame.game_only.CharacterView;
-import view.client.game_frame.game_only.PlatformView;
+import view.client.game_frame.HomeView;
+import view.client.keyboard_actions.PressAction;
+import view.client.keyboard_actions.ReleaseAction;
+import view.client.game_frame.CharacterView;
+import view.client.game_frame.PlatformView;
 
 import javax.swing.*;
 import java.awt.*;
@@ -185,9 +185,14 @@ class MainClient {
                         jumpKeyJustPressed = true;
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(playableCharacter, new HomeView()).equals(PlayerCollisionSide.NONE))) {
-                    System.out.println("IN SHOP !");
+                    gameFrame.getCardLayout().next(gameFrame.getContentPane());
                 }
             }
+        });
+
+        gameFrame.getHomePanel().getBackToGameButton().addActionListener(e -> {
+            gameFrame.getCardLayout().next(gameFrame.getContentPane());
+            gameFrame.getGamePanel().requestFocus();
         });
     }
 

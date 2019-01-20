@@ -2,7 +2,7 @@ package model;
 
 import model.characters.PlayableCharacter;
 import model.platforms.Platform;
-import view.client.game_frame.game_only.HomeView;
+import view.client.game_frame.HomeView;
 
 import java.awt.geom.Rectangle2D;
 

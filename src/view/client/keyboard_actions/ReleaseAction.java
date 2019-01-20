@@ -1,4 +1,4 @@
-package view.client.game_frame.game_only.keyboard_actions;
+package view.client.keyboard_actions;
 
 import model.characters.Direction;
 

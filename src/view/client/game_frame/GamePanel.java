@@ -1,4 +1,4 @@
-package view.client.game_frame.game_only;
+package view.client.game_frame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -10,7 +10,7 @@ public class GamePanel extends JPanel {
     private CharacterView characterView;
     private final List<CharacterView> otherPlayersViews = new ArrayList<>();
 
-    public GamePanel() {
+    GamePanel() {
         super();
         this.setBackground(Color.lightGray);
         this.setFocusable(true);
