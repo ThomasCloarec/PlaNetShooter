@@ -12,6 +12,7 @@ import view.client.connection.AskClientName;
 import view.client.connection.AskIPHost;
 import view.client.connection.ServerFullError;
 import view.client.game_frame.GameFrame;
+import view.client.game_frame.game_only.HomeView;
 import view.client.game_frame.game_only.keyboard_actions.PressAction;
 import view.client.game_frame.game_only.keyboard_actions.ReleaseAction;
 import view.client.game_frame.game_only.CharacterView;
@@ -172,9 +173,13 @@ class MainClient {
         gameFrame.getGamePanel().addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP)
+                if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP) {
                     if (collisionOnBottom)
                         jumpKeyJustPressed = true;
+                }
+                else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(playableCharacter, new HomeView()).equals(PlayerCollisionSide.NONE))) {
+                    System.out.println("IN SHOP !");
+                }
             }
         });
     }
