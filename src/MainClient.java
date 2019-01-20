@@ -45,11 +45,18 @@ class MainClient {
     private static boolean gameServerFull = false;
     private static String serverIP;
     private static float totalDirection = 0;
+    private static volatile boolean readyToLaunchGameLoop = false;
 
     public static void main(String[] args) {
         launchGameClient();
-        if (!gameServerFull)
+        if (!gameServerFull) {
             SwingUtilities.invokeLater(MainClient::launchGameFrame);
+
+            while (true)
+                if (readyToLaunchGameLoop) break;
+
+            launchGameLoop();
+        }
         else
             new ServerFullError();
     }
@@ -120,7 +127,7 @@ class MainClient {
 
         createKeyMap();
 
-        launchGameLoop();
+        readyToLaunchGameLoop = true;
     }
 
     private static void defineObjects() {
@@ -189,11 +196,15 @@ class MainClient {
         fpsRecord[0] = -1;
         String gameFrameTitleWithoutFPS = gameFrame.getTitle();
         final long[] a = {System.currentTimeMillis()};
+        System.out.println(Thread.currentThread());
 
-        Thread thread = new Thread(() -> {
+        Thread gameLoopThread = new Thread(() -> {
+            new Thread(() ->  {
+                System.out.println(Thread.currentThread());
+            }).start();;
             long lastTime = System.nanoTime();
             while (true) {
-                if (System.nanoTime() - lastTime > 1_000_000_000L/60L) {
+                if (System.nanoTime() - lastTime > 1_000_000_000L/1000L) {
                     lastTime = System.nanoTime();
                     fpsRecord[0]++;
                     if (System.currentTimeMillis() - a[0] > 250) {
@@ -290,16 +301,17 @@ class MainClient {
                     characterView.setRelativeX(playableCharacter.getRelativeX());
                     characterView.setRelativeY(playableCharacter.getRelativeY());
 
-                    SwingUtilities.invokeLater(MainClient::otherPlayersPainting);
-
-                    gameFrame.getGamePanel().repaint();
+                    SwingUtilities.invokeLater(() -> {
+                        otherPlayersPainting();
+                        gameFrame.getGamePanel().repaint();
+                    });
 
                     if (IS_UNIX_OS)
                         Toolkit.getDefaultToolkit().sync();
                 }
             }
         });
-        thread.start();
+        gameLoopThread.start();
     }
 
     private static void otherPlayersPainting() {
