@@ -55,20 +55,26 @@ public class GamePanel extends JPanel {
         }
 
         if (characterView != null) {
-            g.setColor(Color.green);
-            g.fillRect((int)(characterView.getRelativeX()*this.getWidth()),
-                    (int)(characterView.getRelativeY()*this.getHeight()),
-                    (int)(characterView.getRelativeWidth()*this.getWidth()),
-                    (int)(characterView.getRelativeHeight()*this.getHeight()));
+            if (characterView.getCharacterLabel().getParent() == null) {
+                this.add(characterView.getCharacterLabel());
+            }
 
             if (characterView.getNameLabel().getParent() == null)
                 this.add(characterView.getNameLabel());
 
+            if(characterView.getHorizontal_direction() == -1) {
+                characterView.getCharacterLabel().setLocation((int)((characterView.getRelativeX() - characterView.getRelativeWidth() / characterView.scaleWidthCharacter + characterView.getRelativeWidth()) * this.getWidth()), (int) ((characterView.getRelativeY() + 0.01) * this.getHeight()));
+            }
+            else
+                characterView.getCharacterLabel().setLocation((int)(characterView.getRelativeX()*this.getWidth()),(int)((characterView.getRelativeY()+0.01)*this.getHeight()));
+
+            characterView.setScaleWidthCharacter(characterView.getRelativeWidth()*this.getWidth()/200);
+            characterView.setScaleHeightCharacter(characterView.getRelativeHeight()*this.getHeight()/200);
             characterView.getNameLabel().setLocation((int)((characterView.getRelativeX()+characterView.getRelativeWidth()/2)*this.getWidth()-characterView.getNameLabel().getWidth()/2), (int)((characterView.getRelativeY()+characterView.getRelativeHeight()/2)*this.getHeight())-characterView.getNameLabel().getHeight()/2);
         }
     }
 
-    public void setPlatformsView(PlatformView[] platforms) {
+        public void setPlatformsView(PlatformView[] platforms) {
         this.platforms = platforms;
     }
 

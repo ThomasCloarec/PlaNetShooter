@@ -36,11 +36,11 @@ public class Network {
         }
     }
 
-    public static int getTcpPort() {
+    static int getTcpPort() {
         return TCP_PORT;
     }
 
-    public static int getUdpPort() {
+    static int getUdpPort() {
         return UDP_PORT;
     }
 }

@@ -4,8 +4,8 @@ public class PlayableCharacter {
     private static final float RELATIVE_MAX_SPEED = 0.0025f;
     private static final float RELATIVE_SPEED_GROWTH = RELATIVE_MAX_SPEED/20;
     private static final float RELATIVE_JUMP_STRENGTH = 0.0090f;
-    private static final float RELATIVE_WIDTH = 0.025f;
-    private static final float RELATIVE_HEIGHT = 0.1f;
+    private static final float RELATIVE_WIDTH = 0.05f;
+    private static final float RELATIVE_HEIGHT = 0.05f*768f/372f;
     private float relativeX = 0.45f;
     private float relativeY = 0.1f;
     private String name;

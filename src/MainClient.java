@@ -46,6 +46,8 @@ class MainClient {
     private static String serverIP;
     private static float totalDirection = 0;
     private static volatile boolean readyToLaunchGameLoop = false;
+    private static ReleaseAction releaseActionLeft = new ReleaseAction(directions, Direction.LEFT);
+    private static ReleaseAction releaseActionRight = new ReleaseAction(directions, Direction.RIGHT);
 
     public static void main(String[] args) {
         launchGameClient();
@@ -165,8 +167,8 @@ class MainClient {
         IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, true), RELEASE_RIGHT);
         IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, true), RELEASE_RIGHT);
 
-        AM.put(RELEASE_LEFT, new ReleaseAction(directions, Direction.LEFT));
-        AM.put(RELEASE_RIGHT, new ReleaseAction(directions, Direction.RIGHT));
+        AM.put(RELEASE_LEFT, releaseActionLeft);
+        AM.put(RELEASE_RIGHT, releaseActionRight);
 
         IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_D, 0, false), PRESS_RIGHT);
         IM.put(KeyStroke.getKeyStroke(KeyEvent.VK_RIGHT, 0, false), PRESS_RIGHT);
@@ -218,6 +220,13 @@ class MainClient {
                     for (Direction direction : directions) {
                         totalDirection += direction.getDelta();
                     }
+
+                    if(!gameFrame.getGamePanel().hasFocus()) {
+                        releaseActionLeft.removeMovements();
+                        releaseActionRight.removeMovements();
+                    }
+
+                    characterView.setHorizontal_direction(-totalDirection);
 
                     gameClient.sendPlayerInformation(playableCharacter);
                     collisionOnTop = false;

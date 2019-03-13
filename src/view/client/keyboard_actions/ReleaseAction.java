@@ -20,4 +20,8 @@ public class ReleaseAction extends AbstractAction {
     public void actionPerformed(ActionEvent e) {
         movements.remove(value);
     }
+
+    public void removeMovements() {
+        movements.remove(value);
+    }
 }
