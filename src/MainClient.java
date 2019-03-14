@@ -327,6 +327,7 @@ class MainClient {
 
                     if(readyToFire) {
                         if(System.currentTimeMillis() - lastShot > 500) {
+                            System.out.println(MouseInfo.getPointerInfo().getLocation());
                             //shot();
                             lastShot = System.currentTimeMillis();
                         }
