@@ -1,8 +1,8 @@
 package model.platforms;
 
 public class Platform {
-    private static final float relativeWidth = 0.1f;
-    private static final float relativeHeight = 0.01f;
+    private float relativeWidth = 0.1f;
+    private float relativeHeight = 0.01f;
     private float relativeX;
     private float relativeY;
     private static int platformLoopCount = 0;
@@ -39,6 +39,12 @@ public class Platform {
         else if (platformLoopCount == 4 || platformLoopCount == 5 || platformLoopCount == 6)
             this.relativeY = 0.55f;
 
+        if (platformLoopCount == 5)
+            this.relativeWidth = 0.2f;
+        // in order to move back the platform5 at the center, otherwise it would be pushed on right :
+        if (platformLoopCount == 5)
+            this.relativeX = 0.4f;
+
         platformLoopCount++;
     }
 
@@ -50,11 +56,11 @@ public class Platform {
         return relativeY;
     }
 
-    public static float getRelativeWidth() {
+    public float getRelativeWidth() {
         return relativeWidth;
     }
 
-    public static float getRelativeHeight() {
+    public float getRelativeHeight() {
         return relativeHeight;
     }
 

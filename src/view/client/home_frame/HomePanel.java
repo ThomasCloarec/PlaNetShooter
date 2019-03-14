@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 
 public class HomePanel extends JPanel {
-    private JButton backToGameButton = new JButton("Back to game");
+    private final JButton backToGameButton = new JButton("Back to game");
     public HomePanel() {
         super();
         this.setBackground(Color.lightGray);

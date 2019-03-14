@@ -46,8 +46,10 @@ class MainClient {
     private static String serverIP;
     private static float totalDirection = 0;
     private static volatile boolean readyToLaunchGameLoop = false;
-    private static ReleaseAction releaseActionLeft = new ReleaseAction(directions, Direction.LEFT);
-    private static ReleaseAction releaseActionRight = new ReleaseAction(directions, Direction.RIGHT);
+    private static final ReleaseAction releaseActionLeft = new ReleaseAction(directions, Direction.LEFT);
+    private static final ReleaseAction releaseActionRight = new ReleaseAction(directions, Direction.RIGHT);
+    private static boolean readyToFire = false;
+    private static long lastShot = 0;
 
     public static void main(String[] args) {
         launchGameClient();
@@ -140,8 +142,8 @@ class MainClient {
             gameFrame.getGamePanel().setEachPlatformView(i, new PlatformView(
                     platforms[i].getRelativeX(),
                     platforms[i].getRelativeY(),
-                    Platform.getRelativeWidth(),
-                    Platform.getRelativeHeight()));
+                    platforms[i].getRelativeWidth(),
+                    platforms[i].getRelativeHeight()));
 
             allSolidObjects.add(platforms[i]);
         }
@@ -189,6 +191,20 @@ class MainClient {
                 else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(playableCharacter, new HomeView()).equals(PlayerCollisionSide.NONE))) {
                     gameFrame.getCardLayout().next(gameFrame.getContentPane());
                 }
+            }
+        });
+
+        gameFrame.getGamePanel().addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                readyToFire = true;
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                readyToFire = false;
             }
         });
 
@@ -308,6 +324,14 @@ class MainClient {
 
                     playableCharacter.setRelativeX(playableCharacter.getRelativeX() + relativeMovementX);
                     playableCharacter.setRelativeY(playableCharacter.getRelativeY() + relativeMovementY);
+
+                    if(readyToFire) {
+                        if(System.currentTimeMillis() - lastShot > 500) {
+                            //shot();
+                            lastShot = System.currentTimeMillis();
+                        }
+                    }
+
                     characterView.setRelativeX(playableCharacter.getRelativeX());
                     characterView.setRelativeY(playableCharacter.getRelativeY());
 

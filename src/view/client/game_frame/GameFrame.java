@@ -10,7 +10,7 @@ public class GameFrame extends JFrame {
 
     private final GamePanel gamePanel = new GamePanel();
     private final HomePanel homePanel = new HomePanel();
-    private CardLayout cardLayout = new CardLayout();
+    private final CardLayout cardLayout = new CardLayout();
 
     public GameFrame (String clientName) {
         super();

@@ -33,7 +33,7 @@ public class CollisionDetection {
 
         if (solidObject1 != null && solidObject2 != null) {
             rectangleCharacter = new Rectangle2D.Float(solidObject1.getRelativeX(), solidObject1.getRelativeY(), PlayableCharacter.getRelativeWidth(), PlayableCharacter.getRelativeHeight());
-            rectangle2 = new Rectangle2D.Float(solidObject2.getRelativeX(), solidObject2.getRelativeY(), Platform.getRelativeWidth(), Platform.getRelativeHeight());
+            rectangle2 = new Rectangle2D.Float(solidObject2.getRelativeX(), solidObject2.getRelativeY(), solidObject2.getRelativeWidth(), solidObject2.getRelativeHeight());
         }
         else if (solidObject1 != null) {
             rectangleCharacter = new Rectangle2D.Float(solidObject1.getRelativeX(), solidObject1.getRelativeY(), PlayableCharacter.getRelativeWidth(), PlayableCharacter.getRelativeHeight());

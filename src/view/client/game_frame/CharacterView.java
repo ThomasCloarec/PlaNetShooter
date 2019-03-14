@@ -10,7 +10,7 @@ public class CharacterView {
     private final float RELATIVE_HEIGHT;
     private final JLabel nameLabel = new JLabel();
     private Icon character = new CharacterIcon("/view/resources/game/characters/bob/run.gif");
-    private JLabel characterLabel = new JLabel(character);
+    private final JLabel characterLabel = new JLabel(character);
     double scaleWidthCharacter = 0;
     private double scaleHeightCharacter = 0;
     private double horizontal_direction = 1;
