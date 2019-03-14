@@ -150,7 +150,7 @@ class MainClient {
         }
 
         playableCharacter = new PlayableCharacter(clientName);
-        playableCharacter.setClassCharacter(ClassCharacters.BOB.name());
+        playableCharacter.setClassCharacter(ClassCharacters.MEDUSO.name());
         characterView = new CharacterView(
                 playableCharacter.getRelativeX(),
                 playableCharacter.getRelativeY(),
