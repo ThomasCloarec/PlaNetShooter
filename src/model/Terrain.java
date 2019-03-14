@@ -4,7 +4,7 @@ import model.characters.PlayableCharacter;
 
 public class Terrain {
     private static final float RELATIVE_FRICTION = PlayableCharacter.getRelativeSpeedGrowth()*2;
-    private static final float RELATIVE_MAX_GRAVITY = 0.0090f;
+    private static final float RELATIVE_MAX_GRAVITY = 0.0095f;
     private static final float RELATIVE_GRAVITY_GROWTH = RELATIVE_MAX_GRAVITY/60;
 
     public static float getRelativeGravityGrowth() {

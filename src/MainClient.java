@@ -184,7 +184,8 @@ class MainClient {
         gameFrame.getGamePanel().addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP) {
+                if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_Z) {
+                    // The VK_Z was written by tototutoti
                     if (collisionOnBottom)
                         jumpKeyJustPressed = true;
                 }
