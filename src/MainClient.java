@@ -3,6 +3,7 @@ import com.esotericsoftware.kryonet.Listener;
 import model.CollisionDetection;
 import model.PlayerCollisionSide;
 import model.Terrain;
+import model.characters.ClassCharacters;
 import model.characters.Direction;
 import model.characters.PlayableCharacter;
 import model.platforms.Platform;
@@ -149,12 +150,14 @@ class MainClient {
         }
 
         playableCharacter = new PlayableCharacter(clientName);
+        playableCharacter.setClassCharacter(ClassCharacters.BOB.name());
         characterView = new CharacterView(
                 playableCharacter.getRelativeX(),
                 playableCharacter.getRelativeY(),
                 PlayableCharacter.getRelativeWidth(),
                 PlayableCharacter.getRelativeHeight(),
-                playableCharacter.getName());
+                playableCharacter.getName(),
+                playableCharacter.getClassCharacter());
 
         gameFrame.getGamePanel().setCharacterView(characterView);
     }
@@ -362,7 +365,8 @@ class MainClient {
                         gameClient.getOtherPlayers().get(i).getRelativeY(),
                         PlayableCharacter.getRelativeWidth(),
                         PlayableCharacter.getRelativeHeight(),
-                        gameClient.getOtherPlayers().get(i).getName()));
+                        gameClient.getOtherPlayers().get(i).getName(),
+                        ClassCharacters.BOB.name()));
             }
         }
     }

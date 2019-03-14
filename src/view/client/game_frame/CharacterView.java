@@ -1,5 +1,7 @@
 package view.client.game_frame;
 
+import model.characters.ClassCharacters;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -9,17 +11,18 @@ public class CharacterView {
     private final float RELATIVE_WIDTH;
     private final float RELATIVE_HEIGHT;
     private final JLabel nameLabel = new JLabel();
-    private Icon character = new CharacterIcon("/view/resources/game/characters/bob/run.gif");
-    private final JLabel characterLabel = new JLabel(character);
+    private final JLabel characterLabel = new JLabel();
     double scaleWidthCharacter = 0;
     private double scaleHeightCharacter = 0;
     private double horizontal_direction = 1;
+    private String classCharacter;
 
-    public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name) {
+    public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name, String classCharacter) {
         this.relativeX = relativeX;
         this.relativeY = relativeY;
         this.RELATIVE_WIDTH = relativeWidth;
         this.RELATIVE_HEIGHT = relativeHeight;
+        this.classCharacter = classCharacter;
 
         nameLabel.setText(String.valueOf(name.charAt(0)));
     }
@@ -83,16 +86,25 @@ public class CharacterView {
     public void setHorizontal_direction(double horizontal_direction) {
         if(horizontal_direction != 0) {
             this.horizontal_direction = horizontal_direction;
-            character = new CharacterIcon("/view/resources/game/characters/bob/run.gif");
-            characterLabel.setIcon(character);
+            if (this.classCharacter.equals(ClassCharacters.BOB.name()))
+                characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/bob/run.gif"));
+            else if (this.classCharacter.equals(ClassCharacters.MEDUSO.name()))
+                characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/meduso/run.gif"));
         }
         else {
-            character = new CharacterIcon("/view/resources/game/characters/bob/idle.png");
-            characterLabel.setIcon(character);
+            if (this.classCharacter.equals(ClassCharacters.BOB.name()))
+                characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/bob/idle.png"));
+            else if (this.classCharacter.equals(ClassCharacters.MEDUSO.name()))
+                characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/meduso/run.gif"));
         }
     }
 
     double getHorizontal_direction() {
         return horizontal_direction;
+    }
+
+    public void setClassCharacter(String classCharacter) {
+        this.classCharacter = classCharacter;
+        setHorizontal_direction(horizontal_direction);
     }
 }

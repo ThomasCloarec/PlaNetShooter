@@ -63,10 +63,10 @@ public class GamePanel extends JPanel {
                 this.add(characterView.getNameLabel());
 
             if(characterView.getHorizontal_direction() == -1) {
-                characterView.getCharacterLabel().setLocation((int)((characterView.getRelativeX() - characterView.getRelativeWidth() / characterView.scaleWidthCharacter + characterView.getRelativeWidth()) * this.getWidth()), (int) ((characterView.getRelativeY() + 0.01) * this.getHeight()));
+                characterView.getCharacterLabel().setLocation((int)((characterView.getRelativeX() - characterView.getRelativeWidth() / characterView.scaleWidthCharacter + characterView.getRelativeWidth()) * this.getWidth()), (int) ((characterView.getRelativeY()) * this.getHeight()));
             }
             else
-                characterView.getCharacterLabel().setLocation((int)(characterView.getRelativeX()*this.getWidth()),(int)((characterView.getRelativeY()+0.01)*this.getHeight()));
+                characterView.getCharacterLabel().setLocation((int)(characterView.getRelativeX()*this.getWidth()),(int)((characterView.getRelativeY())*this.getHeight()));
 
             characterView.setScaleWidthCharacter(characterView.getRelativeWidth()*this.getWidth()/200);
             characterView.setScaleHeightCharacter(characterView.getRelativeHeight()*this.getHeight()/200);
