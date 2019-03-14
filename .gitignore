@@ -4,5 +4,3 @@
 .DS_STORE
 
 target/
-.idea/
-*.iml
