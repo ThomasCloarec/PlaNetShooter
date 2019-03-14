@@ -6,6 +6,7 @@ public class PlayableCharacter {
     private static final float RELATIVE_JUMP_STRENGTH = 0.0090f;
     private static final float RELATIVE_WIDTH = 0.05f;
     private static final float RELATIVE_HEIGHT = 0.05f*768f/372f;
+    private String classCharacter = ClassCharacters.BOB.name();
     private float relativeX = 0.45f;
     private float relativeY = 0.1f;
     private String name;
@@ -62,5 +63,13 @@ public class PlayableCharacter {
 
     public String getName() {
         return name;
+    }
+
+    public String getClassCharacter() {
+        return this.classCharacter;
+    }
+
+    public void setClassCharacter(String classCharacter) {
+        this.classCharacter = classCharacter;
     }
 }
