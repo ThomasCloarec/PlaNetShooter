@@ -86,8 +86,8 @@ class MainClient {
                     System.out.println("\"" + removeName.name + "\" is disconnected !");
 
                     if (gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getNameLabel().getParent() != null)
-                        gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getCharacterLabel());
-                    if (gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getNameLabel().getParent() != null)
+                        gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getNameLabel());
+                    if (gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getCharacterLabel().getParent() != null)
                         gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getCharacterLabel());
 
                     gameFrame.getGamePanel().getOtherPlayersViews().remove(gameClient.registerNameList.getList().indexOf(removeName.name));
