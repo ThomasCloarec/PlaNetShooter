@@ -3,6 +3,7 @@ import com.esotericsoftware.kryonet.Listener;
 import model.CollisionDetection;
 import model.PlayerCollisionSide;
 import model.Terrain;
+import model.bullets.Bullet;
 import model.characters.ClassCharacters;
 import model.characters.Direction;
 import model.characters.PlayableCharacter;
@@ -12,21 +13,16 @@ import network.Network;
 import view.client.connection.AskClientName;
 import view.client.connection.AskIPHost;
 import view.client.connection.ServerFullError;
-import view.client.game_frame.GameFrame;
-import view.client.game_frame.HomeView;
+import view.client.game_frame.*;
 import view.client.keyboard_actions.PressAction;
 import view.client.keyboard_actions.ReleaseAction;
-import view.client.game_frame.CharacterView;
-import view.client.game_frame.PlatformView;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 class MainClient {
     private static String clientName;
@@ -51,6 +47,7 @@ class MainClient {
     private static final ReleaseAction releaseActionRight = new ReleaseAction(directions, Direction.RIGHT);
     private static boolean readyToFire = false;
     private static long lastShot = 0;
+    private static MouseEvent lastMousePressedEvent;
 
     public static void main(String[] args) {
         launchGameClient();
@@ -152,7 +149,7 @@ class MainClient {
         }
 
         playableCharacter = new PlayableCharacter(clientName);
-        playableCharacter.setClassCharacter(ClassCharacters.MEDUSO.name());
+        playableCharacter.setClassCharacter(ClassCharacters.BOB.name());
         characterView = new CharacterView(
                 playableCharacter.getRelativeX(),
                 playableCharacter.getRelativeY(),
@@ -190,7 +187,6 @@ class MainClient {
             @Override
             public void keyPressed(KeyEvent e) {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_Z) {
-                    // The VK_Z was written by tototutoti
                     if (collisionOnBottom)
                         jumpKeyJustPressed = true;
                 }
@@ -204,6 +200,7 @@ class MainClient {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
+                lastMousePressedEvent = e;
                 readyToFire = true;
             }
 
@@ -212,6 +209,14 @@ class MainClient {
                 super.mouseReleased(e);
                 readyToFire = false;
             }
+        });
+
+        gameFrame.getGamePanel().addMouseMotionListener(new MouseMotionAdapter() {
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseMoved(e);
+                if (readyToFire)
+                    lastMousePressedEvent = e;            }
         });
 
         gameFrame.getHomePanel().getBackToGameButton().addActionListener(e -> {
@@ -333,12 +338,39 @@ class MainClient {
                     playableCharacter.setRelativeY(playableCharacter.getRelativeY() + relativeMovementY);
 
                     if(readyToFire) {
-                        if(System.currentTimeMillis() - lastShot > 500) {
-                            System.out.println(MouseInfo.getPointerInfo().getLocation());
-                            //shot();
-                            lastShot = System.currentTimeMillis();
-                        }
+                        if(System.currentTimeMillis() - lastShot > 1000f/Bullet.getShotPerSecond()) {
+                            float tempDeltaX = Math.abs(playableCharacter.getRelativeX() * (float)gameFrame.getGamePanel().getWidth() - lastMousePressedEvent.getX());
+                            float tempDeltaY = Math.abs(playableCharacter.getRelativeY() * (float)gameFrame.getGamePanel().getHeight() - lastMousePressedEvent.getY());
+                            float bulletMovementX = tempDeltaX/(tempDeltaX + tempDeltaY) * Bullet.getSPEED() * ((float)(lastMousePressedEvent.getX())-playableCharacter.getRelativeX()*gameFrame.getGamePanel().getWidth()) / tempDeltaX;
+                            float bulletMovementY = tempDeltaY/(tempDeltaX + tempDeltaY) * Bullet.getSPEED() * ((float)(lastMousePressedEvent.getY())-playableCharacter.getRelativeY()*gameFrame.getGamePanel().getHeight()) / tempDeltaY;
+
+                            SwingUtilities.invokeLater(() -> {
+                                playableCharacter.getBullets().add(new Bullet(playableCharacter.getRelativeX(), playableCharacter.getRelativeY(), bulletMovementX, bulletMovementY));
+                                gameFrame.getGamePanel().getBulletsViews().add(new BulletView(playableCharacter.getBullets().get(playableCharacter.getBullets().size()-1).getRelativeX(), playableCharacter.getBullets().get(playableCharacter.getBullets().size()-1).getRelativeY()));
+                            });
+
+                            lastShot = System.currentTimeMillis(); }
                     }
+
+                    SwingUtilities.invokeLater(() -> {
+                        for(Bullet bullet : playableCharacter.getBullets()) {
+                            bullet.setRelativeX(bullet.getRelativeX() + bullet.getMovementX());
+                            bullet.setRelativeY(bullet.getRelativeY() + bullet.getMovementY());
+
+                            gameFrame.getGamePanel().getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeX(bullet.getRelativeX());
+                            gameFrame.getGamePanel().getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeY(bullet.getRelativeY());
+                        }
+
+                        playableCharacter.getBullets().removeIf(e -> (e.getRelativeX() + e.getRelativeWidth() < 0));
+                        playableCharacter.getBullets().removeIf(e -> (e.getRelativeX() > 1));
+                        playableCharacter.getBullets().removeIf(e -> (e.getRelativeY() + e.getRelativeHeight() < 0));
+                        playableCharacter.getBullets().removeIf(e -> (e.getRelativeY() > 1));
+
+                        gameFrame.getGamePanel().getBulletsViews().removeIf(e -> (e.getRelativeX() + e.getRelativeWidth() < 0));
+                        gameFrame.getGamePanel().getBulletsViews().removeIf(e -> (e.getRelativeX() > 1));
+                        gameFrame.getGamePanel().getBulletsViews().removeIf(e -> (e.getRelativeY() + e.getRelativeHeight() < 0));
+                        gameFrame.getGamePanel().getBulletsViews().removeIf(e -> (e.getRelativeY() > 1));
+                    });
 
                     characterView.setRelativeX(playableCharacter.getRelativeX());
                     characterView.setRelativeY(playableCharacter.getRelativeY());

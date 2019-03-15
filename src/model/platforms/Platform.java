@@ -2,7 +2,6 @@ package model.platforms;
 
 public class Platform {
     private float relativeWidth = 0.12f;
-    private float relativeHeight = 0.01f;
     private float relativeX;
     private float relativeY;
     private static int platformLoopCount = 0;
@@ -65,8 +64,9 @@ public class Platform {
         return relativeWidth;
     }
 
+    @SuppressWarnings("SameReturnValue")
     public float getRelativeHeight() {
-        return relativeHeight;
+        return 0.01f;
     }
 
     @SuppressWarnings("SameReturnValue")

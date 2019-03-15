@@ -15,7 +15,7 @@ public class CharacterView {
     double scaleWidthCharacter = 0;
     private double scaleHeightCharacter = 0;
     private double horizontal_direction = 1;
-    private String classCharacter;
+    private final String classCharacter;
 
     public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name, String classCharacter) {
         this.relativeX = relativeX;
@@ -103,8 +103,4 @@ public class CharacterView {
         return horizontal_direction;
     }
 
-    public void setClassCharacter(String classCharacter) {
-        this.classCharacter = classCharacter;
-        setHorizontal_direction(horizontal_direction);
-    }
 }

@@ -1,5 +1,10 @@
 package model.characters;
 
+import model.bullets.Bullet;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class PlayableCharacter {
     private static final float RELATIVE_MAX_SPEED = 0.0025f;
     private static final float RELATIVE_SPEED_GROWTH = RELATIVE_MAX_SPEED/20;
@@ -11,6 +16,7 @@ public class PlayableCharacter {
     private float relativeY = 0.1f;
     private String name;
     private double horizontal_direction = 1;
+    private final List<Bullet> bullets = new ArrayList<>();
 
     // Default constructor used for reflection (by Kryo serialization)
     private PlayableCharacter() {
@@ -81,4 +87,9 @@ public class PlayableCharacter {
     public double getHorizontal_direction() {
         return horizontal_direction;
     }
+
+    public List<Bullet> getBullets() {
+        return bullets;
+    }
+
 }
