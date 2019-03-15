@@ -8,7 +8,6 @@ public class Platform {
 
     public Platform() {
         /* HOW THE PLATFORMS ARE :
-
                  _4_
             _3_       _6_
        _1_                 _7_
@@ -29,7 +28,7 @@ public class Platform {
         else if (platformLoopCount == 6)
             this.relativeX = 0.721f;
         else if (platformLoopCount == 7|| platformLoopCount == 8)
-            this.relativeX = 0.9f;
+            this.relativeX = 0.88f;
 
 
         if (platformLoopCount == 0 || platformLoopCount == 8)

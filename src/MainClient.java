@@ -148,9 +148,13 @@ class MainClient {
             allSolidObjects.add(platforms[i]);
         }
 
+
+
         playableCharacter = new PlayableCharacter(clientName);
+       RandomSpawn();
         playableCharacter.setClassCharacter(ClassCharacters.BOB.name());
         characterView = new CharacterView(
+
                 playableCharacter.getRelativeX(),
                 playableCharacter.getRelativeY(),
                 PlayableCharacter.getRelativeWidth(),
@@ -160,6 +164,7 @@ class MainClient {
 
         gameFrame.getGamePanel().setCharacterView(characterView);
     }
+
 
     private static void createKeyMap() {
         final InputMap IM = gameFrame.getGamePanel().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
@@ -330,8 +335,7 @@ class MainClient {
                         relativeMovementY += Terrain.getRelativeGravityGrowth();
 
                     if (playableCharacter.getRelativeY() >= 1) {
-                        playableCharacter.setRelativeX(0.45f);
-                        playableCharacter.setRelativeY(0.1f);
+                      RandomSpawn();
                     }
 
                     playableCharacter.setRelativeX(playableCharacter.getRelativeX() + relativeMovementX);
@@ -355,7 +359,7 @@ class MainClient {
                     SwingUtilities.invokeLater(() -> {
                         for(Bullet bullet : playableCharacter.getBullets()) {
                             bullet.setRelativeX(bullet.getRelativeX() + bullet.getMovementX());
-                            bullet.setRelativeY(bullet.getRelativeY() + 2 * bullet.getMovementY());
+                            bullet.setRelativeY(bullet.getRelativeY() + bullet.getMovementY());
 
                             gameFrame.getGamePanel().getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeX(bullet.getRelativeX());
                             gameFrame.getGamePanel().getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeY(bullet.getRelativeY());
@@ -405,6 +409,26 @@ class MainClient {
                         gameClient.getOtherPlayers().get(i).getName(),
                         gameClient.getOtherPlayers().get(i).getClassCharacter()));
             }
+        }
+    }
+
+    private static void RandomSpawn(){
+        double RandSpawn = Math.random();
+        if (RandSpawn  < 0.25){
+            playableCharacter.setRelativeX(0.03f);
+            playableCharacter.setRelativeY(0.85f);
+        }
+        else if (RandSpawn > 0.25 & RandSpawn < 0.50){
+            playableCharacter.setRelativeX(0.03f);
+            playableCharacter.setRelativeY(0.45f);
+        }
+        else if (RandSpawn > 0.50 & RandSpawn < 0.75){
+            playableCharacter.setRelativeX(0.91f);
+            playableCharacter.setRelativeY(0.85f);
+        }
+        else if (RandSpawn > 0.75){
+            playableCharacter.setRelativeX(0.91f);
+            playableCharacter.setRelativeY(0.45f);
         }
     }
 }
