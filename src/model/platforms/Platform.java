@@ -8,6 +8,16 @@ public class Platform {
 
     public Platform() {
         /* HOW THE PLATFORMS ARE :
+
+
+
+              ___9___
+
+
+
+
+
+
                  _4_
             _3_       _6_
        _1_                 _7_
@@ -21,7 +31,7 @@ public class Platform {
             this.relativeX = 0.222f;
         else if (platformLoopCount == 3)
             this.relativeX = 0.166f;
-        else if (platformLoopCount == 4)
+        else if (platformLoopCount == 4 || platformLoopCount == 9)
             this.relativeX = 0.444f;
         else if (platformLoopCount == 5)
             this.relativeX = 0.555f;
@@ -41,6 +51,8 @@ public class Platform {
             this.relativeY = 0.35f;
         else if (platformLoopCount == 4)
             this.relativeY = 0.25f;
+        else if (platformLoopCount == 9)
+            this.relativeY = -1f;
 
         if (platformLoopCount == 2 || platformLoopCount == 5)
             this.relativeWidth = 0.222f;
@@ -70,6 +82,6 @@ public class Platform {
 
     @SuppressWarnings("SameReturnValue")
     public static int getPlatformNumber() {
-        return 9;
+        return 10;
     }
 }

@@ -154,7 +154,6 @@ class MainClient {
        RandomSpawn();
         playableCharacter.setClassCharacter(ClassCharacters.BOB.name());
         characterView = new CharacterView(
-
                 playableCharacter.getRelativeX(),
                 playableCharacter.getRelativeY(),
                 PlayableCharacter.getRelativeWidth(),
@@ -197,6 +196,7 @@ class MainClient {
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(playableCharacter, new HomeView()).equals(PlayerCollisionSide.NONE))) {
                     gameFrame.getCardLayout().next(gameFrame.getContentPane());
+                    playableCharacter.setRelativeY(-1.15f);
                 }
             }
         });
@@ -227,6 +227,7 @@ class MainClient {
         gameFrame.getHomePanel().getBackToGameButton().addActionListener(e -> {
             gameFrame.getCardLayout().next(gameFrame.getContentPane());
             gameFrame.getGamePanel().requestFocus();
+            RandomSpawn();
         });
     }
 
