@@ -19,6 +19,8 @@ public class GamePanel extends JPanel {
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+        g.setColor(Color.lightGray);
+        g.fillRect(0, 0, this.getWidth(), this.getHeight());
 
         g.setColor(Color.magenta);
         g.fillRect((int)(HomeView.getRelativeX()*this.getWidth()),
