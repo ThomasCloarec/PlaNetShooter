@@ -10,6 +10,7 @@ public class PlayableCharacter {
     private float relativeX = 0.45f;
     private float relativeY = 0.1f;
     private String name;
+    private double horizontal_direction = 1;
 
     // Default constructor used for reflection (by Kryo serialization)
     private PlayableCharacter() {
@@ -71,5 +72,13 @@ public class PlayableCharacter {
 
     public void setClassCharacter(String classCharacter) {
         this.classCharacter = classCharacter;
+    }
+
+    public void setHorizontal_direction(double horizontal_direction) {
+        this.horizontal_direction = horizontal_direction;
+    }
+
+    public double getHorizontal_direction() {
+        return horizontal_direction;
     }
 }

@@ -86,7 +86,9 @@ class MainClient {
                     System.out.println("\"" + removeName.name + "\" is disconnected !");
 
                     if (gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getNameLabel().getParent() != null)
-                        gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getNameLabel());
+                        gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getCharacterLabel());
+                    if (gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getNameLabel().getParent() != null)
+                        gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getCharacterLabel());
 
                     gameFrame.getGamePanel().getOtherPlayersViews().remove(gameClient.registerNameList.getList().indexOf(removeName.name));
                 }
@@ -150,7 +152,7 @@ class MainClient {
         }
 
         playableCharacter = new PlayableCharacter(clientName);
-        playableCharacter.setClassCharacter(ClassCharacters.MEDUSO.name());
+        playableCharacter.setClassCharacter(ClassCharacters.BOB.name());
         characterView = new CharacterView(
                 playableCharacter.getRelativeX(),
                 playableCharacter.getRelativeY(),
@@ -246,7 +248,8 @@ class MainClient {
                         releaseActionRight.removeMovements();
                     }
 
-                    characterView.setHorizontal_direction(-totalDirection);
+                    playableCharacter.setHorizontal_direction(-totalDirection);
+                    characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
 
                     gameClient.sendPlayerInformation(playableCharacter);
                     collisionOnTop = false;
@@ -359,6 +362,7 @@ class MainClient {
 
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeX(gameClient.getOtherPlayers().get(i).getRelativeX());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeY(gameClient.getOtherPlayers().get(i).getRelativeY());
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHorizontal_direction(gameClient.getOtherPlayers().get(i).getHorizontal_direction());
             }
             else {
                 gameFrame.getGamePanel().addOtherPlayerViewToArray(new CharacterView(
@@ -367,7 +371,7 @@ class MainClient {
                         PlayableCharacter.getRelativeWidth(),
                         PlayableCharacter.getRelativeHeight(),
                         gameClient.getOtherPlayers().get(i).getName(),
-                        ClassCharacters.BOB.name()));
+                        gameClient.getOtherPlayers().get(i).getClassCharacter()));
             }
         }
     }

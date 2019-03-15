@@ -2,6 +2,7 @@ package network;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
+import model.characters.ClassCharacters;
 import model.characters.PlayableCharacter;
 
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ public class Network {
         kryo.register(RegisterNameList.class);
         kryo.register(java.util.ArrayList.class);
         kryo.register(PlayableCharacter.class);
+        kryo.register(ClassCharacters.class);
     }
 
     static class RegisterName {

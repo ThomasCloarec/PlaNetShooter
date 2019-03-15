@@ -72,7 +72,7 @@ public class CharacterView {
         return nameLabel;
     }
 
-    JLabel getCharacterLabel() {
+    public JLabel getCharacterLabel() {
         return characterLabel;
     }
 
