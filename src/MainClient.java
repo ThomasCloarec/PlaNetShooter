@@ -356,7 +356,7 @@ class MainClient {
                         for(Bullet bullet : playableCharacter.getBullets()) {
                             bullet.setRelativeX(bullet.getRelativeX() + bullet.getMovementX());
                             bullet.setRelativeY(bullet.getRelativeY() + 2 * bullet.getMovementY());
-                            System.out.println("("+playableCharacter.getRelativeX()+";"+playableCharacter.getRelativeY()+")"+"("+bullet.getRelativeX()+";"+bullet.getRelativeY()+")"+"|||"+"("+bullet.getMovementX()+";"+bullet.getMovementY()+") : ("+((float)lastMousePressedEvent.getX()/(float)gameFrame.getGamePanel().getWidth())+";"+((float)lastMousePressedEvent.getY()/(float)gameFrame.getGamePanel().getHeight())+")");
+
                             gameFrame.getGamePanel().getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeX(bullet.getRelativeX());
                             gameFrame.getGamePanel().getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeY(bullet.getRelativeY());
                         }
