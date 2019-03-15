@@ -99,7 +99,7 @@ public class CharacterView {
         }
     }
 
-    double getHorizontal_direction() {
+    public double getHorizontal_direction() {
         return horizontal_direction;
     }
 

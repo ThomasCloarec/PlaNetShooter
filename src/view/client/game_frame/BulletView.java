@@ -1,5 +1,7 @@
 package view.client.game_frame;
 
+import model.bullets.Bullet;
+
 public class BulletView {
     private float relativeX;
     private float relativeY;
@@ -27,10 +29,10 @@ public class BulletView {
 
     @SuppressWarnings("SameReturnValue")
     public float getRelativeWidth() {
-        return 0.01f;
+        return Bullet.getRelativeWidth();
     }
 
     public float getRelativeHeight() {
-        return 0.01f * 768f / 372f;
+        return Bullet.getRelativeHeight();
     }
 }

@@ -31,11 +31,11 @@ public class Bullet {
     }
 
     @SuppressWarnings("SameReturnValue")
-    public float getRelativeWidth() {
+    public static float getRelativeWidth() {
         return 0.01f;
     }
 
-    public float getRelativeHeight() {
+    public static float getRelativeHeight() {
         return 0.01f * 768f / 372f;
     }
 
