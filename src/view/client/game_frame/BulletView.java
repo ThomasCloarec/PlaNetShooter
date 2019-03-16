@@ -2,13 +2,32 @@ package view.client.game_frame;
 
 import model.bullets.Bullet;
 
+import javax.swing.*;
+import java.awt.*;
+
 public class BulletView {
     private float relativeX;
     private float relativeY;
+    private final JLabel bulletLabel = new JLabel();
+    private double scaleWidthCharacter = 0;
+    private double scaleHeightCharacter = 0;
 
     public BulletView(float relativeX, float relativeY) {
         this.relativeX = relativeX;
         this.relativeY = relativeY;
+    }
+
+    private class BulletIcon extends ImageIcon {
+        BulletIcon(String filename) {
+            super(BulletView.class.getResource(filename));
+        }
+
+        @Override
+        public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.scale(scaleWidthCharacter, scaleHeightCharacter);
+            super.paintIcon(c, g2, x, y);
+        }
     }
 
     public void setRelativeX(float relativeX) {
@@ -34,5 +53,13 @@ public class BulletView {
 
     public float getRelativeHeight() {
         return new Bullet().getRelativeHeight();
+    }
+
+    void setScaleWidthCharacter(double scaleWidthCharacter) {
+        this.scaleWidthCharacter = scaleWidthCharacter;
+    }
+
+    void setScaleHeightCharacter(double scaleHeightCharacter) {
+        this.scaleHeightCharacter = scaleHeightCharacter;
     }
 }

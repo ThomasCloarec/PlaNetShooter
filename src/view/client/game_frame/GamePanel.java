@@ -81,6 +81,9 @@ public class GamePanel extends JPanel {
 
         for (BulletView bulletView : bulletsViews) {
             if (bulletView != null) {
+                bulletView.setScaleWidthCharacter(bulletView.getRelativeWidth()*this.getWidth()/200);
+                bulletView.setScaleHeightCharacter(bulletView.getRelativeHeight()*this.getHeight()/200);
+
                 g.setColor(Color.black);
                 g.fillRect((int)(bulletView.getRelativeX()*this.getWidth()),
                         (int)(bulletView.getRelativeY()*this.getHeight()),
