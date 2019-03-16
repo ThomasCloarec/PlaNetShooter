@@ -360,7 +360,7 @@ class MainClient {
                     SwingUtilities.invokeLater(() -> {
                         for(Bullet bullet : playableCharacter.getBullets()) {
                             bullet.setRelativeX(bullet.getRelativeX() + bullet.getMovementX());
-                            bullet.setRelativeY(bullet.getRelativeY() + 2f * bullet.getMovementY());
+                            bullet.setRelativeY(bullet.getRelativeY() + (float)gameFrame.getGamePanel().getWidth() / (float)gameFrame.getGamePanel().getHeight() * bullet.getMovementY());
 
                             gameFrame.getGamePanel().getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeX(bullet.getRelativeX());
                             gameFrame.getGamePanel().getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeY(bullet.getRelativeY());
@@ -385,6 +385,7 @@ class MainClient {
                         gameFrame.getGamePanel().repaint();
                     });
 
+                    System.out.println(gameFrame.getGamePanel().getWidth()+"|"+gameFrame.getGamePanel().getHeight());
                     if (IS_UNIX_OS)
                         Toolkit.getDefaultToolkit().sync();
                 }
