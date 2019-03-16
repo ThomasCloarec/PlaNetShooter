@@ -151,7 +151,7 @@ class MainClient {
 
 
         playableCharacter = new PlayableCharacter(clientName);
-       RandomSpawn();
+        RandomSpawn();
         playableCharacter.setClassCharacter(ClassCharacters.BOB.name());
         characterView = new CharacterView(
                 playableCharacter.getRelativeX(),
@@ -335,9 +335,8 @@ class MainClient {
                     else if (relativeMovementY < Terrain.getRelativeMaxGravity())
                         relativeMovementY += Terrain.getRelativeGravityGrowth();
 
-                    if (playableCharacter.getRelativeY() >= 1) {
-                      RandomSpawn();
-                    }
+                    if (playableCharacter.getRelativeY() >= 1)
+                        RandomSpawn();
 
                     playableCharacter.setRelativeX(playableCharacter.getRelativeX() + relativeMovementX);
                     playableCharacter.setRelativeY(playableCharacter.getRelativeY() + relativeMovementY);
@@ -358,7 +357,6 @@ class MainClient {
                                 playableCharacter.getBullets().add(new Bullet(relativeBulletStartX, relativeBulletStartY, bulletMovementX, bulletMovementY));
                                 gameFrame.getGamePanel().getBulletsViews().add(new BulletView(playableCharacter.getBullets().get(playableCharacter.getBullets().size()-1).getRelativeX(), playableCharacter.getBullets().get(playableCharacter.getBullets().size()-1).getRelativeY()));
                             });
-
                             lastShot = System.currentTimeMillis(); }
                     }
 
