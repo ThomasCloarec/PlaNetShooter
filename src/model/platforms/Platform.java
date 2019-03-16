@@ -1,6 +1,8 @@
 package model.platforms;
 
-public class Platform {
+import model.SolidObject;
+
+public class Platform extends SolidObject {
     private float relativeWidth = 0.12f;
     private float relativeX;
     private float relativeY;

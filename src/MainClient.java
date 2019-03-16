@@ -22,12 +22,10 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.*;
-import java.util.List;
 
 class MainClient {
     private static String clientName;
     private static GameClient gameClient;
-    private static final List<Object> allSolidObjects = new ArrayList<>();
     private static float relativeMovementX = 0f;
     private static float relativeMovementY = 0f;
     private static boolean collisionOnRight = false, collisionOnLeft = false, collisionOnTop = false, collisionOnBottom = false;
@@ -48,6 +46,7 @@ class MainClient {
     private static boolean readyToFire = false;
     private static long lastShot = 0;
     private static MouseEvent lastMousePressedEvent;
+    private static Platform[] platforms;
 
     public static void main(String[] args) {
         launchGameClient();
@@ -135,7 +134,7 @@ class MainClient {
     }
 
     private static void defineObjects() {
-        Platform[] platforms = new Platform[Platform.getPlatformNumber()];
+        platforms = new Platform[Platform.getPlatformNumber()];
         gameFrame.getGamePanel().setPlatformsView(new PlatformView[Platform.getPlatformNumber()]);
         for (int i = 0; i < Platform.getPlatformNumber(); i++) {
             platforms[i] = new Platform();
@@ -144,8 +143,6 @@ class MainClient {
                     platforms[i].getRelativeY(),
                     platforms[i].getRelativeWidth(),
                     platforms[i].getRelativeHeight()));
-
-            allSolidObjects.add(platforms[i]);
         }
 
 
@@ -156,8 +153,8 @@ class MainClient {
         characterView = new CharacterView(
                 playableCharacter.getRelativeX(),
                 playableCharacter.getRelativeY(),
-                PlayableCharacter.getRelativeWidth(),
-                PlayableCharacter.getRelativeHeight(),
+                playableCharacter.getRelativeWidth(),
+                playableCharacter.getRelativeHeight(),
                 playableCharacter.getName(),
                 playableCharacter.getClassCharacter());
 
@@ -268,7 +265,7 @@ class MainClient {
                     collisionOnRight = false;
                     collisionOnLeft = false;
 
-                    for (Object object : allSolidObjects) {
+                    for (Object object : platforms) {
                         if (CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.TOP))
                             collisionOnTop = true;
                         if (CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.BOTTOM))
@@ -315,7 +312,7 @@ class MainClient {
                             while (collisionOnBottom) {
                                 playableCharacter.setRelativeY(playableCharacter.getRelativeY()-PlayableCharacter.getRelativeJumpStrength());
 
-                                for (Object object : allSolidObjects) {
+                                for (Object object : platforms) {
                                     collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.BOTTOM);
                                     if (collisionOnBottom) {
                                         break;
@@ -343,10 +340,10 @@ class MainClient {
 
                     if(readyToFire) {
                         if(System.currentTimeMillis() - lastShot > 1000f/Bullet.getShotPerSecond()) {
-                            float relativeBulletStartX = playableCharacter.getRelativeX() + ((float)-characterView.getHorizontal_direction() + 1) * PlayableCharacter.getRelativeWidth()/2f;
-                            float relativeBulletStartY = playableCharacter.getRelativeY() + PlayableCharacter.getRelativeHeight()/2f - Bullet.getRelativeHeight() / 2f;
-                            float relativeCursorGoX = lastMousePressedEvent.getX() - Bullet.getRelativeWidth() * gameFrame.getGamePanel().getWidth() / 2f;
-                            float relativeCursorGoY = lastMousePressedEvent.getY() - Bullet.getRelativeHeight()* gameFrame.getGamePanel().getHeight() / 2f;
+                            float relativeBulletStartX = playableCharacter.getRelativeX() + ((float)-characterView.getHorizontal_direction() + 1) * playableCharacter.getRelativeWidth()/2f;
+                            float relativeBulletStartY = playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight()/2f - new Bullet().getRelativeHeight() / 2f;
+                            float relativeCursorGoX = lastMousePressedEvent.getX() - new Bullet().getRelativeWidth() * gameFrame.getGamePanel().getWidth() / 2f;
+                            float relativeCursorGoY = lastMousePressedEvent.getY() - new Bullet().getRelativeHeight()* gameFrame.getGamePanel().getHeight() / 2f;
 
                             float tempDeltaX = Math.abs(relativeBulletStartX * (float)gameFrame.getGamePanel().getWidth() - relativeCursorGoX);
                             float tempDeltaY = Math.abs(relativeBulletStartY * (float)gameFrame.getGamePanel().getHeight() - relativeCursorGoY);
@@ -369,9 +366,9 @@ class MainClient {
                             gameFrame.getGamePanel().getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeY(bullet.getRelativeY());
                         }
 
-                        playableCharacter.getBullets().removeIf(e -> (e.getRelativeX() + Bullet.getRelativeWidth() < 0));
+                        playableCharacter.getBullets().removeIf(e -> (e.getRelativeX() + e.getRelativeWidth() < 0));
                         playableCharacter.getBullets().removeIf(e -> (e.getRelativeX() > 1));
-                        playableCharacter.getBullets().removeIf(e -> (e.getRelativeY() + Bullet.getRelativeHeight() < 0));
+                        playableCharacter.getBullets().removeIf(e -> (e.getRelativeY() + e.getRelativeHeight() < 0));
                         playableCharacter.getBullets().removeIf(e -> (e.getRelativeY() > 1));
 
                         gameFrame.getGamePanel().getBulletsViews().removeIf(e -> (e.getRelativeX() + e.getRelativeWidth() < 0));
@@ -408,8 +405,8 @@ class MainClient {
                 gameFrame.getGamePanel().addOtherPlayerViewToArray(new CharacterView(
                         gameClient.getOtherPlayers().get(i).getRelativeX(),
                         gameClient.getOtherPlayers().get(i).getRelativeY(),
-                        PlayableCharacter.getRelativeWidth(),
-                        PlayableCharacter.getRelativeHeight(),
+                        playableCharacter.getRelativeWidth(),
+                        playableCharacter.getRelativeHeight(),
                         gameClient.getOtherPlayers().get(i).getName(),
                         gameClient.getOtherPlayers().get(i).getClassCharacter()));
             }

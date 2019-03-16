@@ -29,10 +29,10 @@ public class BulletView {
 
     @SuppressWarnings("SameReturnValue")
     public float getRelativeWidth() {
-        return Bullet.getRelativeWidth();
+        return new Bullet().getRelativeWidth();
     }
 
     public float getRelativeHeight() {
-        return Bullet.getRelativeHeight();
+        return new Bullet().getRelativeHeight();
     }
 }

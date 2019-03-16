@@ -1,13 +1,15 @@
 package model.bullets;
 
-public class Bullet {
+import model.SolidObject;
+
+public class Bullet extends SolidObject {
     private float relativeX;
     private float relativeY;
     private static final float SPEED  = 0.005f;
     private float movementX;
     private float movementY;
 
-    private Bullet() {
+    public Bullet() {
     }
 
     public Bullet(float relativeX, float relativeY, float movementX, float movementY) {
@@ -31,11 +33,11 @@ public class Bullet {
     }
 
     @SuppressWarnings("SameReturnValue")
-    public static float getRelativeWidth() {
+    public float getRelativeWidth() {
         return 0.01f;
     }
 
-    public static float getRelativeHeight() {
+    public float getRelativeHeight() {
         return 0.01f * 768f / 372f;
     }
 

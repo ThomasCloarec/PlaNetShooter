@@ -1,11 +1,12 @@
 package model.characters;
 
+import model.SolidObject;
 import model.bullets.Bullet;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayableCharacter {
+public class PlayableCharacter extends SolidObject {
     private static final float RELATIVE_MAX_SPEED = 0.0025f;
     private static final float RELATIVE_SPEED_GROWTH = RELATIVE_MAX_SPEED/20;
     private static final float RELATIVE_JUMP_STRENGTH = 0.0090f;
@@ -40,11 +41,11 @@ public class PlayableCharacter {
         return relativeY;
     }
 
-    public static float getRelativeWidth() {
+    public float getRelativeWidth() {
         return RELATIVE_WIDTH;
     }
 
-    public static float getRelativeHeight() {
+    public float getRelativeHeight() {
         return RELATIVE_HEIGHT;
     }
 

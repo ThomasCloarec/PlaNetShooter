@@ -21,10 +21,10 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
 
         g.setColor(Color.magenta);
-        g.fillRect((int)(HomeView.getRelativeX()*this.getWidth()),
-                (int)(HomeView.getRelativeY()*this.getHeight()),
-                (int)(HomeView.getRelativeWidth()*this.getWidth()),
-                (int)(HomeView.getRelativeHeight()*this.getHeight()));
+        g.fillRect((int)(new HomeView().getRelativeX()*this.getWidth()),
+                (int)(new HomeView().getRelativeY()*this.getHeight()),
+                (int)(new HomeView().getRelativeWidth()*this.getWidth()),
+                (int)(new HomeView().getRelativeHeight()*this.getHeight()));
 
         for (PlatformView platform : platforms) {
             if (platform != null) {
