@@ -2,6 +2,7 @@ package network;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
+import model.SolidObject;
 import model.bullets.Bullet;
 import model.characters.ClassCharacters;
 import model.characters.PlayableCharacter;
@@ -23,6 +24,7 @@ public class Network {
         kryo.register(PlayableCharacter.class);
         kryo.register(ClassCharacters.class);
         kryo.register(Bullet.class);
+        kryo.register(SolidObject.class);
     }
 
     static class RegisterName {
