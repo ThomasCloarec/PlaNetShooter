@@ -1,11 +1,12 @@
 package view.client.game_frame;
 
+import model.SolidObject;
 import model.bullets.Bullet;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class BulletView {
+public class BulletView extends SolidObject {
     private float relativeX;
     private float relativeY;
     private final JLabel bulletLabel = new JLabel();

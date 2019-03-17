@@ -265,14 +265,14 @@ class MainClient {
                     collisionOnRight = false;
                     collisionOnLeft = false;
 
-                    for (Object object : platforms) {
-                        if (CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.TOP))
+                    for (Platform platform : platforms) {
+                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.TOP))
                             collisionOnTop = true;
-                        if (CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.BOTTOM))
+                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM))
                             collisionOnBottom = true;
-                        if (CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.RIGHT))
+                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.RIGHT))
                             collisionOnRight = true;
-                        if (CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.LEFT))
+                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.LEFT))
                             collisionOnLeft = true;
                     }
 
@@ -312,8 +312,8 @@ class MainClient {
                             while (collisionOnBottom) {
                                 playableCharacter.setRelativeY(playableCharacter.getRelativeY()-PlayableCharacter.getRelativeJumpStrength());
 
-                                for (Object object : platforms) {
-                                    collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, object).equals(PlayerCollisionSide.BOTTOM);
+                                for (Platform platform : platforms) {
+                                    collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM);
                                     if (collisionOnBottom) {
                                         break;
                                     }
@@ -369,15 +369,17 @@ class MainClient {
                             gameFrame.getGamePanel().getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeY(bullet.getRelativeY());
                         }
 
-                        playableCharacter.getBullets().removeIf(e -> (e.getRelativeX() + e.getRelativeWidth() < 0));
-                        playableCharacter.getBullets().removeIf(e -> (e.getRelativeX() > 1));
-                        playableCharacter.getBullets().removeIf(e -> (e.getRelativeY() + e.getRelativeHeight() < 0));
-                        playableCharacter.getBullets().removeIf(e -> (e.getRelativeY() > 1));
+                        playableCharacter.getBullets().removeIf(e -> ((e.getRelativeX() + e.getRelativeWidth() < 0) || e.getRelativeX() > 1));
+                        playableCharacter.getBullets().removeIf(e -> ((e.getRelativeY() + e.getRelativeHeight() < 0) || e.getRelativeY() > 1));
 
-                        gameFrame.getGamePanel().getBulletsViews().removeIf(e -> (e.getRelativeX() + e.getRelativeWidth() < 0));
-                        gameFrame.getGamePanel().getBulletsViews().removeIf(e -> (e.getRelativeX() > 1));
-                        gameFrame.getGamePanel().getBulletsViews().removeIf(e -> (e.getRelativeY() + e.getRelativeHeight() < 0));
-                        gameFrame.getGamePanel().getBulletsViews().removeIf(e -> (e.getRelativeY() > 1));
+                        for (Platform platform : platforms)
+                            playableCharacter.getBullets().removeIf(e -> (!CollisionDetection.isCollisionBetween(e, platform).equals(PlayerCollisionSide.NONE)));
+
+                        gameFrame.getGamePanel().getBulletsViews().removeIf(e -> ((e.getRelativeX() + e.getRelativeWidth() < 0) || e.getRelativeX() > 1));
+                        gameFrame.getGamePanel().getBulletsViews().removeIf(e -> ((e.getRelativeY() + e.getRelativeHeight() < 0) || e.getRelativeY() > 1));
+
+                        for (Platform platform : platforms)
+                            gameFrame.getGamePanel().getBulletsViews().removeIf(e -> (!CollisionDetection.isCollisionBetween(e, platform).equals(PlayerCollisionSide.NONE)));
                     });
 
                     characterView.setRelativeX(playableCharacter.getRelativeX());
