@@ -40,13 +40,12 @@ public class Bullet extends SolidObject {
 
     @SuppressWarnings("SameReturnValue")
     public float getRelativeWidth() {
-        return 0.005f;
+        return 0.02f;
     }
 
     public float getRelativeHeight() {
-        return 0.005f * 768f / 372f;
+        return 0.02f * 768f / 372f;
     }
-
     public float getMovementX() {
         return movementX;
     }
@@ -76,6 +75,7 @@ public class Bullet extends SolidObject {
         return relativeBulletStartY;
     }
 
+    @SuppressWarnings("SameReturnValue")
     public float getRelativeMaxRange() {
         return 0.2f;
     }

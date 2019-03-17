@@ -29,7 +29,6 @@ public class GamePanel extends JPanel {
         for (PlatformView platform : platforms) {
             if (platform != null) {
                 g.setColor(Color.blue);
-                //Platforms
                 g.fillRect((int)(platform.getRelativeX()*this.getWidth()),
                         (int)(platform.getRelativeY()*this.getHeight()),
                         (int)(platform.getRelativeWidth()*this.getWidth()),
@@ -81,14 +80,16 @@ public class GamePanel extends JPanel {
 
         for (BulletView bulletView : bulletsViews) {
             if (bulletView != null) {
-                bulletView.setScaleWidthCharacter(bulletView.getRelativeWidth()*this.getWidth()/200);
-                bulletView.setScaleHeightCharacter(bulletView.getRelativeHeight()*this.getHeight()/200);
+                bulletView.setScaleWidthBullet(bulletView.getRelativeWidth()*this.getWidth()/200);
+                bulletView.setScaleHeightBullet(bulletView.getRelativeHeight()*this.getHeight()/200);
 
-                g.setColor(Color.black);
-                g.fillRect((int)(bulletView.getRelativeX()*this.getWidth()),
-                        (int)(bulletView.getRelativeY()*this.getHeight()),
-                        (int)(bulletView.getRelativeWidth()*this.getWidth()),
-                        (int)(bulletView.getRelativeHeight()*this.getHeight()));
+                if (bulletView.getBulletLabel().getParent() == null) {
+                    bulletView.setIcon();
+                    this.add(bulletView.getBulletLabel());
+                    this.revalidate();
+                }
+
+                bulletView.getBulletLabel().setLocation((int)(bulletView.getRelativeX()*this.getWidth()), (int)(bulletView.getRelativeY()*this.getHeight()));
             }
         }
     }

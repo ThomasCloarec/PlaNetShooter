@@ -77,18 +77,21 @@ class MainClient {
         gameClient.addListener(new Listener() {
             @Override
             public void received(Connection connection, Object object) {
-                if (object instanceof Network.RemoveName) {
-                    Network.RemoveName removeName = (Network.RemoveName) object;
-                    System.out.println("\"" + removeName.name + "\" is disconnected !");
+                SwingUtilities.invokeLater(() -> {
+                    if (object instanceof Network.RemoveName) {
+                        Network.RemoveName removeName = (Network.RemoveName) object;
+                        System.out.println("\"" + removeName.name + "\" is disconnected !");
 
-                    if (gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getNameLabel().getParent() != null)
-                        gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getNameLabel());
-                    if (gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getCharacterLabel().getParent() != null)
-                        gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getCharacterLabel());
+                        if (gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getNameLabel().getParent() != null)
+                            gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getNameLabel());
+                        if (gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getCharacterLabel().getParent() != null)
+                            gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.registerNameList.getList().indexOf(removeName.name)).getCharacterLabel());
 
-                    gameFrame.getGamePanel().getOtherPlayersViews().remove(gameClient.registerNameList.getList().indexOf(removeName.name));
-                }
-                gameClient.receivedListener(object);
+                        gameFrame.getGamePanel().getOtherPlayersViews().remove(gameClient.registerNameList.getList().indexOf(removeName.name));
+
+                    }
+                    gameClient.receivedListener(object);
+                });
             }
 
             @Override
@@ -361,7 +364,7 @@ class MainClient {
 
                             SwingUtilities.invokeLater(() -> {
                                 playableCharacter.getBullets().add(new Bullet(relativeBulletStartX, relativeBulletStartY, bulletMovementX, bulletMovementY, relativeBulletStartX, relativeBulletStartY, bulletRangeRatio));
-                                gameFrame.getGamePanel().getBulletsViews().add(new BulletView(relativeBulletStartX, relativeBulletStartY, relativeBulletStartX, relativeBulletStartY, bulletRangeRatio));
+                                gameFrame.getGamePanel().getBulletsViews().add(new BulletView(relativeBulletStartX, relativeBulletStartY));
                             });
                             lastShot = System.currentTimeMillis(); }
                     }
@@ -375,23 +378,35 @@ class MainClient {
                             gameFrame.getGamePanel().getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeY(bullet.getRelativeY());
                         }
 
-                        // Remove bullets
-                        playableCharacter.getBullets().removeIf(e -> ((e.getRelativeX() + e.getRelativeWidth() < 0) || e.getRelativeX() > 1));
-                        playableCharacter.getBullets().removeIf(e -> ((e.getRelativeY() + e.getRelativeHeight() < 0) || e.getRelativeY() > 1));
+                        ListIterator<Bullet> iterOutOfRange = playableCharacter.getBullets().listIterator();
+                        while(iterOutOfRange.hasNext()){
+                            int iterOutOfRangeBulletIndex = iterOutOfRange.nextIndex();
+                            Bullet iterOutOfRangeBullet = iterOutOfRange.next();
 
-                        playableCharacter.getBullets().removeIf(e -> (Math.sqrt(Math.pow(e.getRelativeX()-e.getRelativeBulletStartX(), 2) + Math.pow(e.getRelativeY()-e.getRelativeBulletStartY(), 2))) > Math.sqrt(2) * e.getRelativeMaxRange() * e.getBulletRangeRatio());
+                            if((iterOutOfRangeBullet.getRelativeX() + iterOutOfRangeBullet.getRelativeWidth() < 0)
+                                    || (iterOutOfRangeBullet.getRelativeX() > 1)
+                                    || (iterOutOfRangeBullet.getRelativeY() + iterOutOfRangeBullet.getRelativeHeight() < 0)
+                                    || (iterOutOfRangeBullet.getRelativeY() > 1)
+                                    || (Math.sqrt(Math.pow(iterOutOfRangeBullet.getRelativeX()-iterOutOfRangeBullet.getRelativeBulletStartX(), 2) + Math.pow(iterOutOfRangeBullet.getRelativeY() - iterOutOfRangeBullet.getRelativeBulletStartY(), 2))) > Math.sqrt(2) * iterOutOfRangeBullet.getRelativeMaxRange() * iterOutOfRangeBullet.getBulletRangeRatio()){
+                                gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getBulletsViews().get(iterOutOfRangeBulletIndex).getBulletLabel());
+                                gameFrame.getGamePanel().getBulletsViews().remove(iterOutOfRangeBulletIndex);
+                                iterOutOfRange.remove();
+                            }
+                        }
 
-                        for (Platform platform : platforms)
-                            playableCharacter.getBullets().removeIf(e -> (!CollisionDetection.isCollisionBetween(e, platform).equals(PlayerCollisionSide.NONE)));
-
-                        // Remove associated bullets views
-                        gameFrame.getGamePanel().getBulletsViews().removeIf(e -> ((e.getRelativeX() + e.getRelativeWidth() < 0) || e.getRelativeX() > 1));
-                        gameFrame.getGamePanel().getBulletsViews().removeIf(e -> ((e.getRelativeY() + e.getRelativeHeight() < 0) || e.getRelativeY() > 1));
-
-                        gameFrame.getGamePanel().getBulletsViews().removeIf(e -> (Math.sqrt(Math.pow(e.getRelativeX()-e.getRelativeBulletStartX(), 2) + Math.pow(e.getRelativeY() - e.getRelativeBulletStartY(), 2))) > Math.sqrt(2) * e.getRelativeMaxRange() * e.getBulletRangeRatio());
-
-                        for (Platform platform : platforms)
-                            gameFrame.getGamePanel().getBulletsViews().removeIf(e -> (!CollisionDetection.isCollisionBetween(e, platform).equals(PlayerCollisionSide.NONE)));
+                        ListIterator<Bullet> iterCollision = playableCharacter.getBullets().listIterator();
+                        while(iterCollision.hasNext()) {
+                            int iterCollisionBulletIndex = iterCollision.nextIndex();
+                            Bullet iterCollisionBullet = iterCollision.next();
+                            
+                            for (Platform platform : platforms) {
+                                if (!CollisionDetection.isCollisionBetween(iterCollisionBullet, platform).equals(PlayerCollisionSide.NONE)) {
+                                    gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getBulletsViews().get(iterCollisionBulletIndex).getBulletLabel());
+                                    gameFrame.getGamePanel().getBulletsViews().remove(iterCollisionBulletIndex);
+                                    iterCollision.remove();
+                                }
+                            }
+                        }
                     });
 
                     characterView.setRelativeX(playableCharacter.getRelativeX());

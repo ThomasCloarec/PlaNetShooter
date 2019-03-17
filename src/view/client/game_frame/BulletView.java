@@ -10,29 +10,23 @@ public class BulletView extends SolidObject {
     private float relativeX;
     private float relativeY;
     private final JLabel bulletLabel = new JLabel();
-    private double scaleWidthCharacter = 0;
-    private double scaleHeightCharacter = 0;
-    private float relativeBulletStartX;
-    private float relativeBulletStartY;
-    private float bulletRangeRatio;
+    private double scaleWidthBullet = 0;
+    private double scaleHeightBullet = 0;
 
-    public BulletView(float relativeX, float relativeY, float relativeBulletStartX, float relativeBulletStartY, float bulletRangeRatio) {
+    public BulletView(float relativeX, float relativeY) {
         this.relativeX = relativeX;
         this.relativeY = relativeY;
-        this.relativeBulletStartX = relativeBulletStartX;
-        this.relativeBulletStartY = relativeBulletStartY;
-        this.bulletRangeRatio = bulletRangeRatio;
     }
 
     private class BulletIcon extends ImageIcon {
-        BulletIcon(String filename) {
-            super(BulletView.class.getResource(filename));
+        BulletIcon() {
+            super(BulletView.class.getResource("/view/resources/game/bullet.png"));
         }
 
         @Override
         public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
             Graphics2D g2 = (Graphics2D) g.create();
-            g2.scale(scaleWidthCharacter, scaleHeightCharacter);
+            g2.scale(scaleWidthBullet, scaleHeightBullet);
             super.paintIcon(c, g2, x, y);
         }
     }
@@ -62,27 +56,21 @@ public class BulletView extends SolidObject {
         return new Bullet().getRelativeHeight();
     }
 
-    void setScaleWidthCharacter(double scaleWidthCharacter) {
-        this.scaleWidthCharacter = scaleWidthCharacter;
+    void setScaleWidthBullet(double scaleWidthBullet) {
+        this.scaleWidthBullet = scaleWidthBullet;
     }
 
-    void setScaleHeightCharacter(double scaleHeightCharacter) {
-        this.scaleHeightCharacter = scaleHeightCharacter;
+    void setScaleHeightBullet(double scaleHeightBullet) {
+        this.scaleHeightBullet = scaleHeightBullet;
     }
 
-    public float getRelativeBulletStartX() {
-        return relativeBulletStartX;
+    public JLabel getBulletLabel() {
+        return bulletLabel;
     }
 
-    public float getRelativeBulletStartY() {
-        return relativeBulletStartY;
-    }
-
-    public float getRelativeMaxRange() {
-        return 0.2f;
-    }
-
-    public float getBulletRangeRatio() {
-        return bulletRangeRatio;
+    void setIcon() {
+        bulletLabel.setIcon(new BulletView.BulletIcon());
     }
 }
+
+
