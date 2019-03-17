@@ -202,14 +202,17 @@ class MainClient {
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
-                lastMousePressedEvent = e;
-                readyToFire = true;
+                if (SwingUtilities.isLeftMouseButton(e)) {
+                    lastMousePressedEvent = e;
+                    readyToFire = true;
+                }
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
                 super.mouseReleased(e);
-                readyToFire = false;
+                if (SwingUtilities.isLeftMouseButton(e))
+                    readyToFire = false;
             }
         });
 
