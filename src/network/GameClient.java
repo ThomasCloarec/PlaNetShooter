@@ -45,11 +45,14 @@ public class GameClient extends Client {
         }
         if (object instanceof PlayableCharacter) {
             PlayableCharacter playableCharacter = (PlayableCharacter) object;
-            if (registerNameList.getList().contains(playableCharacter.getName())) {
-                if (otherPlayers.size() > registerNameList.getList().indexOf(playableCharacter.getName()))
-                    otherPlayers.set(registerNameList.getList().indexOf(playableCharacter.getName()), playableCharacter);
-                else
-                    otherPlayers.add(playableCharacter);
+
+            if (playableCharacter.getName() != null) {
+                if (registerNameList.getList().contains(playableCharacter.getName())) {
+                    if (otherPlayers.size() > registerNameList.getList().indexOf(playableCharacter.getName()))
+                        otherPlayers.set(registerNameList.getList().indexOf(playableCharacter.getName()), playableCharacter);
+                    else
+                        otherPlayers.add(playableCharacter);
+                }
             }
         }
     }

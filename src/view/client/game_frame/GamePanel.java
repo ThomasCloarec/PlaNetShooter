@@ -39,6 +39,21 @@ public class GamePanel extends JPanel {
 
         for (CharacterView otherPlayerView : otherPlayersViews) {
             if (otherPlayerView != null) {
+                for (BulletView bulletView : otherPlayerView.getBulletsViews()) {
+                    if (bulletView != null) {
+                        bulletView.setScaleWidthBullet(bulletView.getRelativeWidth()*this.getWidth()/200);
+                        bulletView.setScaleHeightBullet(bulletView.getRelativeHeight()*this.getHeight()/200);
+
+                        if (bulletView.getBulletLabel().getParent() == null) {
+                            bulletView.setIcon();
+                            this.add(bulletView.getBulletLabel());
+                            this.revalidate();
+                        }
+
+                        bulletView.getBulletLabel().setLocation((int)(bulletView.getRelativeX()*this.getWidth()), (int)(bulletView.getRelativeY()*this.getHeight()));
+                    }
+                }
+
                 otherPlayerView.setScaleWidthCharacter(otherPlayerView.getRelativeWidth()*this.getWidth()/200);
                 otherPlayerView.setScaleHeightCharacter(otherPlayerView.getRelativeHeight()*this.getHeight()/200);
                 

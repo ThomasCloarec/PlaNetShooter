@@ -22,6 +22,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
 import java.util.*;
+import java.util.List;
 
 class MainClient {
     private static String clientName;
@@ -432,6 +433,18 @@ class MainClient {
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeX(gameClient.getOtherPlayers().get(i).getRelativeX());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeY(gameClient.getOtherPlayers().get(i).getRelativeY());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHorizontal_direction(gameClient.getOtherPlayers().get(i).getHorizontal_direction());
+
+                for (BulletView bulletView : gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews()) {
+                    gameFrame.getGamePanel().remove(bulletView.getBulletLabel());
+                }
+                gameFrame.getGamePanel().revalidate();
+
+                List<BulletView> tempBulletView = new ArrayList<>();
+                for (Bullet bullet : gameClient.getOtherPlayers().get(i).getBullets()) {
+                    tempBulletView.add(new BulletView(bullet.getRelativeX(), bullet.getRelativeY()));
+                }
+
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setBulletsViews(tempBulletView);
             }
             else {
                 gameFrame.getGamePanel().getOtherPlayersViews().add(new CharacterView(
