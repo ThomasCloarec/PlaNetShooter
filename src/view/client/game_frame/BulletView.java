@@ -12,10 +12,14 @@ public class BulletView extends SolidObject {
     private final JLabel bulletLabel = new JLabel();
     private double scaleWidthCharacter = 0;
     private double scaleHeightCharacter = 0;
+    private float relativeBulletStartX;
+    private float relativeBulletStartY;
 
-    public BulletView(float relativeX, float relativeY) {
+    public BulletView(float relativeX, float relativeY, float relativeBulletStartX, float relativeBulletStartY) {
         this.relativeX = relativeX;
         this.relativeY = relativeY;
+        this.relativeBulletStartX = relativeBulletStartX;
+        this.relativeBulletStartY = relativeBulletStartY;
     }
 
     private class BulletIcon extends ImageIcon {
@@ -62,5 +66,18 @@ public class BulletView extends SolidObject {
 
     void setScaleHeightCharacter(double scaleHeightCharacter) {
         this.scaleHeightCharacter = scaleHeightCharacter;
+    }
+
+    public float getRelativeBulletStartX() {
+        return relativeBulletStartX;
+    }
+
+    public float getRelativeBulletStartY() {
+        return relativeBulletStartY;
+    }
+
+    public float getRelativeMaxRange() {
+        // percentage of game diagonal length
+        return 1f / 3f;
     }
 }
