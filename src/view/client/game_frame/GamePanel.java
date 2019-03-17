@@ -110,10 +110,6 @@ public class GamePanel extends JPanel {
         return otherPlayersViews;
     }
 
-    public void addOtherPlayerViewToArray(CharacterView characterView) {
-        otherPlayersViews.add(characterView);
-    }
-
     public List<BulletView> getBulletsViews() {
         return bulletsViews;
     }

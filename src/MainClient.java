@@ -434,7 +434,7 @@ class MainClient {
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHorizontal_direction(gameClient.getOtherPlayers().get(i).getHorizontal_direction());
             }
             else {
-                gameFrame.getGamePanel().addOtherPlayerViewToArray(new CharacterView(
+                gameFrame.getGamePanel().getOtherPlayersViews().add(new CharacterView(
                         gameClient.getOtherPlayers().get(i).getRelativeX(),
                         gameClient.getOtherPlayers().get(i).getRelativeY(),
                         playableCharacter.getRelativeWidth(),
