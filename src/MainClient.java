@@ -357,9 +357,11 @@ class MainClient {
                             float bulletMovementX = bulletSpeedRatio * tempDeltaX/(tempDeltaX + tempDeltaY) * Bullet.getSPEED() * (relativeCursorGoX -relativeBulletStartX*gameFrame.getGamePanel().getWidth()) / tempDeltaX;
                             float bulletMovementY = bulletSpeedRatio * tempDeltaY/(tempDeltaX + tempDeltaY) * Bullet.getSPEED() * (relativeCursorGoY -relativeBulletStartY*gameFrame.getGamePanel().getHeight()) / tempDeltaY;
 
+                            float bulletRangeRatio = ((float)Math.toDegrees(Math.atan(Math.abs(tempDeltaY/tempDeltaX)))) / 90f + 1f;
+
                             SwingUtilities.invokeLater(() -> {
-                                playableCharacter.getBullets().add(new Bullet(relativeBulletStartX, relativeBulletStartY, bulletMovementX, bulletMovementY, relativeBulletStartX, relativeBulletStartY));
-                                gameFrame.getGamePanel().getBulletsViews().add(new BulletView(relativeBulletStartX, relativeBulletStartY, relativeBulletStartX, relativeBulletStartY));
+                                playableCharacter.getBullets().add(new Bullet(relativeBulletStartX, relativeBulletStartY, bulletMovementX, bulletMovementY, relativeBulletStartX, relativeBulletStartY, bulletRangeRatio));
+                                gameFrame.getGamePanel().getBulletsViews().add(new BulletView(relativeBulletStartX, relativeBulletStartY, relativeBulletStartX, relativeBulletStartY, bulletRangeRatio));
                             });
                             lastShot = System.currentTimeMillis(); }
                     }
@@ -377,9 +379,7 @@ class MainClient {
                         playableCharacter.getBullets().removeIf(e -> ((e.getRelativeX() + e.getRelativeWidth() < 0) || e.getRelativeX() > 1));
                         playableCharacter.getBullets().removeIf(e -> ((e.getRelativeY() + e.getRelativeHeight() < 0) || e.getRelativeY() > 1));
 
-                        playableCharacter.getBullets().removeIf(e -> (Math.sqrt(Math.pow(e.getRelativeX() * gameFrame.getGamePanel().getWidth() -e.getRelativeBulletStartX() * gameFrame.getGamePanel().getWidth(), 2)
-                                + Math.pow(e.getRelativeY() * gameFrame.getGamePanel().getHeight() - e.getRelativeBulletStartY() * gameFrame.getGamePanel().getHeight(), 2)))
-                                > Math.sqrt(Math.pow(gameFrame.getGamePanel().getWidth(), 2) + Math.pow(gameFrame.getGamePanel().getHeight(), 2)) * e.getRelativeMaxRange());
+                        playableCharacter.getBullets().removeIf(e -> (Math.sqrt(Math.pow(e.getRelativeX()-e.getRelativeBulletStartX(), 2) + Math.pow(e.getRelativeY()-e.getRelativeBulletStartY(), 2))) > Math.sqrt(2) * e.getRelativeMaxRange() * e.getBulletRangeRatio());
 
                         for (Platform platform : platforms)
                             playableCharacter.getBullets().removeIf(e -> (!CollisionDetection.isCollisionBetween(e, platform).equals(PlayerCollisionSide.NONE)));
@@ -388,9 +388,7 @@ class MainClient {
                         gameFrame.getGamePanel().getBulletsViews().removeIf(e -> ((e.getRelativeX() + e.getRelativeWidth() < 0) || e.getRelativeX() > 1));
                         gameFrame.getGamePanel().getBulletsViews().removeIf(e -> ((e.getRelativeY() + e.getRelativeHeight() < 0) || e.getRelativeY() > 1));
 
-                        gameFrame.getGamePanel().getBulletsViews().removeIf(e -> (Math.sqrt(Math.pow(e.getRelativeX() * gameFrame.getGamePanel().getWidth() - e.getRelativeBulletStartX() * gameFrame.getGamePanel().getWidth(), 2)
-                                + Math.pow(e.getRelativeY() * gameFrame.getGamePanel().getHeight() - e.getRelativeBulletStartY() * gameFrame.getGamePanel().getHeight(), 2)))
-                                > Math.sqrt(Math.pow(gameFrame.getGamePanel().getWidth(), 2) + Math.pow(gameFrame.getGamePanel().getHeight(), 2)) * e.getRelativeMaxRange());
+                        gameFrame.getGamePanel().getBulletsViews().removeIf(e -> (Math.sqrt(Math.pow(e.getRelativeX()-e.getRelativeBulletStartX(), 2) + Math.pow(e.getRelativeY() - e.getRelativeBulletStartY(), 2))) > Math.sqrt(2) * e.getRelativeMaxRange() * e.getBulletRangeRatio());
 
                         for (Platform platform : platforms)
                             gameFrame.getGamePanel().getBulletsViews().removeIf(e -> (!CollisionDetection.isCollisionBetween(e, platform).equals(PlayerCollisionSide.NONE)));

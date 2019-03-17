@@ -10,11 +10,12 @@ public class Bullet extends SolidObject {
     private float movementY;
     private float relativeBulletStartX;
     private float relativeBulletStartY;
+    private float bulletRangeRatio;
 
     public Bullet() {
     }
 
-    public Bullet(float relativeX, float relativeY, float movementX, float movementY, float relativeBulletStartX, float relativeBulletStartY) {
+    public Bullet(float relativeX, float relativeY, float movementX, float movementY, float relativeBulletStartX, float relativeBulletStartY, float bulletRangeRatio) {
         this();
         this.relativeX = relativeX;
         this.relativeY = relativeY;
@@ -22,6 +23,7 @@ public class Bullet extends SolidObject {
         this.movementY = movementY;
         this.relativeBulletStartX = relativeBulletStartX;
         this.relativeBulletStartY = relativeBulletStartY;
+        this.bulletRangeRatio = bulletRangeRatio;
     }
 
     public static float getSPEED() {
@@ -75,7 +77,10 @@ public class Bullet extends SolidObject {
     }
 
     public float getRelativeMaxRange() {
-        // percentage of game diagonal length
-        return 1f / 3f;
+        return 0.2f;
+    }
+
+    public float getBulletRangeRatio() {
+        return bulletRangeRatio;
     }
 }

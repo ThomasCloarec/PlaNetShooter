@@ -14,12 +14,14 @@ public class BulletView extends SolidObject {
     private double scaleHeightCharacter = 0;
     private float relativeBulletStartX;
     private float relativeBulletStartY;
+    private float bulletRangeRatio;
 
-    public BulletView(float relativeX, float relativeY, float relativeBulletStartX, float relativeBulletStartY) {
+    public BulletView(float relativeX, float relativeY, float relativeBulletStartX, float relativeBulletStartY, float bulletRangeRatio) {
         this.relativeX = relativeX;
         this.relativeY = relativeY;
         this.relativeBulletStartX = relativeBulletStartX;
         this.relativeBulletStartY = relativeBulletStartY;
+        this.bulletRangeRatio = bulletRangeRatio;
     }
 
     private class BulletIcon extends ImageIcon {
@@ -77,7 +79,10 @@ public class BulletView extends SolidObject {
     }
 
     public float getRelativeMaxRange() {
-        // percentage of game diagonal length
-        return 1f / 3f;
+        return 0.2f;
+    }
+
+    public float getBulletRangeRatio() {
+        return bulletRangeRatio;
     }
 }
