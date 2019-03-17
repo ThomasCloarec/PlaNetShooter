@@ -390,7 +390,6 @@ class MainClient {
                         gameFrame.getGamePanel().repaint();
                     });
 
-                    System.out.println(gameFrame.getGamePanel().getWidth()+"|"+gameFrame.getGamePanel().getHeight());
                     if (IS_UNIX_OS)
                         Toolkit.getDefaultToolkit().sync();
                 }

@@ -93,7 +93,7 @@ public class CharacterView {
         }
         else {
             if (this.classCharacter.equals(ClassCharacters.BOB.name()))
-                characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/bob/idle.png"));
+                characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/bob/idle.gif"));
             else if (this.classCharacter.equals(ClassCharacters.MEDUSO.name()))
                 characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/meduso/run.gif"));
         }
