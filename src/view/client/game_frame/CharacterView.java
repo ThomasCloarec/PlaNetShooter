@@ -4,6 +4,8 @@ import model.characters.ClassCharacters;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CharacterView {
     private float relativeX;
@@ -16,6 +18,8 @@ public class CharacterView {
     private double scaleHeightCharacter = 0;
     private double horizontal_direction = 1;
     private final String classCharacter;
+    private final List<BulletView> bulletsViews = new ArrayList<>();
+
 
     public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name, String classCharacter) {
         this.relativeX = relativeX;
@@ -103,4 +107,7 @@ public class CharacterView {
         return horizontal_direction;
     }
 
+    public List<BulletView> getBulletsViews() {
+        return bulletsViews;
+    }
 }

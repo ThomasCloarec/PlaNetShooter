@@ -4,12 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GamePanel extends JPanel {
     private PlatformView[] platforms;
     private CharacterView characterView;
     private final List<CharacterView> otherPlayersViews = new ArrayList<>();
-    private final List<BulletView> bulletsViews = new ArrayList<>();
+
     GamePanel() {
         super();
         this.setBackground(Color.lightGray);
@@ -78,7 +79,7 @@ public class GamePanel extends JPanel {
                 characterView.getCharacterLabel().setLocation((int)(characterView.getRelativeX()*this.getWidth()),(int)((characterView.getRelativeY())*this.getHeight()));
         }
 
-        for (BulletView bulletView : bulletsViews) {
+        for (BulletView bulletView : Objects.requireNonNull(characterView).getBulletsViews()) {
             if (bulletView != null) {
                 bulletView.setScaleWidthBullet(bulletView.getRelativeWidth()*this.getWidth()/200);
                 bulletView.setScaleHeightBullet(bulletView.getRelativeHeight()*this.getHeight()/200);
@@ -108,9 +109,5 @@ public class GamePanel extends JPanel {
 
     public List<CharacterView> getOtherPlayersViews() {
         return otherPlayersViews;
-    }
-
-    public List<BulletView> getBulletsViews() {
-        return bulletsViews;
     }
 }

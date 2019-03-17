@@ -364,7 +364,7 @@ class MainClient {
 
                             SwingUtilities.invokeLater(() -> {
                                 playableCharacter.getBullets().add(new Bullet(relativeBulletStartX, relativeBulletStartY, bulletMovementX, bulletMovementY, relativeBulletStartX, relativeBulletStartY, bulletRangeRatio));
-                                gameFrame.getGamePanel().getBulletsViews().add(new BulletView(relativeBulletStartX, relativeBulletStartY));
+                                characterView.getBulletsViews().add(new BulletView(relativeBulletStartX, relativeBulletStartY));
                             });
                             lastShot = System.currentTimeMillis(); }
                     }
@@ -374,8 +374,8 @@ class MainClient {
                             bullet.setRelativeX(bullet.getRelativeX() + bullet.getMovementX());
                             bullet.setRelativeY(bullet.getRelativeY() + (float)gameFrame.getGamePanel().getWidth() / (float)gameFrame.getGamePanel().getHeight() * bullet.getMovementY());
 
-                            gameFrame.getGamePanel().getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeX(bullet.getRelativeX());
-                            gameFrame.getGamePanel().getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeY(bullet.getRelativeY());
+                            characterView.getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeX(bullet.getRelativeX());
+                            characterView.getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeY(bullet.getRelativeY());
                         }
 
                         ListIterator<Bullet> iterOutOfRange = playableCharacter.getBullets().listIterator();
@@ -388,8 +388,8 @@ class MainClient {
                                     || (iterOutOfRangeBullet.getRelativeY() + iterOutOfRangeBullet.getRelativeHeight() < 0)
                                     || (iterOutOfRangeBullet.getRelativeY() > 1)
                                     || (Math.sqrt(Math.pow(iterOutOfRangeBullet.getRelativeX()-iterOutOfRangeBullet.getRelativeBulletStartX(), 2) + Math.pow(iterOutOfRangeBullet.getRelativeY() - iterOutOfRangeBullet.getRelativeBulletStartY(), 2))) > Math.sqrt(2) * iterOutOfRangeBullet.getRelativeMaxRange() * iterOutOfRangeBullet.getBulletRangeRatio()){
-                                gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getBulletsViews().get(iterOutOfRangeBulletIndex).getBulletLabel());
-                                gameFrame.getGamePanel().getBulletsViews().remove(iterOutOfRangeBulletIndex);
+                                gameFrame.getGamePanel().remove(characterView.getBulletsViews().get(iterOutOfRangeBulletIndex).getBulletLabel());
+                                characterView.getBulletsViews().remove(iterOutOfRangeBulletIndex);
                                 iterOutOfRange.remove();
                             }
                         }
@@ -401,8 +401,8 @@ class MainClient {
                             
                             for (Platform platform : platforms) {
                                 if (!CollisionDetection.isCollisionBetween(iterCollisionBullet, platform).equals(PlayerCollisionSide.NONE)) {
-                                    gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getBulletsViews().get(iterCollisionBulletIndex).getBulletLabel());
-                                    gameFrame.getGamePanel().getBulletsViews().remove(iterCollisionBulletIndex);
+                                    gameFrame.getGamePanel().remove(characterView.getBulletsViews().get(iterCollisionBulletIndex).getBulletLabel());
+                                    characterView.getBulletsViews().remove(iterCollisionBulletIndex);
                                     iterCollision.remove();
                                 }
                             }
