@@ -153,7 +153,7 @@ class MainClient {
 
         playableCharacter = new PlayableCharacter(clientName);
         RandomSpawn();
-        playableCharacter.setClassCharacter(ClassCharacters.BOB.name());
+        playableCharacter.setClassCharacter(ClassCharacters.MEDUSO.name());
         characterView = new CharacterView(
                 playableCharacter.getRelativeX(),
                 playableCharacter.getRelativeY(),
@@ -198,6 +198,10 @@ class MainClient {
                 else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(playableCharacter, new HomeView()).equals(PlayerCollisionSide.NONE))) {
                     gameFrame.getCardLayout().next(gameFrame.getContentPane());
                     playableCharacter.setRelativeY(-1.15f);
+                }
+                else if (e.getKeyCode() == KeyEvent.VK_H) {
+                    System.out.println("CHanging hitbox mode");
+                    gameFrame.getGamePanel().setHitBoxMode(!gameFrame.getGamePanel().isHitBoxMode());
                 }
             }
         });
