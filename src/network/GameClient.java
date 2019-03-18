@@ -10,7 +10,8 @@ import java.util.List;
 public class GameClient extends Client {
     public Network.RegisterNameList registerNameList;
     private final List<PlayableCharacter> otherPlayers = new ArrayList<>();
-
+    private String myClientName;
+    private PlayableCharacter playableCharacter;
 
     public GameClient(String IPHost) throws IOException {
         super();
@@ -47,7 +48,10 @@ public class GameClient extends Client {
             PlayableCharacter playableCharacter = (PlayableCharacter) object;
 
             if (playableCharacter.getName() != null) {
-                if (registerNameList.getList().contains(playableCharacter.getName())) {
+                if (playableCharacter.getName().equals(myClientName)) {
+                    this.playableCharacter.setHealth(playableCharacter.getHealth());
+                }
+                else if (registerNameList.getList().contains(playableCharacter.getName())) {
                     if (otherPlayers.size() > registerNameList.getList().indexOf(playableCharacter.getName()))
                         otherPlayers.set(registerNameList.getList().indexOf(playableCharacter.getName()), playableCharacter);
                     else
@@ -67,5 +71,17 @@ public class GameClient extends Client {
 
     public List<PlayableCharacter> getOtherPlayers() {
         return otherPlayers;
+    }
+
+    public void setMyClientName(String myClientName) {
+        this.myClientName = myClientName;
+    }
+
+    public PlayableCharacter getPlayableCharacter() {
+        return playableCharacter;
+    }
+
+    public void setPlayableCharacter(PlayableCharacter playableCharacter) {
+        this.playableCharacter = playableCharacter;
     }
 }

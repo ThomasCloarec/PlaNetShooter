@@ -32,7 +32,6 @@ class MainClient {
     private static boolean collisionOnRight = false, collisionOnLeft = false, collisionOnTop = false, collisionOnBottom = false;
     private static boolean jumpKeyJustPressed = false;
     private static GameFrame gameFrame;
-    private static PlayableCharacter playableCharacter;
     private static CharacterView characterView;
     private static final String RELEASE_LEFT = "Release.left", RELEASE_RIGHT = "Release.right", PRESS_LEFT = "Press.left", PRESS_RIGHT = "Press.right";
     private static final Set<Direction> directions = new TreeSet<>();
@@ -110,6 +109,7 @@ class MainClient {
                 else {
                     AskClientName.setRegisterNameList(gameClient.getRegisterNameList().getList());
                     clientName = AskClientName.getClientName();
+                    gameClient.setMyClientName(clientName);
 
                     gameClient.connectedListener(clientName);
                 }
@@ -151,16 +151,17 @@ class MainClient {
 
 
 
-        playableCharacter = new PlayableCharacter(clientName);
+        gameClient.setPlayableCharacter(new PlayableCharacter(clientName));
         RandomSpawn();
-        playableCharacter.setClassCharacter(ClassCharacters.MEDUSO.name());
+        gameClient.getPlayableCharacter().setClassCharacter(ClassCharacters.MEDUSO.name());
         characterView = new CharacterView(
-                playableCharacter.getRelativeX(),
-                playableCharacter.getRelativeY(),
-                playableCharacter.getRelativeWidth(),
-                playableCharacter.getRelativeHeight(),
-                playableCharacter.getName(),
-                playableCharacter.getClassCharacter());
+                gameClient.getPlayableCharacter().getRelativeX(),
+                gameClient.getPlayableCharacter().getRelativeY(),
+                gameClient.getPlayableCharacter().getRelativeWidth(),
+                gameClient.getPlayableCharacter().getRelativeHeight(),
+                gameClient.getPlayableCharacter().getName(),
+                gameClient.getPlayableCharacter().getClassCharacter(),
+                gameClient.getPlayableCharacter().getHealth());
 
         gameFrame.getGamePanel().setCharacterView(characterView);
     }
@@ -195,9 +196,9 @@ class MainClient {
                     if (collisionOnBottom)
                         jumpKeyJustPressed = true;
                 }
-                else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(playableCharacter, new HomeView()).equals(PlayerCollisionSide.NONE))) {
+                else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(gameClient.getPlayableCharacter(), new HomeView()).equals(PlayerCollisionSide.NONE))) {
                     gameFrame.getCardLayout().next(gameFrame.getContentPane());
-                    playableCharacter.setRelativeY(-1.15f);
+                    gameClient.getPlayableCharacter().setRelativeY(-1.15f);
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_H) {
                     System.out.println("CHanging hitbox mode");
@@ -267,23 +268,23 @@ class MainClient {
                         releaseActionRight.removeMovements();
                     }
 
-                    playableCharacter.setHorizontal_direction(-totalDirection);
-                    characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
+                    gameClient.getPlayableCharacter().setHorizontal_direction(-totalDirection);
+                    characterView.setHorizontal_direction(gameClient.getPlayableCharacter().getHorizontal_direction());
 
-                    gameClient.sendPlayerInformation(playableCharacter);
+                    gameClient.sendPlayerInformation(gameClient.getPlayableCharacter());
                     collisionOnTop = false;
                     collisionOnBottom = false;
                     collisionOnRight = false;
                     collisionOnLeft = false;
 
                     for (Platform platform : platforms) {
-                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.TOP))
+                        if (CollisionDetection.isCollisionBetween(gameClient.getPlayableCharacter(), platform).equals(PlayerCollisionSide.TOP))
                             collisionOnTop = true;
-                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM))
+                        if (CollisionDetection.isCollisionBetween(gameClient.getPlayableCharacter(), platform).equals(PlayerCollisionSide.BOTTOM))
                             collisionOnBottom = true;
-                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.RIGHT))
+                        if (CollisionDetection.isCollisionBetween(gameClient.getPlayableCharacter(), platform).equals(PlayerCollisionSide.RIGHT))
                             collisionOnRight = true;
-                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.LEFT))
+                        if (CollisionDetection.isCollisionBetween(gameClient.getPlayableCharacter(), platform).equals(PlayerCollisionSide.LEFT))
                             collisionOnLeft = true;
                     }
 
@@ -321,17 +322,17 @@ class MainClient {
                     if (collisionOnBottom) {
                         if (jumpKeyJustPressed) {
                             while (collisionOnBottom) {
-                                playableCharacter.setRelativeY(playableCharacter.getRelativeY()-PlayableCharacter.getRelativeJumpStrength());
+                                gameClient.getPlayableCharacter().setRelativeY(gameClient.getPlayableCharacter().getRelativeY()-PlayableCharacter.getRelativeJumpStrength());
 
                                 for (Platform platform : platforms) {
-                                    collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM);
+                                    collisionOnBottom = CollisionDetection.isCollisionBetween(gameClient.getPlayableCharacter(), platform).equals(PlayerCollisionSide.BOTTOM);
                                     if (collisionOnBottom) {
                                         break;
                                     }
                                 }
                             }
                             relativeMovementY -= PlayableCharacter.getRelativeJumpStrength();
-                            playableCharacter.setRelativeY(playableCharacter.getRelativeY()+PlayableCharacter.getRelativeJumpStrength());
+                            gameClient.getPlayableCharacter().setRelativeY(gameClient.getPlayableCharacter().getRelativeY()+PlayableCharacter.getRelativeJumpStrength());
 
                             jumpKeyJustPressed = false;
                         }
@@ -343,16 +344,16 @@ class MainClient {
                     else if (relativeMovementY < Terrain.getRelativeMaxGravity())
                         relativeMovementY += Terrain.getRelativeGravityGrowth();
 
-                    if (playableCharacter.getRelativeY() >= 1)
+                    if (gameClient.getPlayableCharacter().getRelativeY() >= 1)
                         RandomSpawn();
 
-                    playableCharacter.setRelativeX(playableCharacter.getRelativeX() + relativeMovementX);
-                    playableCharacter.setRelativeY(playableCharacter.getRelativeY() + relativeMovementY);
+                    gameClient.getPlayableCharacter().setRelativeX(gameClient.getPlayableCharacter().getRelativeX() + relativeMovementX);
+                    gameClient.getPlayableCharacter().setRelativeY(gameClient.getPlayableCharacter().getRelativeY() + relativeMovementY);
 
                     if(readyToFire) {
                         if(System.currentTimeMillis() - lastShot > 1000f/Bullet.getShotPerSecond()) {
-                            float relativeBulletStartX = playableCharacter.getRelativeX() + ((float)-characterView.getHorizontal_direction() + 1) * playableCharacter.getRelativeWidth()/2f;
-                            float relativeBulletStartY = playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight()/2f - new Bullet().getRelativeHeight() / 2f;
+                            float relativeBulletStartX = gameClient.getPlayableCharacter().getRelativeX() + ((float)-characterView.getHorizontal_direction() + 1) * gameClient.getPlayableCharacter().getRelativeWidth()/2f;
+                            float relativeBulletStartY = gameClient.getPlayableCharacter().getRelativeY() + gameClient.getPlayableCharacter().getRelativeHeight()/2f - new Bullet().getRelativeHeight() / 2f;
 
                             float relativeCursorGoX = lastMousePressedEvent.getX() - new Bullet().getRelativeWidth() * gameFrame.getGamePanel().getWidth() / 2f;
                             float relativeCursorGoY = lastMousePressedEvent.getY() - new Bullet().getRelativeHeight()* gameFrame.getGamePanel().getHeight() / 2f;
@@ -368,22 +369,22 @@ class MainClient {
                             float bulletRangeRatio = ((float)Math.toDegrees(Math.atan(Math.abs(tempDeltaY/tempDeltaX)))) / 90f + 1f;
 
                             SwingUtilities.invokeLater(() -> {
-                                playableCharacter.getBullets().add(new Bullet(relativeBulletStartX, relativeBulletStartY, bulletMovementX, bulletMovementY, relativeBulletStartX, relativeBulletStartY, bulletRangeRatio));
+                                gameClient.getPlayableCharacter().getBullets().add(new Bullet(relativeBulletStartX, relativeBulletStartY, bulletMovementX, bulletMovementY, relativeBulletStartX, relativeBulletStartY, bulletRangeRatio));
                                 characterView.getBulletsViews().add(new BulletView(relativeBulletStartX, relativeBulletStartY));
                             });
                             lastShot = System.currentTimeMillis(); }
                     }
 
                     SwingUtilities.invokeLater(() -> {
-                        for(Bullet bullet : playableCharacter.getBullets()) {
+                        for(Bullet bullet : gameClient.getPlayableCharacter().getBullets()) {
                             bullet.setRelativeX(bullet.getRelativeX() + bullet.getMovementX());
                             bullet.setRelativeY(bullet.getRelativeY() + (float)gameFrame.getGamePanel().getWidth() / (float)gameFrame.getGamePanel().getHeight() * bullet.getMovementY());
 
-                            characterView.getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeX(bullet.getRelativeX());
-                            characterView.getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeY(bullet.getRelativeY());
+                            characterView.getBulletsViews().get(gameClient.getPlayableCharacter().getBullets().indexOf(bullet)).setRelativeX(bullet.getRelativeX());
+                            characterView.getBulletsViews().get(gameClient.getPlayableCharacter().getBullets().indexOf(bullet)).setRelativeY(bullet.getRelativeY());
                         }
 
-                        ListIterator<Bullet> iterOutOfRange = playableCharacter.getBullets().listIterator();
+                        ListIterator<Bullet> iterOutOfRange = gameClient.getPlayableCharacter().getBullets().listIterator();
                         while(iterOutOfRange.hasNext()){
                             int iterOutOfRangeBulletIndex = iterOutOfRange.nextIndex();
                             Bullet iterOutOfRangeBullet = iterOutOfRange.next();
@@ -399,23 +400,42 @@ class MainClient {
                             }
                         }
 
-                        ListIterator<Bullet> iterCollision = playableCharacter.getBullets().listIterator();
-                        while(iterCollision.hasNext()) {
-                            int iterCollisionBulletIndex = iterCollision.nextIndex();
-                            Bullet iterCollisionBullet = iterCollision.next();
+                        ListIterator<Bullet> iterCollisionPlatforms = gameClient.getPlayableCharacter().getBullets().listIterator();
+                        while(iterCollisionPlatforms.hasNext()) {
+                            int iterCollisionPlatformsBulletIndex = iterCollisionPlatforms.nextIndex();
+                            Bullet iterCollisionPlatformsBullet = iterCollisionPlatforms.next();
                             
                             for (Platform platform : platforms) {
-                                if (!CollisionDetection.isCollisionBetween(iterCollisionBullet, platform).equals(PlayerCollisionSide.NONE)) {
-                                    gameFrame.getGamePanel().remove(characterView.getBulletsViews().get(iterCollisionBulletIndex).getBulletLabel());
-                                    characterView.getBulletsViews().remove(iterCollisionBulletIndex);
-                                    iterCollision.remove();
+                                if (!CollisionDetection.isCollisionBetween(iterCollisionPlatformsBullet, platform).equals(PlayerCollisionSide.NONE)) {
+                                    gameFrame.getGamePanel().remove(characterView.getBulletsViews().get(iterCollisionPlatformsBulletIndex).getBulletLabel());
+                                    characterView.getBulletsViews().remove(iterCollisionPlatformsBulletIndex);
+                                    iterCollisionPlatforms.remove();
+                                }
+                            }
+                        }
+
+                        ListIterator<Bullet> iterCollisionCharacters = gameClient.getPlayableCharacter().getBullets().listIterator();
+                        while(iterCollisionCharacters.hasNext()) {
+                            int iterCollisionCharactersBulletIndex = iterCollisionCharacters.nextIndex();
+                            Bullet iterCollisionCharactersBullet = iterCollisionCharacters.next();
+
+                            for (PlayableCharacter otherPlayer : gameClient.getOtherPlayers() ) {
+                                if (!CollisionDetection.isCollisionBetween(iterCollisionCharactersBullet, otherPlayer).equals(PlayerCollisionSide.NONE)) {
+                                    gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getOtherPlayers().indexOf(otherPlayer)).setHealth(otherPlayer.getHealth() - gameClient.getPlayableCharacter().getBullets().get(iterCollisionCharactersBulletIndex).getDamage());
+                                    otherPlayer.setHealth(otherPlayer.getHealth() - gameClient.getPlayableCharacter().getBullets().get(iterCollisionCharactersBulletIndex).getDamage());
+
+                                    gameClient.sendTCP(otherPlayer);
+                                    gameFrame.getGamePanel().remove(characterView.getBulletsViews().get(iterCollisionCharactersBulletIndex).getBulletLabel());
+                                    characterView.getBulletsViews().remove(iterCollisionCharactersBulletIndex);
+                                    iterCollisionCharacters.remove();
                                 }
                             }
                         }
                     });
 
-                    characterView.setRelativeX(playableCharacter.getRelativeX());
-                    characterView.setRelativeY(playableCharacter.getRelativeY());
+                    characterView.setHealth(gameClient.getPlayableCharacter().getHealth());
+                    characterView.setRelativeX(gameClient.getPlayableCharacter().getRelativeX());
+                    characterView.setRelativeY(gameClient.getPlayableCharacter().getRelativeY());
 
                     SwingUtilities.invokeLater(() -> {
                         otherPlayersPainting();
@@ -436,6 +456,7 @@ class MainClient {
 
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeX(gameClient.getOtherPlayers().get(i).getRelativeX());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeY(gameClient.getOtherPlayers().get(i).getRelativeY());
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHealth(gameClient.getOtherPlayers().get(i).getHealth());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHorizontal_direction(gameClient.getOtherPlayers().get(i).getHorizontal_direction());
 
                 for (BulletView bulletView : gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews()) {
@@ -454,10 +475,11 @@ class MainClient {
                 gameFrame.getGamePanel().getOtherPlayersViews().add(new CharacterView(
                         gameClient.getOtherPlayers().get(i).getRelativeX(),
                         gameClient.getOtherPlayers().get(i).getRelativeY(),
-                        playableCharacter.getRelativeWidth(),
-                        playableCharacter.getRelativeHeight(),
+                        gameClient.getPlayableCharacter().getRelativeWidth(),
+                        gameClient.getPlayableCharacter().getRelativeHeight(),
                         gameClient.getOtherPlayers().get(i).getName(),
-                        gameClient.getOtherPlayers().get(i).getClassCharacter()));
+                        gameClient.getOtherPlayers().get(i).getClassCharacter(),
+                        gameClient.getOtherPlayers().get(i).getHealth()));
             }
         }
     }
@@ -465,20 +487,20 @@ class MainClient {
     private static void RandomSpawn(){
         double RandSpawn = Math.random();
         if (RandSpawn  < 0.25){
-            playableCharacter.setRelativeX(0.03f);
-            playableCharacter.setRelativeY(0.85f);
+            gameClient.getPlayableCharacter().setRelativeX(0.03f);
+            gameClient.getPlayableCharacter().setRelativeY(0.85f);
         }
         else if (RandSpawn > 0.25 & RandSpawn < 0.50){
-            playableCharacter.setRelativeX(0.03f);
-            playableCharacter.setRelativeY(0.45f);
+            gameClient.getPlayableCharacter().setRelativeX(0.03f);
+            gameClient.getPlayableCharacter().setRelativeY(0.45f);
         }
         else if (RandSpawn > 0.50 & RandSpawn < 0.75){
-            playableCharacter.setRelativeX(0.91f);
-            playableCharacter.setRelativeY(0.85f);
+            gameClient.getPlayableCharacter().setRelativeX(0.91f);
+            gameClient.getPlayableCharacter().setRelativeY(0.85f);
         }
         else if (RandSpawn > 0.75){
-            playableCharacter.setRelativeX(0.91f);
-            playableCharacter.setRelativeY(0.45f);
+            gameClient.getPlayableCharacter().setRelativeX(0.91f);
+            gameClient.getPlayableCharacter().setRelativeY(0.45f);
         }
     }
 }

@@ -49,6 +49,7 @@ public class GameServer extends Server {
         if (object instanceof PlayableCharacter) {
             PlayableCharacter playableCharacter = (PlayableCharacter)object;
             this.sendToAllExceptUDP(gameConnection.getID(), playableCharacter);
+            this.sendToAllExceptTCP(gameConnection.getID(), playableCharacter);
         }
     }
 

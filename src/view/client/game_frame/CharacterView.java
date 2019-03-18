@@ -19,14 +19,15 @@ public class CharacterView {
     private double horizontal_direction = 1;
     private final String classCharacter;
     private List<BulletView> bulletsViews = new ArrayList<>();
+    private float health;
 
-
-    public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name, String classCharacter) {
+    public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name, String classCharacter, float health) {
         this.relativeX = relativeX;
         this.relativeY = relativeY;
         this.RELATIVE_WIDTH = relativeWidth;
         this.RELATIVE_HEIGHT = relativeHeight;
         this.classCharacter = classCharacter;
+        this.health = health;
 
         nameLabel.setText(String.valueOf(name.charAt(0)));
     }
@@ -113,5 +114,13 @@ public class CharacterView {
 
     public void setBulletsViews(List<BulletView> bulletsViews) {
         this.bulletsViews = bulletsViews;
+    }
+
+    float getHealth() {
+        return health;
+    }
+
+    public void setHealth(float health) {
+        this.health = health;
     }
 }

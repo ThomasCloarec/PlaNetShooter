@@ -18,6 +18,7 @@ public class PlayableCharacter extends SolidObject {
     private String name;
     private double horizontal_direction = 1;
     private final List<Bullet> bullets = new ArrayList<>();
+    private float health = 1f;
 
     // Default constructor used for reflection (by Kryo serialization)
     private PlayableCharacter() {
@@ -93,4 +94,11 @@ public class PlayableCharacter extends SolidObject {
         return bullets;
     }
 
+    public void setHealth(float health) {
+        this.health = health;
+    }
+
+    public float getHealth() {
+        return health;
+    }
 }

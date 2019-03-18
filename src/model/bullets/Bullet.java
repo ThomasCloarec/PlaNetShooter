@@ -11,6 +11,7 @@ public class Bullet extends SolidObject {
     private float relativeBulletStartX;
     private float relativeBulletStartY;
     private float bulletRangeRatio;
+    private float damage = 0.15f;
 
     public Bullet() {
     }
@@ -82,5 +83,9 @@ public class Bullet extends SolidObject {
 
     public float getBulletRangeRatio() {
         return bulletRangeRatio;
+    }
+
+    public float getDamage() {
+        return damage;
     }
 }

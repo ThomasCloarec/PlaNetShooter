@@ -77,6 +77,16 @@ public class GamePanel extends JPanel {
                         otherPlayerView.getCharacterLabel().setLocation((int) (otherPlayerView.getRelativeX() * this.getWidth()), (int) ((otherPlayerView.getRelativeY()) * this.getHeight()));
 
                     otherPlayerView.getNameLabel().setLocation((int) ((otherPlayerView.getRelativeX() + otherPlayerView.getRelativeWidth() / 2) * this.getWidth() - otherPlayerView.getNameLabel().getWidth() / 2), (int) ((otherPlayerView.getRelativeY() + otherPlayerView.getRelativeHeight() / 2) * this.getHeight()) - otherPlayerView.getNameLabel().getHeight() / 2);
+
+                    g.setColor(new Color(255,0,28, 51));
+                    g.fillRect((int)(otherPlayerView.getRelativeX()*this.getWidth()), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*otherPlayerView.getHealth()*0.8f), (int)(0.01f*this.getHeight()));
+                    g.setColor(new Color(255, 0, 28, 255));
+                    g.drawRect((int)(otherPlayerView.getRelativeX()*this.getWidth()), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.8f), (int)(0.01f*this.getHeight()));
+
+                    g.setColor(new Color(16, 255, 0, 255));
+                    g.fillRect((int)(otherPlayerView.getRelativeX()*this.getWidth()) + (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.875f), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.125f), (int)(0.01f*this.getHeight()));
+                    g.setColor(new Color(0,153,255, 255));
+                    g.drawRect((int)(otherPlayerView.getRelativeX()*this.getWidth()) + (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.875f), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.125f), (int)(0.01f*this.getHeight()));
                 }
             }
 
@@ -119,7 +129,6 @@ public class GamePanel extends JPanel {
             }
         }
         else {
-
             g.setColor(Color.magenta);
             g.fillRect((int) (new HomeView().getRelativeX() * this.getWidth()),
                     (int) (new HomeView().getRelativeY() * this.getHeight()),
@@ -143,6 +152,17 @@ public class GamePanel extends JPanel {
 
                     g.setColor(Color.red);
                     g.fillRect((int) (otherPlayerView.getRelativeX() * this.getWidth()), (int) ((otherPlayerView.getRelativeY()) * this.getHeight()), (int)(otherPlayerView.getRelativeWidth() * this.getWidth()), (int)(otherPlayerView.getRelativeHeight() * this.getHeight()));
+
+                    g.setColor(new Color(255,0,28, 51));
+                    g.fillRect((int)(otherPlayerView.getRelativeX()*this.getWidth()), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*otherPlayerView.getHealth()*0.8f), (int)(0.01f*this.getHeight()));
+                    g.setColor(new Color(255, 0, 28, 255));
+                    g.drawRect((int)(otherPlayerView.getRelativeX()*this.getWidth()), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.8f), (int)(0.01f*this.getHeight()));
+
+                    g.setColor(new Color(16, 255, 0, 255));
+                    g.fillRect((int)(otherPlayerView.getRelativeX()*this.getWidth()) + (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.875f), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.125f), (int)(0.01f*this.getHeight()));
+                    g.setColor(new Color(0,153,255, 255));
+                    g.drawRect((int)(otherPlayerView.getRelativeX()*this.getWidth()) + (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.875f), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.125f), (int)(0.01f*this.getHeight()));
+
                     for (BulletView bulletView : otherPlayerView.getBulletsViews()) {
                         if (bulletView != null) {
                             bulletView.getBulletLabel().setVisible(false);
@@ -166,22 +186,21 @@ public class GamePanel extends JPanel {
                 if (bulletView != null) {
                     bulletView.getBulletLabel().setVisible(false);
 
-                    g.setColor(Color.magenta);
+                    g.setColor(new Color(188,0,255, 255));
                     g.fillRect((int) (bulletView.getRelativeX() * this.getWidth()), (int) (bulletView.getRelativeY() * this.getHeight()), (int) (bulletView.getRelativeWidth()*this.getWidth()), (int) (bulletView.getRelativeHeight()*this.getHeight()));
                 }
             }
         }
 
         g.setColor(new Color(255,0,28, 51));
-        g.fillRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()*0.5f*0.8f), (int)(0.01f*this.getHeight()));
+        g.fillRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()*characterView.getHealth()), (int)(0.01f*this.getHeight()));
         g.setColor(new Color(255, 0, 28, 255));
-        g.drawRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()*0.8f), (int)(0.01f*this.getHeight()));
+        g.drawRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()), (int)(0.01f*this.getHeight()));
 
+        g.setColor(new Color(16, 255, 0, 51));
+        g.fillRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.03f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()*1f), (int)(0.01f*this.getHeight()));
         g.setColor(new Color(16, 255, 0, 255));
-        g.fillRect((int)(characterView.getRelativeX()*this.getWidth()) + (int)(characterView.getRelativeWidth()*this.getWidth()*0.875f), (int)(characterView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()*0.125f), (int)(0.01f*this.getHeight()));
-        g.setColor(new Color(0,153,255, 255));
-        g.drawRect((int)(characterView.getRelativeX()*this.getWidth()) + (int)(characterView.getRelativeWidth()*this.getWidth()*0.875f), (int)(characterView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()*0.125f), (int)(0.01f*this.getHeight()));
-
+        g.drawRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.03f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()), (int)(0.01f*this.getHeight()));
     }
 
     public void setPlatformsView(PlatformView[] platforms) {
