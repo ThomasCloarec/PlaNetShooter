@@ -8,8 +8,8 @@ import java.util.List;
 public class CharacterView {
     private float relativeX;
     private float relativeY;
-    private final float RELATIVE_WIDTH;
-    private final float RELATIVE_HEIGHT;
+    private float relativeWidth;
+    private float relativeHeight;
     private final JLabel nameLabel = new JLabel();
     private final JLabel characterLabel = new JLabel();
     double scaleWidthCharacter = 0;
@@ -24,8 +24,8 @@ public class CharacterView {
     public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name, String classCharacter, float health) {
         this.relativeX = relativeX;
         this.relativeY = relativeY;
-        this.RELATIVE_WIDTH = relativeWidth;
-        this.RELATIVE_HEIGHT = relativeHeight;
+        this.relativeWidth = relativeWidth;
+        this.relativeHeight = relativeHeight;
         this.classCharacter = classCharacter;
         this.health = health;
 
@@ -60,11 +60,11 @@ public class CharacterView {
     }
 
     float getRelativeWidth() {
-        return RELATIVE_WIDTH;
+        return relativeWidth;
     }
 
     float getRelativeHeight() {
-        return RELATIVE_HEIGHT;
+        return relativeHeight;
     }
 
     public void setRelativeX(float relativeX) {
@@ -136,5 +136,9 @@ public class CharacterView {
 
     float getCharacterIconHeight() {
         return characterIconHeight;
+    }
+
+    String getClassCharacter() {
+        return classCharacter;
     }
 }

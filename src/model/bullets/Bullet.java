@@ -40,11 +40,11 @@ public class Bullet extends SolidObject {
 
     @SuppressWarnings("SameReturnValue")
     public float getRelativeWidth() {
-        return 0.01f;
+        return 0.02f;
     }
 
     public float getRelativeHeight() {
-        return 0.01f * 768f / 372f;
+        return 0.02f * 768f / 372f;
     }
     public float getMovementX() {
         return movementX;

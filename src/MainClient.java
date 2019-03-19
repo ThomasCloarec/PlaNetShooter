@@ -81,7 +81,6 @@ class MainClient {
                 SwingUtilities.invokeLater(() -> {
                     if (object instanceof Network.RemoveName) {
                         Network.RemoveName removeName = (Network.RemoveName) object;
-                        System.out.println("\"" + removeName.name + "\" is disconnected !");
 
                         if (gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getNameLabel().getParent() != null)
                             gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getNameLabel());
@@ -157,7 +156,7 @@ class MainClient {
 
         playableCharacter = new PlayableCharacter(clientName);
         playableCharacter.setRelativeY(-1.15f);
-        playableCharacter.setClassCharacter(ClassCharacters.BOB.name());
+        playableCharacter.setClassCharacter(ClassCharacters.ANGELO.name());
         characterView = new CharacterView(
                 playableCharacter.getRelativeX(),
                 playableCharacter.getRelativeY(),
@@ -294,10 +293,10 @@ class MainClient {
                     if ((collisionOnRight && relativeMovementX > 0) || (collisionOnLeft && relativeMovementX < 0))
                         relativeMovementX = 0;
                     else if (collisionOnBottom) {
-                        if (totalDirection == 1 && relativeMovementX < PlayableCharacter.getRelativeMaxSpeed())
-                            relativeMovementX += PlayableCharacter.getRelativeSpeedGrowth();
-                        else if (totalDirection == -1 && relativeMovementX > -PlayableCharacter.getRelativeMaxSpeed())
-                            relativeMovementX -= PlayableCharacter.getRelativeSpeedGrowth();
+                        if (totalDirection == 1 && relativeMovementX < playableCharacter.getRelativeMaxSpeed())
+                            relativeMovementX += playableCharacter.getRelativeSpeedGrowth();
+                        else if (totalDirection == -1 && relativeMovementX > -playableCharacter.getRelativeMaxSpeed())
+                            relativeMovementX -= playableCharacter.getRelativeSpeedGrowth();
                         else {
                             if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction())
                                 relativeMovementX = 0;
@@ -308,10 +307,10 @@ class MainClient {
                         }
                     }
                     else {
-                        if (totalDirection == 1 && relativeMovementX < PlayableCharacter.getRelativeMaxSpeed())
-                            relativeMovementX += PlayableCharacter.getRelativeSpeedGrowth()/2;
-                        else if (totalDirection == -1 && relativeMovementX > -PlayableCharacter.getRelativeMaxSpeed())
-                            relativeMovementX -= PlayableCharacter.getRelativeSpeedGrowth()/2;
+                        if (totalDirection == 1 && relativeMovementX < playableCharacter.getRelativeMaxSpeed())
+                            relativeMovementX += playableCharacter.getRelativeSpeedGrowth()/2;
+                        else if (totalDirection == -1 && relativeMovementX > -playableCharacter.getRelativeMaxSpeed())
+                            relativeMovementX -= playableCharacter.getRelativeSpeedGrowth()/2;
                         else {
                             if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction()/10)
                                 relativeMovementX = 0;
@@ -468,8 +467,8 @@ class MainClient {
                 gameFrame.getGamePanel().getOtherPlayersViews().add(new CharacterView(
                         gameClient.getOtherPlayers().get(i).getRelativeX(),
                         gameClient.getOtherPlayers().get(i).getRelativeY(),
-                        playableCharacter.getRelativeWidth(),
-                        playableCharacter.getRelativeHeight(),
+                        gameClient.getOtherPlayers().get(i).getRelativeWidth(),
+                        gameClient.getOtherPlayers().get(i).getRelativeHeight(),
                         gameClient.getOtherPlayers().get(i).getName(),
                         gameClient.getOtherPlayers().get(i).getClassCharacter(),
                         gameClient.getOtherPlayers().get(i).getHealth()));
@@ -481,19 +480,19 @@ class MainClient {
         double RandSpawn = Math.random();
         if (RandSpawn  < 0.25){
             playableCharacter.setRelativeX(0.03f);
-            playableCharacter.setRelativeY(0.85f);
+            playableCharacter.setRelativeY(0.85f - (playableCharacter.getRelativeHeight()-0.05f * 768f/372f));
         }
         else if (RandSpawn > 0.25 & RandSpawn < 0.50){
             playableCharacter.setRelativeX(0.03f);
-            playableCharacter.setRelativeY(0.45f);
+            playableCharacter.setRelativeY(0.45f - (playableCharacter.getRelativeHeight()-0.05f * 768f/372f));
         }
         else if (RandSpawn > 0.50 & RandSpawn < 0.75){
             playableCharacter.setRelativeX(0.91f);
-            playableCharacter.setRelativeY(0.85f);
+            playableCharacter.setRelativeY(0.85f - (playableCharacter.getRelativeHeight()-0.05f * 768f/372f));
         }
         else if (RandSpawn > 0.75){
             playableCharacter.setRelativeX(0.91f);
-            playableCharacter.setRelativeY(0.45f);
+            playableCharacter.setRelativeY(0.45f - (playableCharacter.getRelativeHeight()-0.05f * 768f/372f));
         }
     }
 }

@@ -21,8 +21,8 @@ public class BulletView extends SolidObject {
     }
 
     private class BulletIcon extends ImageIcon {
-        BulletIcon() {
-            super(BulletView.class.getResource("/view/resources/game/bullet.png"));
+        BulletIcon(String filename) {
+            super(BulletView.class.getResource(filename));
             bulletIconWidth = this.getIconWidth();
             bulletIconHeight = this.getIconHeight();
         }
@@ -72,8 +72,8 @@ public class BulletView extends SolidObject {
         return bulletLabel;
     }
 
-    void setIcon() {
-        bulletLabel.setIcon(new BulletView.BulletIcon());
+    void setIcon(String filename) {
+        bulletLabel.setIcon(new BulletView.BulletIcon(filename));
     }
 
     float getBulletIconWidth() {

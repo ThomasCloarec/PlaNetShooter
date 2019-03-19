@@ -39,6 +39,51 @@ public class GamePanel extends JPanel {
                 }
             }
 
+            characterView.setScaleWidthCharacter(characterView.getRelativeWidth() * this.getWidth() / characterView.getCharacterIconWidth());
+            characterView.setScaleHeightCharacter(characterView.getRelativeHeight() * this.getHeight() / characterView.getCharacterIconHeight());
+            characterView.getNameLabel().setLocation((int) ((characterView.getRelativeX() + characterView.getRelativeWidth() / 2) * this.getWidth() - characterView.getNameLabel().getWidth() / 2), (int) ((characterView.getRelativeY() + characterView.getRelativeHeight() / 2) * this.getHeight()) - characterView.getNameLabel().getHeight() / 2);
+
+            if (characterView != null) {
+                characterView.getCharacterLabel().setVisible(true);
+                characterView.getNameLabel().setVisible(true);
+
+                if (characterView.getCharacterLabel().getParent() == null) {
+                    this.add(characterView.getCharacterLabel());
+                    this.revalidate();
+                }
+
+                if (characterView.getNameLabel().getParent() == null) {
+                    this.add(characterView.getNameLabel());
+                    this.revalidate();
+                }
+
+                if (characterView.getHorizontal_direction() == -1) {
+                    characterView.getCharacterLabel().setLocation((int) ((characterView.getRelativeX() - characterView.getRelativeWidth() / characterView.scaleWidthCharacter + characterView.getRelativeWidth()) * this.getWidth()), (int) ((characterView.getRelativeY()) * this.getHeight()));
+                } else
+                    characterView.getCharacterLabel().setLocation((int) (characterView.getRelativeX() * this.getWidth()), (int) ((characterView.getRelativeY()) * this.getHeight()));
+            }
+
+            for (BulletView bulletView : Objects.requireNonNull(characterView).getBulletsViews()) {
+                if (bulletView != null) {
+                    bulletView.getBulletLabel().setVisible(true);
+
+                    bulletView.setScaleWidthBullet(bulletView.getRelativeWidth() * this.getWidth() / bulletView.getBulletIconWidth());
+                    bulletView.setScaleHeightBullet(bulletView.getRelativeHeight() * this.getHeight() / bulletView.getBulletIconHeight());
+
+                    if (bulletView.getBulletLabel().getParent() == null) {
+                        try {
+                            bulletView.setIcon("/view/resources/game/characters/" + characterView.getClassCharacter().toLowerCase() + "/bullet.png");
+                        }
+                        catch (NullPointerException e) {
+                            System.err.println("Can't find \"/view/resources/game/characters/" + characterView.getClassCharacter().toLowerCase() + "/bullet.png\" !");
+                        }                        this.add(bulletView.getBulletLabel());
+                        this.revalidate();
+                    }
+
+                    bulletView.getBulletLabel().setLocation((int) (bulletView.getRelativeX() * this.getWidth()), (int) (bulletView.getRelativeY() * this.getHeight()));
+                }
+            }
+
             for (CharacterView otherPlayerView : otherPlayersViews) {
                 if (otherPlayerView != null) {
                     for (BulletView bulletView : otherPlayerView.getBulletsViews()) {
@@ -49,7 +94,13 @@ public class GamePanel extends JPanel {
                             if (bulletView.getBulletLabel().getParent() == null) {
                                 bulletView.getBulletLabel().setVisible(true);
 
-                                bulletView.setIcon();
+                                try {
+                                    bulletView.setIcon("/view/resources/game/characters/" + otherPlayerView.getClassCharacter().toLowerCase() + "/bullet.png");
+                                }
+                                catch (NullPointerException e) {
+                                    System.err.println("Can't find \"/view/resources/game/characters/" + otherPlayerView.getClassCharacter().toLowerCase() + "/bullet.png\" !");
+                                }
+
                                 this.add(bulletView.getBulletLabel());
                                 this.revalidate();
                             }
@@ -87,47 +138,6 @@ public class GamePanel extends JPanel {
                     g.fillRect((int)(otherPlayerView.getRelativeX()*this.getWidth()) + (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.875f), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.125f), (int)(0.01f*this.getHeight()));
                     g.setColor(new Color(0,153,255, 255));
                     g.drawRect((int)(otherPlayerView.getRelativeX()*this.getWidth()) + (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.875f), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.125f), (int)(0.01f*this.getHeight()));
-                }
-            }
-
-            characterView.setScaleWidthCharacter(characterView.getRelativeWidth() * this.getWidth() / characterView.getCharacterIconWidth());
-            characterView.setScaleHeightCharacter(characterView.getRelativeHeight() * this.getHeight() / characterView.getCharacterIconHeight());
-            characterView.getNameLabel().setLocation((int) ((characterView.getRelativeX() + characterView.getRelativeWidth() / 2) * this.getWidth() - characterView.getNameLabel().getWidth() / 2), (int) ((characterView.getRelativeY() + characterView.getRelativeHeight() / 2) * this.getHeight()) - characterView.getNameLabel().getHeight() / 2);
-
-            if (characterView != null) {
-                characterView.getCharacterLabel().setVisible(true);
-                characterView.getNameLabel().setVisible(true);
-
-                if (characterView.getCharacterLabel().getParent() == null) {
-                    this.add(characterView.getCharacterLabel());
-                    this.revalidate();
-                }
-
-                if (characterView.getNameLabel().getParent() == null) {
-                    this.add(characterView.getNameLabel());
-                    this.revalidate();
-                }
-
-                if (characterView.getHorizontal_direction() == -1) {
-                    characterView.getCharacterLabel().setLocation((int) ((characterView.getRelativeX() - characterView.getRelativeWidth() / characterView.scaleWidthCharacter + characterView.getRelativeWidth()) * this.getWidth()), (int) ((characterView.getRelativeY()) * this.getHeight()));
-                } else
-                    characterView.getCharacterLabel().setLocation((int) (characterView.getRelativeX() * this.getWidth()), (int) ((characterView.getRelativeY()) * this.getHeight()));
-            }
-
-            for (BulletView bulletView : Objects.requireNonNull(characterView).getBulletsViews()) {
-                if (bulletView != null) {
-                    bulletView.getBulletLabel().setVisible(true);
-
-                    bulletView.setScaleWidthBullet(bulletView.getRelativeWidth() * this.getWidth() / bulletView.getBulletIconWidth());
-                    bulletView.setScaleHeightBullet(bulletView.getRelativeHeight() * this.getHeight() / bulletView.getBulletIconHeight());
-
-                    if (bulletView.getBulletLabel().getParent() == null) {
-                        bulletView.setIcon();
-                        this.add(bulletView.getBulletLabel());
-                        this.revalidate();
-                    }
-
-                    bulletView.getBulletLabel().setLocation((int) (bulletView.getRelativeX() * this.getWidth()), (int) (bulletView.getRelativeY() * this.getHeight()));
                 }
             }
         }

@@ -7,12 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayableCharacter extends SolidObject {
-    private static final float RELATIVE_MAX_SPEED = 0.0025f;
-    private static final float RELATIVE_SPEED_GROWTH = RELATIVE_MAX_SPEED/20;
+    private float relativeMaxSpeed = 0.0025f;
+    private final float RELATIVE_SPEED_GROWTH = relativeMaxSpeed/20;
     private static final float RELATIVE_JUMP_STRENGTH = 0.0090f;
-    private static final float RELATIVE_WIDTH = 0.05f;
-    private static final float RELATIVE_HEIGHT = 0.05f*768f/372f;
-    private String classCharacter = ClassCharacters.BOB.name();
+    private float relativeWidth = 0.05f;
+    private float relativeHeight = 0.05f*768f/372f;
+    private String classCharacter;
     private float relativeX = 0.45f;
     private float relativeY = 0.1f;
     private String name;
@@ -29,11 +29,6 @@ public class PlayableCharacter extends SolidObject {
         this.name = name;
     }
 
-    @Override
-    public String toString() {
-        return "PlayableCharacter (" +relativeX+ ", " +relativeY+ ", " +RELATIVE_WIDTH+ ", " +RELATIVE_HEIGHT+ ", " +RELATIVE_MAX_SPEED+ ", " +name+ ")";
-    }
-
     public float getRelativeX() {
         return relativeX;
     }
@@ -43,26 +38,26 @@ public class PlayableCharacter extends SolidObject {
     }
 
     public float getRelativeWidth() {
-        return RELATIVE_WIDTH;
+        return relativeWidth;
     }
 
     public float getRelativeHeight() {
-        return RELATIVE_HEIGHT;
+        return relativeHeight;
     }
 
     public void setRelativeX(float relativeX) {
         this.relativeX = relativeX;
     }
 
-    public static float getRelativeMaxSpeed() {
-        return RELATIVE_MAX_SPEED;
+    public float getRelativeMaxSpeed() {
+        return relativeMaxSpeed;
     }
 
     public void setRelativeY(float relativeY) {
         this.relativeY = relativeY;
     }
 
-    public static float getRelativeSpeedGrowth() {
+    public float getRelativeSpeedGrowth() {
         return RELATIVE_SPEED_GROWTH;
     }
 
@@ -80,6 +75,11 @@ public class PlayableCharacter extends SolidObject {
 
     public void setClassCharacter(String classCharacter) {
         this.classCharacter = classCharacter;
+        if (this.classCharacter.equals(ClassCharacters.ANGELO.name())) {
+            this.relativeWidth = 200f / 308f * 0.06f;
+            this.relativeHeight = 200f / 180f * 0.06625f * 768f / 372f;
+            this.relativeMaxSpeed = 0.002f;
+        }
     }
 
     public void setHorizontal_direction(double horizontal_direction) {
