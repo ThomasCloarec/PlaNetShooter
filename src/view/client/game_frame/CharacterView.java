@@ -18,6 +18,8 @@ public class CharacterView {
     private final String classCharacter;
     private List<BulletView> bulletsViews = new ArrayList<>();
     private float health;
+    private float characterIconWidth;
+    private float characterIconHeight;
 
     public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name, String classCharacter, float health) {
         this.relativeX = relativeX;
@@ -33,6 +35,8 @@ public class CharacterView {
     class CharacterIcon extends ImageIcon {
         CharacterIcon(String filename) {
             super(CharacterView.class.getResource(filename));
+            characterIconWidth = this.getIconWidth();
+            characterIconHeight = this.getIconHeight();
         }
 
         @Override
@@ -124,5 +128,13 @@ public class CharacterView {
 
     public void setHealth(float health) {
         this.health = health;
+    }
+
+    float getCharacterIconWidth() {
+        return characterIconWidth;
+    }
+
+    float getCharacterIconHeight() {
+        return characterIconHeight;
     }
 }

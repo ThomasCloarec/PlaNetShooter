@@ -60,8 +60,8 @@ public class GamePanel extends JPanel {
                     otherPlayerView.getCharacterLabel().setVisible(true);
                     otherPlayerView.getNameLabel().setVisible(true);
 
-                    otherPlayerView.setScaleWidthCharacter(otherPlayerView.getRelativeWidth() * this.getWidth() / 200);
-                    otherPlayerView.setScaleHeightCharacter(otherPlayerView.getRelativeHeight() * this.getHeight() / 200);
+                    otherPlayerView.setScaleWidthCharacter(otherPlayerView.getRelativeWidth() * this.getWidth() / otherPlayerView.getCharacterIconWidth());
+                    otherPlayerView.setScaleHeightCharacter(otherPlayerView.getRelativeHeight() * this.getHeight() / otherPlayerView.getCharacterIconHeight());
 
                     if (otherPlayerView.getCharacterLabel().getParent() == null) {
                         this.add(otherPlayerView.getCharacterLabel());
@@ -90,8 +90,8 @@ public class GamePanel extends JPanel {
                 }
             }
 
-            characterView.setScaleWidthCharacter(characterView.getRelativeWidth() * this.getWidth() / 200);
-            characterView.setScaleHeightCharacter(characterView.getRelativeHeight() * this.getHeight() / 200);
+            characterView.setScaleWidthCharacter(characterView.getRelativeWidth() * this.getWidth() / characterView.getCharacterIconWidth());
+            characterView.setScaleHeightCharacter(characterView.getRelativeHeight() * this.getHeight() / characterView.getCharacterIconHeight());
             characterView.getNameLabel().setLocation((int) ((characterView.getRelativeX() + characterView.getRelativeWidth() / 2) * this.getWidth() - characterView.getNameLabel().getWidth() / 2), (int) ((characterView.getRelativeY() + characterView.getRelativeHeight() / 2) * this.getHeight()) - characterView.getNameLabel().getHeight() / 2);
 
             if (characterView != null) {
