@@ -1,7 +1,6 @@
 package view.client.game_frame;
 
 import model.SolidObject;
-import model.bullets.Bullet;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,10 +13,14 @@ public class BulletView extends SolidObject {
     private double scaleHeightBullet = 0;
     private float bulletIconWidth;
     private float bulletIconHeight;
+    private final float relativeWidth;
+    private final float relativeHeight;
 
-    public BulletView(float relativeX, float relativeY) {
+    public BulletView(float relativeX, float relativeY, float relativeWidth, float relativeHeight) {
         this.relativeX = relativeX;
         this.relativeY = relativeY;
+        this.relativeWidth = relativeWidth;
+        this.relativeHeight = relativeHeight;
     }
 
     private class BulletIcon extends ImageIcon {
@@ -51,15 +54,6 @@ public class BulletView extends SolidObject {
         return relativeY;
     }
 
-    @SuppressWarnings("SameReturnValue")
-    public float getRelativeWidth() {
-        return new Bullet().getRelativeWidth();
-    }
-
-    public float getRelativeHeight() {
-        return new Bullet().getRelativeHeight();
-    }
-
     void setScaleWidthBullet(double scaleWidthBullet) {
         this.scaleWidthBullet = scaleWidthBullet;
     }
@@ -83,6 +77,17 @@ public class BulletView extends SolidObject {
     float getBulletIconHeight() {
         return bulletIconHeight;
     }
+
+    @Override
+    public float getRelativeWidth() {
+        return relativeWidth;
+    }
+
+    @Override
+    public float getRelativeHeight() {
+        return relativeHeight;
+    }
+
 }
 
 

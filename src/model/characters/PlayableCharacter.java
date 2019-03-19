@@ -19,6 +19,7 @@ public class PlayableCharacter extends SolidObject {
     private double horizontal_direction = 1;
     private final List<Bullet> bullets = new ArrayList<>();
     private float health = 1f;
+    private float attackNumberPerSecond = 4f;
 
     // Default constructor used for reflection (by Kryo serialization)
     private PlayableCharacter() {
@@ -78,7 +79,8 @@ public class PlayableCharacter extends SolidObject {
         if (this.classCharacter.equals(ClassCharacters.ANGELO.name())) {
             this.relativeWidth = 200f / 308f * 0.06f;
             this.relativeHeight = 200f / 180f * 0.06625f * 768f / 372f;
-            this.relativeMaxSpeed = 0.002f;
+            this.relativeMaxSpeed = 0.00175f;
+            this.attackNumberPerSecond = 2f;
         }
     }
 
@@ -100,5 +102,9 @@ public class PlayableCharacter extends SolidObject {
 
     public float getHealth() {
         return health;
+    }
+
+    public float getAttackNumberPerSecond() {
+        return attackNumberPerSecond;
     }
 }

@@ -8,8 +8,8 @@ import java.util.List;
 public class CharacterView {
     private float relativeX;
     private float relativeY;
-    private float relativeWidth;
-    private float relativeHeight;
+    private final float relativeWidth;
+    private final float relativeHeight;
     private final JLabel nameLabel = new JLabel();
     private final JLabel characterLabel = new JLabel();
     double scaleWidthCharacter = 0;
