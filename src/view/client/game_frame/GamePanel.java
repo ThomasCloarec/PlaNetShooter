@@ -100,10 +100,13 @@ public class GamePanel extends JPanel {
 
                 if (characterView.getCharacterLabel().getParent() == null) {
                     this.add(characterView.getCharacterLabel());
+                    this.revalidate();
                 }
 
-                if (characterView.getNameLabel().getParent() == null)
+                if (characterView.getNameLabel().getParent() == null) {
                     this.add(characterView.getNameLabel());
+                    this.revalidate();
+                }
 
                 if (characterView.getHorizontal_direction() == -1) {
                     characterView.getCharacterLabel().setLocation((int) ((characterView.getRelativeX() - characterView.getRelativeWidth() / characterView.scaleWidthCharacter + characterView.getRelativeWidth()) * this.getWidth()), (int) ((characterView.getRelativeY()) * this.getHeight()));

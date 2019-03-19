@@ -156,7 +156,7 @@ class MainClient {
 
 
         playableCharacter = new PlayableCharacter(clientName);
-        RandomSpawn();
+        playableCharacter.setRelativeY(-1.15f);
         playableCharacter.setClassCharacter(ClassCharacters.BOB.name());
         characterView = new CharacterView(
                 playableCharacter.getRelativeX(),
@@ -205,7 +205,7 @@ class MainClient {
                     playableCharacter.setRelativeY(-1.15f);
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_H) {
-                    System.out.println("CHanging hitbox mode");
+                    System.out.println("Changing hitbox mode");
                     gameFrame.getGamePanel().setHitBoxMode(!gameFrame.getGamePanel().isHitBoxMode());
                 }
             }

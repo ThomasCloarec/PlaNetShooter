@@ -25,8 +25,8 @@ public class GameFrame extends JFrame {
         this.setLocationRelativeTo(null);
 
         this.setLayout(cardLayout);
-        this.add(gamePanel);
         this.add(homePanel);
+        this.add(gamePanel);
 
         this.setVisible(true);
     }
