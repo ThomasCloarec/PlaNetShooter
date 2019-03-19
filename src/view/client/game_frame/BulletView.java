@@ -12,6 +12,8 @@ public class BulletView extends SolidObject {
     private final JLabel bulletLabel = new JLabel();
     private double scaleWidthBullet = 0;
     private double scaleHeightBullet = 0;
+    private float bulletIconWidth;
+    private float bulletIconHeight;
 
     public BulletView(float relativeX, float relativeY) {
         this.relativeX = relativeX;
@@ -21,6 +23,8 @@ public class BulletView extends SolidObject {
     private class BulletIcon extends ImageIcon {
         BulletIcon() {
             super(BulletView.class.getResource("/view/resources/game/bullet.png"));
+            bulletIconWidth = this.getIconWidth();
+            bulletIconHeight = this.getIconHeight();
         }
 
         @Override
@@ -70,6 +74,14 @@ public class BulletView extends SolidObject {
 
     void setIcon() {
         bulletLabel.setIcon(new BulletView.BulletIcon());
+    }
+
+    float getBulletIconWidth() {
+        return bulletIconWidth;
+    }
+
+    float getBulletIconHeight() {
+        return bulletIconHeight;
     }
 }
 

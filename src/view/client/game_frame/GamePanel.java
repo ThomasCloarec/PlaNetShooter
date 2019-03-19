@@ -43,8 +43,8 @@ public class GamePanel extends JPanel {
                 if (otherPlayerView != null) {
                     for (BulletView bulletView : otherPlayerView.getBulletsViews()) {
                         if (bulletView != null) {
-                            bulletView.setScaleWidthBullet(bulletView.getRelativeWidth() * this.getWidth() / 200);
-                            bulletView.setScaleHeightBullet(bulletView.getRelativeHeight() * this.getHeight() / 200);
+                            bulletView.setScaleWidthBullet(bulletView.getRelativeWidth() * this.getWidth() / bulletView.getBulletIconWidth());
+                            bulletView.setScaleHeightBullet(bulletView.getRelativeHeight() * this.getHeight() / bulletView.getBulletIconHeight());
 
                             if (bulletView.getBulletLabel().getParent() == null) {
                                 bulletView.getBulletLabel().setVisible(true);
@@ -118,8 +118,8 @@ public class GamePanel extends JPanel {
                 if (bulletView != null) {
                     bulletView.getBulletLabel().setVisible(true);
 
-                    bulletView.setScaleWidthBullet(bulletView.getRelativeWidth() * this.getWidth() / 200);
-                    bulletView.setScaleHeightBullet(bulletView.getRelativeHeight() * this.getHeight() / 200);
+                    bulletView.setScaleWidthBullet(bulletView.getRelativeWidth() * this.getWidth() / bulletView.getBulletIconWidth());
+                    bulletView.setScaleHeightBullet(bulletView.getRelativeHeight() * this.getHeight() / bulletView.getBulletIconHeight());
 
                     if (bulletView.getBulletLabel().getParent() == null) {
                         bulletView.setIcon();
