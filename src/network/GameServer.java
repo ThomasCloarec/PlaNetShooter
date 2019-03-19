@@ -8,7 +8,7 @@ import view.server.PortAlreadyUsedError;
 import java.io.IOException;
 
 public class GameServer extends Server {
-    private final Network.RegisterNameList registerNameList = new Network.RegisterNameList();
+    private final Network.RegisterList registerList = new Network.RegisterList();
 
     public GameServer() {
         super();
@@ -44,12 +44,16 @@ public class GameServer extends Server {
             this.sendToAllExceptTCP(gameConnection.getID(), registerName);
             System.out.println("\"" + registerName.name + "\" is connected ! [ID : " +gameConnection.getID()+ "]");
 
-            registerNameList.getList().add(registerName.name);
+            registerList.getNameList().add(registerName.name);
+            registerList.getConnectionIDList().add(gameConnection.getID());
         }
         if (object instanceof PlayableCharacter) {
             PlayableCharacter playableCharacter = (PlayableCharacter)object;
             this.sendToAllExceptUDP(gameConnection.getID(), playableCharacter);
-            this.sendToAllExceptTCP(gameConnection.getID(), playableCharacter);
+        }
+        if (object instanceof Network.Hit) {
+            Network.Hit hit = (Network.Hit) object;
+            this.sendToTCP(registerList.getConnectionIDList().get(registerList.getNameList().indexOf(hit.getVictimName())), hit);
         }
     }
 
@@ -61,12 +65,13 @@ public class GameServer extends Server {
             this.sendToAllTCP(removeName);
             System.out.println("\"" +removeName.name+ "\" is disconnected ! [ID : " +gameConnection.getID()+ "]");
 
-            registerNameList.getList().remove(removeName.name);
+            registerList.getConnectionIDList().remove(registerList.getNameList().indexOf(removeName.name));
+            registerList.getNameList().remove(removeName.name);
         }
     }
 
     public void connectedListener(Connection connection) {
-        this.sendToTCP(connection.getID(), registerNameList);
+        this.sendToTCP(connection.getID(), registerList);
     }
 
     @Override

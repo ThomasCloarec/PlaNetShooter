@@ -8,10 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GameClient extends Client {
-    public Network.RegisterNameList registerNameList;
+    private Network.RegisterList registerList;
     private final List<PlayableCharacter> otherPlayers = new ArrayList<>();
-    private String myClientName;
-    private PlayableCharacter playableCharacter;
 
     public GameClient(String IPHost) throws IOException {
         super();
@@ -33,27 +31,24 @@ public class GameClient extends Client {
         if (object instanceof Network.RegisterName) {
             Network.RegisterName registerName = (Network.RegisterName)object;
             System.out.println("\"" +registerName.name+ "\" is connected !");
-            registerNameList.getList().add(registerName.name);
+            registerList.getNameList().add(registerName.name);
         }
         if (object instanceof Network.RemoveName) {
             Network.RemoveName removeName = (Network.RemoveName)object;
             System.out.println("\"" +removeName.name+ "\" is disconnected !");
-            otherPlayers.remove(registerNameList.getList().indexOf(removeName.name));
-            registerNameList.getList().remove(removeName.name);
+            otherPlayers.remove(registerList.getNameList().indexOf(removeName.name));
+            registerList.getNameList().remove(removeName.name);
         }
-        if (object instanceof Network.RegisterNameList) {
-            registerNameList = (Network.RegisterNameList)object;
+        if (object instanceof Network.RegisterList) {
+            registerList = (Network.RegisterList)object;
         }
         if (object instanceof PlayableCharacter) {
             PlayableCharacter playableCharacter = (PlayableCharacter) object;
 
             if (playableCharacter.getName() != null) {
-                if (playableCharacter.getName().equals(myClientName)) {
-                    this.playableCharacter.setHealth(playableCharacter.getHealth());
-                }
-                else if (registerNameList.getList().contains(playableCharacter.getName())) {
-                    if (otherPlayers.size() > registerNameList.getList().indexOf(playableCharacter.getName()))
-                        otherPlayers.set(registerNameList.getList().indexOf(playableCharacter.getName()), playableCharacter);
+                if (registerList.getNameList().contains(playableCharacter.getName())) {
+                    if (otherPlayers.size() > registerList.getNameList().indexOf(playableCharacter.getName()))
+                        otherPlayers.set(registerList.getNameList().indexOf(playableCharacter.getName()), playableCharacter);
                     else
                         otherPlayers.add(playableCharacter);
                 }
@@ -65,23 +60,15 @@ public class GameClient extends Client {
         this.sendUDP(character);
     }
 
-    public Network.RegisterNameList getRegisterNameList() {
-        return registerNameList;
+    public void sendHit(Network.Hit hit) {
+        this.sendTCP(hit);
+    }
+
+    public Network.RegisterList getRegisterList() {
+        return registerList;
     }
 
     public List<PlayableCharacter> getOtherPlayers() {
         return otherPlayers;
-    }
-
-    public void setMyClientName(String myClientName) {
-        this.myClientName = myClientName;
-    }
-
-    public PlayableCharacter getPlayableCharacter() {
-        return playableCharacter;
-    }
-
-    public void setPlayableCharacter(PlayableCharacter playableCharacter) {
-        this.playableCharacter = playableCharacter;
     }
 }
