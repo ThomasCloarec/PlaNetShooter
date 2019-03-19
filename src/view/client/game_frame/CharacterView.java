@@ -1,7 +1,5 @@
 package view.client.game_frame;
 
-import model.characters.ClassCharacters;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -91,16 +89,20 @@ public class CharacterView {
     public void setHorizontal_direction(double horizontal_direction) {
         if(horizontal_direction != 0) {
             this.horizontal_direction = horizontal_direction;
-            if (this.classCharacter.equals(ClassCharacters.BOB.name()))
-                characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/bob/run.gif"));
-            else if (this.classCharacter.equals(ClassCharacters.MEDUSO.name()))
-                characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/meduso/run.gif"));
+            try {
+                characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.toLowerCase()+ "/run.gif"));
+            }
+            catch (NullPointerException e) {
+                System.err.println("Can't find \"/view/resources/game/characters/" +classCharacter.toLowerCase()+ "/run.gif\" !");
+            }
         }
         else {
-            if (this.classCharacter.equals(ClassCharacters.BOB.name()))
-                characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/bob/idle.gif"));
-            else if (this.classCharacter.equals(ClassCharacters.MEDUSO.name()))
-                characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/meduso/run.gif"));
+            try {
+                characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.toLowerCase()+ "/idle.gif"));
+            }
+            catch (NullPointerException e) {
+                System.err.println("Can't find \"/view/resources/game/characters/" +classCharacter.toLowerCase()+ "/idle.gif\" !");
+            }
         }
     }
 

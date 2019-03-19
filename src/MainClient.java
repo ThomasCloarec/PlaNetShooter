@@ -205,8 +205,7 @@ class MainClient {
                     playableCharacter.setRelativeY(-1.15f);
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_H) {
-                    System.out.println("Changing hitbox mode");
-                    gameFrame.getGamePanel().setHitBoxMode(!gameFrame.getGamePanel().isHitBoxMode());
+                    gameFrame.getGamePanel().setHitBoxMode(gameFrame.getGamePanel().isHitBoxMode());
                 }
             }
         });

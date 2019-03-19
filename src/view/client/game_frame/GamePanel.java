@@ -223,7 +223,7 @@ public class GamePanel extends JPanel {
     }
 
     public boolean isHitBoxMode() {
-        return hitBoxMode;
+        return !hitBoxMode;
     }
 
     public void setHitBoxMode(boolean hitBoxMode) {

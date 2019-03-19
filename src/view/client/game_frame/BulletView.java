@@ -12,7 +12,6 @@ public class BulletView extends SolidObject {
     private final JLabel bulletLabel = new JLabel();
     private double scaleWidthBullet = 0;
     private double scaleHeightBullet = 0;
-    private float damage = 0.15f;
 
     public BulletView(float relativeX, float relativeY) {
         this.relativeX = relativeX;
@@ -71,10 +70,6 @@ public class BulletView extends SolidObject {
 
     void setIcon() {
         bulletLabel.setIcon(new BulletView.BulletIcon());
-    }
-
-    public float getDamage() {
-        return damage;
     }
 }
 

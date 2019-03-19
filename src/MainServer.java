@@ -1,8 +1,6 @@
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import model.characters.PlayableCharacter;
 import network.GameServer;
-import network.Network;
 import view.server.ServerFrame;
 
 import javax.swing.*;
