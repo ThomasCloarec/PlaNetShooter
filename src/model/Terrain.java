@@ -1,7 +1,7 @@
 package model;
 
 public class Terrain {
-    private static final float RELATIVE_FRICTION = 0.0025f / 20f *2f;
+    private static final float RELATIVE_FRICTION = 0.0025f / 20f;
     private static final float RELATIVE_MAX_GRAVITY = 0.0095f;
     private static final float RELATIVE_GRAVITY_GROWTH = RELATIVE_MAX_GRAVITY/60;
 
