@@ -4,7 +4,8 @@ package model.characters;
 public enum ClassCharacters {
     BOB,
     MEDUSO,
-    ANGELO;
+    ANGELO,
+    TATITATOO;
 
     ClassCharacters() {
     }

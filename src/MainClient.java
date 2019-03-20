@@ -156,7 +156,7 @@ class MainClient {
 
         playableCharacter = new PlayableCharacter(clientName);
         playableCharacter.setRelativeY(-1.15f);
-        playableCharacter.setClassCharacter(ClassCharacters.ANGELO.name());
+        playableCharacter.setClassCharacter(ClassCharacters.TATITATOO.name());
         characterView = new CharacterView(
                 playableCharacter.getRelativeX(),
                 playableCharacter.getRelativeY(),
