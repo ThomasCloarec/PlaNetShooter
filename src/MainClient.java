@@ -386,7 +386,11 @@ class MainClient {
 
                             SwingUtilities.invokeLater(() -> {
                                 playableCharacter.getBullets().add(bullet);
-                                characterView.getBulletsViews().add(new BulletView(relativeBulletStartX, relativeBulletStartY, bullet.getRelativeWidth(), bullet.getRelativeHeight()));
+                                BulletView bulletView = new BulletView(relativeBulletStartX, relativeBulletStartY, bullet.getRelativeWidth(), bullet.getRelativeHeight());
+                                bulletView.setDeltaX(tempDeltaX);
+                                bulletView.setDeltaY(tempDeltaY);
+
+                                characterView.getBulletsViews().add(bulletView);
                             });
                             lastShot = System.currentTimeMillis();
                         }

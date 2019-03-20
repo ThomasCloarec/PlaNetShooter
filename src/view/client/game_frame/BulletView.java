@@ -15,6 +15,8 @@ public class BulletView extends SolidObject {
     private float bulletIconHeight;
     private final float relativeWidth;
     private final float relativeHeight;
+    private float deltaX;
+    private float deltaY;
 
     public BulletView(float relativeX, float relativeY, float relativeWidth, float relativeHeight) {
         this.relativeX = relativeX;
@@ -88,6 +90,13 @@ public class BulletView extends SolidObject {
         return relativeHeight;
     }
 
+    public void setDeltaX(float deltaX) {
+        this.deltaX = deltaX;
+    }
+
+    public void setDeltaY(float deltaY) {
+        this.deltaY = deltaY;
+    }
 }
 
 
