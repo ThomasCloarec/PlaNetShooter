@@ -20,6 +20,8 @@ public class CharacterView {
     private float health;
     private float characterIconWidth;
     private float characterIconHeight;
+    private Icon runCharacterIcon;
+    private Icon idleCharacterIcon;
 
     public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name, String classCharacter, float health) {
         this.relativeX = relativeX;
@@ -28,6 +30,8 @@ public class CharacterView {
         this.relativeHeight = relativeHeight;
         this.classCharacter = classCharacter;
         this.health = health;
+        this.runCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.toLowerCase()+ "/run.gif");
+        this.idleCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.toLowerCase()+ "/idle.gif");
 
         nameLabel.setText(String.valueOf(name.charAt(0)));
     }
@@ -94,7 +98,7 @@ public class CharacterView {
         if(horizontal_direction != 0) {
             this.horizontal_direction = horizontal_direction;
             try {
-                characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.toLowerCase()+ "/run.gif"));
+                characterLabel.setIcon(runCharacterIcon);
             }
             catch (NullPointerException e) {
                 System.err.println("Can't find \"/view/resources/game/characters/" +classCharacter.toLowerCase()+ "/run.gif\" !");
@@ -102,7 +106,7 @@ public class CharacterView {
         }
         else {
             try {
-                characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.toLowerCase()+ "/idle.gif"));
+                characterLabel.setIcon(idleCharacterIcon);
             }
             catch (NullPointerException e) {
                 System.err.println("Can't find \"/view/resources/game/characters/" +classCharacter.toLowerCase()+ "/idle.gif\" !");

@@ -156,7 +156,7 @@ class MainClient {
 
         playableCharacter = new PlayableCharacter(clientName);
         playableCharacter.setRelativeY(-1.15f);
-        playableCharacter.setClassCharacter(ClassCharacters.TATITATOO.name());
+        playableCharacter.setClassCharacter(ClassCharacters.BOB.name());
         characterView = new CharacterView(
                 playableCharacter.getRelativeX(),
                 playableCharacter.getRelativeY(),
@@ -361,7 +361,7 @@ class MainClient {
                         if(System.currentTimeMillis() - lastShot > 1000f/playableCharacter.getAttackNumberPerSecond()) {
                             Bullet bullet = new Bullet();
 
-                            if (playableCharacter.getClassCharacter().equals(ClassCharacters.BOB.name())) {
+                            if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO.name())) {
                                 bullet.setSpeed(0.004f);
                                 bullet.setRelativeWidth(0.015f);
                                 bullet.setRelativeHeight(0.015f * 768f / 372f);
