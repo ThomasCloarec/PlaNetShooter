@@ -261,8 +261,13 @@ class MainClient {
                     }
 
                     totalDirection = 0;
-                    for (Direction direction : directions) {
-                        totalDirection += direction.getDelta();
+                    try {
+                        for (Direction direction : directions) {
+                            totalDirection += direction.getDelta();
+                        }
+                    }
+                    catch (ConcurrentModificationException e) {
+                        e.printStackTrace();
                     }
 
                     if(!gameFrame.getGamePanel().hasFocus()) {
@@ -356,7 +361,7 @@ class MainClient {
                         if(System.currentTimeMillis() - lastShot > 1000f/playableCharacter.getAttackNumberPerSecond()) {
                             Bullet bullet = new Bullet();
 
-                            if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO.name())) {
+                            if (playableCharacter.getClassCharacter().equals(ClassCharacters.BOB.name())) {
                                 bullet.setSpeed(0.004f);
                                 bullet.setRelativeWidth(0.015f);
                                 bullet.setRelativeHeight(0.015f * 768f / 372f);
