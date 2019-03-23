@@ -48,7 +48,7 @@ class MainClient {
     private static MouseEvent lastMousePressedEvent;
     private static Platform[] platforms;
     private static PlayableCharacter playableCharacter;
-    private static boolean ultimateLaunching = false;
+    private static boolean ultimateClick = false;
 
     public static void main(String[] args) {
         launchGameClient();
@@ -219,7 +219,7 @@ class MainClient {
                     readyToFire = true;
                 }
                 else if (SwingUtilities.isRightMouseButton(e) && playableCharacter.getUltimateLoading() == 1) {
-                    ultimateLaunching = true;
+                    ultimateClick = true;
                 }
             }
 
@@ -251,10 +251,7 @@ class MainClient {
             characterView.setClassCharacter(playableCharacter.getClassCharacter());
 
             playableCharacter.setUltimateLoading(0f);
-            characterView.setUltimateLoading(playableCharacter.getUltimateLoading());
 
-            characterView.setRelativeWidth(playableCharacter.getRelativeWidth());
-            characterView.setRelativeHeight(playableCharacter.getRelativeHeight());
             gameFrame.getHomePanel().setClassCharacter(playableCharacter.getClassCharacter());
         });
     }
@@ -303,6 +300,15 @@ class MainClient {
                         else
                             playableCharacter.setUltimateLoading(playableCharacter.getUltimateLoading() + playableCharacter.getUltimateLoadingPerSecond() / 120f);
                         characterView.setUltimateLoading(playableCharacter.getUltimateLoading());
+                    }
+
+                    if (ultimateClick) {
+                        if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) {
+                            playableCharacter.ultimate2();
+                            characterView.ultimate2();
+                        }
+                        ultimateClick = false;
+                        playableCharacter.setUltimateLoading(0f);
                     }
 
                     gameClient.sendPlayerInformation(playableCharacter);
@@ -479,6 +485,9 @@ class MainClient {
                     characterView.setHealth(playableCharacter.getHealth());
                     characterView.setRelativeX(playableCharacter.getRelativeX());
                     characterView.setRelativeY(playableCharacter.getRelativeY());
+                    characterView.setRelativeWidth(playableCharacter.getRelativeWidth());
+                    characterView.setRelativeHeight(playableCharacter.getRelativeHeight());
+                    characterView.setUltimateLoading(playableCharacter.getUltimateLoading());
 
                     SwingUtilities.invokeLater(() -> {
                         otherPlayersPainting();

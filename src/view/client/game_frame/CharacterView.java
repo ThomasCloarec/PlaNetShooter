@@ -24,6 +24,7 @@ public class CharacterView {
     private Icon runCharacterIcon;
     private Icon idleCharacterIcon;
     private float ultimateLoading = 0;
+    private boolean ultimateRunning = false;
 
     public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, @SuppressWarnings("unused") String name, ClassCharacters classCharacter, float health) {
         this.relativeX = relativeX;
@@ -91,21 +92,22 @@ public class CharacterView {
     }
 
     public void setHorizontal_direction(double horizontal_direction) {
-        if(horizontal_direction != 0) {
+        if (horizontal_direction != 0)
             this.horizontal_direction = horizontal_direction;
-            try {
-                characterLabel.setIcon(runCharacterIcon);
-            }
-            catch (NullPointerException e) {
-                System.err.println("Can't find \"/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/run.gif\" !");
-            }
-        }
-        else {
-            try {
-                characterLabel.setIcon(idleCharacterIcon);
-            }
-            catch (NullPointerException e) {
-                System.err.println("Can't find \"/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif\" !");
+
+        if (!ultimateRunning) {
+            if (horizontal_direction != 0) {
+                try {
+                    characterLabel.setIcon(runCharacterIcon);
+                } catch (NullPointerException e) {
+                    System.err.println("Can't find \"/view/resources/game/characters/" + classCharacter.name().toLowerCase() + "/run.gif\" !");
+                }
+            } else {
+                try {
+                    characterLabel.setIcon(idleCharacterIcon);
+                } catch (NullPointerException e) {
+                    System.err.println("Can't find \"/view/resources/game/characters/" + classCharacter.name().toLowerCase() + "/idle.gif\" !");
+                }
             }
         }
     }
@@ -114,6 +116,11 @@ public class CharacterView {
         this.classCharacter = classCharacter;
         this.runCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/run.gif");
         this.idleCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif");
+    }
+
+    public void ultimate2() {
+        ultimateRunning = true;
+        characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/angelo/ultimate2.gif"));
     }
 
     public double getHorizontal_direction() {

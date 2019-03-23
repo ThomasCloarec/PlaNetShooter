@@ -100,6 +100,13 @@ public class PlayableCharacter extends SolidObject {
         this.setRelativeY(-1.15f);
     }
 
+    public void ultimate2() {
+        if (classCharacter.equals(ClassCharacters.ANGELO)) {
+            this.relativeWidth = 160f / 120f * 0.045f;
+            this.relativeHeight = 120f / 160f * 0.060f * 768f / 372f;
+            this.relativeMaxSpeed = 0f;
+        }
+    }
     public void setHorizontal_direction(double horizontal_direction) {
         this.horizontal_direction = horizontal_direction;
     }
