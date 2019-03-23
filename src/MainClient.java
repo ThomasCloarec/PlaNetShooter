@@ -14,7 +14,6 @@ import view.client.connection.AskClientName;
 import view.client.connection.AskIPHost;
 import view.client.connection.ServerFullError;
 import view.client.game_frame.*;
-import view.client.home_frame.HomePanel;
 import view.client.keyboard_actions.PressAction;
 import view.client.keyboard_actions.ReleaseAction;
 
@@ -22,8 +21,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.util.*;
 import java.util.List;
+import java.util.*;
 
 class MainClient {
     private static String clientName;
@@ -244,7 +243,7 @@ class MainClient {
             gameFrame.getCardLayout().next(gameFrame.getContentPane());
             gameFrame.getGamePanel().requestFocus();
             playableCharacter.setAtHome(false);
-            RandomSpawn();
+            randomSpawn();
         });
 
         gameFrame.getHomePanel().getChangeCharacterButton().addActionListener(e -> {
@@ -380,7 +379,7 @@ class MainClient {
                         relativeMovementY += Terrain.getRelativeGravityGrowth();
 
                     if (playableCharacter.getRelativeY() >= 1)
-                        RandomSpawn();
+                        randomSpawn();
 
                     playableCharacter.setRelativeX(playableCharacter.getRelativeX() + relativeMovementX);
                     playableCharacter.setRelativeY(playableCharacter.getRelativeY() + relativeMovementY);
@@ -532,7 +531,7 @@ class MainClient {
         }
     }
 
-    private static void RandomSpawn(){
+    private static void randomSpawn(){
         double RandSpawn = Math.random();
         if (RandSpawn  < 0.25){
             playableCharacter.setRelativeX(0.03f);
