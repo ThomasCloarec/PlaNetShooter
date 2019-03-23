@@ -16,6 +16,9 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [Kryonet](https://github.com/EsotericSoftware/kryonet) which is a TCP/UDP client/server library for Java
 - [Kryo](https://github.com/EsotericSoftware/kryo) which is the serialization library used by Kryonet
 
+## Software used
+- [Synfig](https://www.synfig.org/) which is a free and open-source animation software
+
 ## Authors
 - Thomas Cloarec (Lead developer)
 - Hugo Brient (Lead animation/sound designer)
