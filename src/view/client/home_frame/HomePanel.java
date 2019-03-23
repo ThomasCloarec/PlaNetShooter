@@ -9,12 +9,23 @@ public class HomePanel extends JPanel {
         super();
         this.setBackground(Color.lightGray);
         this.setFocusable(true);
-        this.setLayout(new GridLayout(2,2,5,5));
+        this.setLayout(new GridLayout(1,3,5,5));
 
-        for (int i = 0; i < 3; i++)
-            this.add(new JButton("Hello : " + i));
+        this.add(new JButton("Hello"));
 
-        this.add(backToGameButton);
+        JPanel center = new JPanel(new BorderLayout(5,5));
+        center.setBackground(Color.lightGray);
+        center.add(new JButton("Hello"), BorderLayout.NORTH);
+        center.add(new JButton("Hello"), BorderLayout.CENTER);
+        center.add(backToGameButton, BorderLayout.SOUTH);
+        this.add(center);
+
+        JPanel right = new JPanel(new GridLayout(4,1,5,5));
+        right.setBackground(Color.lightGray);
+        for (int i = 0; i < 4; i++) {
+            right.add(new JButton("Hello"));
+        }
+        this.add(right);
     }
 
     public JButton getBackToGameButton() {
