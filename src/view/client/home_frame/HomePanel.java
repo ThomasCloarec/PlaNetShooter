@@ -7,7 +7,7 @@ import java.awt.*;
 
 public class HomePanel extends JPanel {
     private final JButton changeCharacterButton = new JButton("Change character");
-    private JLabel characterLabel = new JLabel();
+    private final JLabel characterLabel = new JLabel();
     private final JButton backToGameButton = new JButton("Back to game");
 
     private final JPanel leftPanel = new JPanel(null);
@@ -72,6 +72,7 @@ public class HomePanel extends JPanel {
         drawRightPanel();
     }
 
+    @SuppressWarnings("EmptyMethod")
     private void drawLeftPanel() {
     }
 
@@ -81,6 +82,7 @@ public class HomePanel extends JPanel {
         backToGameButton.setBounds(0, marginY + centerPanel.getHeight() - (int)(1f / 4f * centerPanel.getHeight()), centerPanel.getWidth(), (int)(1f / 4f * centerPanel.getHeight()) - marginY);
     }
 
+    @SuppressWarnings("EmptyMethod")
     private void drawRightPanel() {
     }
 

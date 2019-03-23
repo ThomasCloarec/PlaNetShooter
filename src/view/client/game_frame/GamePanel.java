@@ -41,19 +41,12 @@ public class GamePanel extends JPanel {
 
             characterView.setScaleWidthCharacter(characterView.getRelativeWidth() * this.getWidth() / characterView.getCharacterIconWidth());
             characterView.setScaleHeightCharacter(characterView.getRelativeHeight() * this.getHeight() / characterView.getCharacterIconHeight());
-            characterView.getNameLabel().setLocation((int) ((characterView.getRelativeX() + characterView.getRelativeWidth() / 2) * this.getWidth() - characterView.getNameLabel().getWidth() / 2), (int) ((characterView.getRelativeY() + characterView.getRelativeHeight() / 2) * this.getHeight()) - characterView.getNameLabel().getHeight() / 2);
 
             if (characterView != null) {
                 characterView.getCharacterLabel().setVisible(true);
-                characterView.getNameLabel().setVisible(true);
 
                 if (characterView.getCharacterLabel().getParent() == null) {
                     this.add(characterView.getCharacterLabel());
-                    this.revalidate();
-                }
-
-                if (characterView.getNameLabel().getParent() == null) {
-                    this.add(characterView.getNameLabel());
                     this.revalidate();
                 }
 
@@ -109,7 +102,6 @@ public class GamePanel extends JPanel {
                         }
                     }
                     otherPlayerView.getCharacterLabel().setVisible(true);
-                    otherPlayerView.getNameLabel().setVisible(true);
 
                     otherPlayerView.setScaleWidthCharacter(otherPlayerView.getRelativeWidth() * this.getWidth() / otherPlayerView.getCharacterIconWidth());
                     otherPlayerView.setScaleHeightCharacter(otherPlayerView.getRelativeHeight() * this.getHeight() / otherPlayerView.getCharacterIconHeight());
@@ -118,16 +110,10 @@ public class GamePanel extends JPanel {
                         this.add(otherPlayerView.getCharacterLabel());
                         this.revalidate();
                     }
-                    if (otherPlayerView.getNameLabel().getParent() == null) {
-                        this.add(otherPlayerView.getNameLabel());
-                        this.revalidate();
-                    }
                     if (otherPlayerView.getHorizontal_direction() == -1) {
                         otherPlayerView.getCharacterLabel().setLocation((int) ((otherPlayerView.getRelativeX() - otherPlayerView.getRelativeWidth() / otherPlayerView.scaleWidthCharacter + otherPlayerView.getRelativeWidth()) * this.getWidth()), (int) ((otherPlayerView.getRelativeY()) * this.getHeight()));
                     } else
                         otherPlayerView.getCharacterLabel().setLocation((int) (otherPlayerView.getRelativeX() * this.getWidth()), (int) ((otherPlayerView.getRelativeY()) * this.getHeight()));
-
-                    otherPlayerView.getNameLabel().setLocation((int) ((otherPlayerView.getRelativeX() + otherPlayerView.getRelativeWidth() / 2) * this.getWidth() - otherPlayerView.getNameLabel().getWidth() / 2), (int) ((otherPlayerView.getRelativeY() + otherPlayerView.getRelativeHeight() / 2) * this.getHeight()) - otherPlayerView.getNameLabel().getHeight() / 2);
 
                     g.setColor(new Color(255,0,28, 51));
                     g.fillRect((int)(otherPlayerView.getRelativeX()*this.getWidth()), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*otherPlayerView.getHealth()*0.8f), (int)(0.01f*this.getHeight()));
@@ -161,7 +147,6 @@ public class GamePanel extends JPanel {
             for (CharacterView otherPlayerView : otherPlayersViews) {
                 if (otherPlayerView != null) {
                     otherPlayerView.getCharacterLabel().setVisible(false);
-                    otherPlayerView.getNameLabel().setVisible(false);
 
                     g.setColor(Color.red);
                     g.fillRect((int) (otherPlayerView.getRelativeX() * this.getWidth()), (int) ((otherPlayerView.getRelativeY()) * this.getHeight()), (int)(otherPlayerView.getRelativeWidth() * this.getWidth()), (int)(otherPlayerView.getRelativeHeight() * this.getHeight()));
@@ -189,7 +174,6 @@ public class GamePanel extends JPanel {
 
             if (characterView != null) {
                 characterView.getCharacterLabel().setVisible(false);
-                characterView.getNameLabel().setVisible(false);
 
                 g.setColor(Color.blue);
                 g.fillRect((int) (characterView.getRelativeX() * this.getWidth()), (int) ((characterView.getRelativeY()) * this.getHeight()), (int)(characterView.getRelativeWidth() * this.getWidth()), (int)(characterView.getRelativeHeight() * this.getHeight()));

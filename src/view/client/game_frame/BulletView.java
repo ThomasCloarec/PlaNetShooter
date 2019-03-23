@@ -15,7 +15,9 @@ public class BulletView extends SolidObject {
     private float bulletIconHeight;
     private final float relativeWidth;
     private final float relativeHeight;
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private float deltaX;
+    @SuppressWarnings({"FieldCanBeLocal", "unused"})
     private float deltaY;
 
     public BulletView(float relativeX, float relativeY, float relativeWidth, float relativeHeight) {

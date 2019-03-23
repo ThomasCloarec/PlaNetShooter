@@ -88,6 +88,8 @@ public class PlayableCharacter extends SolidObject {
             this.relativeMaxSpeed = 0.0025f;
             this.attackNumberPerSecond = 4f;
         }
+
+        this.setRelativeY(-1.15f);
     }
 
     public void setHorizontal_direction(double horizontal_direction) {

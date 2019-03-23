@@ -82,8 +82,6 @@ class MainClient {
                     if (object instanceof Network.RemoveName) {
                         Network.RemoveName removeName = (Network.RemoveName) object;
 
-                        if (gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getNameLabel().getParent() != null)
-                            gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getNameLabel());
                         if (gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getCharacterLabel().getParent() != null)
                             gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getCharacterLabel());
 
@@ -275,8 +273,7 @@ class MainClient {
                             totalDirection += direction.getDelta();
                         }
                     }
-                    catch (ConcurrentModificationException e) {
-                        e.printStackTrace();
+                    catch (ConcurrentModificationException ignored) {
                     }
 
                     if(!gameFrame.getGamePanel().hasFocus()) {

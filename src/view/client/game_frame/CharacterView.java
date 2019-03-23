@@ -12,7 +12,6 @@ public class CharacterView {
     private float relativeY;
     private float relativeWidth;
     private float relativeHeight;
-    private final JLabel nameLabel = new JLabel();
     private final JLabel characterLabel = new JLabel();
     double scaleWidthCharacter = 0;
     private double scaleHeightCharacter = 0;
@@ -25,7 +24,7 @@ public class CharacterView {
     private Icon runCharacterIcon;
     private Icon idleCharacterIcon;
 
-    public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name, ClassCharacters classCharacter, float health) {
+    public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, @SuppressWarnings("unused") String name, ClassCharacters classCharacter, float health) {
         this.relativeX = relativeX;
         this.relativeY = relativeY;
         this.relativeWidth = relativeWidth;
@@ -34,8 +33,6 @@ public class CharacterView {
         this.health = health;
         this.runCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/run.gif");
         this.idleCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif");
-
-        nameLabel.setText(String.valueOf(name.charAt(0)));
     }
 
     class CharacterIcon extends ImageIcon {
@@ -79,10 +76,6 @@ public class CharacterView {
 
     public void setRelativeY(float relativeY) {
         this.relativeY = relativeY;
-    }
-
-    public JLabel getNameLabel() {
-        return nameLabel;
     }
 
     public JLabel getCharacterLabel() {
