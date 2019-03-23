@@ -299,7 +299,6 @@ class MainClient {
                             playableCharacter.setUltimateLoading(1f);
                         else
                             playableCharacter.setUltimateLoading(playableCharacter.getUltimateLoading() + playableCharacter.getUltimateLoadingPerSecond() / 120f);
-                        characterView.setUltimateLoading(playableCharacter.getUltimateLoading());
                     }
 
                     if (ultimateClick) {
