@@ -203,6 +203,7 @@ class MainClient {
                 else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(playableCharacter, new HomeView()).equals(PlayerCollisionSide.NONE))) {
                     gameFrame.getCardLayout().next(gameFrame.getContentPane());
                     playableCharacter.setRelativeY(-1.15f);
+                    playableCharacter.setAtHome(true);
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_H) {
                     gameFrame.getGamePanel().setHitBoxMode(gameFrame.getGamePanel().isHitBoxMode());
@@ -242,6 +243,7 @@ class MainClient {
         gameFrame.getHomePanel().getBackToGameButton().addActionListener(e -> {
             gameFrame.getCardLayout().next(gameFrame.getContentPane());
             gameFrame.getGamePanel().requestFocus();
+            playableCharacter.setAtHome(false);
             RandomSpawn();
         });
 
@@ -296,7 +298,7 @@ class MainClient {
                     playableCharacter.setHorizontal_direction(-totalDirection);
                     characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
 
-                    if (gameFrame.getGamePanel().hasFocus()) {
+                    if (!playableCharacter.isAtHome()) {
                         if (playableCharacter.getUltimateLoading() >= 1f - playableCharacter.getUltimateLoadingPerSecond() / 120f)
                             playableCharacter.setUltimateLoading(1f);
                         else
@@ -503,6 +505,7 @@ class MainClient {
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHealth(gameClient.getOtherPlayers().get(i).getHealth());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHorizontal_direction(gameClient.getOtherPlayers().get(i).getHorizontal_direction());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setClassCharacter(gameClient.getOtherPlayers().get(i).getClassCharacter());
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setUltimateLoading(gameClient.getOtherPlayers().get(i).getUltimateLoading());
 
                 for (BulletView bulletView : gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews()) {
                     gameFrame.getGamePanel().remove(bulletView.getBulletLabel());

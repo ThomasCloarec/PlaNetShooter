@@ -21,7 +21,7 @@ public class PlayableCharacter extends SolidObject {
     private float health = 1f;
     private float attackNumberPerSecond = 4f;
     private float ultimateLoading = 0;
-    private float ultimateLoadingPerSecond = 0.2f;
+    private boolean atHome = true;
 
     // Default constructor used for reflection (by Kryo serialization)
     private PlayableCharacter() {
@@ -133,6 +133,14 @@ public class PlayableCharacter extends SolidObject {
     }
 
     public float getUltimateLoadingPerSecond() {
-        return ultimateLoadingPerSecond;
+        return 0.2f;
+    }
+
+    public void setAtHome(boolean atHome) {
+        this.atHome = atHome;
+    }
+
+    public boolean isAtHome() {
+        return atHome;
     }
 }

@@ -120,8 +120,10 @@ public class GamePanel extends JPanel {
                     g.setColor(new Color(255, 0, 28, 255));
                     g.drawRect((int)(otherPlayerView.getRelativeX()*this.getWidth()), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.8f), (int)(0.01f*this.getHeight()));
 
-                    g.setColor(new Color(16, 255, 0, 255));
-                    g.fillRect((int)(otherPlayerView.getRelativeX()*this.getWidth()) + (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.875f), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.125f), (int)(0.01f*this.getHeight()));
+                    if (otherPlayerView.getUltimateLoading() == 1) {
+                        g.setColor(new Color(16, 255, 0, 255));
+                        g.fillRect((int) (otherPlayerView.getRelativeX() * this.getWidth()) + (int) (otherPlayerView.getRelativeWidth() * this.getWidth() * 0.875f), (int) (otherPlayerView.getRelativeY() * this.getHeight() - 0.015f * this.getHeight()), (int) (otherPlayerView.getRelativeWidth() * this.getWidth() * 0.125f), (int) (0.01f * this.getHeight()));
+                    }
                     g.setColor(new Color(0,153,255, 255));
                     g.drawRect((int)(otherPlayerView.getRelativeX()*this.getWidth()) + (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.875f), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.125f), (int)(0.01f*this.getHeight()));
                 }
@@ -156,8 +158,10 @@ public class GamePanel extends JPanel {
                     g.setColor(new Color(255, 0, 28, 255));
                     g.drawRect((int)(otherPlayerView.getRelativeX()*this.getWidth()), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.8f), (int)(0.01f*this.getHeight()));
 
-                    g.setColor(new Color(16, 255, 0, 255));
-                    g.fillRect((int)(otherPlayerView.getRelativeX()*this.getWidth()) + (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.875f), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.125f), (int)(0.01f*this.getHeight()));
+                    if (otherPlayerView.getUltimateLoading() == 1) {
+                        g.setColor(new Color(16, 255, 0, 255));
+                        g.fillRect((int) (otherPlayerView.getRelativeX() * this.getWidth()) + (int) (otherPlayerView.getRelativeWidth() * this.getWidth() * 0.875f), (int) (otherPlayerView.getRelativeY() * this.getHeight() - 0.015f * this.getHeight()), (int) (otherPlayerView.getRelativeWidth() * this.getWidth() * 0.125f), (int) (0.01f * this.getHeight()));
+                    }
                     g.setColor(new Color(0,153,255, 255));
                     g.drawRect((int)(otherPlayerView.getRelativeX()*this.getWidth()) + (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.875f), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*0.125f), (int)(0.01f*this.getHeight()));
 
