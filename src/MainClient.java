@@ -275,6 +275,9 @@ class MainClient {
                     }
                     catch (ConcurrentModificationException ignored) {
                     }
+                    catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
 
                     if(!gameFrame.getGamePanel().hasFocus()) {
                         releaseActionLeft.removeMovements();

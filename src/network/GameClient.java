@@ -45,7 +45,7 @@ public class GameClient extends Client {
         if (object instanceof PlayableCharacter) {
             PlayableCharacter playableCharacter = (PlayableCharacter) object;
 
-            if (playableCharacter.getName() != null) {
+            if (playableCharacter.getName() != null && registerList != null) {
                 if (registerList.getNameList().contains(playableCharacter.getName())) {
                     if (otherPlayers.size() > registerList.getNameList().indexOf(playableCharacter.getName()))
                         otherPlayers.set(registerList.getNameList().indexOf(playableCharacter.getName()), playableCharacter);

@@ -79,8 +79,14 @@ public class PlayableCharacter extends SolidObject {
         if (this.classCharacter.equals(ClassCharacters.ANGELO)) {
             this.relativeWidth = 200f / 308f * 0.06f;
             this.relativeHeight = 200f / 180f * 0.06625f * 768f / 372f;
-            this.relativeMaxSpeed = 0.00175f;
+            this.relativeMaxSpeed = 0.002f;
             this.attackNumberPerSecond = 2f;
+        }
+        else if (this.classCharacter.equals(ClassCharacters.TATITATOO)) {
+            this.relativeWidth = 0.05f;
+            this.relativeHeight = 0.05f*768f/372f;
+            this.relativeMaxSpeed = 0.003f;
+            this.attackNumberPerSecond = 4f;
         }
         else {
             this.relativeWidth = 0.05f;
