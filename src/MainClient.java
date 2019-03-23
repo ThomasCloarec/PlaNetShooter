@@ -14,6 +14,7 @@ import view.client.connection.AskClientName;
 import view.client.connection.AskIPHost;
 import view.client.connection.ServerFullError;
 import view.client.game_frame.*;
+import view.client.home_frame.HomePanel;
 import view.client.keyboard_actions.PressAction;
 import view.client.keyboard_actions.ReleaseAction;
 
@@ -48,6 +49,7 @@ class MainClient {
     private static MouseEvent lastMousePressedEvent;
     private static Platform[] platforms;
     private static PlayableCharacter playableCharacter;
+    private static boolean ultimateLaunching = false;
 
     public static void main(String[] args) {
         launchGameClient();
@@ -216,6 +218,9 @@ class MainClient {
                     lastMousePressedEvent = e;
                     readyToFire = true;
                 }
+                else if (SwingUtilities.isRightMouseButton(e) && playableCharacter.getUltimateLoading() == 1) {
+                    ultimateLaunching = true;
+                }
             }
 
             @Override
@@ -243,6 +248,10 @@ class MainClient {
         gameFrame.getHomePanel().getChangeCharacterButton().addActionListener(e -> {
             playableCharacter.setClassCharacter(ClassCharacters.getClassCharactersList().get((ClassCharacters.getClassCharactersList().indexOf(playableCharacter.getClassCharacter()) + 1) % ClassCharacters.getClassCharactersList().size()));
             characterView.setClassCharacter(playableCharacter.getClassCharacter());
+
+            playableCharacter.setUltimateLoading(0f);
+            characterView.setUltimateLoading(playableCharacter.getUltimateLoading());
+
             characterView.setRelativeWidth(playableCharacter.getRelativeWidth());
             characterView.setRelativeHeight(playableCharacter.getRelativeHeight());
             gameFrame.getHomePanel().setClassCharacter(playableCharacter.getClassCharacter());
@@ -286,6 +295,14 @@ class MainClient {
 
                     playableCharacter.setHorizontal_direction(-totalDirection);
                     characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
+
+                    if (gameFrame.getGamePanel().hasFocus()) {
+                        if (playableCharacter.getUltimateLoading() >= 1f - playableCharacter.getUltimateLoadingPerSecond() / 120f)
+                            playableCharacter.setUltimateLoading(1f);
+                        else
+                            playableCharacter.setUltimateLoading(playableCharacter.getUltimateLoading() + playableCharacter.getUltimateLoadingPerSecond() / 120f);
+                        characterView.setUltimateLoading(playableCharacter.getUltimateLoading());
+                    }
 
                     gameClient.sendPlayerInformation(playableCharacter);
                     collisionOnTop = false;

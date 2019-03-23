@@ -20,6 +20,8 @@ public class PlayableCharacter extends SolidObject {
     private final List<Bullet> bullets = new ArrayList<>();
     private float health = 1f;
     private float attackNumberPerSecond = 4f;
+    private float ultimateLoading = 0;
+    private float ultimateLoadingPerSecond = 0.2f;
 
     // Default constructor used for reflection (by Kryo serialization)
     private PlayableCharacter() {
@@ -120,5 +122,17 @@ public class PlayableCharacter extends SolidObject {
 
     public float getAttackNumberPerSecond() {
         return attackNumberPerSecond;
+    }
+
+    public float getUltimateLoading() {
+        return ultimateLoading;
+    }
+
+    public void setUltimateLoading(float ultimateLoading) {
+        this.ultimateLoading = ultimateLoading;
+    }
+
+    public float getUltimateLoadingPerSecond() {
+        return ultimateLoadingPerSecond;
     }
 }

@@ -23,6 +23,7 @@ public class CharacterView {
     private float characterIconHeight;
     private Icon runCharacterIcon;
     private Icon idleCharacterIcon;
+    private float ultimateLoading = 0;
 
     public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, @SuppressWarnings("unused") String name, ClassCharacters classCharacter, float health) {
         this.relativeX = relativeX;
@@ -153,5 +154,13 @@ public class CharacterView {
 
     public void setRelativeHeight(float relativeHeight) {
         this.relativeHeight = relativeHeight;
+    }
+
+    float getUltimateLoading() {
+        return ultimateLoading;
+    }
+
+    public void setUltimateLoading(float ultimateLoading) {
+        this.ultimateLoading = ultimateLoading;
     }
 }

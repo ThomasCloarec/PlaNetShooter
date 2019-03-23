@@ -194,11 +194,20 @@ public class GamePanel extends JPanel {
         g.setColor(new Color(255, 0, 28, 255));
         g.drawRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()), (int)(0.01f*this.getHeight()));
 
-        g.setColor(new Color(16, 255, 0, 51));
-        g.fillRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.03f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()*1f), (int)(0.01f*this.getHeight()));
-        g.setColor(new Color(16, 255, 0, 255));
-        g.drawRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.03f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()), (int)(0.01f*this.getHeight()));
-    }
+        if (characterView.getUltimateLoading() == 1) {
+            g.setColor(new Color(16, 255, 0, 51));
+            g.fillRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.03f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth() * characterView.getUltimateLoading()), (int)(0.01f*this.getHeight()));
+            g.setColor(new Color(16, 255, 0, 255));
+            g.drawRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.03f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()), (int)(0.01f*this.getHeight()));
+        }
+        else {
+            g.setColor(new Color(0, 153, 255, 51));
+            g.fillRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.03f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth() * characterView.getUltimateLoading()), (int)(0.01f*this.getHeight()));
+            g.setColor(new Color(0, 153, 255, 255));
+            g.drawRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.03f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()), (int)(0.01f*this.getHeight()));
+        }
+
+ }
 
     public void setPlatformsView(PlatformView[] platforms) {
         this.platforms = platforms;
