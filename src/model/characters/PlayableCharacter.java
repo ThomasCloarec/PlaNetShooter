@@ -12,7 +12,7 @@ public class PlayableCharacter extends SolidObject {
     private static final float RELATIVE_JUMP_STRENGTH = 0.0090f;
     private float relativeWidth = 0.05f;
     private float relativeHeight = 0.05f*768f/372f;
-    private String classCharacter;
+    private ClassCharacters classCharacter;
     private float relativeX = 0.45f;
     private float relativeY = 0.1f;
     private String name;
@@ -70,17 +70,23 @@ public class PlayableCharacter extends SolidObject {
         return name;
     }
 
-    public String getClassCharacter() {
+    public ClassCharacters getClassCharacter() {
         return this.classCharacter;
     }
 
-    public void setClassCharacter(String classCharacter) {
+    public void setClassCharacter(ClassCharacters classCharacter) {
         this.classCharacter = classCharacter;
-        if (this.classCharacter.equals(ClassCharacters.ANGELO.name())) {
+        if (this.classCharacter.equals(ClassCharacters.ANGELO)) {
             this.relativeWidth = 200f / 308f * 0.06f;
             this.relativeHeight = 200f / 180f * 0.06625f * 768f / 372f;
             this.relativeMaxSpeed = 0.00175f;
             this.attackNumberPerSecond = 2f;
+        }
+        else {
+            this.relativeWidth = 0.05f;
+            this.relativeHeight = 0.05f*768f/372f;
+            this.relativeMaxSpeed = 0.0025f;
+            this.attackNumberPerSecond = 4f;
         }
     }
 

@@ -1,5 +1,7 @@
 package view.client.game_frame;
 
+import model.characters.ClassCharacters;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -8,14 +10,14 @@ import java.util.List;
 public class CharacterView {
     private float relativeX;
     private float relativeY;
-    private final float relativeWidth;
-    private final float relativeHeight;
+    private float relativeWidth;
+    private float relativeHeight;
     private final JLabel nameLabel = new JLabel();
     private final JLabel characterLabel = new JLabel();
     double scaleWidthCharacter = 0;
     private double scaleHeightCharacter = 0;
     private double horizontal_direction = 1;
-    private final String classCharacter;
+    private ClassCharacters classCharacter;
     private List<BulletView> bulletsViews = new ArrayList<>();
     private float health;
     private float characterIconWidth;
@@ -23,15 +25,15 @@ public class CharacterView {
     private Icon runCharacterIcon;
     private Icon idleCharacterIcon;
 
-    public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name, String classCharacter, float health) {
+    public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name, ClassCharacters classCharacter, float health) {
         this.relativeX = relativeX;
         this.relativeY = relativeY;
         this.relativeWidth = relativeWidth;
         this.relativeHeight = relativeHeight;
         this.classCharacter = classCharacter;
         this.health = health;
-        this.runCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.toLowerCase()+ "/run.gif");
-        this.idleCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.toLowerCase()+ "/idle.gif");
+        this.runCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/run.gif");
+        this.idleCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif");
 
         nameLabel.setText(String.valueOf(name.charAt(0)));
     }
@@ -101,7 +103,7 @@ public class CharacterView {
                 characterLabel.setIcon(runCharacterIcon);
             }
             catch (NullPointerException e) {
-                System.err.println("Can't find \"/view/resources/game/characters/" +classCharacter.toLowerCase()+ "/run.gif\" !");
+                System.err.println("Can't find \"/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/run.gif\" !");
             }
         }
         else {
@@ -109,9 +111,15 @@ public class CharacterView {
                 characterLabel.setIcon(idleCharacterIcon);
             }
             catch (NullPointerException e) {
-                System.err.println("Can't find \"/view/resources/game/characters/" +classCharacter.toLowerCase()+ "/idle.gif\" !");
+                System.err.println("Can't find \"/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif\" !");
             }
         }
+    }
+
+    public void setClassCharacter(ClassCharacters classCharacter) {
+        this.classCharacter = classCharacter;
+        this.runCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/run.gif");
+        this.idleCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif");
     }
 
     public double getHorizontal_direction() {
@@ -142,7 +150,15 @@ public class CharacterView {
         return characterIconHeight;
     }
 
-    String getClassCharacter() {
+    ClassCharacters getClassCharacter() {
         return classCharacter;
+    }
+
+    public void setRelativeWidth(float relativeWidth) {
+        this.relativeWidth = relativeWidth;
+    }
+
+    public void setRelativeHeight(float relativeHeight) {
+        this.relativeHeight = relativeHeight;
     }
 }

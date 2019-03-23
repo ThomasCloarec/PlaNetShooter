@@ -156,7 +156,7 @@ class MainClient {
 
         playableCharacter = new PlayableCharacter(clientName);
         playableCharacter.setRelativeY(-1.15f);
-        playableCharacter.setClassCharacter(ClassCharacters.BOB.name());
+        playableCharacter.setClassCharacter(ClassCharacters.TATITATOO);
         characterView = new CharacterView(
                 playableCharacter.getRelativeX(),
                 playableCharacter.getRelativeY(),
@@ -167,6 +167,7 @@ class MainClient {
                 playableCharacter.getHealth());
 
         gameFrame.getGamePanel().setCharacterView(characterView);
+        gameFrame.getHomePanel().setClassCharacter(playableCharacter.getClassCharacter());
     }
 
 
@@ -239,6 +240,14 @@ class MainClient {
             gameFrame.getCardLayout().next(gameFrame.getContentPane());
             gameFrame.getGamePanel().requestFocus();
             RandomSpawn();
+        });
+
+        gameFrame.getHomePanel().getChangeCharacterButton().addActionListener(e -> {
+            playableCharacter.setClassCharacter(ClassCharacters.getClassCharactersList().get((ClassCharacters.getClassCharactersList().indexOf(playableCharacter.getClassCharacter()) + 1) % ClassCharacters.getClassCharactersList().size()));
+            characterView.setClassCharacter(playableCharacter.getClassCharacter());
+            characterView.setRelativeWidth(playableCharacter.getRelativeWidth());
+            characterView.setRelativeHeight(playableCharacter.getRelativeHeight());
+            gameFrame.getHomePanel().setClassCharacter(playableCharacter.getClassCharacter());
         });
     }
 
@@ -361,7 +370,7 @@ class MainClient {
                         if(System.currentTimeMillis() - lastShot > 1000f/playableCharacter.getAttackNumberPerSecond()) {
                             Bullet bullet = new Bullet();
 
-                            if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO.name())) {
+                            if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) {
                                 bullet.setSpeed(0.004f);
                                 bullet.setRelativeWidth(0.015f);
                                 bullet.setRelativeHeight(0.015f * 768f / 372f);
@@ -472,8 +481,11 @@ class MainClient {
 
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeX(gameClient.getOtherPlayers().get(i).getRelativeX());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeY(gameClient.getOtherPlayers().get(i).getRelativeY());
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeWidth(gameClient.getOtherPlayers().get(i).getRelativeWidth());
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeHeight(gameClient.getOtherPlayers().get(i).getRelativeHeight());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHealth(gameClient.getOtherPlayers().get(i).getHealth());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHorizontal_direction(gameClient.getOtherPlayers().get(i).getHorizontal_direction());
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setClassCharacter(gameClient.getOtherPlayers().get(i).getClassCharacter());
 
                 for (BulletView bulletView : gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews()) {
                     gameFrame.getGamePanel().remove(bulletView.getBulletLabel());

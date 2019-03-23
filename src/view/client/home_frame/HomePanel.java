@@ -1,34 +1,103 @@
 package view.client.home_frame;
 
+import model.characters.ClassCharacters;
+
 import javax.swing.*;
 import java.awt.*;
 
 public class HomePanel extends JPanel {
+    private final JButton changeCharacterButton = new JButton("Change character");
+    private JLabel characterLabel = new JLabel();
     private final JButton backToGameButton = new JButton("Back to game");
+
+    private final JPanel leftPanel = new JPanel(null);
+    private final JPanel centerPanel = new JPanel(null);
+    private final JPanel rightPanel = new JPanel(null);
+
+    private int characterIconWidth;
+    private int characterIconHeight;
+
     public HomePanel() {
         super();
         this.setBackground(Color.lightGray);
         this.setFocusable(true);
-        this.setLayout(new GridLayout(1,3,5,5));
+        this.setLayout(null);
 
-        this.add(new JButton("Hello"));
+        changeCharacterButton.setFocusPainted(false);
+        backToGameButton.setFocusPainted(false);
 
-        JPanel center = new JPanel(new BorderLayout(5,5));
-        center.setBackground(Color.lightGray);
-        center.add(new JButton("Hello"), BorderLayout.NORTH);
-        center.add(new JButton("Hello"), BorderLayout.CENTER);
-        center.add(backToGameButton, BorderLayout.SOUTH);
-        this.add(center);
+        leftPanel.setBackground(Color.gray);
+        this.add(leftPanel);
 
-        JPanel right = new JPanel(new GridLayout(4,1,5,5));
-        right.setBackground(Color.lightGray);
-        for (int i = 0; i < 4; i++) {
-            right.add(new JButton("Hello"));
+        centerPanel.setBackground(Color.gray);
+        centerPanel.add(changeCharacterButton);
+        centerPanel.add(characterLabel);
+        centerPanel.add(backToGameButton);
+        this.add(centerPanel);
+
+        rightPanel.setBackground(Color.gray);
+        this.add(rightPanel);
+
+   }
+
+    private class CharacterIcon extends ImageIcon {
+        CharacterIcon(String filename) {
+            super(HomePanel.class.getResource(filename));
+            characterIconWidth = this.getIconWidth();
+            characterIconHeight = this.getIconHeight();
         }
-        this.add(right);
+
+        @Override
+        public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.scale((float)(characterLabel.getWidth()) / (float)(characterIconWidth), (float)(characterLabel.getHeight()) / (float)(characterIconHeight));
+            y = 0;
+            super.paintIcon(c, g2, x, y);
+        }
+    }
+
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        int marginX = (int)(0.02 * this.getWidth() * 372f / 768f);
+        int marginY = (int)(0.02 * this.getHeight());
+
+        leftPanel.setBounds(marginX, marginY, (int)(1f / 3f * this.getWidth()) - marginX, this.getHeight() - marginY * 2);
+        drawLeftPanel();
+
+        centerPanel.setBounds(marginX + leftPanel.getX() + leftPanel.getWidth(), marginY, (int)(1f / 3f * this.getWidth()) - marginX, this.getHeight() - marginY * 2);
+        drawCenterPanel(marginY);
+
+        rightPanel.setBounds(marginX + centerPanel.getX() + centerPanel.getWidth(), marginY, (int)(1f / 3f * this.getWidth()) - marginX * 2, this.getHeight() - marginY * 2);
+        drawRightPanel();
+    }
+
+    private void drawLeftPanel() {
+    }
+
+    private void drawCenterPanel(int marginY) {
+        changeCharacterButton.setBounds(0, 0, centerPanel.getWidth(), (int)(1f / 4f * centerPanel.getHeight()) - marginY);
+        characterLabel.setBounds(0, (int)(1f / 4f * centerPanel.getHeight()), centerPanel.getWidth(), (int)(2f / 4f * centerPanel.getHeight()));
+        backToGameButton.setBounds(0, marginY + centerPanel.getHeight() - (int)(1f / 4f * centerPanel.getHeight()), centerPanel.getWidth(), (int)(1f / 4f * centerPanel.getHeight()) - marginY);
+    }
+
+    private void drawRightPanel() {
     }
 
     public JButton getBackToGameButton() {
         return backToGameButton;
+    }
+
+    public JButton getChangeCharacterButton() {
+        return changeCharacterButton;
+    }
+
+    public void setClassCharacter(ClassCharacters classCharacter) {
+        try {
+            characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif"));
+        }
+        catch (NullPointerException e) {
+            System.err.println("Can't find \"/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif\" !");
+        }
     }
 }
