@@ -17,7 +17,7 @@ public class CharacterView {
     private double scaleHeightCharacter = 0;
     private double horizontal_direction = 1;
     private ClassCharacters classCharacter;
-    private List<BulletView> bulletsViews = new ArrayList<>();
+    private final List<BulletView> bulletsViews = new ArrayList<>();
     private float health;
     private float characterIconWidth;
     private float characterIconHeight;
@@ -129,10 +129,6 @@ public class CharacterView {
 
     public List<BulletView> getBulletsViews() {
         return bulletsViews;
-    }
-
-    public void setBulletsViews(List<BulletView> bulletsViews) {
-        this.bulletsViews = bulletsViews;
     }
 
     float getHealth() {

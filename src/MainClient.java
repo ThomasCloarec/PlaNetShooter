@@ -21,8 +21,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.util.List;
-import java.util.*;
+import java.util.ConcurrentModificationException;
+import java.util.ListIterator;
+import java.util.Set;
+import java.util.TreeSet;
 
 class MainClient {
     private static String clientName;
@@ -452,6 +454,7 @@ class MainClient {
                                     || (iterOutOfRangeBullet.getRelativeY() + iterOutOfRangeBullet.getRelativeHeight() < 0)
                                     || (iterOutOfRangeBullet.getRelativeY() > 1)
                                     || (Math.sqrt(Math.pow(iterOutOfRangeBullet.getRelativeX()-iterOutOfRangeBullet.getRelativeBulletStartX(), 2) + Math.pow(iterOutOfRangeBullet.getRelativeY() - iterOutOfRangeBullet.getRelativeBulletStartY(), 2))) > Math.sqrt(2) * iterOutOfRangeBullet.getRelativeMaxRange() * iterOutOfRangeBullet.getBulletRangeRatio()){
+
                                 gameFrame.getGamePanel().remove(characterView.getBulletsViews().get(iterOutOfRangeBulletIndex).getBulletLabel());
                                 characterView.getBulletsViews().remove(iterOutOfRangeBulletIndex);
                                 iterOutOfRange.remove();
@@ -514,17 +517,23 @@ class MainClient {
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setClassCharacter(gameClient.getOtherPlayers().get(i).getClassCharacter());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setUltimateLoading(gameClient.getOtherPlayers().get(i).getUltimateLoading());
 
-                for (BulletView bulletView : gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews()) {
-                    gameFrame.getGamePanel().remove(bulletView.getBulletLabel());
-                }
-                gameFrame.getGamePanel().revalidate();
+                // REASON OF BULLET BUG
+                // ALWAYS LET THE MAXIMUM NUMBER OF BULLET THAT BEEN SENT AT THE SAME TIME
 
-                List<BulletView> tempBulletView = new ArrayList<>();
-                for (Bullet bullet : gameClient.getOtherPlayers().get(i).getBullets()) {
-                    tempBulletView.add(new BulletView(bullet.getRelativeX(), bullet.getRelativeY(), bullet.getRelativeWidth(), bullet.getRelativeHeight()));
+                for (int j = 0; j < gameClient.getOtherPlayers().get(i).getBullets().size(); j++) {
+                    if (gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().size() > j) {
+                        gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeX(gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeX());
+                        gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeY(gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeY());
+                    }
+                    else {
+                        gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().add(new BulletView(gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeX(), gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeY(), gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeWidth(), gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeHeight()));
+                    }
                 }
 
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setBulletsViews(tempBulletView);
+                while (gameClient.getOtherPlayers().get(i).getBullets().size() < gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().size()) {
+                    gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().get(0).getBulletLabel());
+                    gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().remove(0);
+                }
             }
             else {
                 gameFrame.getGamePanel().getOtherPlayersViews().add(new CharacterView(

@@ -139,6 +139,7 @@ public class PlayableCharacter extends SolidObject {
         this.ultimateLoading = ultimateLoading;
     }
 
+    @SuppressWarnings("SameReturnValue")
     public float getUltimateLoadingPerSecond() {
         return 0.2f;
     }
