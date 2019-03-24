@@ -12,7 +12,7 @@ public class GameClient extends Client {
     private final List<PlayableCharacter> otherPlayers = new ArrayList<>();
 
     public GameClient(String IPHost) throws IOException {
-        super(32768,32768);
+        super(32288,16144);
         new Thread(this).start();
         Network.register(this);
         this.connect(5000, IPHost, Network.getTcpPort(), Network.getUdpPort());
