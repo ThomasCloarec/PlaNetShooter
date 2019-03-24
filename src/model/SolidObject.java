@@ -8,7 +8,6 @@ public class SolidObject {
     private float relativeHeight;
 
     protected SolidObject() {
-
     }
 
     public float getRelativeHeight() {

@@ -85,6 +85,10 @@ class MainClient {
                     if (object instanceof Network.RemoveName) {
                         Network.RemoveName removeName = (Network.RemoveName) object;
 
+                        for (BulletView bulletView : gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getBulletsViews()) {
+                            gameFrame.getGamePanel().remove(bulletView.getBulletLabel());
+                        }
+
                         if (gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getCharacterLabel().getParent() != null)
                             gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getCharacterLabel());
 
@@ -282,13 +286,11 @@ class MainClient {
                             totalDirection += direction.getDelta();
                         }
                     }
-                    catch (ConcurrentModificationException ignored) {
-                    }
-                    catch (NullPointerException e) {
+                    catch (ConcurrentModificationException | NullPointerException e) {
                         e.printStackTrace();
                     }
 
-                    if(!gameFrame.getGamePanel().hasFocus()) {
+                    if (!gameFrame.getGamePanel().hasFocus()) {
                         releaseActionLeft.removeMovements();
                         releaseActionRight.removeMovements();
                     }
@@ -312,6 +314,7 @@ class MainClient {
                         playableCharacter.setUltimateLoading(0f);
                     }
 
+                    System.out.println(playableCharacter.getBullets().size()+ " | " +characterView.getBulletsViews().size());
                     gameClient.sendPlayerInformation(playableCharacter);
                     collisionOnTop = false;
                     collisionOnBottom = false;
@@ -363,7 +366,7 @@ class MainClient {
                     if (collisionOnBottom) {
                         if (jumpKeyJustPressed) {
                             while (collisionOnBottom) {
-                                playableCharacter.setRelativeY(playableCharacter.getRelativeY()-PlayableCharacter.getRelativeJumpStrength());
+                                playableCharacter.setRelativeY(playableCharacter.getRelativeY()-playableCharacter.getRelativeJumpStrength());
 
                                 for (Platform platform : platforms) {
                                     collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM);
@@ -372,8 +375,8 @@ class MainClient {
                                     }
                                 }
                             }
-                            relativeMovementY -= PlayableCharacter.getRelativeJumpStrength();
-                            playableCharacter.setRelativeY(playableCharacter.getRelativeY()+PlayableCharacter.getRelativeJumpStrength());
+                            relativeMovementY -= playableCharacter.getRelativeJumpStrength();
+                            playableCharacter.setRelativeY(playableCharacter.getRelativeY()+playableCharacter.getRelativeJumpStrength());
 
                             jumpKeyJustPressed = false;
                         }

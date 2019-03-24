@@ -9,7 +9,7 @@ import java.util.List;
 public class PlayableCharacter extends SolidObject {
     private float relativeMaxSpeed = 0.0025f;
     private final float RELATIVE_SPEED_GROWTH = relativeMaxSpeed/20;
-    private static final float RELATIVE_JUMP_STRENGTH = 0.0090f;
+    private float relativeJumpStrength = 0.0090f;
     private float relativeWidth = 0.05f;
     private float relativeHeight = 0.05f*768f/372f;
     private ClassCharacters classCharacter;
@@ -64,8 +64,8 @@ public class PlayableCharacter extends SolidObject {
         return RELATIVE_SPEED_GROWTH;
     }
 
-    public static float getRelativeJumpStrength() {
-        return RELATIVE_JUMP_STRENGTH;
+    public float getRelativeJumpStrength() {
+        return relativeJumpStrength;
     }
 
     public String getName() {
@@ -82,7 +82,7 @@ public class PlayableCharacter extends SolidObject {
             this.relativeWidth = 200f / 308f * 0.06f;
             this.relativeHeight = 200f / 180f * 0.06625f * 768f / 372f;
             this.relativeMaxSpeed = 0.002f;
-            this.attackNumberPerSecond = 2f;
+            this.attackNumberPerSecond = 3f;
         }
         else if (this.classCharacter.equals(ClassCharacters.TATITATOO)) {
             this.relativeWidth = 0.05f;
@@ -97,6 +97,7 @@ public class PlayableCharacter extends SolidObject {
             this.attackNumberPerSecond = 4f;
         }
 
+        this.relativeJumpStrength = 0.0090f;
         this.setRelativeY(-1.15f);
     }
 
@@ -105,8 +106,12 @@ public class PlayableCharacter extends SolidObject {
             this.relativeWidth = 160f / 120f * 0.045f;
             this.relativeHeight = 120f / 160f * 0.060f * 768f / 372f;
             this.relativeMaxSpeed = 0f;
+            this.relativeJumpStrength = 0f;
+            this.attackNumberPerSecond = 100f;
+            // ATTACK NUMBER PER SECOND > 100 will result in a crash
         }
     }
+
     public void setHorizontal_direction(double horizontal_direction) {
         this.horizontal_direction = horizontal_direction;
     }
