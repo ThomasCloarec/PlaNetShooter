@@ -17,14 +17,14 @@ public class PlayableCharacter extends SolidObject {
     private float relativeY = 0.1f;
     private String name;
     private double horizontal_direction = 1;
-    private final List<Bullet> bullets = new ArrayList<>();
+    private List<Bullet> bullets = new ArrayList<>();
     private float health = 1f;
     private float attackNumberPerSecond = 4f;
     private float ultimateLoading = 0;
     private boolean atHome = true;
 
     // Default constructor used for reflection (by Kryo serialization)
-    private PlayableCharacter() {
+    public PlayableCharacter() {
     }
 
     public PlayableCharacter(String name) {
@@ -58,6 +58,18 @@ public class PlayableCharacter extends SolidObject {
 
     public void setRelativeY(float relativeY) {
         this.relativeY = relativeY;
+    }
+
+    public void setRelativeWidth(float relativeWidth) {
+        this.relativeWidth = relativeWidth;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setRelativeHeight(float relativeHeight) {
+        this.relativeHeight = relativeHeight;
     }
 
     public float getRelativeSpeedGrowth() {
@@ -98,7 +110,6 @@ public class PlayableCharacter extends SolidObject {
         }
 
         this.relativeJumpStrength = 0.0090f;
-        this.setRelativeY(-1.15f);
     }
 
     public void ultimate2() {
@@ -107,7 +118,7 @@ public class PlayableCharacter extends SolidObject {
             this.relativeHeight = 120f / 160f * 0.060f * 768f / 372f;
             this.relativeMaxSpeed = 0f;
             this.relativeJumpStrength = 0f;
-            this.attackNumberPerSecond = 50f;
+            this.attackNumberPerSecond = 1000f;
             // MAX attackNumberPerSecond ~ 50, if exceeded, it will result in a crash | A FIX IS ACTIVELY RESEARCHED, consider spliting packets to make them smaller in order to solve this issue
         }
     }
@@ -122,6 +133,10 @@ public class PlayableCharacter extends SolidObject {
 
     public List<Bullet> getBullets() {
         return bullets;
+    }
+
+    public void setBullets(List<Bullet> bullets) {
+        this.bullets = bullets;
     }
 
     public void setHealth(float health) {

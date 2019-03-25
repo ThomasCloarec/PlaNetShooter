@@ -1,6 +1,7 @@
 package network;
 
 import com.esotericsoftware.kryonet.Client;
+import model.bullets.Bullet;
 import model.characters.PlayableCharacter;
 
 import java.io.IOException;
@@ -12,7 +13,7 @@ public class GameClient extends Client {
     private final List<PlayableCharacter> otherPlayers = new ArrayList<>();
 
     public GameClient(String IPHost) throws IOException {
-        super(32288,16144);
+        super((int)2e6,(int)5e5);
         new Thread(this).start();
         Network.register(this);
         this.connect(5000, IPHost, Network.getTcpPort(), Network.getUdpPort());
@@ -54,10 +55,38 @@ public class GameClient extends Client {
                 }
             }
         }
+        if (object instanceof Network.BulletsListNamed) {
+            Network.BulletsListNamed bulletsListNamed = (Network.BulletsListNamed) object;
+            for (PlayableCharacter otherPlayer : otherPlayers) {
+                if (otherPlayer.getName().equals(bulletsListNamed.getName())) {
+                    otherPlayer.setBullets(bulletsListNamed.getBullets());
+                }
+            }
+        }
     }
 
     public void sendPlayerInformation(PlayableCharacter character) {
-        this.sendUDP(character);
+        List<Bullet> bulletsCopy = new ArrayList<>(character.getBullets());
+        PlayableCharacter characterCopy = new PlayableCharacter();
+
+        characterCopy.setBullets(new ArrayList<>());
+        characterCopy.setRelativeX(character.getRelativeX());
+        characterCopy.setRelativeY(character.getRelativeY());
+        characterCopy.setRelativeWidth(character.getRelativeWidth());
+        characterCopy.setRelativeHeight(character.getRelativeHeight());
+        characterCopy.setUltimateLoading(character.getUltimateLoading());
+        characterCopy.setHealth(character.getHealth());
+        characterCopy.setName(character.getName());
+        characterCopy.setClassCharacter(character.getClassCharacter());
+        characterCopy.setHorizontal_direction(character.getHorizontal_direction());
+        characterCopy.setAtHome(character.isAtHome());
+
+        Network.BulletsListNamed bulletsListNamed = new Network.BulletsListNamed();
+        bulletsListNamed.setBullets(bulletsCopy);
+        bulletsListNamed.setName(character.getName());
+
+        this.sendUDP(characterCopy);
+        this.sendUDP(bulletsListNamed);
     }
 
     public void sendHit(Network.Hit hit) {

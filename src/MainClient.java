@@ -257,6 +257,7 @@ class MainClient {
             characterView.setClassCharacter(playableCharacter.getClassCharacter());
 
             playableCharacter.setUltimateLoading(0f);
+            playableCharacter.setRelativeY(-1.15f);
 
             gameFrame.getHomePanel().setClassCharacter(playableCharacter.getClassCharacter());
         });
@@ -447,25 +448,10 @@ class MainClient {
                             characterView.getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeY(bullet.getRelativeY());
                         }
 
-                        ListIterator<Bullet> iterOutOfRange = playableCharacter.getBullets().listIterator();
-                        while(iterOutOfRange.hasNext()){
-                            int iterOutOfRangeBulletIndex = iterOutOfRange.nextIndex();
-                            Bullet iterOutOfRangeBullet = iterOutOfRange.next();
-
-                            if((iterOutOfRangeBullet.getRelativeX() + iterOutOfRangeBullet.getRelativeWidth() < 0)
-                                    || (iterOutOfRangeBullet.getRelativeX() > 1)
-                                    || (iterOutOfRangeBullet.getRelativeY() + iterOutOfRangeBullet.getRelativeHeight() < 0)
-                                    || (iterOutOfRangeBullet.getRelativeY() > 1)
-                                    || (Math.sqrt(Math.pow(iterOutOfRangeBullet.getRelativeX()-iterOutOfRangeBullet.getRelativeBulletStartX(), 2) + Math.pow(iterOutOfRangeBullet.getRelativeY() - iterOutOfRangeBullet.getRelativeBulletStartY(), 2))) > Math.sqrt(2) * iterOutOfRangeBullet.getRelativeMaxRange() * iterOutOfRangeBullet.getBulletRangeRatio()){
-
-                                gameFrame.getGamePanel().remove(characterView.getBulletsViews().get(iterOutOfRangeBulletIndex).getBulletLabel());
-                                characterView.getBulletsViews().remove(iterOutOfRangeBulletIndex);
-                                iterOutOfRange.remove();
-                            }
-                        }
-
                         ListIterator<Bullet> bullets = playableCharacter.getBullets().listIterator();
                         while(bullets.hasNext()) {
+                            boolean alreadyRemoved = false;
+
                             int bulletIndex = bullets.nextIndex();
                             Bullet bullet = bullets.next();
 
@@ -474,12 +460,29 @@ class MainClient {
                                     gameFrame.getGamePanel().remove(characterView.getBulletsViews().get(bulletIndex).getBulletLabel());
                                     characterView.getBulletsViews().remove(bulletIndex);
                                     bullets.remove();
+                                    alreadyRemoved = true;
                                 }
                             }
 
-                            for (PlayableCharacter otherPlayer : gameClient.getOtherPlayers()) {
-                                if (!CollisionDetection.isCollisionBetween(otherPlayer, bullet).equals(PlayerCollisionSide.NONE)) {
-                                    gameClient.sendHit(new Network.Hit(otherPlayer.getName(), bullet.getDamage()));
+                            if (!alreadyRemoved) {
+                                for (PlayableCharacter otherPlayer : gameClient.getOtherPlayers()) {
+                                    if (!CollisionDetection.isCollisionBetween(otherPlayer, bullet).equals(PlayerCollisionSide.NONE)) {
+                                        gameClient.sendHit(new Network.Hit(otherPlayer.getName(), bullet.getDamage()));
+                                        gameFrame.getGamePanel().remove(characterView.getBulletsViews().get(bulletIndex).getBulletLabel());
+                                        characterView.getBulletsViews().remove(bulletIndex);
+                                        bullets.remove();
+                                        alreadyRemoved = true;
+                                    }
+                                }
+                            }
+
+                            if (!alreadyRemoved) {
+                                if ((bullet.getRelativeX() + bullet.getRelativeWidth() < 0)
+                                        || (bullet.getRelativeX() > 1)
+                                        || (bullet.getRelativeY() + bullet.getRelativeHeight() < 0)
+                                        || (bullet.getRelativeY() > 1)
+                                        || (Math.sqrt(Math.pow(bullet.getRelativeX() - bullet.getRelativeBulletStartX(), 2) + Math.pow(bullet.getRelativeY() - bullet.getRelativeBulletStartY(), 2))) > Math.sqrt(2) * bullet.getRelativeMaxRange() * bullet.getBulletRangeRatio()) {
+
                                     gameFrame.getGamePanel().remove(characterView.getBulletsViews().get(bulletIndex).getBulletLabel());
                                     characterView.getBulletsViews().remove(bulletIndex);
                                     bullets.remove();
