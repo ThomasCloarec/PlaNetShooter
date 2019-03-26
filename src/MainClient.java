@@ -271,7 +271,13 @@ class MainClient {
 
         Thread gameLoopThread = new Thread(() -> {
             long lastTime = System.nanoTime();
+            int i =0;
+            int j = 0;
+
             while (true) {
+                if (j%5000000 == 0)
+                    System.out.println("OUT OF THE TIMER : " +j);
+                j++;
                 if (System.nanoTime() - lastTime > 1_000_000_000L/120L) {
                     lastTime = System.nanoTime();
                     fpsRecord[0]++;
@@ -280,7 +286,9 @@ class MainClient {
                         fpsRecord[0] = -1;
                         a[0] = System.currentTimeMillis();
                     }
-
+                    if (i%50 == 0)
+                        System.out.println("INTO THE TIMER : " +i);
+                    i++;
                     totalDirection = 0;
                     try {
                         for (Direction direction : directions) {
@@ -315,7 +323,6 @@ class MainClient {
                         playableCharacter.setUltimateLoading(0f);
                     }
 
-                    System.out.println(playableCharacter.getBullets().size()+ " | " +characterView.getBulletsViews().size());
                     gameClient.sendPlayerInformation(playableCharacter);
                     collisionOnTop = false;
                     collisionOnBottom = false;
@@ -532,7 +539,12 @@ class MainClient {
                         gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeY(gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeY());
                     }
                     else {
-                        gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().add(new BulletView(gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeX(), gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeY(), gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeWidth(), gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeHeight()));
+                        try {
+                            gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().add(new BulletView(gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeX(), gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeY(), gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeWidth(), gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeHeight()));
+                        }
+                        catch(NullPointerException e){
+                            e.printStackTrace();
+                        }
                     }
                 }
 
