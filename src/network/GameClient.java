@@ -85,8 +85,8 @@ public class GameClient extends Client {
         bulletsListNamed.setBullets(bulletsCopy);
         bulletsListNamed.setName(character.getName());
 
-        this.sendUDP(characterCopy);
-        this.sendUDP(bulletsListNamed);
+        this.sendTCP(characterCopy);
+        this.sendTCP(bulletsListNamed);
     }
 
     public void sendHit(Network.Hit hit) {

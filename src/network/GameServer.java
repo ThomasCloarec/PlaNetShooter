@@ -49,11 +49,11 @@ public class GameServer extends Server {
         }
         if (object instanceof PlayableCharacter) {
             PlayableCharacter playableCharacter = (PlayableCharacter)object;
-            this.sendToAllExceptUDP(gameConnection.getID(), playableCharacter);
+            this.sendToAllExceptTCP(gameConnection.getID(), playableCharacter);
         }
         if (object instanceof Network.BulletsListNamed) {
             Network.BulletsListNamed bulletsListNamed = (Network.BulletsListNamed)object;
-            this.sendToAllExceptUDP(gameConnection.getID(), bulletsListNamed);
+            this.sendToAllExceptTCP(gameConnection.getID(), bulletsListNamed);
         }
         if (object instanceof Network.Hit) {
             Network.Hit hit = (Network.Hit) object;
