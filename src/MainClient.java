@@ -53,6 +53,14 @@ class MainClient {
     private static boolean ultimateClick = false;
 
     public static void main(String[] args) {
+        long startTime = System.currentTimeMillis();
+        new Thread(() -> {
+            while (true) {
+                if ((System.nanoTime() - startTime * 1e6) % 1e9 == 0)
+                System.out.println("Working since " +((System.currentTimeMillis() - startTime)/1000)+ " seconds.");
+            }
+        }).start();
+
         launchGameClient();
         if (!gameServerFull) {
             SwingUtilities.invokeLater(MainClient::launchGameFrame);
@@ -271,13 +279,8 @@ class MainClient {
 
         Thread gameLoopThread = new Thread(() -> {
             long lastTime = System.nanoTime();
-            int i =0;
-            int j = 0;
 
             while (true) {
-                if (j%5000000 == 0)
-                    System.out.println("OUT OF THE TIMER : " +j);
-                j++;
                 if (System.nanoTime() - lastTime > 1_000_000_000L/120L) {
                     lastTime = System.nanoTime();
                     fpsRecord[0]++;
@@ -286,9 +289,7 @@ class MainClient {
                         fpsRecord[0] = -1;
                         a[0] = System.currentTimeMillis();
                     }
-                    if (i%50 == 0)
-                        System.out.println("INTO THE TIMER : " +i);
-                    i++;
+
                     totalDirection = 0;
                     try {
                         for (Direction direction : directions) {
@@ -533,19 +534,18 @@ class MainClient {
                 // REASON OF BULLET BUG
                 // ALWAYS LET THE MAXIMUM NUMBER OF BULLET THAT BEEN SENT AT THE SAME TIME
 
-                for (int j = 0; j < gameClient.getOtherPlayers().get(i).getBullets().size(); j++) {
-                    if (gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().size() > j) {
-                        gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeX(gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeX());
-                        gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeY(gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeY());
-                    }
-                    else {
-                        try {
+                try {
+                    for (int j = 0; j < gameClient.getOtherPlayers().get(i).getBullets().size(); j++) {
+                        if (gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().size() > j) {
+                            gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeX(gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeX());
+                            gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeY(gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeY());
+                        } else {
                             gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().add(new BulletView(gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeX(), gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeY(), gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeWidth(), gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeHeight()));
                         }
-                        catch(NullPointerException e){
-                            e.printStackTrace();
-                        }
                     }
+                }
+                catch(NullPointerException e){
+                    e.printStackTrace();
                 }
 
                 while (gameClient.getOtherPlayers().get(i).getBullets().size() < gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().size()) {

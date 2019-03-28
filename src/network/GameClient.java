@@ -14,7 +14,7 @@ public class GameClient extends Client {
 
     public GameClient(String IPHost) throws IOException {
         super((int)2e6,(int)5e5);
-        new Thread(this).start();
+        this.start();
         Network.register(this);
         this.connect(5000, IPHost, Network.getTcpPort(), Network.getUdpPort());
     }
