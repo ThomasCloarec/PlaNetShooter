@@ -106,6 +106,10 @@ class MainClient {
                     if (object instanceof Network.Hit) {
                         Network.Hit hit = (Network.Hit) object;
                         playableCharacter.setHealth(playableCharacter.getHealth() - hit.getDamage());
+                        if (playableCharacter.getHealth() <= 0){
+                            randomSpawn();
+                            playableCharacter.setHealth(1);
+                        }
                     }
                     gameClient.receivedListener(object);
                 });
