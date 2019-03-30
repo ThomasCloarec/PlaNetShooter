@@ -5,14 +5,14 @@ import model.SolidObject;
 public class Bullet extends SolidObject {
     private float relativeX;
     private float relativeY;
-    private float Speed  = 0.005f;
+    private float Speed  = 0.01f;
     private float movementX;
     private float movementY;
     private float relativeBulletStartX;
     private float relativeBulletStartY;
     private float bulletRangeRatio;
-    private float relativeWidth = 0.01f;
-    private float relativeHeight = 0.01f * 768f / 372f;
+    private float relativeWidth = 0.008f;
+    private float relativeHeight = 0.008f * 768f / 372f;
     private float damage = 0.1f;
 
     public Bullet() {

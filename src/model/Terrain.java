@@ -1,9 +1,9 @@
 package model;
 
 public class Terrain {
-    private static final float RELATIVE_FRICTION = 0.0025f / 20f;
-    private static final float RELATIVE_MAX_GRAVITY = 0.0095f;
-    private static final float RELATIVE_GRAVITY_GROWTH = RELATIVE_MAX_GRAVITY/60;
+    private static final float RELATIVE_FRICTION = 0.005f / 5f;
+    private static final float RELATIVE_MAX_GRAVITY = 0.013f;
+    private static final float RELATIVE_GRAVITY_GROWTH = RELATIVE_MAX_GRAVITY/30;
 
     public static float getRelativeGravityGrowth() {
         return RELATIVE_GRAVITY_GROWTH;

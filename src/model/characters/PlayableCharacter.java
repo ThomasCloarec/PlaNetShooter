@@ -8,11 +8,11 @@ import java.util.List;
 
 public class PlayableCharacter extends SolidObject {
     private final static int MAX_BULLET_NUMBER_PER_PLAYER = 100;
-    private float relativeMaxSpeed = 0.0025f;
-    private final float RELATIVE_SPEED_GROWTH = relativeMaxSpeed/20;
-    private float relativeJumpStrength = 0.0090f;
-    private float relativeWidth = 0.05f;
-    private float relativeHeight = 0.05f*768f/372f;
+    private float relativeMaxSpeed = 0.004f;
+    private final float RELATIVE_SPEED_GROWTH = relativeMaxSpeed/10;
+    private float relativeJumpStrength = 0.013f;
+    private float relativeWidth = 0.04f;
+    private float relativeHeight = 0.04f*768f/372f;
     private ClassCharacters classCharacter;
     private float relativeX = 0.45f;
     private float relativeY = 0.1f;
@@ -92,31 +92,29 @@ public class PlayableCharacter extends SolidObject {
     public void setClassCharacter(ClassCharacters classCharacter) {
         this.classCharacter = classCharacter;
         if (this.classCharacter.equals(ClassCharacters.ANGELO)) {
-            this.relativeWidth = 200f / 308f * 0.06f;
-            this.relativeHeight = 200f / 180f * 0.06625f * 768f / 372f;
-            this.relativeMaxSpeed = 0.002f;
+            this.relativeWidth = 200f / 308f * 0.048f;
+            this.relativeHeight = 200f / 180f * 0.053f * 768f / 372f;
+            this.relativeMaxSpeed = 0.0035f;
             this.attackNumberPerSecond = 3f;
         }
         else if (this.classCharacter.equals(ClassCharacters.TATITATOO)) {
-            this.relativeWidth = 0.05f;
-            this.relativeHeight = 0.05f*768f/372f;
-            this.relativeMaxSpeed = 0.003f;
+            this.relativeWidth = 0.04f;
+            this.relativeHeight = 0.04f*768f/372f;
+            this.relativeMaxSpeed = 0.0045f;
             this.attackNumberPerSecond = 4f;
         }
         else {
-            this.relativeWidth = 0.05f;
-            this.relativeHeight = 0.05f*768f/372f;
-            this.relativeMaxSpeed = 0.0025f;
+            this.relativeWidth = 0.04f;
+            this.relativeHeight = 0.04f*768f/372f;
+            this.relativeMaxSpeed = 0.004f;
             this.attackNumberPerSecond = 4f;
         }
-
-        this.relativeJumpStrength = 0.0090f;
     }
 
     public void ultimate2() {
         if (classCharacter.equals(ClassCharacters.ANGELO)) {
-            this.relativeWidth = 160f / 120f * 0.045f;
-            this.relativeHeight = 120f / 160f * 0.060f * 768f / 372f;
+            this.relativeWidth = 160f / 120f * 0.036f;
+            this.relativeHeight = 120f / 160f * 0.048f * 768f / 372f;
             this.relativeMaxSpeed = 0f;
             this.relativeJumpStrength = 0f;
             this.attackNumberPerSecond = 80f;

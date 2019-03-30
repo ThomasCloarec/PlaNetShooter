@@ -112,6 +112,7 @@ public class Network {
 
     public static class ClassCharacterChanged {
         private String name;
+        private ClassCharacters classCharacter;
         public ClassCharacterChanged() {
         }
 
@@ -119,10 +120,19 @@ public class Network {
             return name;
         }
 
+        public ClassCharacters getClassCharacter() {
+            return classCharacter;
+        }
+
         public void setName(String name) {
             this.name = name;
         }
+
+        public void setClassCharacter(ClassCharacters classCharacter) {
+            this.classCharacter = classCharacter;
+        }
     }
+
     static int getTcpPort() {
         return TCP_PORT;
     }

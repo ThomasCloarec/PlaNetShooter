@@ -106,9 +106,9 @@ class MainClient {
                             if (playableCharacter.getName().equals(classCharacterChanged.getName())) {
                                 for (BulletView bulletView : gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getOtherPlayers().indexOf(playableCharacter)).getBulletsViews()) {
                                     try {
-                                        bulletView.setIcon("/view/resources/game/characters/" + gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getOtherPlayers().indexOf(playableCharacter)).getClassCharacter().name().toLowerCase() + "/bullet.png");
+                                        bulletView.setIcon("/view/resources/game/characters/" + classCharacterChanged.getClassCharacter().name().toLowerCase() + "/bullet.png");
                                     } catch (NullPointerException ex) {
-                                        System.err.println("Can't find \"/view/resources/game/characters/" + gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getOtherPlayers().indexOf(playableCharacter)).getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
+                                        System.err.println("Can't find \"/view/resources/game/characters/" + classCharacterChanged.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
                                     }
                                 }
                             }
@@ -294,6 +294,7 @@ class MainClient {
 
             Network.ClassCharacterChanged classCharacterChanged = new Network.ClassCharacterChanged();
             classCharacterChanged.setName(playableCharacter.getName());
+            classCharacterChanged.setClassCharacter(playableCharacter.getClassCharacter());
             gameClient.sendTCP(classCharacterChanged);
 
             playableCharacter.setUltimateLoading(0f);
@@ -305,7 +306,6 @@ class MainClient {
 
     private static void launchGameLoop() {
         int[] fpsRecord = new int[1];
-        fpsRecord[0] = -1;
         String gameFrameTitleWithoutFPS = gameFrame.getTitle();
         final long[] a = {System.currentTimeMillis()};
 
@@ -313,12 +313,12 @@ class MainClient {
             long lastTime = System.currentTimeMillis();
 
             while (true) {
-                if (System.currentTimeMillis() - lastTime > 1000/120) {
+                if (System.currentTimeMillis() - lastTime > 16) {
                     lastTime = System.currentTimeMillis();
                     fpsRecord[0]++;
                     if (System.currentTimeMillis() - a[0] > 250) {
                         gameFrame.setTitle(gameFrameTitleWithoutFPS + " | FPS : " + fpsRecord[0] * 4);
-                        fpsRecord[0] = -1;
+                        fpsRecord[0] = 0;
                         a[0] = System.currentTimeMillis();
                     }
 
@@ -415,16 +415,19 @@ class MainClient {
                                     }
                                 }
                             }
-                            relativeMovementY -= playableCharacter.getRelativeJumpStrength();
+                            relativeMovementY = -playableCharacter.getRelativeJumpStrength();
                             playableCharacter.setRelativeY(playableCharacter.getRelativeY() + playableCharacter.getRelativeJumpStrength());
 
                             jumpKeyJustPressed = false;
                         } else if (relativeMovementY > 0)
                             relativeMovementY = 0;
-                    } else if (collisionOnTop && relativeMovementY < 0)
+                    }
+                    else if (collisionOnTop && relativeMovementY < 0)
                         relativeMovementY = Terrain.getRelativeGravityGrowth();
-                    else if (relativeMovementY < Terrain.getRelativeMaxGravity())
+                    else if (relativeMovementY < Terrain.getRelativeMaxGravity()) {
                         relativeMovementY += Terrain.getRelativeGravityGrowth();
+                        jumpKeyJustPressed = false;
+                    }
 
                     if (playableCharacter.getRelativeY() >= 1)
                         randomSpawn();
@@ -437,9 +440,8 @@ class MainClient {
                             Bullet bullet = new Bullet();
 
                             if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) {
-                                bullet.setSpeed(0.004f);
-                                bullet.setRelativeWidth(0.015f);
-                                bullet.setRelativeHeight(0.015f * 768f / 372f);
+                                bullet.setRelativeWidth(0.012f);
+                                bullet.setRelativeHeight(0.012f * 768f / 372f);
                                 bullet.setDamage(0.15f);
                             }
 
@@ -585,19 +587,19 @@ class MainClient {
         double RandSpawn = Math.random();
         if (RandSpawn  < 0.25){
             playableCharacter.setRelativeX(0.03f);
-            playableCharacter.setRelativeY(0.85f - (playableCharacter.getRelativeHeight()-0.05f * 768f/372f));
+            playableCharacter.setRelativeY(0.85f - (playableCharacter.getRelativeHeight()-0.04f * 768f/372f));
         }
         else if (RandSpawn > 0.25 & RandSpawn < 0.50){
             playableCharacter.setRelativeX(0.03f);
-            playableCharacter.setRelativeY(0.45f - (playableCharacter.getRelativeHeight()-0.05f * 768f/372f));
+            playableCharacter.setRelativeY(0.45f - (playableCharacter.getRelativeHeight()-0.04f * 768f/372f));
         }
         else if (RandSpawn > 0.50 & RandSpawn < 0.75){
             playableCharacter.setRelativeX(0.91f);
-            playableCharacter.setRelativeY(0.85f - (playableCharacter.getRelativeHeight()-0.05f * 768f/372f));
+            playableCharacter.setRelativeY(0.85f - (playableCharacter.getRelativeHeight()-0.04f * 768f/372f));
         }
         else if (RandSpawn > 0.75){
             playableCharacter.setRelativeX(0.91f);
-            playableCharacter.setRelativeY(0.45f - (playableCharacter.getRelativeHeight()-0.05f * 768f/372f));
+            playableCharacter.setRelativeY(0.45f - (playableCharacter.getRelativeHeight()-0.04f * 768f/372f));
         }
     }
 }

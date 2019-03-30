@@ -106,7 +106,7 @@ public class GameClient extends Client {
     }
 
     public void sendBulletsInformation(PlayableCharacter character) {
-        if (i % 4 == 0) {
+        if (i % 2 == 0) {
             for (Bullet bullet : character.getBullets()) {
                 Network.UpdateBullet updateBullet = new Network.UpdateBullet();
                 updateBullet.setBullet(bullet);
