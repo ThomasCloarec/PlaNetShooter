@@ -82,6 +82,7 @@ public class GamePanel extends JPanel {
                 if (otherPlayerView != null) {
                     for (BulletView bulletView : otherPlayerView.getBulletsViews()) {
                         if (bulletView != null) {
+                            bulletView.getBulletLabel().setVisible(true);
                             bulletView.setScaleWidthBullet(bulletView.getRelativeWidth() * this.getWidth() / bulletView.getBulletIconWidth());
                             bulletView.setScaleHeightBullet(bulletView.getRelativeHeight() * this.getHeight() / bulletView.getBulletIconHeight());
 
