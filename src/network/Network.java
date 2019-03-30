@@ -113,6 +113,7 @@ public class Network {
     public static class ClassCharacterChanged {
         private String name;
         private ClassCharacters classCharacter;
+
         public ClassCharacterChanged() {
         }
 

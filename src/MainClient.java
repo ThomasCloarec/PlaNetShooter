@@ -1,5 +1,6 @@
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.esotericsoftware.minlog.Log;
 import model.CollisionDetection;
 import model.PlayerCollisionSide;
 import model.Terrain;
@@ -50,6 +51,7 @@ class MainClient {
     private static boolean ultimateClick = false;
 
     public static void main(String[] args) {
+        Log.set(Log.LEVEL_DEBUG);
         launchGameClient();
         if (!gameServerFull) {
             SwingUtilities.invokeLater(MainClient::launchGameFrame);
@@ -176,7 +178,7 @@ class MainClient {
 
         playableCharacter = new PlayableCharacter(clientName);
         playableCharacter.setRelativeY(-1.15f);
-        playableCharacter.setClassCharacter(ClassCharacters.TATITATOO);
+        playableCharacter.setClassCharacter(ClassCharacters.BOB);
         for (int i = 0; i < PlayableCharacter.getMaxBulletNumberPerPlayer() ; i++) {
             Bullet bullet = new Bullet();
             bullet.setRelativeWidth(0);
