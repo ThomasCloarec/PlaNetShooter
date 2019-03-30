@@ -196,7 +196,6 @@ public class GamePanel extends JPanel {
             g.setColor(new Color(0, 153, 255, 255));
             g.drawRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.03f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()), (int)(0.01f*this.getHeight()));
         }
-
  }
 
     public void setPlatformsView(PlatformView[] platforms) {
