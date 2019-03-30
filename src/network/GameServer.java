@@ -59,6 +59,10 @@ public class GameServer extends Server {
             Network.Hit hit = (Network.Hit) object;
             this.sendToTCP(registerList.getConnectionIDList().get(registerList.getNameList().indexOf(hit.getVictimName())), hit);
         }
+        if (object instanceof Network.ClassCharacterChanged) {
+            Network.ClassCharacterChanged classCharacterChanged = (Network.ClassCharacterChanged) object;
+            this.sendToAllExceptTCP(gameConnection.getID(), classCharacterChanged);
+        }
     }
 
     public void disconnectedListener(Connection connection) {

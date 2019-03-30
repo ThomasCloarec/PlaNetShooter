@@ -27,6 +27,7 @@ public class Network {
         kryo.register(SolidObject.class);
         kryo.register(Hit.class);
         kryo.register(UpdateBullet.class);
+        kryo.register(ClassCharacterChanged.class);
     }
 
     static class RegisterName {
@@ -109,6 +110,19 @@ public class Network {
         }
     }
 
+    public static class ClassCharacterChanged {
+        private String name;
+        public ClassCharacterChanged() {
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+    }
     static int getTcpPort() {
         return TCP_PORT;
     }
