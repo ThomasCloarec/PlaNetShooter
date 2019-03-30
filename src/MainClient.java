@@ -406,7 +406,7 @@ class MainClient {
                     }
 
                     if (collisionOnBottom) {
-                        if (jumpKeyJustPressed) {
+                        if (jumpKeyJustPressed && playableCharacter.getRelativeJumpStrength() > 0.001f) {
                             while (collisionOnBottom) {
                                 playableCharacter.setRelativeY(playableCharacter.getRelativeY() - playableCharacter.getRelativeJumpStrength());
 

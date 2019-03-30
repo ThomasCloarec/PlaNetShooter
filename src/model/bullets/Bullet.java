@@ -5,7 +5,7 @@ import model.SolidObject;
 public class Bullet extends SolidObject {
     private float relativeX;
     private float relativeY;
-    private float Speed  = 0.01f;
+    private float speed  = 0.01f;
     private float movementX;
     private float movementY;
     private float relativeBulletStartX;
@@ -82,11 +82,11 @@ public class Bullet extends SolidObject {
     }
 
     public void setSpeed(float speed) {
-        Speed = speed;
+        this.speed = speed;
     }
 
     public float getSpeed() {
-        return Speed;
+        return speed;
     }
 
     @Override

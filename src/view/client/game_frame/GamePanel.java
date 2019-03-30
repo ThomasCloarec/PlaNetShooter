@@ -22,23 +22,23 @@ public class GamePanel extends JPanel {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        if (!hitBoxMode) {
-            g.setColor(Color.magenta);
-            g.fillRect((int) (new HomeView().getRelativeX() * this.getWidth()),
-                    (int) (new HomeView().getRelativeY() * this.getHeight()),
-                    (int) (new HomeView().getRelativeWidth() * this.getWidth()),
-                    (int) (new HomeView().getRelativeHeight() * this.getHeight()));
+        g.setColor(Color.magenta);
+        g.fillRect((int) (new HomeView().getRelativeX() * this.getWidth()),
+                (int) (new HomeView().getRelativeY() * this.getHeight()),
+                (int) (new HomeView().getRelativeWidth() * this.getWidth()),
+                (int) (new HomeView().getRelativeHeight() * this.getHeight()));
 
-            for (PlatformView platform : platforms) {
-                if (platform != null) {
-                    g.setColor(Color.blue);
-                    g.fillRect((int) (platform.getRelativeX() * this.getWidth()),
-                            (int) (platform.getRelativeY() * this.getHeight()),
-                            (int) (platform.getRelativeWidth() * this.getWidth()),
-                            (int) (platform.getRelativeHeight() * this.getHeight()));
-                }
+        for (PlatformView platform : platforms) {
+            if (platform != null) {
+                g.setColor(Color.blue);
+                g.fillRect((int) (platform.getRelativeX() * this.getWidth()),
+                        (int) (platform.getRelativeY() * this.getHeight()),
+                        (int) (platform.getRelativeWidth() * this.getWidth()),
+                        (int) (platform.getRelativeHeight() * this.getHeight()));
             }
+        }
 
+        if (!hitBoxMode) {
             characterView.setScaleWidthCharacter(characterView.getRelativeWidth() * this.getWidth() / characterView.getCharacterIconWidth());
             characterView.setScaleHeightCharacter(characterView.getRelativeHeight() * this.getHeight() / characterView.getCharacterIconHeight());
 
@@ -132,22 +132,6 @@ public class GamePanel extends JPanel {
             }
         }
         else {
-            g.setColor(Color.magenta);
-            g.fillRect((int) (new HomeView().getRelativeX() * this.getWidth()),
-                    (int) (new HomeView().getRelativeY() * this.getHeight()),
-                    (int) (new HomeView().getRelativeWidth() * this.getWidth()),
-                    (int) (new HomeView().getRelativeHeight() * this.getHeight()));
-
-            for (PlatformView platform : platforms) {
-                if (platform != null) {
-                    g.setColor(Color.blue);
-                    g.fillRect((int) (platform.getRelativeX() * this.getWidth()),
-                            (int) (platform.getRelativeY() * this.getHeight()),
-                            (int) (platform.getRelativeWidth() * this.getWidth()),
-                            (int) (platform.getRelativeHeight() * this.getHeight()));
-                }
-            }
-
             for (CharacterView otherPlayerView : otherPlayersViews) {
                 if (otherPlayerView != null) {
                     otherPlayerView.getCharacterLabel().setVisible(false);
