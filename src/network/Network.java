@@ -26,7 +26,7 @@ public class Network {
         kryo.register(Bullet.class);
         kryo.register(SolidObject.class);
         kryo.register(Hit.class);
-        kryo.register(BulletsListNamed.class);
+        kryo.register(updateBullet.class);
     }
 
     static class RegisterName {
@@ -56,15 +56,16 @@ public class Network {
         }
     }
 
-    public static class BulletsListNamed {
-        BulletsListNamed() {
+    public static class updateBullet {
+        updateBullet() {
         }
 
-        private List<Bullet> bullets;
+        private Bullet bullet;
+        private int bulletIndex;
         private String name;
 
-        void setBullets(List<Bullet> bullets) {
-            this.bullets = bullets;
+        void setBullet(Bullet bullet) {
+            this.bullet = bullet;
         }
 
         public void setName(String name) {
@@ -75,8 +76,16 @@ public class Network {
             return name;
         }
 
-        List<Bullet> getBullets() {
-            return bullets;
+        Bullet getBullet() {
+            return bullet;
+        }
+
+        public int getBulletIndex() {
+            return bulletIndex;
+        }
+
+        public void setBulletIndex(int bulletIndex) {
+            this.bulletIndex = bulletIndex;
         }
     }
 

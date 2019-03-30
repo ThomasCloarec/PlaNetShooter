@@ -92,8 +92,9 @@ public class CharacterView {
     }
 
     public void setHorizontal_direction(double horizontal_direction) {
-        if (horizontal_direction != 0)
+        if (horizontal_direction != 0) {
             this.horizontal_direction = horizontal_direction;
+        }
 
         if (!ultimateRunning) {
             if (horizontal_direction != 0) {
@@ -147,7 +148,7 @@ public class CharacterView {
         return characterIconHeight;
     }
 
-    ClassCharacters getClassCharacter() {
+    public ClassCharacters getClassCharacter() {
         return classCharacter;
     }
 

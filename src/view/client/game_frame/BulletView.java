@@ -13,12 +13,8 @@ public class BulletView extends SolidObject {
     private double scaleHeightBullet = 0;
     private float bulletIconWidth;
     private float bulletIconHeight;
-    private final float relativeWidth;
-    private final float relativeHeight;
-    @SuppressWarnings({"FieldCanBeLocal", "unused"})
-    private float deltaX;
-    @SuppressWarnings({"FieldCanBeLocal", "unused"})
-    private float deltaY;
+    private float relativeWidth;
+    private float relativeHeight;
 
     public BulletView(float relativeX, float relativeY, float relativeWidth, float relativeHeight) {
         this.relativeX = relativeX;
@@ -70,7 +66,7 @@ public class BulletView extends SolidObject {
         return bulletLabel;
     }
 
-    void setIcon(String filename) {
+    public void setIcon(String filename) {
         bulletLabel.setIcon(new BulletView.BulletIcon(filename));
     }
 
@@ -92,12 +88,12 @@ public class BulletView extends SolidObject {
         return relativeHeight;
     }
 
-    public void setDeltaX(float deltaX) {
-        this.deltaX = deltaX;
+    public void setRelativeWidth(float relativeWidth) {
+        this.relativeWidth = relativeWidth;
     }
 
-    public void setDeltaY(float deltaY) {
-        this.deltaY = deltaY;
+    public void setRelativeHeight(float relativeHeight) {
+        this.relativeHeight = relativeHeight;
     }
 }
 

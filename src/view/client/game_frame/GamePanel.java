@@ -69,7 +69,8 @@ public class GamePanel extends JPanel {
                         }
                         catch (NullPointerException e) {
                             System.err.println("Can't find \"/view/resources/game/characters/" + characterView.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
-                        }                        this.add(bulletView.getBulletLabel());
+                        }
+                        this.add(bulletView.getBulletLabel());
                         this.revalidate();
                     }
 

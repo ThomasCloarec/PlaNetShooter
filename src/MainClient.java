@@ -53,14 +53,6 @@ class MainClient {
     private static boolean ultimateClick = false;
 
     public static void main(String[] args) {
-        long startTime = System.currentTimeMillis();
-        new Thread(() -> {
-            while (true) {
-                if ((System.nanoTime() - startTime * 1e6) % 1e9 == 0)
-                System.out.println("Working since " +((System.currentTimeMillis() - startTime)/1000)+ " seconds.");
-            }
-        }).start();
-
         launchGameClient();
         if (!gameServerFull) {
             SwingUtilities.invokeLater(MainClient::launchGameFrame);
@@ -174,6 +166,14 @@ class MainClient {
         playableCharacter = new PlayableCharacter(clientName);
         playableCharacter.setRelativeY(-1.15f);
         playableCharacter.setClassCharacter(ClassCharacters.TATITATOO);
+        for (int i = 0; i < 1000 ; i++) {
+            Bullet bullet = new Bullet();
+            bullet.setRelativeWidth(0);
+            bullet.setRelativeHeight(0);
+
+            playableCharacter.getBullets().add(bullet);
+        }
+
         characterView = new CharacterView(
                 playableCharacter.getRelativeX(),
                 playableCharacter.getRelativeY(),
@@ -182,6 +182,11 @@ class MainClient {
                 playableCharacter.getName(),
                 playableCharacter.getClassCharacter(),
                 playableCharacter.getHealth());
+
+        for (int i = 0; i < 1000 ; i++) {
+            BulletView bulletView = new BulletView(0,0,0,0);
+            characterView.getBulletsViews().add(bulletView);
+        }
 
         gameFrame.getGamePanel().setCharacterView(characterView);
         gameFrame.getHomePanel().setClassCharacter(playableCharacter.getClassCharacter());
@@ -267,6 +272,14 @@ class MainClient {
         gameFrame.getHomePanel().getChangeCharacterButton().addActionListener(e -> {
             playableCharacter.setClassCharacter(ClassCharacters.getClassCharactersList().get((ClassCharacters.getClassCharactersList().indexOf(playableCharacter.getClassCharacter()) + 1) % ClassCharacters.getClassCharactersList().size()));
             characterView.setClassCharacter(playableCharacter.getClassCharacter());
+
+            for (BulletView bulletView : characterView.getBulletsViews()) {
+                try {
+                    bulletView.setIcon("/view/resources/game/characters/" + characterView.getClassCharacter().name().toLowerCase() + "/bullet.png");
+                } catch (NullPointerException ex) {
+                    System.err.println("Can't find \"/view/resources/game/characters/" + characterView.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
+                }
+            }
 
             playableCharacter.setUltimateLoading(0f);
             playableCharacter.setRelativeY(-1.15f);
@@ -441,12 +454,12 @@ class MainClient {
                                 bullet.setBulletRangeRatio(bulletRangeRatio);
 
                                 SwingUtilities.invokeLater(() -> {
-                                    playableCharacter.getBullets().add(bullet);
-                                    BulletView bulletView = new BulletView(relativeBulletStartX, relativeBulletStartY, bullet.getRelativeWidth(), bullet.getRelativeHeight());
-                                    bulletView.setDeltaX(tempDeltaX);
-                                    bulletView.setDeltaY(tempDeltaY);
-
-                                    characterView.getBulletsViews().add(bulletView);
+                                    for (Bullet bullet1 : playableCharacter.getBullets()) {
+                                        if (bullet1.getRelativeWidth() == 0 && bullet1.getRelativeHeight() == 0) {
+                                            playableCharacter.getBullets().set(playableCharacter.getBullets().indexOf(bullet1), bullet);
+                                            break;
+                                        }
+                                    }
                                 });
                                 lastShot = System.currentTimeMillis();
                             }
@@ -459,6 +472,8 @@ class MainClient {
 
                                 characterView.getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeX(bullet.getRelativeX());
                                 characterView.getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeY(bullet.getRelativeY());
+                                characterView.getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeWidth(bullet.getRelativeWidth());
+                                characterView.getBulletsViews().get(playableCharacter.getBullets().indexOf(bullet)).setRelativeHeight(bullet.getRelativeHeight());
                             }
 
                             ListIterator<Bullet> bullets = playableCharacter.getBullets().listIterator();
@@ -470,9 +485,8 @@ class MainClient {
 
                                 for (Platform platform : platforms) {
                                     if (!CollisionDetection.isCollisionBetween(bullet, platform).equals(PlayerCollisionSide.NONE)) {
-                                        gameFrame.getGamePanel().remove(characterView.getBulletsViews().get(bulletIndex).getBulletLabel());
-                                        characterView.getBulletsViews().remove(bulletIndex);
-                                        bullets.remove();
+                                        playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
+                                        playableCharacter.getBullets().get(bulletIndex).setRelativeHeight(0);
                                         alreadyRemoved = true;
                                     }
                                 }
@@ -481,9 +495,8 @@ class MainClient {
                                     for (PlayableCharacter otherPlayer : gameClient.getOtherPlayers()) {
                                         if (!CollisionDetection.isCollisionBetween(otherPlayer, bullet).equals(PlayerCollisionSide.NONE)) {
                                             gameClient.sendHit(new Network.Hit(otherPlayer.getName(), bullet.getDamage()));
-                                            gameFrame.getGamePanel().remove(characterView.getBulletsViews().get(bulletIndex).getBulletLabel());
-                                            characterView.getBulletsViews().remove(bulletIndex);
-                                            bullets.remove();
+                                            playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
+                                            playableCharacter.getBullets().get(bulletIndex).setRelativeHeight(0);
                                             alreadyRemoved = true;
                                         }
                                     }
@@ -496,9 +509,8 @@ class MainClient {
                                             || (bullet.getRelativeY() > 1)
                                             || (Math.sqrt(Math.pow(bullet.getRelativeX() - bullet.getRelativeBulletStartX(), 2) + Math.pow(bullet.getRelativeY() - bullet.getRelativeBulletStartY(), 2))) > Math.sqrt(2) * bullet.getRelativeMaxRange() * bullet.getBulletRangeRatio()) {
 
-                                        gameFrame.getGamePanel().remove(characterView.getBulletsViews().get(bulletIndex).getBulletLabel());
-                                        characterView.getBulletsViews().remove(bulletIndex);
-                                        bullets.remove();
+                                        playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
+                                        playableCharacter.getBullets().get(bulletIndex).setRelativeHeight(0);
                                     }
                                 }
                             }
@@ -519,6 +531,13 @@ class MainClient {
                             Toolkit.getDefaultToolkit().sync();
                     });
                     oneLoopThread.start();
+
+                    int n = 0;
+                    for (Bullet bullet : playableCharacter.getBullets()) {
+                        if (bullet.getRelativeWidth() != 0 && bullet.getRelativeHeight() != 0)
+                            n++;
+                    }
+                    System.out.println(n);
                 }
             }
         });
@@ -556,7 +575,6 @@ class MainClient {
                 }
 
                 while (gameClient.getOtherPlayers().get(i).getBullets().size() < gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().size()) {
-                    System.out.println ("If continue to run even freezing, the problem is lign 555.");
                     gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().get(0).getBulletLabel());
                     gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().remove(0);
                 }
