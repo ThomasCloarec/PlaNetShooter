@@ -11,7 +11,7 @@ public class GameServer extends Server {
     private final Network.RegisterList registerList = new Network.RegisterList();
 
     public GameServer() {
-        super((int)2e6,(int)5e5);
+        super();
         this.start();
         Network.register(this);
         try {

@@ -14,11 +14,11 @@ public class GameClient extends Client {
 
     private int i = 0;
     public GameClient(String IPHost) throws IOException {
-        super((int)2e6,(int)5e5);
+        super();
         new Thread(this).start();
         Network.register(this);
         this.connect(5000, IPHost, Network.getTcpPort(), Network.getUdpPort());
-        this.setTimeout((int)2e6);
+        this.setTimeout(Integer.MAX_VALUE);
     }
 
     public void connectedListener(String name) {
@@ -106,7 +106,7 @@ public class GameClient extends Client {
     }
 
     public void sendBulletsInformation(PlayableCharacter character) {
-        if (i % 5 == 0) {
+        if (i % 4 == 0) {
             for (Bullet bullet : character.getBullets()) {
                 Network.UpdateBullet updateBullet = new Network.UpdateBullet();
                 updateBullet.setBullet(bullet);
