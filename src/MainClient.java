@@ -551,9 +551,6 @@ class MainClient {
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setClassCharacter(gameClient.getOtherPlayers().get(i).getClassCharacter());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setUltimateLoading(gameClient.getOtherPlayers().get(i).getUltimateLoading());
 
-                // REASON OF BULLET BUG
-                // ALWAYS LET THE MAXIMUM NUMBER OF BULLET THAT BEEN SENT AT THE SAME TIME
-
                 try {
                     for (int j = 0; j < gameClient.getOtherPlayers().get(i).getBullets().size(); j++) {
                             gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeX(gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeX());
@@ -587,19 +584,19 @@ class MainClient {
         double RandSpawn = Math.random();
         if (RandSpawn  < 0.25){
             playableCharacter.setRelativeX(0.03f);
-            playableCharacter.setRelativeY(0.85f - (playableCharacter.getRelativeHeight()-0.04f * 768f/372f));
+            playableCharacter.setRelativeY(0.95f - playableCharacter.getRelativeHeight() - 0.01f);
         }
         else if (RandSpawn > 0.25 & RandSpawn < 0.50){
             playableCharacter.setRelativeX(0.03f);
-            playableCharacter.setRelativeY(0.45f - (playableCharacter.getRelativeHeight()-0.04f * 768f/372f));
+            playableCharacter.setRelativeY(0.65f - playableCharacter.getRelativeHeight() - 0.01f);
         }
         else if (RandSpawn > 0.50 & RandSpawn < 0.75){
             playableCharacter.setRelativeX(0.91f);
-            playableCharacter.setRelativeY(0.85f - (playableCharacter.getRelativeHeight()-0.04f * 768f/372f));
+            playableCharacter.setRelativeY(0.95f - playableCharacter.getRelativeHeight() - 0.01f);
         }
         else if (RandSpawn > 0.75){
             playableCharacter.setRelativeX(0.91f);
-            playableCharacter.setRelativeY(0.45f - (playableCharacter.getRelativeHeight()-0.04f * 768f/372f));
+            playableCharacter.setRelativeY(0.65f - playableCharacter.getRelativeHeight() - 0.01f);
         }
     }
 }
