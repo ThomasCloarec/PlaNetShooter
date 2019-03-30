@@ -163,7 +163,7 @@ class MainClient {
         playableCharacter = new PlayableCharacter(clientName);
         playableCharacter.setRelativeY(-1.15f);
         playableCharacter.setClassCharacter(ClassCharacters.TATITATOO);
-        for (int i = 0; i < 100 ; i++) {
+        for (int i = 0; i < PlayableCharacter.getMaxBulletNumberPerPlayer() ; i++) {
             Bullet bullet = new Bullet();
             bullet.setRelativeWidth(0);
             bullet.setRelativeHeight(0);
@@ -180,7 +180,7 @@ class MainClient {
                 playableCharacter.getClassCharacter(),
                 playableCharacter.getHealth());
 
-        for (int i = 0; i < 100 ; i++) {
+        for (int i = 0; i < PlayableCharacter.getMaxBulletNumberPerPlayer() ; i++) {
             BulletView bulletView = new BulletView(0,0,0,0);
             characterView.getBulletsViews().add(bulletView);
         }
@@ -339,6 +339,7 @@ class MainClient {
                         }
 
                         gameClient.sendPlayerInformation(playableCharacter);
+                        gameClient.sendBulletsInformation(playableCharacter);
                         collisionOnTop = false;
                         collisionOnBottom = false;
                         collisionOnRight = false;
@@ -575,7 +576,7 @@ class MainClient {
                         gameClient.getOtherPlayers().get(i).getName(),
                         gameClient.getOtherPlayers().get(i).getClassCharacter(),
                         gameClient.getOtherPlayers().get(i).getHealth());
-                for (int j = 0; j < 100; j++) {
+                for (int j = 0; j < PlayableCharacter.getMaxBulletNumberPerPlayer(); j++) {
                     characterView.getBulletsViews().add(new BulletView(0,0,0,0));
                 }
                 gameFrame.getGamePanel().getOtherPlayersViews().add(characterView);

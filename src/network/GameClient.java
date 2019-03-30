@@ -61,7 +61,7 @@ public class GameClient extends Client {
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setAtHome(playableCharacter.isAtHome());
                     }
                     else {
-                        for (int i = 0; i < 100; i++) {
+                        for (int i = 0; i < PlayableCharacter.getMaxBulletNumberPerPlayer(); i++) {
                             Bullet bullet = new Bullet();
                             bullet.setRelativeWidth(0);
                             bullet.setRelativeHeight(0);
@@ -78,7 +78,7 @@ public class GameClient extends Client {
             Network.UpdateBullet updateBullet = (Network.UpdateBullet) object;
             for (PlayableCharacter otherPlayer : otherPlayers) {
                 if (otherPlayer.getName().equals(updateBullet.getName())) {
-                    if (otherPlayer.getBullets().size() == 100)
+                    if (otherPlayer.getBullets().size() == PlayableCharacter.getMaxBulletNumberPerPlayer())
                         otherPlayer.getBullets().set(updateBullet.getBulletIndex(), updateBullet.getBullet());
                 }
             }
@@ -100,6 +100,10 @@ public class GameClient extends Client {
         characterCopy.setHorizontal_direction(character.getHorizontal_direction());
         characterCopy.setAtHome(character.isAtHome());
 
+        this.sendUDP(characterCopy);
+    }
+
+    public void sendBulletsInformation(PlayableCharacter character) {
         for (Bullet bullet : character.getBullets()) {
             Network.UpdateBullet updateBullet = new Network.UpdateBullet();
             updateBullet.setBullet(bullet);
@@ -107,7 +111,6 @@ public class GameClient extends Client {
             updateBullet.setName(character.getName());
             this.sendUDP(updateBullet);
         }
-        this.sendUDP(characterCopy);
     }
 
     public void sendHit(Network.Hit hit) {

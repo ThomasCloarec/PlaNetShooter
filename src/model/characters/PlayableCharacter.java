@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayableCharacter extends SolidObject {
+    private final static int MAX_BULLET_NUMBER_PER_PLAYER = 100;
     private float relativeMaxSpeed = 0.0025f;
     private final float RELATIVE_SPEED_GROWTH = relativeMaxSpeed/20;
     private float relativeJumpStrength = 0.0090f;
@@ -170,5 +171,9 @@ public class PlayableCharacter extends SolidObject {
 
     public boolean isAtHome() {
         return atHome;
+    }
+
+    public static int getMaxBulletNumberPerPlayer() {
+        return MAX_BULLET_NUMBER_PER_PLAYER;
     }
 }

@@ -1,6 +1,5 @@
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.esotericsoftware.minlog.Log;
 import network.GameServer;
 import view.server.ServerFrame;
 
@@ -12,8 +11,6 @@ class MainServer {
     private static GameServer gameServer;
 
     public static void main(String[] args) {
-        Log.set(Log.LEVEL_DEBUG);
-
         launchGameServer();
         SwingUtilities.invokeLater(MainServer::launchServerFrame);
     }
