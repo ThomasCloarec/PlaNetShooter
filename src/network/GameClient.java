@@ -17,6 +17,7 @@ public class GameClient extends Client {
         new Thread(this).start();
         Network.register(this);
         this.connect(5000, IPHost, Network.getTcpPort(), Network.getUdpPort());
+        this.setTimeout((int)2e6);
     }
 
     public void connectedListener(String name) {
