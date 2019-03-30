@@ -310,11 +310,11 @@ class MainClient {
         final long[] a = {System.currentTimeMillis()};
 
         Thread gameLoopThread = new Thread(() -> {
-            long lastTime = System.nanoTime();
+            long lastTime = System.currentTimeMillis();
 
             while (true) {
-                if (System.nanoTime() - lastTime > 1_000_000_000L/120L) {
-                    lastTime = System.nanoTime();
+                if (System.currentTimeMillis() - lastTime > 1000/120) {
+                    lastTime = System.currentTimeMillis();
                     fpsRecord[0]++;
                     if (System.currentTimeMillis() - a[0] > 250) {
                         gameFrame.setTitle(gameFrameTitleWithoutFPS + " | FPS : " + fpsRecord[0] * 4);
