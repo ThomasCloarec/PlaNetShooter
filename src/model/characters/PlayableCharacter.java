@@ -118,7 +118,7 @@ public class PlayableCharacter extends SolidObject {
             this.relativeHeight = 120f / 160f * 0.060f * 768f / 372f;
             this.relativeMaxSpeed = 0f;
             this.relativeJumpStrength = 0f;
-            this.attackNumberPerSecond = 1000f;
+            this.attackNumberPerSecond = 80f;
             // MAX attackNumberPerSecond ~ 50, if exceeded, it will result in a crash | A FIX IS ACTIVELY RESEARCHED, consider spliting packets to make them smaller in order to solve this issue
         }
     }

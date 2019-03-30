@@ -51,9 +51,9 @@ public class GameServer extends Server {
             PlayableCharacter playableCharacter = (PlayableCharacter)object;
             this.sendToAllExceptUDP(gameConnection.getID(), playableCharacter);
         }
-        if (object instanceof Network.BulletsListNamed) {
-            Network.BulletsListNamed bulletsListNamed = (Network.BulletsListNamed)object;
-            this.sendToAllExceptUDP(gameConnection.getID(), bulletsListNamed);
+        if (object instanceof Network.UpdateBullet) {
+            Network.UpdateBullet updateBullet = (Network.UpdateBullet)object;
+            this.sendToAllExceptUDP(gameConnection.getID(), updateBullet);
         }
         if (object instanceof Network.Hit) {
             Network.Hit hit = (Network.Hit) object;

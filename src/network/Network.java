@@ -26,7 +26,7 @@ public class Network {
         kryo.register(Bullet.class);
         kryo.register(SolidObject.class);
         kryo.register(Hit.class);
-        kryo.register(updateBullet.class);
+        kryo.register(UpdateBullet.class);
     }
 
     static class RegisterName {
@@ -56,8 +56,8 @@ public class Network {
         }
     }
 
-    public static class updateBullet {
-        updateBullet() {
+    public static class UpdateBullet {
+        UpdateBullet() {
         }
 
         private Bullet bullet;
@@ -80,11 +80,11 @@ public class Network {
             return bullet;
         }
 
-        public int getBulletIndex() {
+        int getBulletIndex() {
             return bulletIndex;
         }
 
-        public void setBulletIndex(int bulletIndex) {
+        void setBulletIndex(int bulletIndex) {
             this.bulletIndex = bulletIndex;
         }
     }
