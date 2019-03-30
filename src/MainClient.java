@@ -1,6 +1,5 @@
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
-import com.esotericsoftware.minlog.Log;
 import model.CollisionDetection;
 import model.PlayerCollisionSide;
 import model.Terrain;
@@ -22,7 +21,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.IOException;
-import java.util.*;
+import java.util.ConcurrentModificationException;
+import java.util.Set;
+import java.util.TreeSet;
 
 class MainClient {
     private static String clientName;
@@ -51,7 +52,6 @@ class MainClient {
     private static boolean ultimateClick = false;
 
     public static void main(String[] args) {
-        Log.set(Log.LEVEL_DEBUG);
         launchGameClient();
         if (!gameServerFull) {
             SwingUtilities.invokeLater(MainClient::launchGameFrame);
