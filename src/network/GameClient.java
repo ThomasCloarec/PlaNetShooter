@@ -12,6 +12,7 @@ public class GameClient extends Client {
     private Network.RegisterList registerList;
     private final List<PlayableCharacter> otherPlayers = new ArrayList<>();
 
+    private int i = 0;
     public GameClient(String IPHost) throws IOException {
         super((int)2e6,(int)5e5);
         new Thread(this).start();
@@ -105,13 +106,16 @@ public class GameClient extends Client {
     }
 
     public void sendBulletsInformation(PlayableCharacter character) {
-        for (Bullet bullet : character.getBullets()) {
-            Network.UpdateBullet updateBullet = new Network.UpdateBullet();
-            updateBullet.setBullet(bullet);
-            updateBullet.setBulletIndex(character.getBullets().indexOf(bullet));
-            updateBullet.setName(character.getName());
-            this.sendUDP(updateBullet);
+        if (i % 5 == 0) {
+            for (Bullet bullet : character.getBullets()) {
+                Network.UpdateBullet updateBullet = new Network.UpdateBullet();
+                updateBullet.setBullet(bullet);
+                updateBullet.setBulletIndex(character.getBullets().indexOf(bullet));
+                updateBullet.setName(character.getName());
+                this.sendUDP(updateBullet);
+            }
         }
+        i++;
     }
 
     public void sendHit(Network.Hit hit) {
