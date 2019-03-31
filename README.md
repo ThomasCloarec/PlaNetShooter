@@ -11,7 +11,6 @@ After downloading, here are the steps :
 - Unzip the archive
 - Launch a Server ("Server-PlaNetShooter.jar" file)
 - Launch clients on any computer on the same local network as the server ("Client-PlaNetShooter.jar" file)
-- Now the hardest one : PLAY :sunglasses:
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
