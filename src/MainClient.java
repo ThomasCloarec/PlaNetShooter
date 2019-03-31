@@ -254,9 +254,6 @@ class MainClient {
                     lastMousePressedEvent = e;
                     readyToFire = true;
                 }
-                else if (SwingUtilities.isRightMouseButton(e) && playableCharacter.getUltimateLoading() == 1) {
-                    ultimateClick = true;
-                }
             }
 
             @Override
@@ -476,84 +473,6 @@ class MainClient {
                                     }
                                 }
                             });
-
-                            // BEGIN TESTING
-                            Bullet bulletTest = new Bullet();
-
-                            if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) {
-                                bulletTest.setRelativeWidth(0.012f);
-                                bulletTest.setRelativeHeight(0.012f * 768f / 372f);
-                                bulletTest.setDamage(0.15f);
-                            }
-
-                            relativeBulletStartX = 0.1f + playableCharacter.getRelativeX() + ((float) -characterView.getHorizontal_direction() + 1) * playableCharacter.getRelativeWidth() / 2f;
-                            relativeBulletStartY = 0.1f + playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() / 2f - bulletTest.getRelativeHeight() / 2f;
-                            bulletTest.setRelativeBulletStartX(relativeBulletStartX);
-                            bulletTest.setRelativeBulletStartY(relativeBulletStartY);
-
-                            relativeCursorGoX = lastMousePressedEvent.getX() - (bulletTest.getRelativeWidth()) * gameFrame.getGamePanel().getWidth() / 2f;
-                            relativeCursorGoY = lastMousePressedEvent.getY() - (bulletTest.getRelativeHeight()) * gameFrame.getGamePanel().getHeight() / 2f;
-
-                            tempDeltaX = Math.abs(relativeBulletStartX * (float) gameFrame.getGamePanel().getWidth() - relativeCursorGoX);
-                            tempDeltaY = Math.abs(relativeBulletStartY * (float) gameFrame.getGamePanel().getHeight() - relativeCursorGoY);
-
-                            bulletSpeedRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f * ((float) gameFrame.getGamePanel().getHeight() / (float) gameFrame.getGamePanel().getWidth() - 372f / 768f) * 768f / 372f + 1f;
-
-                            bulletMovementX = bulletSpeedRatio * tempDeltaX / (tempDeltaX + tempDeltaY) * bulletTest.getSpeed() * (relativeCursorGoX - relativeBulletStartX * gameFrame.getGamePanel().getWidth()) / tempDeltaX;
-                            bulletMovementY = bulletSpeedRatio * tempDeltaY / (tempDeltaX + tempDeltaY) * bulletTest.getSpeed() * (relativeCursorGoY - relativeBulletStartY * gameFrame.getGamePanel().getHeight()) / tempDeltaY;
-                            bulletTest.setMovementX(bulletMovementX);
-                            bulletTest.setMovementY(bulletMovementY);
-
-                            bulletRangeRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f;
-                            bulletTest.setBulletRangeRatio(bulletRangeRatio);
-
-                            SwingUtilities.invokeLater(() -> {
-                                for (Bullet bullet1 : playableCharacter.getBullets()) {
-                                    if (bullet1.getRelativeWidth() == 0 && bullet1.getRelativeHeight() == 0) {
-                                        playableCharacter.getBullets().set(playableCharacter.getBullets().indexOf(bullet1), bulletTest);
-                                        break;
-                                    }
-                                }
-                            });
-                            // SECOND TESTING
-                            Bullet bulletTest2 = new Bullet();
-
-                            if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) {
-                                bulletTest2.setRelativeWidth(0.012f);
-                                bulletTest2.setRelativeHeight(0.012f * 768f / 372f);
-                                bulletTest2.setDamage(0.15f);
-                            }
-
-                            relativeBulletStartX = -0.1f + playableCharacter.getRelativeX() + ((float) -characterView.getHorizontal_direction() + 1) * playableCharacter.getRelativeWidth() / 2f;
-                            relativeBulletStartY = -0.1f + playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() / 2f - bulletTest2.getRelativeHeight() / 2f;
-                            bulletTest2.setRelativeBulletStartX(relativeBulletStartX);
-                            bulletTest2.setRelativeBulletStartY(relativeBulletStartY);
-
-                            relativeCursorGoX = lastMousePressedEvent.getX() - (bulletTest2.getRelativeWidth()) * gameFrame.getGamePanel().getWidth() / 2f;
-                            relativeCursorGoY = lastMousePressedEvent.getY() - (bulletTest2.getRelativeHeight()) * gameFrame.getGamePanel().getHeight() / 2f;
-
-                            tempDeltaX = Math.abs(relativeBulletStartX * (float) gameFrame.getGamePanel().getWidth() - relativeCursorGoX);
-                            tempDeltaY = Math.abs(relativeBulletStartY * (float) gameFrame.getGamePanel().getHeight() - relativeCursorGoY);
-
-                            bulletSpeedRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f * ((float) gameFrame.getGamePanel().getHeight() / (float) gameFrame.getGamePanel().getWidth() - 372f / 768f) * 768f / 372f + 1f;
-
-                            bulletMovementX = bulletSpeedRatio * tempDeltaX / (tempDeltaX + tempDeltaY) * bulletTest2.getSpeed() * (relativeCursorGoX - relativeBulletStartX * gameFrame.getGamePanel().getWidth()) / tempDeltaX;
-                            bulletMovementY = bulletSpeedRatio * tempDeltaY / (tempDeltaX + tempDeltaY) * bulletTest2.getSpeed() * (relativeCursorGoY - relativeBulletStartY * gameFrame.getGamePanel().getHeight()) / tempDeltaY;
-                            bulletTest2.setMovementX(bulletMovementX);
-                            bulletTest2.setMovementY(bulletMovementY);
-
-                            bulletRangeRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f;
-                            bulletTest2.setBulletRangeRatio(bulletRangeRatio);
-
-                            SwingUtilities.invokeLater(() -> {
-                                for (Bullet bullet1 : playableCharacter.getBullets()) {
-                                    if (bullet1.getRelativeWidth() == 0 && bullet1.getRelativeHeight() == 0) {
-                                        playableCharacter.getBullets().set(playableCharacter.getBullets().indexOf(bullet1), bulletTest2);
-                                        break;
-                                    }
-                                }
-                            });
-                            // END TESTING
                             lastShot = System.currentTimeMillis();
                         }
                     }
