@@ -24,7 +24,12 @@ public class CharacterView {
     private Icon runCharacterIcon;
     private Icon idleCharacterIcon;
     private float ultimateLoading = 0;
-    private boolean ultimateRunning = false;
+    private boolean goUltimate1 = false;
+    private boolean ultimate1Running = false;
+    private boolean goUltimate2 = false;
+    private boolean ultimate2Running = false;
+    private boolean goUltimate3 = false;
+    private boolean ultimate3Running = false;
 
     public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, @SuppressWarnings("unused") String name, ClassCharacters classCharacter, float health) {
         this.relativeX = relativeX;
@@ -96,7 +101,7 @@ public class CharacterView {
             this.horizontal_direction = horizontal_direction;
         }
 
-        if (!ultimateRunning) {
+        if (!ultimate2Running) {
             if (horizontal_direction != 0) {
                 try {
                     characterLabel.setIcon(runCharacterIcon);
@@ -119,8 +124,13 @@ public class CharacterView {
         this.idleCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif");
     }
 
+    public void ultimate1() {
+        ultimate1Running = true;
+        characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/angelo/ultimate1.gif"));
+    }
+
     public void ultimate2() {
-        ultimateRunning = true;
+        ultimate2Running = true;
         characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/angelo/ultimate2.gif"));
     }
 

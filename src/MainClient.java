@@ -175,8 +175,6 @@ class MainClient {
                     platforms[i].getRelativeHeight()));
         }
 
-
-
         playableCharacter = new PlayableCharacter(clientName);
         playableCharacter.setRelativeY(-1.15f);
         playableCharacter.setClassCharacter(ClassCharacters.BOB);

@@ -81,10 +81,6 @@ public class Bullet extends SolidObject {
         this.relativeY = relativeBulletStartY;
     }
 
-    public void setSpeed(float speed) {
-        this.speed = speed;
-    }
-
     public float getSpeed() {
         return speed;
     }
