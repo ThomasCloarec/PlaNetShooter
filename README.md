@@ -2,8 +2,16 @@
 PlaNetShooter is a platform shooter game with server-based network multiplayer.
 
 ## Installation
-The project is not finished yet.\
-Releases will be there : [PlaNetShooter-releases](https://github.com/ThomasCloarec/PlaNetShooter/releases)
+###### *PlaNetShooter uses java (>= SE 8), if it is not installed on your computer : [Download Java](https://www.oracle.com/technetwork/es/java/javasebusiness/downloads/index.html)*
+
+The version 1.0-pre_alpha is out !
+Releases here : [PlaNetShooter-releases](https://github.com/ThomasCloarec/PlaNetShooter/releases)
+
+After downloading, here are the steps :
+- Unzip the archive
+- Launch a Server ("Server-PlaNetShooter.jar" file)
+- Launch clients on any computer on the same local network as the server ("Client-PlaNetShooter.jar" file)
+- Now the hardest one : PLAY :sunglasses:
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
