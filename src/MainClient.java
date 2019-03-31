@@ -10,7 +10,6 @@ import model.characters.PlayableCharacter;
 import model.platforms.Platform;
 import network.GameClient;
 import network.Network;
-import view.client.connection.AskClientName;
 import view.client.connection.AskIPHost;
 import view.client.connection.ServerFullError;
 import view.client.game_frame.*;
@@ -127,15 +126,17 @@ class MainClient {
             }
         });
 
+       clientName = "P1";
+
         while (true) {
             if (gameClient.getRegisterList() != null) {
                 if (gameClient.getRegisterList().getNameList().size() == 4) {
                     gameServerFull = true;
                 }
                 else {
-                    AskClientName.setRegisterNameList(gameClient.getRegisterList().getNameList());
-                    clientName = AskClientName.getClientName();
-
+                    while (gameClient.getRegisterList().getNameList().contains(clientName)) {
+                        clientName = "P" + (Integer.parseInt(String.valueOf(clientName.charAt(clientName.length()-1)))+1);
+                    }
                     gameClient.connectedListener(clientName);
                 }
                 break;
@@ -253,6 +254,9 @@ class MainClient {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     lastMousePressedEvent = e;
                     readyToFire = true;
+                }
+                else if (SwingUtilities.isRightMouseButton(e) && playableCharacter.getUltimateLoading() == 1) {
+                    ultimateClick = true;
                 }
             }
 
