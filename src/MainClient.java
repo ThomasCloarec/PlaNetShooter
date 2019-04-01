@@ -394,14 +394,14 @@ class MainClient {
                     if ((playerOnLeftYodel) || (playerOnRightYodel)) {
                         yodelDetection = true;
                         if (playerOnRightYodel) {
-                            if (playableCharacter.getRelativeX() > 0.6f) {
+                            if (playableCharacter.getRelativeX() > 0.61f) {
                                 playableCharacter.setRelativeX(playableCharacter.getRelativeX() - 0.004f);
                                 playableCharacter.setRelativeY(0.22f);
                                 relativeMovementY = -0.005f;
                                 relativeMovementX = -0.003f;
 
                             }
-                            else if (playableCharacter.getRelativeX() <= 0.6f) {
+                            else if (playableCharacter.getRelativeX() <= 0.61f) {
                                 playerOnRightYodel = false;
                                 yodelDetection = false;
                                 relativeMovementY = -0.01f;
@@ -409,14 +409,14 @@ class MainClient {
                             }
                         }
                         if (playerOnLeftYodel) {
-                            if (playableCharacter.getRelativeX() < 0.36f) {
+                            if (playableCharacter.getRelativeX() < 0.35f) {
                                 playableCharacter.setRelativeX(playableCharacter.getRelativeX() + 0.004f);
                                 playableCharacter.setRelativeY(0.22f);
                                 relativeMovementY = -0.005f;
                                 relativeMovementX = 0.003f;
 
                             }
-                            else if (playableCharacter.getRelativeX() >= 0.36f) {
+                            else if (playableCharacter.getRelativeX() >= 0.35f) {
                                 playerOnLeftYodel = false;
                                 yodelDetection = false;
                                 relativeMovementY = -0.01f;
