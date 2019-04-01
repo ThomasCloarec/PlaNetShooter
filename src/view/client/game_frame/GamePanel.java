@@ -1,5 +1,8 @@
 package view.client.game_frame;
 
+import view.client.game_frame.Yodel.LeftYodel;
+import view.client.game_frame.Yodel.RightYodel;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -27,6 +30,18 @@ public class GamePanel extends JPanel {
                 (int) (new HomeView().getRelativeY() * this.getHeight()),
                 (int) (new HomeView().getRelativeWidth() * this.getWidth()),
                 (int) (new HomeView().getRelativeHeight() * this.getHeight()));
+
+        g.setColor(Color.green);
+        g.fillRect((int) (new LeftYodel().getRelativeX() * this.getWidth()),
+                (int) (new LeftYodel().getRelativeY() * this.getHeight()),
+                (int) (new LeftYodel().getRelativeWidth() * this.getWidth()),
+                (int) (new LeftYodel().getRelativeHeight() * this.getHeight()));
+
+        g.setColor(Color.green);
+        g.fillRect((int) (new RightYodel().getRelativeX() * this.getWidth()),
+                (int) (new RightYodel().getRelativeY() * this.getHeight()),
+                (int) (new RightYodel().getRelativeWidth() * this.getWidth()),
+                (int) (new RightYodel().getRelativeHeight() * this.getHeight()));
 
         for (PlatformView platform : platforms) {
             if (platform != null) {

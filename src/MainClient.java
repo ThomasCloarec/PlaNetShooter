@@ -13,6 +13,8 @@ import network.Network;
 import view.client.connection.AskIPHost;
 import view.client.connection.ServerFullError;
 import view.client.game_frame.*;
+import view.client.game_frame.Yodel.LeftYodel;
+import view.client.game_frame.Yodel.RightYodel;
 import view.client.keyboard_actions.PressAction;
 import view.client.keyboard_actions.ReleaseAction;
 
@@ -49,6 +51,9 @@ class MainClient {
     private static Platform[] platforms;
     private static PlayableCharacter playableCharacter;
     private static boolean ultimateClick = false;
+    private static boolean LeftYodelUsing = false;
+    private static boolean RightYodelUsing = false;
+    private static boolean YodelDetection = false;
 
     public static void main(String[] args) {
         launchGameClient();
@@ -233,6 +238,7 @@ class MainClient {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_Z) {
                     if (collisionOnBottom)
                         jumpKeyJustPressed = true;
+                        YodelDetection = false;
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(playableCharacter, new HomeView()).equals(PlayerCollisionSide.NONE))) {
                     gameFrame.getCardLayout().next(gameFrame.getContentPane());
@@ -374,67 +380,106 @@ class MainClient {
                             collisionOnLeft = true;
                     }
 
-                    if ((collisionOnRight && relativeMovementX > 0) || (collisionOnLeft && relativeMovementX < 0))
-                        relativeMovementX = 0;
-                    else if (collisionOnBottom) {
-                        if (totalDirection == 1 && relativeMovementX < playableCharacter.getRelativeMaxSpeed())
-                            relativeMovementX += playableCharacter.getRelativeSpeedGrowth();
-                        else if (totalDirection == -1 && relativeMovementX > -playableCharacter.getRelativeMaxSpeed())
-                            relativeMovementX -= playableCharacter.getRelativeSpeedGrowth();
-                        else {
-                            if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction())
-                                relativeMovementX = 0;
-                            else if (relativeMovementX > 0)
-                                relativeMovementX -= Terrain.getRelativeFriction();
-                            else if (relativeMovementX < 0)
-                                relativeMovementX += Terrain.getRelativeFriction();
-                        }
-                    } else {
-                        if (totalDirection == 1 && relativeMovementX < playableCharacter.getRelativeMaxSpeed())
-                            relativeMovementX += playableCharacter.getRelativeSpeedGrowth() / 2;
-                        else if (totalDirection == -1 && relativeMovementX > -playableCharacter.getRelativeMaxSpeed())
-                            relativeMovementX -= playableCharacter.getRelativeSpeedGrowth() / 2;
-                        else {
-                            if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction() / 10)
-                                relativeMovementX = 0;
-                            else if (relativeMovementX > 0)
-                                relativeMovementX -= Terrain.getRelativeFriction() / 10;
-                            else if (relativeMovementX < 0)
-                                relativeMovementX += Terrain.getRelativeFriction() / 10;
-                        }
+                    if (YodelDetection == false) {
+                        if (!(CollisionDetection.isCollisionBetween(playableCharacter, new LeftYodel()).equals(PlayerCollisionSide.NONE)))
+                            LeftYodelUsing = true;
+                        else if ((CollisionDetection.isCollisionBetween(playableCharacter, new LeftYodel()).equals(PlayerCollisionSide.NONE)))
+                            LeftYodelUsing = false;
+                        if (!(CollisionDetection.isCollisionBetween(playableCharacter, new RightYodel()).equals(PlayerCollisionSide.NONE)))
+                            RightYodelUsing = true;
+                        else if ((CollisionDetection.isCollisionBetween(playableCharacter, new RightYodel()).equals(PlayerCollisionSide.NONE)))
+                            RightYodelUsing = false;
                     }
 
-                    if (collisionOnBottom) {
-                        if (jumpKeyJustPressed && playableCharacter.getRelativeJumpStrength() > 0.001f) {
-                            while (collisionOnBottom) {
-                                playableCharacter.setRelativeY(playableCharacter.getRelativeY() - playableCharacter.getRelativeJumpStrength());
+                    if ((LeftYodelUsing == true)|| (RightYodelUsing == true)) {
+                        YodelDetection = true;
+                        if (RightYodelUsing == true) {
+                            if (playableCharacter.getRelativeX() > 0.6f) {
+                                playableCharacter.setRelativeX(playableCharacter.getRelativeX() - 0.004f);
+                                playableCharacter.setRelativeY(0.25f);
+                            }
+                            else if (playableCharacter.getRelativeX() <= 0.6f) {
+                                RightYodelUsing = false;
+                                YodelDetection = false;
+                                relativeMovementY = -0.009f;
+                                relativeMovementX = -0.005f;
+                            }
+                        }
+                        if (LeftYodelUsing == true) {
+                            if (playableCharacter.getRelativeX() < 0.36f) {
+                                playableCharacter.setRelativeX(playableCharacter.getRelativeX() + 0.004f);
+                                playableCharacter.setRelativeY(0.25f);
+                            } else if (playableCharacter.getRelativeX() >= 0.36f) {
+                                LeftYodelUsing = false;
+                                YodelDetection = false;
+                                relativeMovementY = -0.009f;
+                                relativeMovementX = 0.005f;
+                            }
+                        }
 
-                                for (Platform platform : platforms) {
-                                    collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM);
-                                    if (collisionOnBottom) {
-                                        break;
+                    }
+                    else if ((LeftYodelUsing == false) || (RightYodelUsing ==false)) {
+                        if ((collisionOnRight && relativeMovementX > 0) || (collisionOnLeft && relativeMovementX < 0))
+                            relativeMovementX = 0;
+                        else if (collisionOnBottom) {
+                            if (totalDirection == 1 && relativeMovementX < playableCharacter.getRelativeMaxSpeed())
+                                relativeMovementX += playableCharacter.getRelativeSpeedGrowth();
+                            else if (totalDirection == -1 && relativeMovementX > -playableCharacter.getRelativeMaxSpeed())
+                                relativeMovementX -= playableCharacter.getRelativeSpeedGrowth();
+                            else {
+                                if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction())
+                                    relativeMovementX = 0;
+                                else if (relativeMovementX > 0)
+                                    relativeMovementX -= Terrain.getRelativeFriction();
+                                else if (relativeMovementX < 0)
+                                    relativeMovementX += Terrain.getRelativeFriction();
+                            }
+                        } else {
+                            if (totalDirection == 1 && relativeMovementX < playableCharacter.getRelativeMaxSpeed())
+                                relativeMovementX += playableCharacter.getRelativeSpeedGrowth() / 2;
+                            else if (totalDirection == -1 && relativeMovementX > -playableCharacter.getRelativeMaxSpeed())
+                                    relativeMovementX -= playableCharacter.getRelativeSpeedGrowth() / 2;
+                                else {
+                                if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction() / 10)
+                                    relativeMovementX = 0;
+                                else if (relativeMovementX > 0)
+                                    relativeMovementX -= Terrain.getRelativeFriction() / 10;
+                                else if (relativeMovementX < 0)
+                                    relativeMovementX += Terrain.getRelativeFriction() / 10;
+                            }
+                        }
+
+                        if (collisionOnBottom) {
+                            if (jumpKeyJustPressed && playableCharacter.getRelativeJumpStrength() > 0.001f) {
+                                while (collisionOnBottom) {
+                                    playableCharacter.setRelativeY(playableCharacter.getRelativeY() - playableCharacter.getRelativeJumpStrength());
+
+                                    for (Platform platform : platforms) {
+                                        collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM);
+                                        if (collisionOnBottom) {
+                                            break;
+                                        }
                                     }
                                 }
-                            }
-                            relativeMovementY = -playableCharacter.getRelativeJumpStrength();
-                            playableCharacter.setRelativeY(playableCharacter.getRelativeY() + playableCharacter.getRelativeJumpStrength());
+                                relativeMovementY = -playableCharacter.getRelativeJumpStrength();
+                                playableCharacter.setRelativeY(playableCharacter.getRelativeY() + playableCharacter.getRelativeJumpStrength());
 
+                                jumpKeyJustPressed = false;
+                            } else if (relativeMovementY > 0)
+                                relativeMovementY = 0;
+                        } else if (collisionOnTop && relativeMovementY < 0)
+                            relativeMovementY = Terrain.getRelativeGravityGrowth();
+                        else if (relativeMovementY < Terrain.getRelativeMaxGravity()) {
+                            relativeMovementY += Terrain.getRelativeGravityGrowth();
                             jumpKeyJustPressed = false;
-                        } else if (relativeMovementY > 0)
-                            relativeMovementY = 0;
-                    }
-                    else if (collisionOnTop && relativeMovementY < 0)
-                        relativeMovementY = Terrain.getRelativeGravityGrowth();
-                    else if (relativeMovementY < Terrain.getRelativeMaxGravity()) {
-                        relativeMovementY += Terrain.getRelativeGravityGrowth();
-                        jumpKeyJustPressed = false;
-                    }
+                        }
 
-                    if (playableCharacter.getRelativeY() >= 1)
-                        randomSpawn();
+                        if (playableCharacter.getRelativeY() >= 1)
+                            randomSpawn();
 
-                    playableCharacter.setRelativeX(playableCharacter.getRelativeX() + relativeMovementX);
-                    playableCharacter.setRelativeY(playableCharacter.getRelativeY() + relativeMovementY);
+                        playableCharacter.setRelativeX(playableCharacter.getRelativeX() + relativeMovementX);
+                        playableCharacter.setRelativeY(playableCharacter.getRelativeY() + relativeMovementY);
+                    }
 
                     if (readyToFire) {
                         if (System.currentTimeMillis() - lastShot > 1000f / playableCharacter.getAttackNumberPerSecond()) {
