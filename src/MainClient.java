@@ -51,9 +51,9 @@ class MainClient {
     private static Platform[] platforms;
     private static PlayableCharacter playableCharacter;
     private static boolean ultimateClick = false;
-    private static boolean LeftYodelUsing = false;
-    private static boolean RightYodelUsing = false;
-    private static boolean YodelDetection = false;
+    private static boolean playerOnLeftYodel = false;
+    private static boolean playerOnRightYodel = false;
+    private static boolean yodelDetection = false;
 
     public static void main(String[] args) {
         launchGameClient();
@@ -238,7 +238,7 @@ class MainClient {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_Z) {
                     if (collisionOnBottom)
                         jumpKeyJustPressed = true;
-                        YodelDetection = false;
+                        yodelDetection = false;
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(playableCharacter, new HomeView()).equals(PlayerCollisionSide.NONE))) {
                     gameFrame.getCardLayout().next(gameFrame.getContentPane());
@@ -380,20 +380,20 @@ class MainClient {
                             collisionOnLeft = true;
                     }
 
-                    if (YodelDetection == false) {
+                    if (!yodelDetection) {
                         if (!(CollisionDetection.isCollisionBetween(playableCharacter, new LeftYodel()).equals(PlayerCollisionSide.NONE)))
-                            LeftYodelUsing = true;
+                            playerOnLeftYodel = true;
                         else if ((CollisionDetection.isCollisionBetween(playableCharacter, new LeftYodel()).equals(PlayerCollisionSide.NONE)))
-                            LeftYodelUsing = false;
+                            playerOnLeftYodel = false;
                         if (!(CollisionDetection.isCollisionBetween(playableCharacter, new RightYodel()).equals(PlayerCollisionSide.NONE)))
-                            RightYodelUsing = true;
+                            playerOnRightYodel = true;
                         else if ((CollisionDetection.isCollisionBetween(playableCharacter, new RightYodel()).equals(PlayerCollisionSide.NONE)))
-                            RightYodelUsing = false;
+                            playerOnRightYodel = false;
                     }
 
-                    if ((LeftYodelUsing == true)|| (RightYodelUsing == true)) {
-                        YodelDetection = true;
-                        if (RightYodelUsing == true) {
+                    if ((playerOnLeftYodel) || (playerOnRightYodel)) {
+                        yodelDetection = true;
+                        if (playerOnRightYodel) {
                             if (playableCharacter.getRelativeX() > 0.6f) {
                                 playableCharacter.setRelativeX(playableCharacter.getRelativeX() - 0.004f);
                                 playableCharacter.setRelativeY(0.22f);
@@ -402,13 +402,13 @@ class MainClient {
 
                             }
                             else if (playableCharacter.getRelativeX() <= 0.6f) {
-                                RightYodelUsing = false;
-                                YodelDetection = false;
+                                playerOnRightYodel = false;
+                                yodelDetection = false;
                                 relativeMovementY = -0.01f;
                                 relativeMovementX = -0.005f;
                             }
                         }
-                        if (LeftYodelUsing == true) {
+                        if (playerOnLeftYodel) {
                             if (playableCharacter.getRelativeX() < 0.36f) {
                                 playableCharacter.setRelativeX(playableCharacter.getRelativeX() + 0.004f);
                                 playableCharacter.setRelativeY(0.22f);
@@ -417,15 +417,14 @@ class MainClient {
 
                             }
                             else if (playableCharacter.getRelativeX() >= 0.36f) {
-                                LeftYodelUsing = false;
-                                YodelDetection = false;
+                                playerOnLeftYodel = false;
+                                yodelDetection = false;
                                 relativeMovementY = -0.01f;
                                 relativeMovementX = 0.005f;
                             }
                         }
-
                     }
-                    else if ((LeftYodelUsing == false) || (RightYodelUsing ==false)) {
+                    else {
                         if ((collisionOnRight && relativeMovementX > 0) || (collisionOnLeft && relativeMovementX < 0))
                             relativeMovementX = 0;
                         else if (collisionOnBottom) {
