@@ -381,13 +381,13 @@ class MainClient {
                     }
 
                     if (!yodelDetection) {
-                        if (!(CollisionDetection.isCollisionBetween(playableCharacter, new LeftYodel()).equals(PlayerCollisionSide.NONE)))
+                        if (!CollisionDetection.isCollisionBetween(playableCharacter, new LeftYodel()).equals(PlayerCollisionSide.NONE))
                             playerOnLeftYodel = true;
-                        else if ((CollisionDetection.isCollisionBetween(playableCharacter, new LeftYodel()).equals(PlayerCollisionSide.NONE)))
+                        else if (CollisionDetection.isCollisionBetween(playableCharacter, new LeftYodel()).equals(PlayerCollisionSide.NONE))
                             playerOnLeftYodel = false;
-                        if (!(CollisionDetection.isCollisionBetween(playableCharacter, new RightYodel()).equals(PlayerCollisionSide.NONE)))
+                        if (!CollisionDetection.isCollisionBetween(playableCharacter, new RightYodel()).equals(PlayerCollisionSide.NONE))
                             playerOnRightYodel = true;
-                        else if ((CollisionDetection.isCollisionBetween(playableCharacter, new RightYodel()).equals(PlayerCollisionSide.NONE)))
+                        else if (CollisionDetection.isCollisionBetween(playableCharacter, new RightYodel()).equals(PlayerCollisionSide.NONE))
                             playerOnRightYodel = false;
                     }
 
