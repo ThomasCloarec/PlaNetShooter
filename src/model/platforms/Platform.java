@@ -52,7 +52,7 @@ public class Platform extends SolidObject {
         else if (platformLoopCount == 3 || platformLoopCount == 6)
             this.relativeY = 0.50f;
         else if (platformLoopCount == 4)
-            this.relativeY = 0.35f;
+            this.relativeY = 0.28f;
         else if (platformLoopCount == 9)
             this.relativeY = -1f;
 

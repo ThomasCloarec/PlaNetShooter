@@ -396,25 +396,31 @@ class MainClient {
                         if (RightYodelUsing == true) {
                             if (playableCharacter.getRelativeX() > 0.6f) {
                                 playableCharacter.setRelativeX(playableCharacter.getRelativeX() - 0.004f);
-                                playableCharacter.setRelativeY(0.25f);
-                                relativeMovementY = -0.009f;
-                                relativeMovementX = -0.005f;
+                                playableCharacter.setRelativeY(0.22f);
+                                relativeMovementY = -0.005f;
+                                relativeMovementX = -0.003f;
+
                             }
                             else if (playableCharacter.getRelativeX() <= 0.6f) {
                                 RightYodelUsing = false;
                                 YodelDetection = false;
+                                relativeMovementY = -0.01f;
+                                relativeMovementX = -0.005f;
                             }
                         }
                         if (LeftYodelUsing == true) {
                             if (playableCharacter.getRelativeX() < 0.36f) {
                                 playableCharacter.setRelativeX(playableCharacter.getRelativeX() + 0.004f);
-                                playableCharacter.setRelativeY(0.25f);
-                                relativeMovementY = -0.009f;
-                                relativeMovementX = 0.005f;
+                                playableCharacter.setRelativeY(0.22f);
+                                relativeMovementY = -0.005f;
+                                relativeMovementX = 0.003f;
+
                             }
                             else if (playableCharacter.getRelativeX() >= 0.36f) {
                                 LeftYodelUsing = false;
                                 YodelDetection = false;
+                                relativeMovementY = -0.01f;
+                                relativeMovementX = 0.005f;
                             }
                         }
 
