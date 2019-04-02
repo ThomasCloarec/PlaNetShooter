@@ -101,7 +101,7 @@ public class CharacterView {
             this.horizontal_direction = horizontal_direction;
         }
 
-        if (!ultimate2Running) {
+        if (!ultimate1Running && !ultimate2Running && !ultimate3Running) {
             if (horizontal_direction != 0) {
                 try {
                     characterLabel.setIcon(runCharacterIcon);
@@ -132,6 +132,11 @@ public class CharacterView {
     public void ultimate2() {
         ultimate2Running = true;
         characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/angelo/ultimate2.gif"));
+    }
+
+    public void ultimate3() {
+        ultimate3Running = true;
+        characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/angelo/ultimate3.gif"));
     }
 
     public double getHorizontal_direction() {
@@ -176,5 +181,17 @@ public class CharacterView {
 
     public void setUltimateLoading(float ultimateLoading) {
         this.ultimateLoading = ultimateLoading;
+    }
+
+    public void setUltimate1Running(boolean ultimate1Running) {
+        this.ultimate1Running = ultimate1Running;
+    }
+
+    public void setUltimate2Running(boolean ultimate2Running) {
+        this.ultimate2Running = ultimate2Running;
+    }
+
+    public void setUltimate3Running(boolean ultimate3Running) {
+        this.ultimate3Running = ultimate3Running;
     }
 }

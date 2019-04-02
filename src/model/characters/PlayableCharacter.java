@@ -29,6 +29,12 @@ public class PlayableCharacter extends SolidObject {
     private boolean ultimate2Running = false;
     private boolean goUltimate3 = false;
     private boolean ultimate3Running = false;
+    private int ultimate1DurationMillis;
+    private long ultimate1StartTimeMillis;
+    private int ultimate2DurationMillis;
+    private long ultimate2StartTimeMillis;
+    private int ultimate3DurationMillis;
+    private long ultimate3StartTimeMillis;
 
     // Default constructor used for reflection (by Kryo serialization)
     public PlayableCharacter() {
@@ -97,6 +103,11 @@ public class PlayableCharacter extends SolidObject {
 
     public void setClassCharacter(ClassCharacters classCharacter) {
         this.classCharacter = classCharacter;
+        this.ultimate1Running = false;
+        this.ultimate2Running = false;
+        this.ultimate3Running = false;
+
+        this.relativeJumpStrength = 0.013f;
 
         if (this.classCharacter.equals(ClassCharacters.ANGELO)) {
             this.relativeWidth = 0.03f;
@@ -120,9 +131,11 @@ public class PlayableCharacter extends SolidObject {
 
     public void ultimate1() {
         if (classCharacter.equals(ClassCharacters.ANGELO)) {
-            this.relativeWidth = 0.053f;
-            this.relativeHeight = 170f/123f * 0.04f * 768f/372f;
-            this.relativeY -= 0.01f;
+            this.ultimate1Running = true;
+            this.ultimate1DurationMillis = 1400;
+            this.ultimate1StartTimeMillis = System.currentTimeMillis();
+            this.relativeWidth = 0.0386f;
+            this.relativeHeight = 140f/80f * 0.035f * 768f/372f;
             this.relativeMaxSpeed = 0f;
             this.relativeJumpStrength = 0f;
             this.attackNumberPerSecond = 0f;
@@ -131,11 +144,31 @@ public class PlayableCharacter extends SolidObject {
 
     public void ultimate2() {
         if (classCharacter.equals(ClassCharacters.ANGELO)) {
-            this.relativeWidth = 0.04f;
-            this.relativeHeight = 120f/160f * 0.04f * 768f/372f;
+            this.ultimate2Running = true;
+            this.ultimate1Running = false;
+            this.ultimate2DurationMillis = 2780;
+            this.ultimate2StartTimeMillis = System.currentTimeMillis();
+            this.relativeWidth = 0.0386f;
+            this.relativeHeight = 78f/80f * 0.035f * 768f/372f;
             this.relativeMaxSpeed = 0f;
             this.relativeJumpStrength = 0f;
             this.attackNumberPerSecond = 1000f;
+            this.relativeY += (140f/80f * 0.035f * 768f/372f - 78f/80f * 0.035f * 768f/372f);
+        }
+    }
+
+    public void ultimate3() {
+        if (classCharacter.equals(ClassCharacters.ANGELO)) {
+            this.ultimate3Running = true;
+            this.ultimate2Running = false;
+            this.ultimate3DurationMillis = 1400;
+            this.ultimate3StartTimeMillis = System.currentTimeMillis();
+            this.relativeWidth = 0.0386f;
+            this.relativeHeight = 140f/80f * 0.035f * 768f/372f;
+            this.relativeY -= (140f/80f * 0.035f * 768f/372f - 78f/80f * 0.035f * 768f/372f);
+            this.relativeMaxSpeed = 0f;
+            this.relativeJumpStrength = 0f;
+            this.attackNumberPerSecond = 0f;
         }
     }
 
@@ -192,4 +225,39 @@ public class PlayableCharacter extends SolidObject {
         return MAX_BULLET_NUMBER_PER_PLAYER;
     }
 
+    public int getUltimate1DurationMillis() {
+        return ultimate1DurationMillis;
+    }
+
+    public int getUltimate2DurationMillis() {
+        return ultimate2DurationMillis;
+    }
+
+    public int getUltimate3DurationMillis() {
+        return ultimate3DurationMillis;
+    }
+
+    public long getUltimate1StartTimeMillis() {
+        return ultimate1StartTimeMillis;
+    }
+
+    public long getUltimate2StartTimeMillis() {
+        return ultimate2StartTimeMillis;
+    }
+
+    public long getUltimate3StartTimeMillis() {
+        return ultimate3StartTimeMillis;
+    }
+
+    public boolean isUltimate1Running() {
+        return ultimate1Running;
+    }
+
+    public boolean isUltimate2Running() {
+        return ultimate2Running;
+    }
+
+    public boolean isUltimate3Running() {
+        return ultimate3Running;
+    }
 }

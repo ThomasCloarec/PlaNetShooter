@@ -347,18 +347,36 @@ class MainClient {
                     characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
 
                     if (!playableCharacter.isAtHome()) {
-                        if (playableCharacter.getUltimateLoading() >= 1f - playableCharacter.getUltimateLoadingPerSecond() / 120f)
+                        if (playableCharacter.getUltimateLoading() >= 1f - playableCharacter.getUltimateLoadingPerSecond() / 60f)
                             playableCharacter.setUltimateLoading(1f);
                         else
-                            playableCharacter.setUltimateLoading(playableCharacter.getUltimateLoading() + playableCharacter.getUltimateLoadingPerSecond() / 120f);
+                            playableCharacter.setUltimateLoading(playableCharacter.getUltimateLoading() + playableCharacter.getUltimateLoadingPerSecond() / 60f);
                     }
 
                     if (ultimateClick) {
-                        if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) {
-                            playableCharacter.ultimate2();
-                            characterView.ultimate2();
+                        if (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running()) {
+                            playableCharacter.ultimate1();
+                            characterView.ultimate1();
                         }
-                        ultimateClick = false;
+                        else if (playableCharacter.isUltimate1Running()) {
+                            if (System.currentTimeMillis() - playableCharacter.getUltimate1StartTimeMillis() > playableCharacter.getUltimate1DurationMillis()) {
+                                playableCharacter.ultimate2();
+                                characterView.ultimate2();
+                            }
+                        }
+                        else if (playableCharacter.isUltimate2Running()) {
+                            if (System.currentTimeMillis() - playableCharacter.getUltimate2StartTimeMillis() > playableCharacter.getUltimate2DurationMillis()) {
+                                playableCharacter.ultimate3();
+                                characterView.ultimate3();
+                            }
+                        }
+                        else if (playableCharacter.isUltimate3Running()) {
+                            if (System.currentTimeMillis() - playableCharacter.getUltimate3StartTimeMillis() > playableCharacter.getUltimate3DurationMillis()) {
+                                playableCharacter.setRelativeX(playableCharacter.getRelativeX() + playableCharacter.getRelativeWidth()/2);
+                                playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
+                                ultimateClick = false;
+                            }
+                        }
                         playableCharacter.setUltimateLoading(0f);
                     }
 
@@ -424,7 +442,7 @@ class MainClient {
                             }
                         }
                     }
-                    else if ((!CollisionDetection.isCollisionBetween(playableCharacter, new Trampoline()).equals(PlayerCollisionSide.NONE))){
+                    else if ((!CollisionDetection.isCollisionBetween(playableCharacter, new Trampoline(playableCharacter.getRelativeX())).equals(PlayerCollisionSide.NONE))){
                         playableCharacter.setRelativeY(0.655f);
                         relativeMovementY = -0.017f;
                     }
@@ -582,6 +600,9 @@ class MainClient {
                     characterView.setRelativeWidth(playableCharacter.getRelativeWidth());
                     characterView.setRelativeHeight(playableCharacter.getRelativeHeight());
                     characterView.setUltimateLoading(playableCharacter.getUltimateLoading());
+                    characterView.setUltimate1Running(playableCharacter.isUltimate1Running());
+                    characterView.setUltimate2Running(playableCharacter.isUltimate2Running());
+                    characterView.setUltimate3Running(playableCharacter.isUltimate3Running());
 
                     SwingUtilities.invokeLater(() -> {
                         otherPlayersPainting();
