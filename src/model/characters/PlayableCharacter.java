@@ -191,4 +191,5 @@ public class PlayableCharacter extends SolidObject {
     public static int getMaxBulletNumberPerPlayer() {
         return MAX_BULLET_NUMBER_PER_PLAYER;
     }
+
 }

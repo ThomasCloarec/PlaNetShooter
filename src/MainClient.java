@@ -424,9 +424,14 @@ class MainClient {
                             }
                         }
                     }
-                    else {
+                    else if ((!CollisionDetection.isCollisionBetween(playableCharacter, new Trampoline()).equals(PlayerCollisionSide.NONE))){
+                        playableCharacter.setRelativeY(0.655f);
+                        relativeMovementY = -0.017f;
+                    }
+                        else {
                         if ((collisionOnRight && relativeMovementX > 0) || (collisionOnLeft && relativeMovementX < 0))
                             relativeMovementX = 0;
+
                         else if (collisionOnBottom) {
                             if (totalDirection == 1 && relativeMovementX < playableCharacter.getRelativeMaxSpeed())
                                 relativeMovementX += playableCharacter.getRelativeSpeedGrowth();

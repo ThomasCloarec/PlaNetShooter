@@ -43,6 +43,12 @@ public class GamePanel extends JPanel {
                 (int) (new RightYodel().getRelativeWidth() * this.getWidth()),
                 (int) (new RightYodel().getRelativeHeight() * this.getHeight()));
 
+        g.setColor(Color.red);
+        g.fillRect((int) (new Trampoline().getRelativeX() * this.getWidth()),
+                (int) (new Trampoline().getRelativeY() * this.getHeight()),
+                (int) (new Trampoline().getRelativeWidth() * this.getWidth()),
+                (int) (new Trampoline().getRelativeHeight() * this.getHeight()));
+
         for (PlatformView platform : platforms) {
             if (platform != null) {
                 g.setColor(Color.blue);
