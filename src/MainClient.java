@@ -450,6 +450,7 @@ class MainClient {
                                     relativeMovementX = 0;
                                 else if (relativeMovementX > 0)
                                     relativeMovementX -= Terrain.getRelativeFriction() / 10;
+
                                 else if (relativeMovementX < 0)
                                     relativeMovementX += Terrain.getRelativeFriction() / 10;
                             }

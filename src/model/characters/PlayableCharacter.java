@@ -100,7 +100,7 @@ public class PlayableCharacter extends SolidObject {
 
         if (this.classCharacter.equals(ClassCharacters.ANGELO)) {
             this.relativeWidth = 0.03f;
-            this.relativeHeight = 170f/90f * 0.03f * 768f/372f;
+            this.relativeHeight = 140f/80f * 0.035f * 768f/372f;
             this.relativeMaxSpeed = 0.0035f;
             this.attackNumberPerSecond = 3f;
         }
