@@ -84,6 +84,10 @@ public class Bullet extends SolidObject {
     public float getSpeed() { return speed;
     }
 
+    public void setSpeed(float speed) {
+        this.speed = speed;
+    }
+
     @Override
     public float getRelativeWidth() {
         return relativeWidth;

@@ -558,6 +558,7 @@ class MainClient {
                                     if (playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) {
                                         bullet.setRelativeWidth(0.02f);
                                         bullet.setRelativeHeight(0.015f * 768f / 372f);
+                                        bullet.setSpeed(0.0075f);
                                     }
 
                                     float relativeBulletStartX = playableCharacter.getRelativeX() + ((float) -characterView.getHorizontal_direction() + 1) * playableCharacter.getRelativeWidth() / 2f;
