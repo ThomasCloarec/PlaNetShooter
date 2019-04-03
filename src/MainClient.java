@@ -387,7 +387,7 @@ class MainClient {
                     collisionOnRight = false;
                     collisionOnLeft = false;
 
-                        for (Platform platform : platforms) {
+                    for (Platform platform : platforms) {
                         if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.TOP))
                             collisionOnTop = true;
                         if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM))
@@ -514,84 +514,82 @@ class MainClient {
                     if (readyToFire) {
                         if (System.currentTimeMillis() - lastShot > 1000f / playableCharacter.getAttackNumberPerSecond()) {
                             if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
+                                Bullet bullet = new Bullet();
 
-                                    Bullet bullet = new Bullet();
+                                bullet.setRelativeWidth(0.012f);
+                                bullet.setRelativeHeight(0.012f * 768f / 372f);
+                                bullet.setDamage(0.05f);
+                                lastShot = System.currentTimeMillis();
+                                bullet.setRelativeX(playableCharacter.getRelativeX());
+                                bullet.setRelativeY(playableCharacter.getRelativeY());
+                                bullet.setBulletRangeRatio(100);
 
-                                    bullet.setRelativeWidth(0.012f);
-                                    bullet.setRelativeHeight(0.012f * 768f / 372f);
-                                    bullet.setDamage(0.05f);
-                                    lastShot = System.currentTimeMillis();
-                                    bullet.setRelativeX(playableCharacter.getRelativeX());
-                                    bullet.setRelativeY(playableCharacter.getRelativeY());
-                                    bullet.setBulletRangeRatio(100);
+                                for (Platform platform : platforms) {
+                                    if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.NONE)) {
+                                        float bulletMovementY = 0.005f;
+                                        bullet.setMovementY(bulletMovementY);
+                                        break;
+                                    } else {
+                                        float bulletMovementY = 0f;
+                                        bullet.setMovementY(bulletMovementY);
 
-                                    for (Platform platform : platforms) {
-                                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.NONE)) {
-                                            float bulletMovementY = 0.005f;
-                                            bullet.setMovementY(bulletMovementY);
+
+                                    }
+                                }
+
+                                SwingUtilities.invokeLater(() -> {
+                                    for (Bullet bullet1 : playableCharacter.getBullets()) {
+                                        if (bullet1.getRelativeWidth() == 0 && bullet1.getRelativeHeight() == 0) {
+                                            playableCharacter.getBullets().set(playableCharacter.getBullets().indexOf(bullet1), bullet);
                                             break;
-                                        } else {
-                                            float bulletMovementY = 0f;
-                                            bullet.setMovementY(bulletMovementY);
-
-
                                         }
                                     }
-
-                                    SwingUtilities.invokeLater(() -> {
-                                        for (Bullet bullet1 : playableCharacter.getBullets()) {
-                                            if (bullet1.getRelativeWidth() == 0 && bullet1.getRelativeHeight() == 0) {
-                                                playableCharacter.getBullets().set(playableCharacter.getBullets().indexOf(bullet1), bullet);
-                                                break;
-                                            }
-                                        }
-                                    });
+                                });
 
                             } else {
-                                    Bullet bullet = new Bullet();
+                                Bullet bullet = new Bullet();
 
-                                    if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) {
-                                        bullet.setRelativeWidth(0.012f);
-                                        bullet.setRelativeHeight(0.012f * 768f / 372f);
-                                        bullet.setDamage(0.15f);
-                                    }
-                                    if (playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) {
-                                        bullet.setRelativeWidth(0.02f);
-                                        bullet.setRelativeHeight(0.015f * 768f / 372f);
-                                        bullet.setSpeed(0.0075f);
-                                    }
+                                if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) {
+                                    bullet.setRelativeWidth(0.012f);
+                                    bullet.setRelativeHeight(0.012f * 768f / 372f);
+                                    bullet.setDamage(0.15f);
+                                }
+                                if (playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) {
+                                    bullet.setRelativeWidth(0.02f);
+                                    bullet.setRelativeHeight(0.015f * 768f / 372f);
+                                    bullet.setSpeed(0.0075f);
+                                }
 
-                                    float relativeBulletStartX = playableCharacter.getRelativeX() + ((float) -characterView.getHorizontal_direction() + 1) * playableCharacter.getRelativeWidth() / 2f;
-                                    float relativeBulletStartY = playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() / 2f - bullet.getRelativeHeight() / 2f;
-                                    bullet.setRelativeBulletStartX(relativeBulletStartX);
-                                    bullet.setRelativeBulletStartY(relativeBulletStartY);
+                                float relativeBulletStartX = playableCharacter.getRelativeX() + ((float) -characterView.getHorizontal_direction() + 1) * playableCharacter.getRelativeWidth() / 2f;
+                                float relativeBulletStartY = playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() / 2f - bullet.getRelativeHeight() / 2f;
+                                bullet.setRelativeBulletStartX(relativeBulletStartX);
+                                bullet.setRelativeBulletStartY(relativeBulletStartY);
 
-                                    float relativeCursorGoX = lastMousePressedEvent.getX() - bullet.getRelativeWidth() * gameFrame.getGamePanel().getWidth() / 2f;
-                                    float relativeCursorGoY = lastMousePressedEvent.getY() - bullet.getRelativeHeight() * gameFrame.getGamePanel().getHeight() / 2f;
+                                float relativeCursorGoX = lastMousePressedEvent.getX() - bullet.getRelativeWidth() * gameFrame.getGamePanel().getWidth() / 2f;
+                                float relativeCursorGoY = lastMousePressedEvent.getY() - bullet.getRelativeHeight() * gameFrame.getGamePanel().getHeight() / 2f;
 
-                                    float tempDeltaX = Math.abs(relativeBulletStartX * (float) gameFrame.getGamePanel().getWidth() - relativeCursorGoX);
-                                    float tempDeltaY = Math.abs(relativeBulletStartY * (float) gameFrame.getGamePanel().getHeight() - relativeCursorGoY);
+                                float tempDeltaX = Math.abs(relativeBulletStartX * (float) gameFrame.getGamePanel().getWidth() - relativeCursorGoX);
+                                float tempDeltaY = Math.abs(relativeBulletStartY * (float) gameFrame.getGamePanel().getHeight() - relativeCursorGoY);
 
-                                    float bulletSpeedRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f * ((float) gameFrame.getGamePanel().getHeight() / (float) gameFrame.getGamePanel().getWidth() - 372f / 768f) * 768f / 372f + 1f;
+                                float bulletSpeedRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f * ((float) gameFrame.getGamePanel().getHeight() / (float) gameFrame.getGamePanel().getWidth() - 372f / 768f) * 768f / 372f + 1f;
 
-                                    float bulletMovementX = bulletSpeedRatio * tempDeltaX / (tempDeltaX + tempDeltaY) * bullet.getSpeed() * (relativeCursorGoX - relativeBulletStartX * gameFrame.getGamePanel().getWidth()) / tempDeltaX;
-                                    float bulletMovementY = bulletSpeedRatio * tempDeltaY / (tempDeltaX + tempDeltaY) * bullet.getSpeed() * (relativeCursorGoY - relativeBulletStartY * gameFrame.getGamePanel().getHeight()) / tempDeltaY;
-                                    bullet.setMovementX(bulletMovementX);
-                                    bullet.setMovementY(bulletMovementY);
+                                float bulletMovementX = bulletSpeedRatio * tempDeltaX / (tempDeltaX + tempDeltaY) * bullet.getSpeed() * (relativeCursorGoX - relativeBulletStartX * gameFrame.getGamePanel().getWidth()) / tempDeltaX;
+                                float bulletMovementY = bulletSpeedRatio * tempDeltaY / (tempDeltaX + tempDeltaY) * bullet.getSpeed() * (relativeCursorGoY - relativeBulletStartY * gameFrame.getGamePanel().getHeight()) / tempDeltaY;
+                                bullet.setMovementX(bulletMovementX);
+                                bullet.setMovementY(bulletMovementY);
 
-                                    float bulletRangeRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f;
-                                    bullet.setBulletRangeRatio(bulletRangeRatio);
+                                float bulletRangeRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f;
+                                bullet.setBulletRangeRatio(bulletRangeRatio);
 
-                                    SwingUtilities.invokeLater(() -> {
-                                        for (Bullet bullet1 : playableCharacter.getBullets()) {
-                                            if (bullet1.getRelativeWidth() == 0 && bullet1.getRelativeHeight() == 0) {
-                                                playableCharacter.getBullets().set(playableCharacter.getBullets().indexOf(bullet1), bullet);
-                                                break;
-                                            }
+                                SwingUtilities.invokeLater(() -> {
+                                    for (Bullet bullet1 : playableCharacter.getBullets()) {
+                                        if (bullet1.getRelativeWidth() == 0 && bullet1.getRelativeHeight() == 0) {
+                                            playableCharacter.getBullets().set(playableCharacter.getBullets().indexOf(bullet1), bullet);
+                                            break;
                                         }
-                                    });
-                                    lastShot = System.currentTimeMillis();
-
+                                    }
+                                });
+                                lastShot = System.currentTimeMillis();
                             }
                         }
                     }
