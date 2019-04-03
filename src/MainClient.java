@@ -387,7 +387,7 @@ class MainClient {
                     collisionOnRight = false;
                     collisionOnLeft = false;
 
-                    for (Platform platform : platforms) {
+                        for (Platform platform : platforms) {
                         if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.TOP))
                             collisionOnTop = true;
                         if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM))
@@ -519,7 +519,7 @@ class MainClient {
 
                                     bullet.setRelativeWidth(0.012f);
                                     bullet.setRelativeHeight(0.012f * 768f / 372f);
-                                    bullet.setDamage(0f);
+                                    bullet.setDamage(0.05f);
                                     lastShot = System.currentTimeMillis();
                                     bullet.setRelativeX(playableCharacter.getRelativeX());
                                     bullet.setRelativeY(playableCharacter.getRelativeY());
