@@ -81,8 +81,7 @@ public class Bullet extends SolidObject {
         this.relativeY = relativeBulletStartY;
     }
 
-    public float getSpeed() {
-        return speed;
+    public float getSpeed() { return speed;
     }
 
     @Override
