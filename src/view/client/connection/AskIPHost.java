@@ -15,7 +15,7 @@ public class AskIPHost extends JOptionPane {
                 messageBeginning = "(\"" + input.trim() + "\" is not a valid game server IP) -> ";
 
             input = (String) showInputDialog(null, messageBeginning + "Server host : ", "Connect to game server",
-                    JOptionPane.QUESTION_MESSAGE, new ImageIcon(AskIPHost.class.getResource("/view/resources/client_connection/host.png")), null, input);
+                    JOptionPane.QUESTION_MESSAGE, new ImageIcon(AskIPHost.class.getResource("/view/resources/client_connection/host.jpg")), null, input);
 
             if (input == null)
                 System.exit(0);
