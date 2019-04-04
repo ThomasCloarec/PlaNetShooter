@@ -10,21 +10,25 @@ public class CollisionDetection {
         Rectangle2D rectangle2 = new Rectangle2D.Float(solidObject2.getRelativeX(), solidObject2.getRelativeY(), solidObject2.getRelativeWidth(), solidObject2.getRelativeHeight());
 
         if (rectangle1.intersects(rectangle2)) {
-            double wy = (rectangle1.getWidth() + rectangle2.getWidth()) * (rectangle1.getCenterY() - rectangle2.getCenterY());
-            double hx = (rectangle1.getHeight() + rectangle2.getHeight()) * (rectangle1.getCenterX() - rectangle2.getCenterX());
-
-            if (wy > hx)
-                if (wy > -hx)
-                    return PlayerCollisionSide.TOP;
-                else
-                    return PlayerCollisionSide.RIGHT;
-            else
-            if (wy > -hx)
-                return PlayerCollisionSide.LEFT;
-            else
+            if ((rectangle2.intersectsLine(rectangle1.getCenterX(), rectangle1.getCenterY(), rectangle1.getX(), rectangle1.getY() + rectangle1.getHeight()))
+            || (rectangle2.intersectsLine(rectangle1.getCenterX(), rectangle1.getCenterY(), rectangle1.getX() + rectangle1.getWidth(), rectangle1.getY() + rectangle1.getHeight()))
+            || (rectangle2.intersectsLine(rectangle1.getCenterX(), rectangle1.getCenterY(), rectangle1.getCenterX(), rectangle1.getY() + rectangle1.getHeight()))) {
                 return PlayerCollisionSide.BOTTOM;
+            }
+
+            else if ((rectangle2.intersectsLine(rectangle1.getCenterX(), rectangle1.getCenterY(), rectangle1.getX(), rectangle1.getY()))
+                    || (rectangle2.intersectsLine(rectangle1.getCenterX(), rectangle1.getCenterY(), rectangle1.getX() + rectangle1.getWidth(), rectangle1.getY()))
+                    || (rectangle2.intersectsLine(rectangle1.getCenterX(), rectangle1.getCenterY(), rectangle1.getCenterX(), rectangle1.getY()))) {
+                return PlayerCollisionSide.TOP;
+            }
+
+            else if (rectangle2.intersectsLine(rectangle1.getX(), rectangle1.getY(), rectangle1.getX(), rectangle1.getY() + rectangle1.getHeight())) {
+                return PlayerCollisionSide.LEFT;
+            }
+            else if (rectangle2.intersectsLine(rectangle1.getX() + rectangle1.getWidth(), rectangle1.getY(), rectangle1.getX() + rectangle1.getWidth(), rectangle1.getY() + rectangle1.getHeight())) {
+                return PlayerCollisionSide.RIGHT;
+            }
         }
-        else
-            return PlayerCollisionSide.NONE;
+        return PlayerCollisionSide.NONE;
     }
 }
