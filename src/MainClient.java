@@ -135,7 +135,7 @@ class MainClient {
 
         while (true) {
             if (gameClient.getRegisterList() != null) {
-                if (gameClient.getRegisterList().getNameList().size() == 4) {
+                if (gameClient.getRegisterList().getNameList().size() == 10) {
                     gameServerFull = true;
                 }
                 else {
