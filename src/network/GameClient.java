@@ -53,12 +53,12 @@ public class GameClient extends Client {
                     if (otherPlayers.size() > registerList.getNameList().indexOf(playableCharacter.getName())) {
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeX(playableCharacter.getRelativeX());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeY(playableCharacter.getRelativeY());
+                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setClassCharacter(playableCharacter.getClassCharacter());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeWidth(playableCharacter.getRelativeWidth());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeHeight(playableCharacter.getRelativeHeight());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setUltimateLoading(playableCharacter.getUltimateLoading());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setHealth(playableCharacter.getHealth());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setName(playableCharacter.getName());
-                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setClassCharacter(playableCharacter.getClassCharacter());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setHorizontal_direction(playableCharacter.getHorizontal_direction());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setAtHome(playableCharacter.isAtHome());
                     }
@@ -93,12 +93,12 @@ public class GameClient extends Client {
         characterCopy.setBullets(new ArrayList<>());
         characterCopy.setRelativeX(character.getRelativeX());
         characterCopy.setRelativeY(character.getRelativeY());
+        characterCopy.setClassCharacter(character.getClassCharacter());
         characterCopy.setRelativeWidth(character.getRelativeWidth());
         characterCopy.setRelativeHeight(character.getRelativeHeight());
         characterCopy.setUltimateLoading(character.getUltimateLoading());
         characterCopy.setHealth(character.getHealth());
         characterCopy.setName(character.getName());
-        characterCopy.setClassCharacter(character.getClassCharacter());
         characterCopy.setHorizontal_direction(character.getHorizontal_direction());
         characterCopy.setAtHome(character.isAtHome());
 

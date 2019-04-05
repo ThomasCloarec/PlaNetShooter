@@ -24,11 +24,8 @@ public class CharacterView {
     private Icon runCharacterIcon;
     private Icon idleCharacterIcon;
     private float ultimateLoading = 0;
-    private boolean goUltimate1 = false;
     private boolean ultimate1Running = false;
-    private boolean goUltimate2 = false;
     private boolean ultimate2Running = false;
-    private boolean goUltimate3 = false;
     private boolean ultimate3Running = false;
 
     public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, @SuppressWarnings("unused") String name, ClassCharacters classCharacter, float health) {

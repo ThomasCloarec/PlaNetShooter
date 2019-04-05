@@ -23,11 +23,8 @@ public class PlayableCharacter extends SolidObject {
     private float attackNumberPerSecond = 4f;
     private float ultimateLoading = 0;
     private boolean atHome = true;
-    private boolean goUltimate1 = false;
     private boolean ultimate1Running = false;
-    private boolean goUltimate2 = false;
     private boolean ultimate2Running = false;
-    private boolean goUltimate3 = false;
     private boolean ultimate3Running = false;
     private int ultimate1DurationMillis;
     private long ultimate1StartTimeMillis;
