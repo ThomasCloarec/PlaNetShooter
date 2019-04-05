@@ -370,8 +370,8 @@ class MainClient {
                                 }
                             } else if (playableCharacter.isUltimate3Running()) {
                                 if (System.currentTimeMillis() - playableCharacter.getUltimate3StartTimeMillis() > playableCharacter.getUltimate3DurationMillis()) {
-                                    playableCharacter.setRelativeX(playableCharacter.getRelativeX() + playableCharacter.getRelativeWidth() / 2);
                                     playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
+                                    characterView.setClassCharacter(playableCharacter.getClassCharacter());
                                     ultimateClick = false;
                                 }
                             }
