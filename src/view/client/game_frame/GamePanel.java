@@ -1,8 +1,5 @@
 package view.client.game_frame;
 
-import view.client.game_frame.yodel.LeftYodel;
-import view.client.game_frame.yodel.RightYodel;
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -32,22 +29,22 @@ public class GamePanel extends JPanel {
                 (int) (new HomeView().getRelativeHeight() * this.getHeight()));
 
         g.setColor(Color.green);
-        g.fillRect((int) (new LeftYodel().getRelativeX() * this.getWidth()),
-                (int) (new LeftYodel().getRelativeY() * this.getHeight()),
-                (int) (new LeftYodel().getRelativeWidth() * this.getWidth()),
-                (int) (new LeftYodel().getRelativeHeight() * this.getHeight()));
+        g.fillRect((int) (new YodelView("left").getRelativeX() * this.getWidth()),
+                (int) (new YodelView("left").getRelativeY() * this.getHeight()),
+                (int) (new YodelView("left").getRelativeWidth() * this.getWidth()),
+                (int) (new YodelView("left").getRelativeHeight() * this.getHeight()));
 
         g.setColor(Color.green);
-        g.fillRect((int) (new RightYodel().getRelativeX() * this.getWidth()),
-                (int) (new RightYodel().getRelativeY() * this.getHeight()),
-                (int) (new RightYodel().getRelativeWidth() * this.getWidth()),
-                (int) (new RightYodel().getRelativeHeight() * this.getHeight()));
+        g.fillRect((int) (new YodelView("right").getRelativeX() * this.getWidth()),
+                (int) (new YodelView("right").getRelativeY() * this.getHeight()),
+                (int) (new YodelView("right").getRelativeWidth() * this.getWidth()),
+                (int) (new YodelView("right").getRelativeHeight() * this.getHeight()));
 
         g.setColor(Color.red);
-        g.fillRect((int) (new Trampoline(characterView.getRelativeX()).getRelativeX() * this.getWidth()),
-                (int) (new Trampoline().getRelativeY() * this.getHeight()),
-                (int) (new Trampoline().getRelativeWidth() * this.getWidth()),
-                (int) (new Trampoline().getRelativeHeight() * this.getHeight()));
+        g.fillRect((int) (new TrampolineView(characterView.getRelativeX()).getRelativeX() * this.getWidth()),
+                (int) (new TrampolineView().getRelativeY() * this.getHeight()),
+                (int) (new TrampolineView().getRelativeWidth() * this.getWidth()),
+                (int) (new TrampolineView().getRelativeHeight() * this.getHeight()));
 
         for (PlatformView platform : platforms) {
             if (platform != null) {

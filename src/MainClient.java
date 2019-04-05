@@ -13,8 +13,7 @@ import network.Network;
 import view.client.connection.AskIPHost;
 import view.client.connection.ServerFullError;
 import view.client.game_frame.*;
-import view.client.game_frame.yodel.LeftYodel;
-import view.client.game_frame.yodel.RightYodel;
+import view.client.game_frame.YodelView;
 import view.client.keyboard_actions.PressAction;
 import view.client.keyboard_actions.ReleaseAction;
 
@@ -401,13 +400,13 @@ class MainClient {
                     }
 
                     if (!yodelDetection) {
-                        if (!CollisionDetection.isCollisionBetween(playableCharacter, new LeftYodel()).equals(PlayerCollisionSide.NONE))
+                        if (!CollisionDetection.isCollisionBetween(playableCharacter, new YodelView("left")).equals(PlayerCollisionSide.NONE))
                             playerOnLeftYodel = true;
-                        else if (CollisionDetection.isCollisionBetween(playableCharacter, new LeftYodel()).equals(PlayerCollisionSide.NONE))
+                        else if (CollisionDetection.isCollisionBetween(playableCharacter, new YodelView("left")).equals(PlayerCollisionSide.NONE))
                             playerOnLeftYodel = false;
-                        if (!CollisionDetection.isCollisionBetween(playableCharacter, new RightYodel()).equals(PlayerCollisionSide.NONE))
+                        if (!CollisionDetection.isCollisionBetween(playableCharacter, new YodelView("right")).equals(PlayerCollisionSide.NONE))
                             playerOnRightYodel = true;
-                        else if (CollisionDetection.isCollisionBetween(playableCharacter, new RightYodel()).equals(PlayerCollisionSide.NONE))
+                        else if (CollisionDetection.isCollisionBetween(playableCharacter, new YodelView("right")).equals(PlayerCollisionSide.NONE))
                             playerOnRightYodel = false;
                     }
 
@@ -444,7 +443,7 @@ class MainClient {
                             }
                         }
                     }
-                    else if ((!CollisionDetection.isCollisionBetween(playableCharacter, new Trampoline(playableCharacter.getRelativeX())).equals(PlayerCollisionSide.NONE))){
+                    else if ((!CollisionDetection.isCollisionBetween(playableCharacter, new TrampolineView(playableCharacter.getRelativeX())).equals(PlayerCollisionSide.NONE))){
                         playableCharacter.setRelativeY(0.655f);
                         relativeMovementY = -0.017f;
                     }
