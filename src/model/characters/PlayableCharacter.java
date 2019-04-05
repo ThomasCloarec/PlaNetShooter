@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayableCharacter extends SolidObject {
-    private final static int MAX_BULLET_NUMBER_PER_PLAYER = 100;
+    private final static int MAX_BULLET_NUMBER_PER_PLAYER = 10;
     private float relativeMaxSpeed = 0.004f;
     private final float RELATIVE_SPEED_GROWTH = relativeMaxSpeed/10;
     private float relativeJumpStrength = 0.013f;
@@ -152,13 +152,13 @@ public class PlayableCharacter extends SolidObject {
         if (classCharacter.equals(ClassCharacters.ANGELO)) {
             this.ultimate2Running = true;
             this.ultimate1Running = false;
-            this.ultimate2DurationMillis = 2780;
+            this.ultimate2DurationMillis = 10_000;
             this.ultimate2StartTimeMillis = System.currentTimeMillis();
             this.relativeWidth = 0.0386f;
             this.relativeHeight = 78f/80f * 0.035f * 768f/372f;
             this.relativeMaxSpeed = 0f;
             this.relativeJumpStrength = 0f;
-            this.attackNumberPerSecond = 1000f;
+            this.attackNumberPerSecond = 8f;
             this.relativeY += (140f/80f * 0.035f * 768f/372f - 78f/80f * 0.035f * 768f/372f);
         }
     }

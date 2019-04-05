@@ -354,28 +354,30 @@ class MainClient {
                     }
 
                     if (ultimateClick) {
-                        if (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running()) {
-                            playableCharacter.ultimate1();
-                            characterView.ultimate1();
-                        }
-                        else if (playableCharacter.isUltimate1Running()) {
-                            if (System.currentTimeMillis() - playableCharacter.getUltimate1StartTimeMillis() > playableCharacter.getUltimate1DurationMillis()) {
-                                playableCharacter.ultimate2();
-                                characterView.ultimate2();
+                        if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) {
+                            if (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running()) {
+                                playableCharacter.ultimate1();
+                                characterView.ultimate1();
+                            } else if (playableCharacter.isUltimate1Running()) {
+                                if (System.currentTimeMillis() - playableCharacter.getUltimate1StartTimeMillis() > playableCharacter.getUltimate1DurationMillis()) {
+                                    playableCharacter.ultimate2();
+                                    characterView.ultimate2();
+                                }
+                            } else if (playableCharacter.isUltimate2Running()) {
+                                if (System.currentTimeMillis() - playableCharacter.getUltimate2StartTimeMillis() > playableCharacter.getUltimate2DurationMillis()) {
+                                    playableCharacter.ultimate3();
+                                    characterView.ultimate3();
+                                }
+                            } else if (playableCharacter.isUltimate3Running()) {
+                                if (System.currentTimeMillis() - playableCharacter.getUltimate3StartTimeMillis() > playableCharacter.getUltimate3DurationMillis()) {
+                                    playableCharacter.setRelativeX(playableCharacter.getRelativeX() + playableCharacter.getRelativeWidth() / 2);
+                                    playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
+                                    ultimateClick = false;
+                                }
                             }
                         }
-                        else if (playableCharacter.isUltimate2Running()) {
-                            if (System.currentTimeMillis() - playableCharacter.getUltimate2StartTimeMillis() > playableCharacter.getUltimate2DurationMillis()) {
-                                playableCharacter.ultimate3();
-                                characterView.ultimate3();
-                            }
-                        }
-                        else if (playableCharacter.isUltimate3Running()) {
-                            if (System.currentTimeMillis() - playableCharacter.getUltimate3StartTimeMillis() > playableCharacter.getUltimate3DurationMillis()) {
-                                playableCharacter.setRelativeX(playableCharacter.getRelativeX() + playableCharacter.getRelativeWidth()/2);
-                                playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
-                                ultimateClick = false;
-                            }
+                        else {
+                            ultimateClick = false;
                         }
                         playableCharacter.setUltimateLoading(0f);
                     }
