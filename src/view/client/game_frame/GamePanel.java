@@ -1,7 +1,7 @@
 package view.client.game_frame;
 
-import view.client.game_frame.Yodel.LeftYodel;
-import view.client.game_frame.Yodel.RightYodel;
+import view.client.game_frame.yodel.LeftYodel;
+import view.client.game_frame.yodel.RightYodel;
 
 import javax.swing.*;
 import java.awt.*;

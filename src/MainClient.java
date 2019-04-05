@@ -13,8 +13,8 @@ import network.Network;
 import view.client.connection.AskIPHost;
 import view.client.connection.ServerFullError;
 import view.client.game_frame.*;
-import view.client.game_frame.Yodel.LeftYodel;
-import view.client.game_frame.Yodel.RightYodel;
+import view.client.game_frame.yodel.LeftYodel;
+import view.client.game_frame.yodel.RightYodel;
 import view.client.keyboard_actions.PressAction;
 import view.client.keyboard_actions.ReleaseAction;
 

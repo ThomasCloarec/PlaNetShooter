@@ -14,10 +14,10 @@ public class GameClient extends Client {
 
     private int i = 0;
     public GameClient(String IPHost) throws IOException {
-        super();
+        super(16384, 2048);
         new Thread(this).start();
         Network.register(this);
-        this.connect(5000, IPHost, Network.getTcpPort(), Network.getUdpPort());
+        this.connect(15000, IPHost, Network.getTcpPort(), Network.getUdpPort());
         this.setTimeout(Integer.MAX_VALUE);
     }
 

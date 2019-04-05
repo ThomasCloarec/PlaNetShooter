@@ -1,4 +1,4 @@
-package view.client.game_frame.Yodel;
+package view.client.game_frame.yodel;
 
 import model.SolidObject;
 
