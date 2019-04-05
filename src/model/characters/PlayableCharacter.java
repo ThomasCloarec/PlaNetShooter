@@ -263,4 +263,16 @@ public class PlayableCharacter extends SolidObject {
     public boolean isUltimate3Running() {
         return ultimate3Running;
     }
+
+    public void setUltimate1Running(boolean ultimate1Running) {
+        this.ultimate1Running = ultimate1Running;
+    }
+
+    public void setUltimate2Running(boolean ultimate2Running) {
+        this.ultimate2Running = ultimate2Running;
+    }
+
+    public void setUltimate3Running(boolean ultimate3Running) {
+        this.ultimate3Running = ultimate3Running;
+    }
 }

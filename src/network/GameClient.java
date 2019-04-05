@@ -101,6 +101,9 @@ public class GameClient extends Client {
         characterCopy.setName(character.getName());
         characterCopy.setHorizontal_direction(character.getHorizontal_direction());
         characterCopy.setAtHome(character.isAtHome());
+        characterCopy.setUltimate1Running(character.isUltimate1Running());
+        characterCopy.setUltimate2Running(character.isUltimate2Running());
+        characterCopy.setUltimate3Running(character.isUltimate3Running());
 
         this.sendUDP(characterCopy);
     }
