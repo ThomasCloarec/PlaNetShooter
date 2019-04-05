@@ -51,16 +51,30 @@ public class GameClient extends Client {
             if (playableCharacter.getName() != null && registerList != null) {
                 if (registerList.getNameList().contains(playableCharacter.getName())) {
                     if (otherPlayers.size() > registerList.getNameList().indexOf(playableCharacter.getName())) {
-                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeX(playableCharacter.getRelativeX());
-                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeY(playableCharacter.getRelativeY());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setClassCharacter(playableCharacter.getClassCharacter());
-                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeWidth(playableCharacter.getRelativeWidth());
-                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeHeight(playableCharacter.getRelativeHeight());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setUltimateLoading(playableCharacter.getUltimateLoading());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setHealth(playableCharacter.getHealth());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setName(playableCharacter.getName());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setHorizontal_direction(playableCharacter.getHorizontal_direction());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setAtHome(playableCharacter.isAtHome());
+
+                        if (!otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).isUltimate1Running() && playableCharacter.isUltimate1Running())
+                            otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).ultimate1();
+                        else if (!otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).isUltimate2Running() && playableCharacter.isUltimate2Running())
+                            otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).ultimate2();
+                        else if (!otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).isUltimate3Running() && playableCharacter.isUltimate3Running())
+                            otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).ultimate3();
+                        else if (otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).isUltimate3Running() && !playableCharacter.isUltimate3Running())
+                            otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setClassCharacter(playableCharacter.getClassCharacter());
+
+                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setUltimate1Running(playableCharacter.isUltimate1Running());
+                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setUltimate2Running(playableCharacter.isUltimate2Running());
+                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setUltimate3Running(playableCharacter.isUltimate3Running());
+
+                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeX(playableCharacter.getRelativeX());
+                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeY(playableCharacter.getRelativeY());
+                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeWidth(playableCharacter.getRelativeWidth());
+                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeHeight(playableCharacter.getRelativeHeight());
                     }
                     else {
                         for (int i = 0; i < PlayableCharacter.getMaxBulletNumberPerPlayer(); i++) {
@@ -91,11 +105,7 @@ public class GameClient extends Client {
         PlayableCharacter characterCopy = new PlayableCharacter();
 
         characterCopy.setBullets(new ArrayList<>());
-        characterCopy.setRelativeX(character.getRelativeX());
-        characterCopy.setRelativeY(character.getRelativeY());
         characterCopy.setClassCharacter(character.getClassCharacter());
-        characterCopy.setRelativeWidth(character.getRelativeWidth());
-        characterCopy.setRelativeHeight(character.getRelativeHeight());
         characterCopy.setUltimateLoading(character.getUltimateLoading());
         characterCopy.setHealth(character.getHealth());
         characterCopy.setName(character.getName());
@@ -104,6 +114,10 @@ public class GameClient extends Client {
         characterCopy.setUltimate1Running(character.isUltimate1Running());
         characterCopy.setUltimate2Running(character.isUltimate2Running());
         characterCopy.setUltimate3Running(character.isUltimate3Running());
+        characterCopy.setRelativeX(character.getRelativeX());
+        characterCopy.setRelativeY(character.getRelativeY());
+        characterCopy.setRelativeWidth(character.getRelativeWidth());
+        characterCopy.setRelativeHeight(character.getRelativeHeight());
 
         this.sendUDP(characterCopy);
     }

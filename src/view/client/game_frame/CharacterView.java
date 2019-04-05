@@ -191,4 +191,16 @@ public class CharacterView {
     public void setUltimate3Running(boolean ultimate3Running) {
         this.ultimate3Running = ultimate3Running;
     }
+
+    public boolean isUltimate1Running() {
+        return ultimate1Running;
+    }
+
+    public boolean isUltimate2Running() {
+        return ultimate2Running;
+    }
+
+    public boolean isUltimate3Running() {
+        return ultimate3Running;
+    }
 }

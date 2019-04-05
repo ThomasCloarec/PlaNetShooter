@@ -13,7 +13,6 @@ import network.Network;
 import view.client.connection.AskIPHost;
 import view.client.connection.ServerFullError;
 import view.client.game_frame.*;
-import view.client.game_frame.YodelView;
 import view.client.keyboard_actions.PressAction;
 import view.client.keyboard_actions.ReleaseAction;
 
@@ -641,14 +640,14 @@ class MainClient {
                         }
                     });
                     characterView.setHealth(playableCharacter.getHealth());
-                    characterView.setRelativeX(playableCharacter.getRelativeX());
-                    characterView.setRelativeY(playableCharacter.getRelativeY());
-                    characterView.setRelativeWidth(playableCharacter.getRelativeWidth());
-                    characterView.setRelativeHeight(playableCharacter.getRelativeHeight());
                     characterView.setUltimateLoading(playableCharacter.getUltimateLoading());
                     characterView.setUltimate1Running(playableCharacter.isUltimate1Running());
                     characterView.setUltimate2Running(playableCharacter.isUltimate2Running());
                     characterView.setUltimate3Running(playableCharacter.isUltimate3Running());
+                    characterView.setRelativeX(playableCharacter.getRelativeX());
+                    characterView.setRelativeY(playableCharacter.getRelativeY());
+                    characterView.setRelativeWidth(playableCharacter.getRelativeWidth());
+                    characterView.setRelativeHeight(playableCharacter.getRelativeHeight());
 
                     SwingUtilities.invokeLater(() -> {
                         otherPlayersPainting();
@@ -667,14 +666,32 @@ class MainClient {
         for (int i = 0; i < gameClient.getOtherPlayers().size(); i++) {
             if (gameFrame.getGamePanel().getOtherPlayersViews().size() > i) {
 
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeX(gameClient.getOtherPlayers().get(i).getRelativeX());
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeY(gameClient.getOtherPlayers().get(i).getRelativeY());
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeWidth(gameClient.getOtherPlayers().get(i).getRelativeWidth());
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeHeight(gameClient.getOtherPlayers().get(i).getRelativeHeight());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHealth(gameClient.getOtherPlayers().get(i).getHealth());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHorizontal_direction(gameClient.getOtherPlayers().get(i).getHorizontal_direction());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setClassCharacter(gameClient.getOtherPlayers().get(i).getClassCharacter());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setUltimateLoading(gameClient.getOtherPlayers().get(i).getUltimateLoading());
+
+                if (gameClient.getOtherPlayers().get(i).isUltimate1Running() && !gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate1Running()) {
+                    gameFrame.getGamePanel().getOtherPlayersViews().get(i).ultimate1();
+                }
+                else if (gameClient.getOtherPlayers().get(i).isUltimate2Running() && !gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate2Running()) {
+                    gameFrame.getGamePanel().getOtherPlayersViews().get(i).ultimate2();
+                }
+                else if (gameClient.getOtherPlayers().get(i).isUltimate3Running() && !gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate3Running()) {
+                    gameFrame.getGamePanel().getOtherPlayersViews().get(i).ultimate3();
+                }
+                else if (!gameClient.getOtherPlayers().get(i).isUltimate3Running() && gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate3Running()) {
+                    gameFrame.getGamePanel().getOtherPlayersViews().get(i).setClassCharacter(gameClient.getOtherPlayers().get(i).getClassCharacter());
+                }
+
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setUltimate1Running(gameClient.getOtherPlayers().get(i).isUltimate1Running());
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setUltimate2Running(gameClient.getOtherPlayers().get(i).isUltimate2Running());
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setUltimate3Running(gameClient.getOtherPlayers().get(i).isUltimate3Running());
+
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeX(gameClient.getOtherPlayers().get(i).getRelativeX());
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeY(gameClient.getOtherPlayers().get(i).getRelativeY());
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeWidth(gameClient.getOtherPlayers().get(i).getRelativeWidth());
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeHeight(gameClient.getOtherPlayers().get(i).getRelativeHeight());
 
                 try {
                     for (int j = 0; j < gameClient.getOtherPlayers().get(i).getBullets().size(); j++) {
