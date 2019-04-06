@@ -95,11 +95,6 @@ public class HomePanel extends JPanel {
     }
 
     public void setClassCharacter(ClassCharacters classCharacter) {
-        try {
-            characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif"));
-        }
-        catch (NullPointerException e) {
-            System.err.println("Can't find \"/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif\" !");
-        }
+        characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif"));
     }
 }

@@ -99,11 +99,13 @@ class MainClient {
 
                     }
                     if (object instanceof Network.Hit) {
-                        Network.Hit hit = (Network.Hit) object;
-                        playableCharacter.setHealth(playableCharacter.getHealth() - hit.getDamage() / playableCharacter.getMaxHealth());
-                        if (playableCharacter.getHealth() <= 0){
-                            randomSpawn();
-                            playableCharacter.setHealth(1);
+                        if ((!playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) || (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running())) {
+                            Network.Hit hit = (Network.Hit) object;
+                            playableCharacter.setHealth(playableCharacter.getHealth() - hit.getDamage() / playableCharacter.getMaxHealth());
+                            if (playableCharacter.getHealth() <= 0) {
+                                randomSpawn();
+                                playableCharacter.setHealth(1);
+                            }
                         }
                     }
                     gameClient.receivedListener(object);
@@ -301,7 +303,9 @@ class MainClient {
         String gameFrameTitleWithoutFPS = gameFrame.getTitle();
         final long[] a = {System.currentTimeMillis()};
 
-        Thread gameLoopThread = new Thread(() -> {
+        Thread gameLoopThread
+                ;
+        gameLoopThread = new Thread(() -> {
             long lastTime = System.currentTimeMillis();
 
             while (true) {
@@ -356,6 +360,11 @@ class MainClient {
                             if (System.currentTimeMillis() - playableCharacter.getUltimate3StartTimeMillis() > playableCharacter.getUltimate3DurationMillis()) {
                                 playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
                                 characterView.setClassCharacter(playableCharacter.getClassCharacter());
+
+                                if (playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) {
+                                    playableCharacter.setRelativeX(playableCharacter.getRelativeX() + (0.045f - 0.04f));
+                                    playableCharacter.setRelativeY(playableCharacter.getRelativeY() + (0.045f * 768f / 372f - 0.04f * 768f / 372f));
+                                }
                                 ultimateClick = false;
                             }
                         }

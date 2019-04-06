@@ -82,12 +82,7 @@ public class GamePanel extends JPanel {
                     bulletView.setScaleHeightBullet(bulletView.getRelativeHeight() * this.getHeight() / bulletView.getBulletIconHeight());
 
                     if (bulletView.getBulletLabel().getParent() == null) {
-                        try {
-                            bulletView.setIcon("/view/resources/game/characters/" + characterView.getClassCharacter().name().toLowerCase() + "/bullet.png");
-                        }
-                        catch (NullPointerException e) {
-                            System.err.println("Can't find \"/view/resources/game/characters/" + characterView.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
-                        }
+                        bulletView.setIcon("/view/resources/game/characters/" + characterView.getClassCharacter().name().toLowerCase() + "/bullet.png");
                         this.add(bulletView.getBulletLabel());
                         this.revalidate();
                     }
@@ -107,13 +102,7 @@ public class GamePanel extends JPanel {
                             if (bulletView.getBulletLabel().getParent() == null) {
                                 bulletView.getBulletLabel().setVisible(true);
 
-                                try {
-                                    bulletView.setIcon("/view/resources/game/characters/" + otherPlayerView.getClassCharacter().name().toLowerCase() + "/bullet.png");
-                                }
-                                catch (NullPointerException e) {
-                                    System.err.println("Can't find \"/view/resources/game/characters/" + otherPlayerView.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
-                                }
-
+                                bulletView.setIcon("/view/resources/game/characters/" + otherPlayerView.getClassCharacter().name().toLowerCase() + "/bullet.png");
                                 this.add(bulletView.getBulletLabel());
                                 this.revalidate();
                             }

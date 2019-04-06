@@ -58,19 +58,19 @@ public class CharacterView {
         }
     }
 
-    float getRelativeX() {
+    public float getRelativeX() {
         return relativeX;
     }
 
-    float getRelativeY() {
+    public float getRelativeY() {
         return relativeY;
     }
 
-    float getRelativeWidth() {
+    public float getRelativeWidth() {
         return relativeWidth;
     }
 
-    float getRelativeHeight() {
+    public float getRelativeHeight() {
         return relativeHeight;
     }
 
@@ -100,17 +100,9 @@ public class CharacterView {
 
         if (!ultimate1Running && !ultimate2Running && !ultimate3Running) {
             if (horizontal_direction != 0) {
-                try {
-                    characterLabel.setIcon(runCharacterIcon);
-                } catch (NullPointerException e) {
-                    System.err.println("Can't find \"/view/resources/game/characters/" + classCharacter.name().toLowerCase() + "/run.gif\" !");
-                }
+                characterLabel.setIcon(runCharacterIcon);
             } else {
-                try {
-                    characterLabel.setIcon(idleCharacterIcon);
-                } catch (NullPointerException e) {
-                    System.err.println("Can't find \"/view/resources/game/characters/" + classCharacter.name().toLowerCase() + "/idle.gif\" !");
-                }
+                characterLabel.setIcon(idleCharacterIcon);
             }
         }
     }
@@ -123,20 +115,20 @@ public class CharacterView {
 
     public void ultimate1() {
         ultimate1Running = true;
-        if (classCharacter.equals(ClassCharacters.ANGELO) || classCharacter.equals(ClassCharacters.TATITATOO))
+        if (classCharacter.equals(ClassCharacters.ANGELO) || classCharacter.equals(ClassCharacters.TATITATOO) || classCharacter.equals(ClassCharacters.MEDUSO))
             characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/ultimate1.gif"));
     }
 
     public void ultimate2() {
         ultimate2Running = true;
-        if (classCharacter.equals(ClassCharacters.ANGELO)) {
+        if (classCharacter.equals(ClassCharacters.ANGELO) || classCharacter.equals(ClassCharacters.MEDUSO)) {
             characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/ultimate2.gif"));
         }
     }
 
     public void ultimate3() {
         ultimate3Running = true;
-        if (classCharacter.equals(ClassCharacters.ANGELO)) {
+        if (classCharacter.equals(ClassCharacters.ANGELO) || classCharacter.equals(ClassCharacters.MEDUSO)) {
             characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/ultimate3.gif"));
         }
     }

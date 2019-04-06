@@ -124,7 +124,7 @@ public class PlayableCharacter extends SolidObject {
         else if (this.classCharacter.equals(ClassCharacters.MEDUSO)) {
             this.relativeWidth = 0.04f;
             this.relativeHeight = 200f / 200f * 0.04f * 768f / 372f;
-            this.relativeMaxSpeed = 0.0045f;
+            this.relativeMaxSpeed = 0.004f;
             this.attackNumberPerSecond = 3f;
         }
         else {
@@ -137,9 +137,7 @@ public class PlayableCharacter extends SolidObject {
 
     public void ultimate1() {
         if (classCharacter.equals(ClassCharacters.ANGELO)) {
-            this.ultimate1Running = true;
             this.ultimate1DurationMillis = 1400;
-            this.ultimate1StartTimeMillis = System.currentTimeMillis();
             this.relativeWidth = 0.0386f;
             this.relativeHeight = 140f/80f * 0.035f * 768f/372f;
             this.relativeMaxSpeed = 0f;
@@ -147,9 +145,7 @@ public class PlayableCharacter extends SolidObject {
             this.attackNumberPerSecond = 0f;
         }
         else if (classCharacter.equals(ClassCharacters.TATITATOO)) {
-            this.ultimate1Running = true;
             this.ultimate1DurationMillis = 10_000;
-            this.ultimate1StartTimeMillis = System.currentTimeMillis();
             this.relativeWidth = 0.04f;
             this.relativeHeight = 200f/200f * 0.04f * 768f/372f;
             this.relativeMaxSpeed = 0.0055f;
@@ -157,19 +153,26 @@ public class PlayableCharacter extends SolidObject {
             this.relativeJumpStrength = 0.013f;
             this.maxHealth = 1.5f;
         }
-        else {
-            this.ultimate1Running = true;
-            this.ultimate1DurationMillis = 0;
-            this.ultimate1StartTimeMillis = System.currentTimeMillis();
+        else if (classCharacter.equals(ClassCharacters.MEDUSO)) {
+            this.ultimate1DurationMillis = 2420;
+            this.relativeWidth = 0.045f;
+            this.relativeHeight = 200f/200f * 0.045f * 768f/372f;
+            this.relativeMaxSpeed = 0.004f;
+            this.attackNumberPerSecond = 0f;
+            this.relativeJumpStrength = 0.013f;
+            this.relativeX -= (0.045f - 0.04f);
+            this.relativeY -= (0.045f * 768f/372f - 0.04f * 768f/372f);
         }
+        else {
+            this.ultimate1DurationMillis = 0;
+        }
+        this.ultimate1StartTimeMillis = System.currentTimeMillis();
+        this.ultimate1Running = true;
     }
 
     public void ultimate2() {
         if (classCharacter.equals(ClassCharacters.ANGELO)) {
-            this.ultimate2Running = true;
-            this.ultimate1Running = false;
             this.ultimate2DurationMillis = 10_000;
-            this.ultimate2StartTimeMillis = System.currentTimeMillis();
             this.relativeWidth = 0.0386f;
             this.relativeHeight = 76f/102f * 0.044f * 768f/372f;
             this.relativeMaxSpeed = 0f;
@@ -177,20 +180,25 @@ public class PlayableCharacter extends SolidObject {
             this.attackNumberPerSecond = 8f;
             this.relativeY += (140f/80f * 0.035f * 768f/372f - 76f/102f * 0.044f * 768f/372f);
         }
-        else {
-            this.ultimate2Running = true;
-            this.ultimate1Running = false;
+        else if (classCharacter.equals(ClassCharacters.MEDUSO)) {
             this.ultimate2DurationMillis = 0;
-            this.ultimate2StartTimeMillis = System.currentTimeMillis();
+            this.relativeWidth = 0.045f;
+            this.relativeHeight = 200f / 200f * 0.045f * 768f / 372f;
+            this.relativeMaxSpeed = 0.004f;
+            this.attackNumberPerSecond = 0f;
+            this.relativeJumpStrength = 0.013f;
         }
+        else {
+            this.ultimate2DurationMillis = 0;
+        }
+        this.ultimate2StartTimeMillis = System.currentTimeMillis();
+        this.ultimate2Running = true;
+        this.ultimate1Running = false;
     }
 
     public void ultimate3() {
         if (classCharacter.equals(ClassCharacters.ANGELO)) {
-            this.ultimate3Running = true;
-            this.ultimate2Running = false;
             this.ultimate3DurationMillis = 1400;
-            this.ultimate3StartTimeMillis = System.currentTimeMillis();
             this.relativeWidth = 0.0386f;
             this.relativeHeight = 140f/80f * 0.035f * 768f/372f;
             this.relativeY -= (140f/80f * 0.035f * 768f/372f - 76f/102f * 0.044f * 768f/372f);
@@ -198,12 +206,20 @@ public class PlayableCharacter extends SolidObject {
             this.relativeJumpStrength = 0f;
             this.attackNumberPerSecond = 0f;
         }
-        else {
-            this.ultimate3Running = true;
-            this.ultimate2Running = false;
-            this.ultimate3DurationMillis = 0;
-            this.ultimate3StartTimeMillis = System.currentTimeMillis();
+        else if (classCharacter.equals(ClassCharacters.MEDUSO)) {
+            this.ultimate3DurationMillis = 1100;
+            this.relativeWidth = 0.045f;
+            this.relativeHeight = 200f/200f * 0.045f * 768f/372f;
+            this.relativeMaxSpeed = 0.004f;
+            this.attackNumberPerSecond = 0f;
+            this.relativeJumpStrength = 0.013f;
         }
+        else {
+            this.ultimate3DurationMillis = 0;
+        }
+        this.ultimate3Running = true;
+        this.ultimate2Running = false;
+        this.ultimate3StartTimeMillis = System.currentTimeMillis();
     }
 
     public void setHorizontal_direction(double horizontal_direction) {
