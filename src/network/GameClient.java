@@ -51,7 +51,10 @@ public class GameClient extends Client {
             if (playableCharacter.getName() != null && registerList != null) {
                 if (registerList.getNameList().contains(playableCharacter.getName())) {
                     if (otherPlayers.size() > registerList.getNameList().indexOf(playableCharacter.getName())) {
-                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setClassCharacter(playableCharacter.getClassCharacter());
+                        if (!otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).getClassCharacter().equals(playableCharacter.getClassCharacter())) {
+                            otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setClassCharacter(playableCharacter.getClassCharacter());
+                            otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setClassCharacterChanged(true);
+                        }
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setUltimateLoading(playableCharacter.getUltimateLoading());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setHealth(playableCharacter.getHealth());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setName(playableCharacter.getName());
@@ -64,8 +67,6 @@ public class GameClient extends Client {
                             otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).ultimate2();
                         else if (!otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).isUltimate3Running() && playableCharacter.isUltimate3Running())
                             otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).ultimate3();
-                        else if (otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).isUltimate3Running() && !playableCharacter.isUltimate3Running())
-                            otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setClassCharacter(playableCharacter.getClassCharacter());
 
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setUltimate1Running(playableCharacter.isUltimate1Running());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setUltimate2Running(playableCharacter.isUltimate2Running());

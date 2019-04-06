@@ -106,21 +106,6 @@ class MainClient {
                             playableCharacter.setHealth(1);
                         }
                     }
-                    if (object instanceof Network.ClassCharacterChanged) {
-                        Network.ClassCharacterChanged classCharacterChanged = (Network.ClassCharacterChanged) object;
-                        for (PlayableCharacter playableCharacter : gameClient.getOtherPlayers()) {
-                            if (playableCharacter.getName().equals(classCharacterChanged.getName())) {
-                                for (BulletView bulletView : gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getOtherPlayers().indexOf(playableCharacter)).getBulletsViews()) {
-                                    try {
-                                        bulletView.setIcon("/view/resources/game/characters/" + classCharacterChanged.getClassCharacter().name().toLowerCase() + "/bullet.png");
-                                    } catch (NullPointerException ex) {
-                                        System.err.println("Can't find \"/view/resources/game/characters/" + classCharacterChanged.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
-                                    }
-                                }
-                                gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getOtherPlayers().indexOf(playableCharacter)).setClassCharacter(playableCharacter.getClassCharacter());
-                            }
-                        }
-                    }
                     gameClient.receivedListener(object);
                 });
             }
@@ -300,11 +285,6 @@ class MainClient {
                     System.err.println("Can't find \"/view/resources/game/characters/" + characterView.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
                 }
             }
-
-            Network.ClassCharacterChanged classCharacterChanged = new Network.ClassCharacterChanged();
-            classCharacterChanged.setName(playableCharacter.getName());
-            classCharacterChanged.setClassCharacter(playableCharacter.getClassCharacter());
-            gameClient.sendTCP(classCharacterChanged);
 
             playableCharacter.setUltimateLoading(0f);
             playableCharacter.setRelativeY(-1.15f);
@@ -597,6 +577,21 @@ class MainClient {
                                 });
                                 lastShot = System.currentTimeMillis();
                             }
+                        }
+                    }
+
+                    for (PlayableCharacter playableCharacter : gameClient.getOtherPlayers()) {
+                        if (playableCharacter.isClassCharacterChanged()) {
+                            for (BulletView bulletView : gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getOtherPlayers().indexOf(playableCharacter)).getBulletsViews()) {
+                                try {
+                                    bulletView.setIcon("/view/resources/game/characters/" + playableCharacter.getClassCharacter().name().toLowerCase() + "/bullet.png");
+                                } catch (NullPointerException ex) {
+                                    System.err.println("Can't find \"/view/resources/game/characters/" + playableCharacter.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
+                                }
+                            }
+                            gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getOtherPlayers().indexOf(playableCharacter)).setClassCharacter(playableCharacter.getClassCharacter());
+
+                            playableCharacter.setClassCharacterChanged(false);
                         }
                     }
 

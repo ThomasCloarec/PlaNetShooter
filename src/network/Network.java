@@ -27,7 +27,6 @@ public class Network {
         kryo.register(SolidObject.class);
         kryo.register(Hit.class);
         kryo.register(UpdateBullet.class);
-        kryo.register(ClassCharacterChanged.class);
     }
 
     static class RegisterName {
@@ -57,7 +56,7 @@ public class Network {
         }
     }
 
-    public static class UpdateBullet {
+    static class UpdateBullet {
         UpdateBullet() {
         }
 
@@ -69,11 +68,11 @@ public class Network {
             this.bullet = bullet;
         }
 
-        public void setName(String name) {
+        void setName(String name) {
             this.name = name;
         }
 
-        public String getName() {
+        String getName() {
             return name;
         }
 
@@ -107,30 +106,6 @@ public class Network {
 
         public float getDamage() {
             return damage;
-        }
-    }
-
-    public static class ClassCharacterChanged {
-        private String name;
-        private ClassCharacters classCharacter;
-
-        public ClassCharacterChanged() {
-        }
-
-        public String getName() {
-            return name;
-        }
-
-        public ClassCharacters getClassCharacter() {
-            return classCharacter;
-        }
-
-        public void setName(String name) {
-            this.name = name;
-        }
-
-        public void setClassCharacter(ClassCharacters classCharacter) {
-            this.classCharacter = classCharacter;
         }
     }
 

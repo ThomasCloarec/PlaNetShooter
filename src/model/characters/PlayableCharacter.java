@@ -9,7 +9,7 @@ import java.util.List;
 public class PlayableCharacter extends SolidObject {
     private final static int MAX_BULLET_NUMBER_PER_PLAYER = 10;
     private float relativeMaxSpeed = 0.004f;
-    private float RELATIVE_SPEED_GROWTH = relativeMaxSpeed/10;
+    private final float RELATIVE_SPEED_GROWTH = relativeMaxSpeed/10;
     private float relativeJumpStrength = 0.013f;
     private float relativeWidth = 0.04f;
     private float relativeHeight = 0.04f*768f/372f;
@@ -32,6 +32,7 @@ public class PlayableCharacter extends SolidObject {
     private long ultimate2StartTimeMillis;
     private int ultimate3DurationMillis;
     private long ultimate3StartTimeMillis;
+    private boolean classCharacterChanged = false;
 
     // Default constructor used for reflection (by Kryo serialization)
     public PlayableCharacter() {
@@ -294,5 +295,13 @@ public class PlayableCharacter extends SolidObject {
 
     public void setUltimate3Running(boolean ultimate3Running) {
         this.ultimate3Running = ultimate3Running;
+    }
+
+    public boolean isClassCharacterChanged() {
+        return classCharacterChanged;
+    }
+
+    public void setClassCharacterChanged(boolean classCharacterChanged) {
+        this.classCharacterChanged = classCharacterChanged;
     }
 }
