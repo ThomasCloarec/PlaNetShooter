@@ -154,6 +154,11 @@ public class PlayableCharacter extends SolidObject {
             this.attackNumberPerSecond = 0f;
             this.relativeJumpStrength = 0.013f;
         }
+        else {
+            this.ultimate1Running = true;
+            this.ultimate1DurationMillis = 0;
+            this.ultimate1StartTimeMillis = System.currentTimeMillis();
+        }
     }
 
     public void ultimate2() {
@@ -169,7 +174,7 @@ public class PlayableCharacter extends SolidObject {
             this.attackNumberPerSecond = 8f;
             this.relativeY += (140f/80f * 0.035f * 768f/372f - 76f/102f * 0.044f * 768f/372f);
         }
-        else if (classCharacter.equals(ClassCharacters.TATITATOO)) {
+        else {
             this.ultimate2Running = true;
             this.ultimate1Running = false;
             this.ultimate2DurationMillis = 0;
@@ -190,7 +195,7 @@ public class PlayableCharacter extends SolidObject {
             this.relativeJumpStrength = 0f;
             this.attackNumberPerSecond = 0f;
         }
-        else if (classCharacter.equals(ClassCharacters.TATITATOO)) {
+        else {
             this.ultimate3Running = true;
             this.ultimate2Running = false;
             this.ultimate3DurationMillis = 0;
