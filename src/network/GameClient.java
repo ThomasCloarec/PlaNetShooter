@@ -26,19 +26,19 @@ public class GameClient extends Client {
 
         registerName.name = name;
 
-        System.out.println("\"" + registerName.name+ "\" (You) is connected !");
+        System.out.println("\"" + registerName.name+ "\" (You) is connected");
         this.sendTCP(registerName);
     }
 
     public void receivedListener(Object object) {
         if (object instanceof Network.RegisterName) {
             Network.RegisterName registerName = (Network.RegisterName)object;
-            System.out.println("\"" +registerName.name+ "\" is connected !");
+            System.out.println("\"" +registerName.name+ "\" is connected");
             registerList.getNameList().add(registerName.name);
         }
         if (object instanceof Network.RemoveName) {
             Network.RemoveName removeName = (Network.RemoveName)object;
-            System.out.println("\"" +removeName.name+ "\" is disconnected !");
+            System.out.println("\"" +removeName.name+ "\" is disconnected");
             otherPlayers.remove(registerList.getNameList().indexOf(removeName.name));
             registerList.getNameList().remove(removeName.name);
         }

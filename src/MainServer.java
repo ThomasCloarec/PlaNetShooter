@@ -11,6 +11,7 @@ class MainServer {
     private static GameServer gameServer;
 
     public static void main(String[] args) {
+        System.out.println("Starting server...");
         launchGameServer();
         SwingUtilities.invokeLater(MainServer::launchServerFrame);
     }
@@ -43,5 +44,7 @@ class MainServer {
                 System.out.println("Server closed.");
             }
         });
+
+        System.out.println("Server successfully started !");
     }
 }

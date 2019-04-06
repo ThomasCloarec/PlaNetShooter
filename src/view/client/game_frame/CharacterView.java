@@ -44,6 +44,9 @@ public class CharacterView {
             super(CharacterView.class.getResource(filename));
             characterIconWidth = this.getIconWidth();
             characterIconHeight = this.getIconHeight();
+            if (classCharacter.equals(ClassCharacters.ANGELO)) {
+                System.out.println("CHANGING CHARACTER ICON WIDTH AND HEIGHT : " +characterIconWidth+ "/" +characterIconHeight);
+            }
         }
 
         @Override
@@ -56,6 +59,14 @@ public class CharacterView {
             g2.scale(horizontal_direction*scaleWidthCharacter, scaleHeightCharacter);
             super.paintIcon(c, g2, x, y);
         }
+    }
+
+    public double getScaleWidthCharacter() {
+        return scaleWidthCharacter;
+    }
+
+    public double getScaleHeightCharacter() {
+        return scaleHeightCharacter;
     }
 
     float getRelativeX() {
@@ -117,8 +128,8 @@ public class CharacterView {
 
     public void setClassCharacter(ClassCharacters classCharacter) {
         this.classCharacter = classCharacter;
-        this.runCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/run.gif");
-        this.idleCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif");
+        this.runCharacterIcon = new CharacterIcon("/view/resources/game/characters/" + classCharacter.name().toLowerCase() + "/run.gif");
+        this.idleCharacterIcon = new CharacterIcon("/view/resources/game/characters/" + classCharacter.name().toLowerCase() + "/idle.gif");
     }
 
     public void ultimate1() {

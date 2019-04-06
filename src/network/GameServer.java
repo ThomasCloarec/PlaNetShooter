@@ -42,7 +42,7 @@ public class GameServer extends Server {
             Network.RegisterName registerName = new Network.RegisterName();
             registerName.name = name;
             this.sendToAllExceptTCP(gameConnection.getID(), registerName);
-            System.out.println("\"" + registerName.name + "\" is connected ! [ID : " +gameConnection.getID()+ "]");
+            System.out.println("\"" + registerName.name + "\" is connected [ID : " +gameConnection.getID()+ "]");
 
             registerList.getNameList().add(registerName.name);
             registerList.getConnectionIDList().add(gameConnection.getID());
@@ -71,7 +71,7 @@ public class GameServer extends Server {
             Network.RemoveName removeName = new Network.RemoveName();
             removeName.name = gameConnection.name;
             this.sendToAllTCP(removeName);
-            System.out.println("\"" +removeName.name+ "\" is disconnected ! [ID : " +gameConnection.getID()+ "]");
+            System.out.println("\"" +removeName.name+ "\" is disconnected [ID : " +gameConnection.getID()+ "]");
 
             registerList.getConnectionIDList().remove(registerList.getNameList().indexOf(removeName.name));
             registerList.getNameList().remove(removeName.name);

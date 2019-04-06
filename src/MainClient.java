@@ -54,6 +54,7 @@ class MainClient {
     private static boolean yodelDetection = false;
 
     public static void main(String[] args) {
+        System.out.println("Starting client...");
         launchGameClient();
         if (!gameServerFull) {
             SwingUtilities.invokeLater(MainClient::launchGameFrame);
@@ -71,6 +72,7 @@ class MainClient {
         while(true) {
             try {
                 serverIP = AskIPHost.getIPHost();
+                System.out.println("Connecting to the server...");
                 gameClient = new GameClient(serverIP);
                 break;
             } catch (IOException e) {
@@ -115,6 +117,7 @@ class MainClient {
                                         System.err.println("Can't find \"/view/resources/game/characters/" + classCharacterChanged.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
                                     }
                                 }
+                                gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getOtherPlayers().indexOf(playableCharacter)).setClassCharacter(playableCharacter.getClassCharacter());
                             }
                         }
                     }
@@ -275,7 +278,8 @@ class MainClient {
             public void mouseDragged(MouseEvent e) {
                 super.mouseMoved(e);
                 if (readyToFire)
-                    lastMousePressedEvent = e;            }
+                    lastMousePressedEvent = e;
+            }
         });
 
         gameFrame.getHomePanel().getBackToGameButton().addActionListener(e -> {
@@ -307,6 +311,8 @@ class MainClient {
 
             gameFrame.getHomePanel().setClassCharacter(playableCharacter.getClassCharacter());
         });
+
+        System.out.println("Client successfully started !");
     }
 
     private static void launchGameLoop() {
@@ -668,7 +674,6 @@ class MainClient {
 
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHealth(gameClient.getOtherPlayers().get(i).getHealth());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHorizontal_direction(gameClient.getOtherPlayers().get(i).getHorizontal_direction());
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setClassCharacter(gameClient.getOtherPlayers().get(i).getClassCharacter());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setUltimateLoading(gameClient.getOtherPlayers().get(i).getUltimateLoading());
 
                 if (gameClient.getOtherPlayers().get(i).isUltimate1Running() && !gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate1Running()) {
