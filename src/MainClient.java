@@ -100,7 +100,7 @@ class MainClient {
                     }
                     if (object instanceof Network.Hit) {
                         Network.Hit hit = (Network.Hit) object;
-                        playableCharacter.setHealth(playableCharacter.getHealth() - hit.getDamage());
+                        playableCharacter.setHealth(playableCharacter.getHealth() - hit.getDamage() / playableCharacter.getMaxHealth());
                         if (playableCharacter.getHealth() <= 0){
                             randomSpawn();
                             playableCharacter.setHealth(1);
@@ -503,7 +503,7 @@ class MainClient {
 
                                 bullet.setRelativeWidth(0.012f);
                                 bullet.setRelativeHeight(0.012f * 768f / 372f);
-                                bullet.setDamage(0.05f);
+                                bullet.setDamage(0.25f);
                                 lastShot = System.currentTimeMillis();
                                 bullet.setRelativeX(playableCharacter.getRelativeX());
                                 bullet.setRelativeY(playableCharacter.getRelativeY());
@@ -621,6 +621,14 @@ class MainClient {
 
                                 playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
                                 playableCharacter.getBullets().get(bulletIndex).setRelativeHeight(0);
+                            }
+                        }
+
+                        if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO) && playableCharacter.isUltimate1Running()) {
+                            for (PlayableCharacter otherPlayer : gameClient.getOtherPlayers()) {
+                                if (!CollisionDetection.isCollisionBetween(otherPlayer, playableCharacter).equals(PlayerCollisionSide.NONE)) {
+                                    gameClient.sendHit(new Network.Hit(otherPlayer.getName(), 0.01f));
+                                }
                             }
                         }
                     });

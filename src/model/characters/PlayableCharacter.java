@@ -19,7 +19,8 @@ public class PlayableCharacter extends SolidObject {
     private String name;
     private double horizontal_direction = 1;
     private List<Bullet> bullets = new ArrayList<>();
-    private float health = 1f;
+    private float maxHealth = 1f;
+    private float health = maxHealth;
     private float attackNumberPerSecond = 4f;
     private float ultimateLoading = 0;
     private boolean atHome = true;
@@ -106,6 +107,7 @@ public class PlayableCharacter extends SolidObject {
         this.ultimate3Running = false;
 
         this.relativeJumpStrength = 0.013f;
+        this.maxHealth = 1f;
 
         if (this.classCharacter.equals(ClassCharacters.ANGELO)) {
             this.relativeWidth = 0.03f;
@@ -153,6 +155,7 @@ public class PlayableCharacter extends SolidObject {
             this.relativeMaxSpeed = 0.0055f;
             this.attackNumberPerSecond = 0f;
             this.relativeJumpStrength = 0.013f;
+            this.maxHealth = 1.5f;
         }
         else {
             this.ultimate1Running = true;
@@ -310,5 +313,9 @@ public class PlayableCharacter extends SolidObject {
 
     public void setClassCharacterChanged(boolean classCharacterChanged) {
         this.classCharacterChanged = classCharacterChanged;
+    }
+
+    public float getMaxHealth() {
+        return maxHealth;
     }
 }
