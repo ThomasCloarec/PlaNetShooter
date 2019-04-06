@@ -275,6 +275,7 @@ class MainClient {
         });
 
         gameFrame.getHomePanel().getChangeCharacterButton().addActionListener(e -> {
+            ultimateClick = false;
             playableCharacter.setClassCharacter(ClassCharacters.getClassCharactersList().get((ClassCharacters.getClassCharactersList().indexOf(playableCharacter.getClassCharacter()) + 1) % ClassCharacters.getClassCharactersList().size()));
             characterView.setClassCharacter(playableCharacter.getClassCharacter());
 
