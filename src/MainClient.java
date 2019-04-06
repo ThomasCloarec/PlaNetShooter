@@ -358,7 +358,7 @@ class MainClient {
                     }
 
                     if (ultimateClick) {
-                        if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) {
+                        if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO) || playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
                             if (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running()) {
                                 playableCharacter.ultimate1();
                                 characterView.ultimate1();

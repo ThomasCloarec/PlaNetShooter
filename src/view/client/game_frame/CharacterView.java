@@ -44,9 +44,6 @@ public class CharacterView {
             super(CharacterView.class.getResource(filename));
             characterIconWidth = this.getIconWidth();
             characterIconHeight = this.getIconHeight();
-            if (classCharacter.equals(ClassCharacters.ANGELO)) {
-                System.out.println("CHANGING CHARACTER ICON WIDTH AND HEIGHT : " +characterIconWidth+ "/" +characterIconHeight);
-            }
         }
 
         @Override
@@ -59,14 +56,6 @@ public class CharacterView {
             g2.scale(horizontal_direction*scaleWidthCharacter, scaleHeightCharacter);
             super.paintIcon(c, g2, x, y);
         }
-    }
-
-    public double getScaleWidthCharacter() {
-        return scaleWidthCharacter;
-    }
-
-    public double getScaleHeightCharacter() {
-        return scaleHeightCharacter;
     }
 
     float getRelativeX() {
@@ -134,17 +123,22 @@ public class CharacterView {
 
     public void ultimate1() {
         ultimate1Running = true;
-        characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/angelo/ultimate1.gif"));
+        if (classCharacter.equals(ClassCharacters.ANGELO) || classCharacter.equals(ClassCharacters.TATITATOO))
+            characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/ultimate1.gif"));
     }
 
     public void ultimate2() {
         ultimate2Running = true;
-        characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/angelo/ultimate2.gif"));
+        if (classCharacter.equals(ClassCharacters.ANGELO)) {
+            characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/ultimate2.gif"));
+        }
     }
 
     public void ultimate3() {
         ultimate3Running = true;
-        characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/angelo/ultimate3.gif"));
+        if (classCharacter.equals(ClassCharacters.ANGELO)) {
+            characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/ultimate3.gif"));
+        }
     }
 
     public double getHorizontal_direction() {

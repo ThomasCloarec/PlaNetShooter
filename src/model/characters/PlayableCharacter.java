@@ -9,7 +9,7 @@ import java.util.List;
 public class PlayableCharacter extends SolidObject {
     private final static int MAX_BULLET_NUMBER_PER_PLAYER = 10;
     private float relativeMaxSpeed = 0.004f;
-    private final float RELATIVE_SPEED_GROWTH = relativeMaxSpeed/10;
+    private float RELATIVE_SPEED_GROWTH = relativeMaxSpeed/10;
     private float relativeJumpStrength = 0.013f;
     private float relativeWidth = 0.04f;
     private float relativeHeight = 0.04f*768f/372f;
@@ -143,6 +143,16 @@ public class PlayableCharacter extends SolidObject {
             this.relativeJumpStrength = 0f;
             this.attackNumberPerSecond = 0f;
         }
+        else if (classCharacter.equals(ClassCharacters.TATITATOO)) {
+            this.ultimate1Running = true;
+            this.ultimate1DurationMillis = 10_000;
+            this.ultimate1StartTimeMillis = System.currentTimeMillis();
+            this.relativeWidth = 0.04f;
+            this.relativeHeight = 200f/200f * 0.04f * 768f/372f;
+            this.relativeMaxSpeed = 0.0055f;
+            this.attackNumberPerSecond = 0f;
+            this.relativeJumpStrength = 0.013f;
+        }
     }
 
     public void ultimate2() {
@@ -158,6 +168,11 @@ public class PlayableCharacter extends SolidObject {
             this.attackNumberPerSecond = 8f;
             this.relativeY += (140f/80f * 0.035f * 768f/372f - 76f/102f * 0.044f * 768f/372f);
         }
+        else if (classCharacter.equals(ClassCharacters.TATITATOO)) {
+            this.ultimate2Running = true;
+            this.ultimate2DurationMillis = 0;
+            this.ultimate2StartTimeMillis = System.currentTimeMillis();
+        }
     }
 
     public void ultimate3() {
@@ -172,6 +187,11 @@ public class PlayableCharacter extends SolidObject {
             this.relativeMaxSpeed = 0f;
             this.relativeJumpStrength = 0f;
             this.attackNumberPerSecond = 0f;
+        }
+        else if (classCharacter.equals(ClassCharacters.TATITATOO)) {
+            this.ultimate3Running = true;
+            this.ultimate3DurationMillis = 0;
+            this.ultimate3StartTimeMillis = System.currentTimeMillis();
         }
     }
 
