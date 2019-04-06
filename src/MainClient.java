@@ -580,21 +580,6 @@ class MainClient {
                         }
                     }
 
-                    for (PlayableCharacter playableCharacter : gameClient.getOtherPlayers()) {
-                        if (playableCharacter.isClassCharacterChanged()) {
-                            for (BulletView bulletView : gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getOtherPlayers().indexOf(playableCharacter)).getBulletsViews()) {
-                                try {
-                                    bulletView.setIcon("/view/resources/game/characters/" + playableCharacter.getClassCharacter().name().toLowerCase() + "/bullet.png");
-                                } catch (NullPointerException ex) {
-                                    System.err.println("Can't find \"/view/resources/game/characters/" + playableCharacter.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
-                                }
-                            }
-                            gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getOtherPlayers().indexOf(playableCharacter)).setClassCharacter(playableCharacter.getClassCharacter());
-
-                            playableCharacter.setClassCharacterChanged(false);
-                        }
-                    }
-
                     SwingUtilities.invokeLater(() -> {
                         for (Bullet bullet : playableCharacter.getBullets()) {
                             bullet.setRelativeX(bullet.getRelativeX() + bullet.getMovementX());
@@ -666,6 +651,20 @@ class MainClient {
     private static void otherPlayersPainting() {
         for (int i = 0; i < gameClient.getOtherPlayers().size(); i++) {
             if (gameFrame.getGamePanel().getOtherPlayersViews().size() > i) {
+                for (PlayableCharacter playableCharacter : gameClient.getOtherPlayers()) {
+                    if (playableCharacter.isClassCharacterChanged()) {
+                        for (BulletView bulletView : gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getOtherPlayers().indexOf(playableCharacter)).getBulletsViews()) {
+                            try {
+                                bulletView.setIcon("/view/resources/game/characters/" + playableCharacter.getClassCharacter().name().toLowerCase() + "/bullet.png");
+                            } catch (NullPointerException ex) {
+                                System.err.println("Can't find \"/view/resources/game/characters/" + playableCharacter.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
+                            }
+                        }
+                        gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getOtherPlayers().indexOf(playableCharacter)).setClassCharacter(playableCharacter.getClassCharacter());
+
+                        playableCharacter.setClassCharacterChanged(false);
+                    }
+                }
 
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHealth(gameClient.getOtherPlayers().get(i).getHealth());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHorizontal_direction(gameClient.getOtherPlayers().get(i).getHorizontal_direction());
@@ -724,6 +723,8 @@ class MainClient {
 
     private static void randomSpawn(){
         double RandSpawn = Math.random();
+        relativeMovementX = 0;
+        relativeMovementY = 0;
         if (RandSpawn  < 0.25){
             playableCharacter.setRelativeX(0.03f);
             playableCharacter.setRelativeY(0.95f - playableCharacter.getRelativeHeight() - 0.01f);
