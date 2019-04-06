@@ -11,13 +11,14 @@ import java.util.List;
 public class GameClient extends Client {
     private Network.RegisterList registerList;
     private final List<PlayableCharacter> otherPlayers = new ArrayList<>();
+    private static double connectingTimeout = 250;
 
     private int i = 0;
     public GameClient(String IPHost) throws IOException {
         super(16384, 2048);
         new Thread(this).start();
         Network.register(this);
-        this.connect(5000, IPHost, Network.getTcpPort(), Network.getUdpPort());
+        this.connect((int) Math.ceil(connectingTimeout), IPHost, Network.getTcpPort(), Network.getUdpPort());
         this.setTimeout(Integer.MAX_VALUE);
     }
 
@@ -146,5 +147,13 @@ public class GameClient extends Client {
 
     public List<PlayableCharacter> getOtherPlayers() {
         return otherPlayers;
+    }
+
+    public static double getConnectingTimeout() {
+        return connectingTimeout;
+    }
+
+    public static void setConnectingTimeout(double connectingTimeout) {
+        GameClient.connectingTimeout = connectingTimeout;
     }
 }

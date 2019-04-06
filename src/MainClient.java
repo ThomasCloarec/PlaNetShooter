@@ -19,7 +19,10 @@ import view.client.keyboard_actions.ReleaseAction;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.ConcurrentModificationException;
 import java.util.Set;
 import java.util.TreeSet;
@@ -64,75 +67,131 @@ class MainClient {
 
             launchGameLoop();
         }
-        else
+        else {
+            System.out.println("Server full. Closing client...");
             new ServerFullError();
+            System.out.println("Client closed");
+            System.exit(0);
+        }
+    }
+
+    private static void restartGame() throws IOException, URISyntaxException {
+        final String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
+        final File currentJar = new File(MainClient.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+
+        if(!currentJar.getName().endsWith(".jar"))
+            return;
+
+        final ArrayList<String> command = new ArrayList<>();
+        command.add(javaBin);
+        command.add("-jar");
+        command.add(currentJar.getPath());
+
+        final ProcessBuilder builder = new ProcessBuilder(command);
+        builder.start();
+        System.exit(0);
     }
 
     private static void launchGameClient() {
-        while(true) {
-            try {
-                serverIP = AskIPHost.getIPHost();
-                System.out.println("Connecting to the server...");
-                gameClient = new GameClient(serverIP);
-                break;
-            } catch (IOException e) {
-                System.out.println("No game server found with this IP on the network.");
-                AskIPHost.setGoBack(true);
+        boolean[] finalGameClientLaunched = {false};
+        Listener gameClientListener = null;
+
+        while (!finalGameClientLaunched[0]) {
+            if (gameClient != null) {
+                System.out.println("(" +((GameClient.getConnectingTimeout() / 2)/1000)+ "s timeout) Connecting failed. Trying again");
+
+                try {
+                    if (gameClientListener != null)
+                        gameClient.removeListener(gameClientListener);
+                    gameClient.reconnect((int) Math.ceil(GameClient.getConnectingTimeout()));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-        }
-
-        gameClient.addListener(new Listener() {
-            @Override
-            public void received(Connection connection, Object object) {
-                SwingUtilities.invokeLater(() -> {
-                    if (object instanceof Network.RemoveName) {
-                        Network.RemoveName removeName = (Network.RemoveName) object;
-
-                        for (BulletView bulletView : gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getBulletsViews()) {
-                            gameFrame.getGamePanel().remove(bulletView.getBulletLabel());
-                        }
-
-                        if (gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getCharacterLabel().getParent() != null)
-                            gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getCharacterLabel());
-
-                        gameFrame.getGamePanel().getOtherPlayersViews().remove(gameClient.getRegisterList().getNameList().indexOf(removeName.name));
-
+            else {
+                while (gameClient == null || AskIPHost.isGoBack()) {
+                    try {
+                        serverIP = AskIPHost.getIPHost();
+                        System.out.println("Connecting to the server...");
+                        gameClient = new GameClient(serverIP);
+                        break;
+                    } catch (IOException e) {
+                        System.out.println("No game server found with this IP on the network.");
+                        AskIPHost.setGoBack(true);
                     }
-                    if (object instanceof Network.Hit) {
-                        if ((!playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) || (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running())) {
-                            Network.Hit hit = (Network.Hit) object;
-                            playableCharacter.setHealth(playableCharacter.getHealth() - hit.getDamage() / playableCharacter.getMaxHealth());
-                            if (playableCharacter.getHealth() <= 0) {
-                                randomSpawn();
-                                playableCharacter.setHealth(1);
+                }
+            }
+            gameClientListener = new Listener() {
+                @Override
+                public void received(Connection connection, Object object) {
+                    SwingUtilities.invokeLater(() -> {
+                        if (finalGameClientLaunched[0]) {
+                            if (object instanceof Network.RemoveName) {
+                                Network.RemoveName removeName = (Network.RemoveName) object;
+
+                                for (BulletView bulletView : gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getBulletsViews()) {
+                                    gameFrame.getGamePanel().remove(bulletView.getBulletLabel());
+                                }
+
+                                if (gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getCharacterLabel().getParent() != null)
+                                    gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getCharacterLabel());
+
+                                gameFrame.getGamePanel().getOtherPlayersViews().remove(gameClient.getRegisterList().getNameList().indexOf(removeName.name));
+
+                            }
+                            if (object instanceof Network.Hit) {
+                                if ((!playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) || (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running())) {
+                                    Network.Hit hit = (Network.Hit) object;
+                                    playableCharacter.setHealth(playableCharacter.getHealth() - hit.getDamage() / playableCharacter.getMaxHealth());
+                                    if (playableCharacter.getHealth() <= 0) {
+                                        randomSpawn();
+                                        playableCharacter.setHealth(1);
+                                    }
+                                }
                             }
                         }
-                    }
-                    gameClient.receivedListener(object);
-                });
-            }
-
-            @Override
-            public void disconnected (Connection connection) {
-                System.out.println("You are disconnected !\nServer closed.");
-                System.exit(1);
-            }
-        });
-
-       clientName = "P1";
-
-        while (true) {
-            if (gameClient.getRegisterList() != null) {
-                if (gameClient.getRegisterList().getNameList().size() == 10) {
-                    gameServerFull = true;
+                        gameClient.receivedListener(object);
+                    });
                 }
-                else {
-                    while (gameClient.getRegisterList().getNameList().contains(clientName)) {
-                        clientName = "P" + (Integer.parseInt(String.valueOf(clientName.charAt(clientName.length()-1)))+1);
+
+                @Override
+                public void disconnected(Connection connection) {
+                    if (finalGameClientLaunched[0]) {
+                        System.out.println("You are disconnected !\nServer closed.");
+                        System.exit(1);
                     }
-                    gameClient.connectedListener(clientName);
                 }
-                break;
+            };
+            gameClient.addListener(gameClientListener);
+
+            clientName = "P1";
+
+            long startGetRegisterList = System.currentTimeMillis();
+            while (true) {
+                if (gameClient.getRegisterList() != null) {
+                    if (gameClient.getRegisterList().getNameList().size() == 10) {
+                        gameServerFull = true;
+                    } else {
+                        while (gameClient.getRegisterList().getNameList().contains(clientName)) {
+                            clientName = "P" + (Integer.parseInt(String.valueOf(clientName.charAt(clientName.length() - 1))) + 1);
+                        }
+                        gameClient.connectedListener(clientName);
+                    }
+                    finalGameClientLaunched[0] = true;
+                    break;
+                } else {
+                    if (System.currentTimeMillis() - GameClient.getConnectingTimeout() > startGetRegisterList) {
+                        GameClient.setConnectingTimeout(GameClient.getConnectingTimeout() * 2);
+                        if (GameClient.getConnectingTimeout() >= 4000) {
+                            try {
+                                restartGame();
+                            } catch (IOException | URISyntaxException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                        break;
+                    }
+                }
             }
         }
     }
@@ -361,10 +420,6 @@ class MainClient {
                                 playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
                                 characterView.setClassCharacter(playableCharacter.getClassCharacter());
 
-                                if (playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) {
-                                    playableCharacter.setRelativeX(playableCharacter.getRelativeX() + (0.045f - 0.04f));
-                                    playableCharacter.setRelativeY(playableCharacter.getRelativeY() + (0.045f * 768f / 372f - 0.04f * 768f / 372f));
-                                }
                                 ultimateClick = false;
                             }
                         }

@@ -102,9 +102,6 @@ public class PlayableCharacter extends SolidObject {
 
     public void setClassCharacter(ClassCharacters classCharacter) {
         this.classCharacter = classCharacter;
-        this.ultimate1Running = false;
-        this.ultimate2Running = false;
-        this.ultimate3Running = false;
 
         this.relativeJumpStrength = 0.013f;
         this.maxHealth = 1f;
@@ -126,6 +123,11 @@ public class PlayableCharacter extends SolidObject {
             this.relativeHeight = 200f / 200f * 0.04f * 768f / 372f;
             this.relativeMaxSpeed = 0.004f;
             this.attackNumberPerSecond = 3f;
+
+            if (!(ultimate1Running && ultimate2Running && ultimate3Running)) {
+                this.relativeX += 0.045f - 0.04f;
+                this.relativeY += 0.044f * 768f / 372f - 0.04f * 768f / 372f;
+            }
         }
         else {
             this.relativeWidth = 0.04f;
@@ -133,6 +135,10 @@ public class PlayableCharacter extends SolidObject {
             this.relativeMaxSpeed = 0.004f;
             this.attackNumberPerSecond = 4f;
         }
+
+        this.ultimate1Running = false;
+        this.ultimate2Running = false;
+        this.ultimate3Running = false;
     }
 
     public void ultimate1() {
@@ -155,13 +161,13 @@ public class PlayableCharacter extends SolidObject {
         }
         else if (classCharacter.equals(ClassCharacters.MEDUSO)) {
             this.ultimate1DurationMillis = 2420;
-            this.relativeWidth = 0.045f;
-            this.relativeHeight = 200f/200f * 0.045f * 768f/372f;
+            this.relativeWidth = 0.05f;
+            this.relativeHeight = 200f/200f * 0.044f * 768f/372f;
             this.relativeMaxSpeed = 0.004f;
             this.attackNumberPerSecond = 0f;
             this.relativeJumpStrength = 0.013f;
             this.relativeX -= (0.045f - 0.04f);
-            this.relativeY -= (0.045f * 768f/372f - 0.04f * 768f/372f);
+            this.relativeY -= (0.044f * 768f/372f - 0.04f * 768f/372f);
         }
         else {
             this.ultimate1DurationMillis = 0;

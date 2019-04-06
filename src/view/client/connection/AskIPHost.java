@@ -34,4 +34,8 @@ public class AskIPHost extends JOptionPane {
     public static void setGoBack(boolean goBack) {
         AskIPHost.goBack = goBack;
     }
+
+    public static boolean isGoBack() {
+        return goBack;
+    }
 }
