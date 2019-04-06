@@ -171,6 +171,7 @@ public class PlayableCharacter extends SolidObject {
         }
         else if (classCharacter.equals(ClassCharacters.TATITATOO)) {
             this.ultimate2Running = true;
+            this.ultimate1Running = false;
             this.ultimate2DurationMillis = 0;
             this.ultimate2StartTimeMillis = System.currentTimeMillis();
         }
@@ -191,6 +192,7 @@ public class PlayableCharacter extends SolidObject {
         }
         else if (classCharacter.equals(ClassCharacters.TATITATOO)) {
             this.ultimate3Running = true;
+            this.ultimate2Running = false;
             this.ultimate3DurationMillis = 0;
             this.ultimate3StartTimeMillis = System.currentTimeMillis();
         }
