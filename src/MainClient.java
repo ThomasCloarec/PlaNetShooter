@@ -820,18 +820,34 @@ class MainClient {
         if (RandSpawn  < 0.25){
             playableCharacter.setRelativeX(0.03f);
             playableCharacter.setRelativeY(0.95f - playableCharacter.getRelativeHeight() - 0.01f);
+            playableCharacter.setHorizontal_direction(-1);
+            characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
+            playableCharacter.setHorizontal_direction(0);
+            characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
         }
         else if (RandSpawn > 0.25 & RandSpawn < 0.50){
             playableCharacter.setRelativeX(0.03f);
             playableCharacter.setRelativeY(0.65f - playableCharacter.getRelativeHeight() - 0.01f);
+            playableCharacter.setHorizontal_direction(-1);
+            characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
+            playableCharacter.setHorizontal_direction(0);
+            characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
         }
         else if (RandSpawn > 0.50 & RandSpawn < 0.75){
             playableCharacter.setRelativeX(0.91f);
             playableCharacter.setRelativeY(0.95f - playableCharacter.getRelativeHeight() - 0.01f);
+            playableCharacter.setHorizontal_direction(1);
+            characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
+            playableCharacter.setHorizontal_direction(0);
+            characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
         }
         else if (RandSpawn > 0.75){
             playableCharacter.setRelativeX(0.91f);
             playableCharacter.setRelativeY(0.65f - playableCharacter.getRelativeHeight() - 0.01f);
+            playableCharacter.setHorizontal_direction(1);
+            characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
+            playableCharacter.setHorizontal_direction(0);
+            characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
         }
     }
 }
