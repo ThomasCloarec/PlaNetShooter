@@ -565,18 +565,8 @@ class MainClient {
                             }
                         }
                         playableCharacter.setRelativeY(playableCharacter.getRelativeY() + 0.005f);
-
-                        for (Platform platform : platforms) {
-                            collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM);
-                            if (collisionOnBottom) {
-                                break;
-                            }
-                        }
+                        collisionOnBottom = true;
                     }
-
-                    /*if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO) && playableCharacter.isUltimate1Running()){
-                        playableCharacter.setRelativeY(playableCharacter.getRelativeY() + 0.005f * 768f / 372f);
-                    }*/
 
                     if (readyToFire) {
                         if (System.currentTimeMillis() - lastShot > 1000f / playableCharacter.getAttackNumberPerSecond()) {
@@ -724,7 +714,12 @@ class MainClient {
                     characterView.setUltimate2Running(playableCharacter.isUltimate2Running());
                     characterView.setUltimate3Running(playableCharacter.isUltimate3Running());
                     characterView.setRelativeX(playableCharacter.getRelativeX());
+
+                    if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO) && playableCharacter.isUltimate1Running())
+                        playableCharacter.setRelativeY(playableCharacter.getRelativeY() + 0.0075f);
+
                     characterView.setRelativeY(playableCharacter.getRelativeY());
+
                     characterView.setRelativeWidth(playableCharacter.getRelativeWidth());
                     characterView.setRelativeHeight(playableCharacter.getRelativeHeight());
 
@@ -732,6 +727,9 @@ class MainClient {
                         otherPlayersPainting();
                         gameFrame.getGamePanel().repaint();
                     });
+
+                    if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO) && playableCharacter.isUltimate1Running())
+                        playableCharacter.setRelativeY(playableCharacter.getRelativeY() - 0.0075f);
 
                     if (IS_UNIX_OS)
                         Toolkit.getDefaultToolkit().sync();
