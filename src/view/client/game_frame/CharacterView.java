@@ -27,12 +27,14 @@ public class CharacterView {
     private boolean ultimate1Running = false;
     private boolean ultimate2Running = false;
     private boolean ultimate3Running = false;
+    private String name;
 
-    public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, @SuppressWarnings("unused") String name, ClassCharacters classCharacter, float health) {
+    public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name, ClassCharacters classCharacter, float health) {
         this.relativeX = relativeX;
         this.relativeY = relativeY;
         this.relativeWidth = relativeWidth;
         this.relativeHeight = relativeHeight;
+        this.name = name;
         this.classCharacter = classCharacter;
         this.health = health;
         this.runCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/run.gif");
@@ -203,5 +205,9 @@ public class CharacterView {
 
     public boolean isUltimate3Running() {
         return ultimate3Running;
+    }
+
+    public String getName() {
+        return name;
     }
 }
