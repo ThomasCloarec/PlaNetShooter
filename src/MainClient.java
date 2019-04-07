@@ -431,8 +431,6 @@ class MainClient {
                         playableCharacter.setUltimateLoading(0f);
                     }
 
-                    gameClient.sendPlayerInformation(playableCharacter);
-                    gameClient.sendBulletsInformation(playableCharacter);
                     collisionOnTop = false;
                     collisionOnBottom = false;
                     collisionOnRight = false;
@@ -722,6 +720,9 @@ class MainClient {
 
                     characterView.setRelativeWidth(playableCharacter.getRelativeWidth());
                     characterView.setRelativeHeight(playableCharacter.getRelativeHeight());
+
+                    gameClient.sendPlayerInformation(playableCharacter);
+                    gameClient.sendBulletsInformation(playableCharacter);
 
                     SwingUtilities.invokeLater(() -> {
                         otherPlayersPainting();
