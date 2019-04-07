@@ -59,7 +59,7 @@ public class GameClient extends Client {
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setUltimateLoading(playableCharacter.getUltimateLoading());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setHealth(playableCharacter.getHealth());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setName(playableCharacter.getName());
-                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setHorizontal_direction(playableCharacter.getHorizontal_direction());
+                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setHorizontalDirection(playableCharacter.getHorizontalDirection());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setAtHome(playableCharacter.isAtHome());
 
                         if (!otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).isUltimate1Running() && playableCharacter.isUltimate1Running())
@@ -111,7 +111,7 @@ public class GameClient extends Client {
         characterCopy.setUltimateLoading(character.getUltimateLoading());
         characterCopy.setHealth(character.getHealth());
         characterCopy.setName(character.getName());
-        characterCopy.setHorizontal_direction(character.getHorizontal_direction());
+        characterCopy.setHorizontalDirection(character.getHorizontalDirection());
         characterCopy.setAtHome(character.isAtHome());
         characterCopy.setUltimate1Running(character.isUltimate1Running());
         characterCopy.setUltimate2Running(character.isUltimate2Running());

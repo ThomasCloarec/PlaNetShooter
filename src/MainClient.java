@@ -394,8 +394,8 @@ class MainClient {
                         releaseActionRight.removeMovements();
                     }
 
-                    playableCharacter.setHorizontal_direction(-totalDirection);
-                    characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
+                    playableCharacter.setHorizontalDirection(-totalDirection);
+                    characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
 
                     if (!playableCharacter.isAtHome()) {
                         if (playableCharacter.getUltimateLoading() >= 1f - playableCharacter.getUltimateLoadingPerSecond() / 60f)
@@ -581,7 +581,7 @@ class MainClient {
                                     bullet.setRelativeHeight(0.012f * 768f / 372f);
                                     bullet.setDamage(0.25f);
                                     lastShot = System.currentTimeMillis();
-                                    bullet.setRelativeX(playableCharacter.getRelativeX() + ((float) -characterView.getHorizontal_direction() + 1) * playableCharacter.getRelativeWidth() / 2f);
+                                    bullet.setRelativeX(playableCharacter.getRelativeX() + ((float) -characterView.getHorizontalDirection() + 1) * playableCharacter.getRelativeWidth() / 2f);
                                     bullet.setRelativeY(playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() / 2 - bullet.getRelativeHeight() / 2);
                                     bullet.setBulletRangeRatio(100);
 
@@ -619,7 +619,7 @@ class MainClient {
                                     bullet.setSpeed(0.0075f);
                                 }
 
-                                float relativeBulletStartX = playableCharacter.getRelativeX() + ((float) -characterView.getHorizontal_direction() + 1) * playableCharacter.getRelativeWidth() / 2f;
+                                float relativeBulletStartX = playableCharacter.getRelativeX() + ((float) -characterView.getHorizontalDirection() + 1) * playableCharacter.getRelativeWidth() / 2f;
                                 float relativeBulletStartY = playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() / 2f - bullet.getRelativeHeight() / 2f;
                                 bullet.setRelativeBulletStartX(relativeBulletStartX);
                                 bullet.setRelativeBulletStartY(relativeBulletStartY);
@@ -759,7 +759,7 @@ class MainClient {
                 }
 
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHealth(gameClient.getOtherPlayers().get(i).getHealth());
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHorizontal_direction(gameClient.getOtherPlayers().get(i).getHorizontal_direction());
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHorizontalDirection(gameClient.getOtherPlayers().get(i).getHorizontalDirection());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setUltimateLoading(gameClient.getOtherPlayers().get(i).getUltimateLoading());
 
                 if (gameClient.getOtherPlayers().get(i).isUltimate1Running() && !gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate1Running()) {
@@ -820,34 +820,34 @@ class MainClient {
         if (RandSpawn  < 0.25){
             playableCharacter.setRelativeX(0.03f);
             playableCharacter.setRelativeY(0.95f - playableCharacter.getRelativeHeight() - 0.01f);
-            playableCharacter.setHorizontal_direction(-1);
-            characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
-            playableCharacter.setHorizontal_direction(0);
-            characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
+            playableCharacter.setHorizontalDirection(-1);
+            characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
+            playableCharacter.setHorizontalDirection(0);
+            characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
         }
         else if (RandSpawn > 0.25 & RandSpawn < 0.50){
             playableCharacter.setRelativeX(0.03f);
             playableCharacter.setRelativeY(0.65f - playableCharacter.getRelativeHeight() - 0.01f);
-            playableCharacter.setHorizontal_direction(-1);
-            characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
-            playableCharacter.setHorizontal_direction(0);
-            characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
+            playableCharacter.setHorizontalDirection(-1);
+            characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
+            playableCharacter.setHorizontalDirection(0);
+            characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
         }
         else if (RandSpawn > 0.50 & RandSpawn < 0.75){
             playableCharacter.setRelativeX(0.91f);
             playableCharacter.setRelativeY(0.95f - playableCharacter.getRelativeHeight() - 0.01f);
-            playableCharacter.setHorizontal_direction(1);
-            characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
-            playableCharacter.setHorizontal_direction(0);
-            characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
+            playableCharacter.setHorizontalDirection(1);
+            characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
+            playableCharacter.setHorizontalDirection(0);
+            characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
         }
         else if (RandSpawn > 0.75){
             playableCharacter.setRelativeX(0.91f);
             playableCharacter.setRelativeY(0.65f - playableCharacter.getRelativeHeight() - 0.01f);
-            playableCharacter.setHorizontal_direction(1);
-            characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
-            playableCharacter.setHorizontal_direction(0);
-            characterView.setHorizontal_direction(playableCharacter.getHorizontal_direction());
+            playableCharacter.setHorizontalDirection(1);
+            characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
+            playableCharacter.setHorizontalDirection(0);
+            characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
         }
     }
 }

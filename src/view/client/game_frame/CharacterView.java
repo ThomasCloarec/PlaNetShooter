@@ -18,7 +18,7 @@ public class CharacterView {
     private double scaleHeightCharacter = 0;
     private double scaleWidthName = 0;
     private double scaleHeightName = 0;
-    private double horizontal_direction = 1;
+    private double horizontalDirection = 1;
     private ClassCharacters classCharacter;
     private final List<BulletView> bulletsViews = new ArrayList<>();
     private float health;
@@ -46,23 +46,8 @@ public class CharacterView {
         nameLabel.setIcon(nameCharacterIcon);
     }
 
-    class CharacterIcon extends ImageIcon {
-        CharacterIcon(String filename) {
-            super(CharacterView.class.getResource(filename));
-            characterIconWidth = this.getIconWidth();
-            characterIconHeight = this.getIconHeight();
-        }
-
-        @Override
-        public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
-            Graphics2D g2 = (Graphics2D) g.create();
-            if(horizontal_direction == -1) {
-                g2.translate(getIconWidth(), 0);
-            }
-
-            g2.scale(horizontal_direction*scaleWidthCharacter, scaleHeightCharacter);
-            super.paintIcon(c, g2, x, y);
-        }
+    public double getHorizontalDirection() {
+        return horizontalDirection;
     }
 
     float getNameIconWidth() {
@@ -132,19 +117,19 @@ public class CharacterView {
         return nameIconHeight;
     }
 
-    public void setHorizontal_direction(double horizontal_direction) {
-        if (horizontal_direction == 0 && classCharacter.equals(ClassCharacters.TATITATOO) && ultimate1Running) {
+    public void setHorizontalDirection(double horizontalDirection) {
+        if (horizontalDirection == 0 && classCharacter.equals(ClassCharacters.TATITATOO) && ultimate1Running) {
             characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/tatitatoo/idle_ultimate1.png"));
-        } else if (horizontal_direction != 0 && classCharacter.equals(ClassCharacters.TATITATOO) && ultimate1Running) {
+        } else if (horizontalDirection != 0 && classCharacter.equals(ClassCharacters.TATITATOO) && ultimate1Running) {
             characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/tatitatoo/ultimate1.gif"));
         }
 
-        if (horizontal_direction != 0) {
-            this.horizontal_direction = horizontal_direction;
+        if (horizontalDirection != 0) {
+            this.horizontalDirection = horizontalDirection;
         }
 
         if (!ultimate1Running && !ultimate2Running && !ultimate3Running) {
-            if (horizontal_direction != 0) {
+            if (horizontalDirection != 0) {
                 characterLabel.setIcon(runCharacterIcon);
             } else {
                 characterLabel.setIcon(idleCharacterIcon);
@@ -182,8 +167,23 @@ public class CharacterView {
         }
     }
 
-    public double getHorizontal_direction() {
-        return horizontal_direction;
+    class CharacterIcon extends ImageIcon {
+        CharacterIcon(String filename) {
+            super(CharacterView.class.getResource(filename));
+            characterIconWidth = this.getIconWidth();
+            characterIconHeight = this.getIconHeight();
+        }
+
+        @Override
+        public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            if (horizontalDirection == -1) {
+                g2.translate(getIconWidth(), 0);
+            }
+
+            g2.scale(horizontalDirection * scaleWidthCharacter, scaleHeightCharacter);
+            super.paintIcon(c, g2, x, y);
+        }
     }
 
     public List<BulletView> getBulletsViews() {

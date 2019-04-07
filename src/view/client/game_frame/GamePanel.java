@@ -67,7 +67,7 @@ public class GamePanel extends JPanel {
                     this.revalidate();
                 }
 
-                if (characterView.getHorizontal_direction() == -1) {
+                if (characterView.getHorizontalDirection() == -1) {
                     characterView.getCharacterLabel().setLocation((int) ((characterView.getRelativeX() - characterView.getRelativeWidth() / characterView.getScaleWidthCharacter() + characterView.getRelativeWidth()) * this.getWidth()), (int) ((characterView.getRelativeY()) * this.getHeight()));
                 } else
                     characterView.getCharacterLabel().setLocation((int) (characterView.getRelativeX() * this.getWidth()), (int) ((characterView.getRelativeY()) * this.getHeight()));
@@ -119,7 +119,7 @@ public class GamePanel extends JPanel {
                         this.revalidate();
                     }
 
-                    if (otherPlayerView.getHorizontal_direction() == -1) {
+                    if (otherPlayerView.getHorizontalDirection() == -1) {
                         otherPlayerView.getCharacterLabel().setLocation((int) ((otherPlayerView.getRelativeX() - otherPlayerView.getRelativeWidth() / otherPlayerView.getScaleWidthCharacter() + otherPlayerView.getRelativeWidth()) * this.getWidth()), (int) ((otherPlayerView.getRelativeY()) * this.getHeight()));
                     } else
                         otherPlayerView.getCharacterLabel().setLocation((int) (otherPlayerView.getRelativeX() * this.getWidth()), (int) ((otherPlayerView.getRelativeY()) * this.getHeight()));
