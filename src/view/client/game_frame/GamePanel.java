@@ -68,10 +68,17 @@ public class GamePanel extends JPanel {
                     this.revalidate();
                 }
 
+                if (characterView.getNameLabel().getParent() == null) {
+                    this.add(characterView.getNameLabel());
+                    this.revalidate();
+                }
+
                 if (characterView.getHorizontal_direction() == -1) {
                     characterView.getCharacterLabel().setLocation((int) ((characterView.getRelativeX() - characterView.getRelativeWidth() / characterView.scaleWidthCharacter + characterView.getRelativeWidth()) * this.getWidth()), (int) ((characterView.getRelativeY()) * this.getHeight()));
                 } else
                     characterView.getCharacterLabel().setLocation((int) (characterView.getRelativeX() * this.getWidth()), (int) ((characterView.getRelativeY()) * this.getHeight()));
+
+                characterView.getNameLabel().setLocation((int) ((characterView.getRelativeX() - characterView.getRelativeWidth() / characterView.scaleWidthCharacter + characterView.getRelativeWidth()) * this.getWidth()), (int) ((characterView.getRelativeY()) * this.getHeight()));
             }
 
             for (BulletView bulletView : Objects.requireNonNull(characterView).getBulletsViews()) {
@@ -119,10 +126,18 @@ public class GamePanel extends JPanel {
                         this.add(otherPlayerView.getCharacterLabel());
                         this.revalidate();
                     }
+
+                    if (otherPlayerView.getNameLabel().getParent() == null) {
+                        this.add(otherPlayerView.getNameLabel());
+                        this.revalidate();
+                    }
+
                     if (otherPlayerView.getHorizontal_direction() == -1) {
                         otherPlayerView.getCharacterLabel().setLocation((int) ((otherPlayerView.getRelativeX() - otherPlayerView.getRelativeWidth() / otherPlayerView.scaleWidthCharacter + otherPlayerView.getRelativeWidth()) * this.getWidth()), (int) ((otherPlayerView.getRelativeY()) * this.getHeight()));
                     } else
                         otherPlayerView.getCharacterLabel().setLocation((int) (otherPlayerView.getRelativeX() * this.getWidth()), (int) ((otherPlayerView.getRelativeY()) * this.getHeight()));
+
+                    otherPlayerView.getNameLabel().setLocation((int) ((otherPlayerView.getRelativeX() - otherPlayerView.getRelativeWidth() / otherPlayerView.scaleWidthCharacter + otherPlayerView.getRelativeWidth()) * this.getWidth()), (int) ((otherPlayerView.getRelativeY()) * this.getHeight()));
 
                     g.setColor(new Color(255,0,28, 51));
                     g.fillRect((int)(otherPlayerView.getRelativeX()*this.getWidth()), (int)(otherPlayerView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(otherPlayerView.getRelativeWidth()*this.getWidth()*otherPlayerView.getHealth()*0.8f), (int)(0.01f*this.getHeight()));

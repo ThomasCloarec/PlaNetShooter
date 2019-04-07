@@ -43,7 +43,8 @@ public class CharacterView {
         this.health = health;
         this.runCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/run.gif");
         this.idleCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif");
-        this.nameCharacterIcon = new CharacterIcon("/view/resources/game/names/" + name + ".png");
+        this.nameCharacterIcon = new NameIcon("/view/resources/game/names/" + name + ".png");
+        nameLabel.setIcon(nameCharacterIcon);
     }
 
     class CharacterIcon extends ImageIcon {
@@ -62,6 +63,19 @@ public class CharacterView {
 
             g2.scale(horizontal_direction*scaleWidthCharacter, scaleHeightCharacter);
             super.paintIcon(c, g2, x, y);
+        }
+    }
+
+    class NameIcon extends ImageIcon {
+        NameIcon(String filename) {
+            super(CharacterView.class.getResource(filename));
+            nameIconWidth = this.getIconWidth();
+            nameIconHeight = this.getIconHeight();
+        }
+
+        @Override
+        public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
+            super.paintIcon(c, g, x, y);
         }
     }
 
@@ -178,19 +192,6 @@ public class CharacterView {
 
     public float getNameIconHeight() {
         return nameIconHeight;
-    }
-
-    class NameIcon extends ImageIcon {
-        NameIcon(String filename) {
-            super(CharacterView.class.getResource(filename));
-            nameIconWidth = this.getIconWidth();
-            nameIconHeight = this.getIconHeight();
-        }
-
-        @Override
-        public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
-            super.paintIcon(c, g, x, y);
-        }
     }
 
     public ClassCharacters getClassCharacter() {
