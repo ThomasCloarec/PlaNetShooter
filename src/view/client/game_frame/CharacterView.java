@@ -13,6 +13,7 @@ public class CharacterView {
     private float relativeWidth;
     private float relativeHeight;
     private final JLabel characterLabel = new JLabel();
+    private final JLabel nameLabel = new JLabel();
     double scaleWidthCharacter = 0;
     private double scaleHeightCharacter = 0;
     private double horizontal_direction = 1;
@@ -21,8 +22,11 @@ public class CharacterView {
     private float health;
     private float characterIconWidth;
     private float characterIconHeight;
+    private float nameIconWidth;
+    private float nameIconHeight;
     private Icon runCharacterIcon;
     private Icon idleCharacterIcon;
+    private Icon nameCharacterIcon;
     private float ultimateLoading = 0;
     private boolean ultimate1Running = false;
     private boolean ultimate2Running = false;
@@ -39,6 +43,7 @@ public class CharacterView {
         this.health = health;
         this.runCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/run.gif");
         this.idleCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif");
+        this.nameCharacterIcon = new CharacterIcon("/view/resources/game/names/" + name + ".png");
     }
 
     class CharacterIcon extends ImageIcon {
@@ -58,6 +63,10 @@ public class CharacterView {
             g2.scale(horizontal_direction*scaleWidthCharacter, scaleHeightCharacter);
             super.paintIcon(c, g2, x, y);
         }
+    }
+
+    public JLabel getNameLabel() {
+        return nameLabel;
     }
 
     public float getRelativeX() {
@@ -86,6 +95,10 @@ public class CharacterView {
 
     public JLabel getCharacterLabel() {
         return characterLabel;
+    }
+
+    public float getNameIconWidth() {
+        return nameIconWidth;
     }
 
     void setScaleWidthCharacter(double scaleWidthCharacter) {
@@ -161,6 +174,23 @@ public class CharacterView {
 
     float getCharacterIconHeight() {
         return characterIconHeight;
+    }
+
+    public float getNameIconHeight() {
+        return nameIconHeight;
+    }
+
+    class NameIcon extends ImageIcon {
+        NameIcon(String filename) {
+            super(CharacterView.class.getResource(filename));
+            nameIconWidth = this.getIconWidth();
+            nameIconHeight = this.getIconHeight();
+        }
+
+        @Override
+        public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
+            super.paintIcon(c, g, x, y);
+        }
     }
 
     public ClassCharacters getClassCharacter() {
