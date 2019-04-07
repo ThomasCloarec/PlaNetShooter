@@ -9,6 +9,7 @@ public class TrampolineView extends SolidObject {
     TrampolineView() {
     }
 
+    @SuppressWarnings("unused")
     public TrampolineView(float playableCharacterRelativeX) {
     }
 

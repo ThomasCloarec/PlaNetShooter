@@ -156,16 +156,13 @@ public class PlayableCharacter extends SolidObject {
             this.relativeHeight = 200f/200f * 0.04f * 768f/372f;
             this.relativeMaxSpeed = 0.0055f;
             this.attackNumberPerSecond = 0f;
-            this.relativeJumpStrength = 0.013f;
             this.maxHealth = 1.5f;
         }
         else if (classCharacter.equals(ClassCharacters.MEDUSO)) {
             this.ultimate1DurationMillis = 2420;
             this.relativeWidth = 0.05f;
             this.relativeHeight = 200f/200f * 0.044f * 768f/372f;
-            this.relativeMaxSpeed = 0.004f;
-            this.attackNumberPerSecond = 0f;
-            this.relativeJumpStrength = 0.013f;
+            this.attackNumberPerSecond = 1.5f;
             this.relativeX -= (0.045f - 0.04f);
             this.relativeY -= (0.044f * 768f/372f - 0.04f * 768f/372f);
         }
@@ -181,8 +178,6 @@ public class PlayableCharacter extends SolidObject {
             this.ultimate2DurationMillis = 10_000;
             this.relativeWidth = 0.0386f;
             this.relativeHeight = 76f/102f * 0.044f * 768f/372f;
-            this.relativeMaxSpeed = 0f;
-            this.relativeJumpStrength = 0f;
             this.attackNumberPerSecond = 8f;
             this.relativeY += (140f/80f * 0.035f * 768f/372f - 76f/102f * 0.044f * 768f/372f);
         }
@@ -190,9 +185,6 @@ public class PlayableCharacter extends SolidObject {
             this.ultimate2DurationMillis = 0;
             this.relativeWidth = 0.045f;
             this.relativeHeight = 200f / 200f * 0.045f * 768f / 372f;
-            this.relativeMaxSpeed = 0.004f;
-            this.attackNumberPerSecond = 0f;
-            this.relativeJumpStrength = 0.013f;
         }
         else {
             this.ultimate2DurationMillis = 0;
@@ -208,17 +200,11 @@ public class PlayableCharacter extends SolidObject {
             this.relativeWidth = 0.0386f;
             this.relativeHeight = 140f/80f * 0.035f * 768f/372f;
             this.relativeY -= (140f/80f * 0.035f * 768f/372f - 76f/102f * 0.044f * 768f/372f);
-            this.relativeMaxSpeed = 0f;
-            this.relativeJumpStrength = 0f;
-            this.attackNumberPerSecond = 0f;
         }
         else if (classCharacter.equals(ClassCharacters.MEDUSO)) {
             this.ultimate3DurationMillis = 1100;
             this.relativeWidth = 0.045f;
             this.relativeHeight = 200f/200f * 0.045f * 768f/372f;
-            this.relativeMaxSpeed = 0.004f;
-            this.attackNumberPerSecond = 0f;
-            this.relativeJumpStrength = 0.013f;
         }
         else {
             this.ultimate3DurationMillis = 0;

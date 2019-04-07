@@ -564,6 +564,7 @@ class MainClient {
                         if (System.currentTimeMillis() - lastShot > 1000f / playableCharacter.getAttackNumberPerSecond()) {
                             if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
                                 if (playableCharacter.isUltimate1Running()) {
+                                    //noinspection StatementWithEmptyBody
                                     if (collisionOnBottom) {
                                         // Create trampoline
                                     }
