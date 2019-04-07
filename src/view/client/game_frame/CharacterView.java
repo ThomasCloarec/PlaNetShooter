@@ -14,8 +14,10 @@ public class CharacterView {
     private float relativeHeight;
     private final JLabel characterLabel = new JLabel();
     private final JLabel nameLabel = new JLabel();
-    double scaleWidthCharacter = 0;
+    private double scaleWidthCharacter = 0;
     private double scaleHeightCharacter = 0;
+    private double scaleWidthName = 0;
+    private double scaleHeightName = 0;
     private double horizontal_direction = 1;
     private ClassCharacters classCharacter;
     private final List<BulletView> bulletsViews = new ArrayList<>();
@@ -26,24 +28,21 @@ public class CharacterView {
     private float nameIconHeight;
     private Icon runCharacterIcon;
     private Icon idleCharacterIcon;
-    private Icon nameCharacterIcon;
     private float ultimateLoading = 0;
     private boolean ultimate1Running = false;
     private boolean ultimate2Running = false;
     private boolean ultimate3Running = false;
-    private String name;
 
     public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name, ClassCharacters classCharacter, float health) {
         this.relativeX = relativeX;
         this.relativeY = relativeY;
         this.relativeWidth = relativeWidth;
         this.relativeHeight = relativeHeight;
-        this.name = name;
         this.classCharacter = classCharacter;
         this.health = health;
         this.runCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/run.gif");
         this.idleCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif");
-        this.nameCharacterIcon = new NameIcon("/view/resources/game/names/" + name + ".png");
+        Icon nameCharacterIcon = new NameIcon("/view/resources/game/names/" + name + ".png");
         nameLabel.setIcon(nameCharacterIcon);
     }
 
@@ -66,17 +65,8 @@ public class CharacterView {
         }
     }
 
-    class NameIcon extends ImageIcon {
-        NameIcon(String filename) {
-            super(CharacterView.class.getResource(filename));
-            nameIconWidth = this.getIconWidth();
-            nameIconHeight = this.getIconHeight();
-        }
-
-        @Override
-        public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
-            super.paintIcon(c, g, x, y);
-        }
+    float getNameIconWidth() {
+        return nameIconWidth;
     }
 
     public JLabel getNameLabel() {
@@ -111,8 +101,8 @@ public class CharacterView {
         return characterLabel;
     }
 
-    public float getNameIconWidth() {
-        return nameIconWidth;
+    double getScaleWidthCharacter() {
+        return scaleWidthCharacter;
     }
 
     void setScaleWidthCharacter(double scaleWidthCharacter) {
@@ -120,6 +110,26 @@ public class CharacterView {
     }
     void setScaleHeightCharacter(double scaleHeightCharacter) {
         this.scaleHeightCharacter = scaleHeightCharacter;
+    }
+
+    double getScaleWidthName() {
+        return scaleWidthName;
+    }
+
+    void setScaleWidthName(double scaleWidthName) {
+        this.scaleWidthName = scaleWidthName;
+    }
+
+    double getScaleHeightName() {
+        return scaleHeightName;
+    }
+
+    void setScaleHeightName(double scaleHeightName) {
+        this.scaleHeightName = scaleHeightName;
+    }
+
+    float getNameIconHeight() {
+        return nameIconHeight;
     }
 
     public void setHorizontal_direction(double horizontal_direction) {
@@ -190,8 +200,19 @@ public class CharacterView {
         return characterIconHeight;
     }
 
-    public float getNameIconHeight() {
-        return nameIconHeight;
+    class NameIcon extends ImageIcon {
+        NameIcon(String filename) {
+            super(CharacterView.class.getResource(filename));
+            nameIconWidth = this.getIconWidth();
+            nameIconHeight = this.getIconHeight();
+        }
+
+        @Override
+        public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.scale(scaleWidthName, scaleHeightName);
+            super.paintIcon(c, g2, x, y);
+        }
     }
 
     public ClassCharacters getClassCharacter() {
@@ -236,9 +257,5 @@ public class CharacterView {
 
     public boolean isUltimate3Running() {
         return ultimate3Running;
-    }
-
-    public String getName() {
-        return name;
     }
 }
