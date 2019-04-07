@@ -574,8 +574,8 @@ class MainClient {
                                     bullet.setRelativeHeight(0.012f * 768f / 372f);
                                     bullet.setDamage(0.25f);
                                     lastShot = System.currentTimeMillis();
-                                    bullet.setRelativeX(playableCharacter.getRelativeX());
-                                    bullet.setRelativeY(playableCharacter.getRelativeY());
+                                    bullet.setRelativeX(playableCharacter.getRelativeX() + ((float) -characterView.getHorizontal_direction() + 1) * playableCharacter.getRelativeWidth() / 2f);
+                                    bullet.setRelativeY(playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() / 2 - bullet.getRelativeHeight() / 2);
                                     bullet.setBulletRangeRatio(100);
 
                                     for (Platform platform : platforms) {
