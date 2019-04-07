@@ -133,6 +133,12 @@ public class CharacterView {
     }
 
     public void setHorizontal_direction(double horizontal_direction) {
+        if (horizontal_direction == 0 && classCharacter.equals(ClassCharacters.TATITATOO) && ultimate1Running) {
+            characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/tatitatoo/idle_ultimate1.png"));
+        } else if (horizontal_direction != 0 && classCharacter.equals(ClassCharacters.TATITATOO) && ultimate1Running) {
+            characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/tatitatoo/ultimate1.gif"));
+        }
+
         if (horizontal_direction != 0) {
             this.horizontal_direction = horizontal_direction;
         }

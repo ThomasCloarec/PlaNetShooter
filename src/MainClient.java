@@ -425,8 +425,7 @@ class MainClient {
 
                                 ultimateClick = false;
                             }
-                        }
-                        else {
+                        } else {
                             ultimateClick = false;
                         }
                         playableCharacter.setUltimateLoading(0f);
@@ -470,8 +469,7 @@ class MainClient {
                                 relativeMovementY = -0.005f;
                                 relativeMovementX = -0.003f;
 
-                            }
-                            else if (playableCharacter.getRelativeX() <= 0.61f) {
+                            } else if (playableCharacter.getRelativeX() <= 0.61f) {
                                 playerOnRightYodel = false;
                                 yodelDetection = false;
                                 relativeMovementY = -0.01f;
@@ -485,20 +483,17 @@ class MainClient {
                                 relativeMovementY = -0.005f;
                                 relativeMovementX = 0.003f;
 
-                            }
-                            else if (playableCharacter.getRelativeX() >= 0.35f) {
+                            } else if (playableCharacter.getRelativeX() >= 0.35f) {
                                 playerOnLeftYodel = false;
                                 yodelDetection = false;
                                 relativeMovementY = -0.01f;
                                 relativeMovementX = 0.005f;
                             }
                         }
-                    }
-                    else if ((!CollisionDetection.isCollisionBetween(playableCharacter, new TrampolineView(playableCharacter.getRelativeX())).equals(PlayerCollisionSide.NONE))){
+                    } else if ((!CollisionDetection.isCollisionBetween(playableCharacter, new TrampolineView(playableCharacter.getRelativeX())).equals(PlayerCollisionSide.NONE))) {
                         playableCharacter.setRelativeY(0.655f);
                         relativeMovementY = -0.017f;
-                    }
-                        else {
+                    } else {
                         if ((collisionOnRight && relativeMovementX > 0) || (collisionOnLeft && relativeMovementX < 0))
                             relativeMovementX = 0;
 
@@ -519,8 +514,8 @@ class MainClient {
                             if (totalDirection == 1 && relativeMovementX < playableCharacter.getRelativeMaxSpeed())
                                 relativeMovementX += playableCharacter.getRelativeSpeedGrowth() / 2;
                             else if (totalDirection == -1 && relativeMovementX > -playableCharacter.getRelativeMaxSpeed())
-                                    relativeMovementX -= playableCharacter.getRelativeSpeedGrowth() / 2;
-                                else {
+                                relativeMovementX -= playableCharacter.getRelativeSpeedGrowth() / 2;
+                            else {
                                 if (Math.abs(relativeMovementX) < Terrain.getRelativeFriction() / 10)
                                     relativeMovementX = 0;
                                 else if (relativeMovementX > 0)
@@ -532,20 +527,8 @@ class MainClient {
                         }
 
                         if (collisionOnBottom) {
-                            if (jumpKeyJustPressed && playableCharacter.getRelativeJumpStrength() > 0.001f) {
-                                while (collisionOnBottom) {
-                                    playableCharacter.setRelativeY(playableCharacter.getRelativeY() - playableCharacter.getRelativeJumpStrength());
-
-                                    for (Platform platform : platforms) {
-                                        collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM);
-                                        if (collisionOnBottom) {
-                                            break;
-                                        }
-                                    }
-                                }
+                            if (jumpKeyJustPressed && playableCharacter.getRelativeJumpStrength() > 0.0001f) {
                                 relativeMovementY = -playableCharacter.getRelativeJumpStrength();
-                                playableCharacter.setRelativeY(playableCharacter.getRelativeY() + playableCharacter.getRelativeJumpStrength());
-
                                 jumpKeyJustPressed = false;
                             } else if (relativeMovementY > 0)
                                 relativeMovementY = 0;
@@ -562,6 +545,38 @@ class MainClient {
                         playableCharacter.setRelativeX(playableCharacter.getRelativeX() + relativeMovementX);
                         playableCharacter.setRelativeY(playableCharacter.getRelativeY() + relativeMovementY);
                     }
+
+                    for (Platform platform : platforms) {
+                        collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM);
+                        if (collisionOnBottom) {
+                            break;
+                        }
+                    }
+
+                    if (collisionOnBottom) {
+                        while (collisionOnBottom) {
+                            playableCharacter.setRelativeY(playableCharacter.getRelativeY() - 0.005f);
+
+                            for (Platform platform : platforms) {
+                                collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM);
+                                if (collisionOnBottom) {
+                                    break;
+                                }
+                            }
+                        }
+                        playableCharacter.setRelativeY(playableCharacter.getRelativeY() + 0.005f);
+
+                        for (Platform platform : platforms) {
+                            collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM);
+                            if (collisionOnBottom) {
+                                break;
+                            }
+                        }
+                    }
+
+                    /*if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO) && playableCharacter.isUltimate1Running()){
+                        playableCharacter.setRelativeY(playableCharacter.getRelativeY() + 0.005f * 768f / 372f);
+                    }*/
 
                     if (readyToFire) {
                         if (System.currentTimeMillis() - lastShot > 1000f / playableCharacter.getAttackNumberPerSecond()) {
