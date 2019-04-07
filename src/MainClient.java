@@ -759,6 +759,7 @@ class MainClient {
                 }
 
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHealth(gameClient.getOtherPlayers().get(i).getHealth());
+                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHorizontalDirection(gameClient.getOtherPlayers().get(i).getLastHorizontalDirection());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHorizontalDirection(gameClient.getOtherPlayers().get(i).getHorizontalDirection());
                 gameFrame.getGamePanel().getOtherPlayersViews().get(i).setUltimateLoading(gameClient.getOtherPlayers().get(i).getUltimateLoading());
 
@@ -808,6 +809,7 @@ class MainClient {
                 for (int j = 0; j < PlayableCharacter.getMaxBulletNumberPerPlayer(); j++) {
                     characterView.getBulletsViews().add(new BulletView(0,0,0,0));
                 }
+                characterView.setHorizontalDirection(gameClient.getOtherPlayers().get(i).getLastHorizontalDirection());
                 gameFrame.getGamePanel().getOtherPlayersViews().add(characterView);
             }
         }

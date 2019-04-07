@@ -18,6 +18,7 @@ public class PlayableCharacter extends SolidObject {
     private float relativeY = 0.1f;
     private String name;
     private double horizontalDirection = 1;
+    private double lastHorizontalDirection;
     private List<Bullet> bullets = new ArrayList<>();
     private float maxHealth = 1f;
     private float health = maxHealth;
@@ -222,7 +223,19 @@ public class PlayableCharacter extends SolidObject {
     }
 
     public void setHorizontalDirection(double horizontalDirection) {
+        if (horizontalDirection != 0) {
+            lastHorizontalDirection = horizontalDirection;
+        }
+
         this.horizontalDirection = horizontalDirection;
+    }
+
+    public double getLastHorizontalDirection() {
+        return lastHorizontalDirection;
+    }
+
+    public void setLastHorizontalDirection(double lastHorizontalDirection) {
+        this.lastHorizontalDirection = lastHorizontalDirection;
     }
 
     public List<Bullet> getBullets() {

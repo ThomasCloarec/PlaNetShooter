@@ -60,6 +60,7 @@ public class GameClient extends Client {
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setHealth(playableCharacter.getHealth());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setName(playableCharacter.getName());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setHorizontalDirection(playableCharacter.getHorizontalDirection());
+                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setLastHorizontalDirection(playableCharacter.getLastHorizontalDirection());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setAtHome(playableCharacter.isAtHome());
 
                         if (!otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).isUltimate1Running() && playableCharacter.isUltimate1Running())
@@ -87,6 +88,7 @@ public class GameClient extends Client {
                             playableCharacter.getBullets().add(bullet);
                         }
 
+                        playableCharacter.setHorizontalDirection(playableCharacter.getLastHorizontalDirection());
                         otherPlayers.add(playableCharacter);
                     }
                 }
@@ -120,6 +122,7 @@ public class GameClient extends Client {
         characterCopy.setRelativeY(character.getRelativeY());
         characterCopy.setRelativeWidth(character.getRelativeWidth());
         characterCopy.setRelativeHeight(character.getRelativeHeight());
+        characterCopy.setLastHorizontalDirection(character.getLastHorizontalDirection());
 
         this.sendUDP(characterCopy);
     }
