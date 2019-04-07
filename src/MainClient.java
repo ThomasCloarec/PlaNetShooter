@@ -112,11 +112,11 @@ class MainClient {
                 while (gameClient == null || AskIPHost.isGoBack()) {
                     try {
                         serverIP = AskIPHost.getIPHost();
-                        System.out.println("Connecting to the server...");
+                        System.out.println("\nConnecting to the server... (" + serverIP + ")");
                         gameClient = new GameClient(serverIP);
                         break;
                     } catch (IOException e) {
-                        System.out.println("No game server found with this IP on the network.");
+                        System.out.println("No game server found with this IP on the network");
                         AskIPHost.setGoBack(true);
                     }
                 }
@@ -157,7 +157,7 @@ class MainClient {
                 @Override
                 public void disconnected(Connection connection) {
                     if (finalGameClientLaunched[0]) {
-                        System.out.println("You are disconnected !\nServer closed.");
+                        System.out.println("You are disconnected !\nServer closed");
                         System.exit(1);
                     }
                 }
@@ -169,11 +169,11 @@ class MainClient {
             long startGetRegisterList = System.currentTimeMillis();
             while (true) {
                 if (gameClient.getRegisterList() != null) {
-                    if (gameClient.getRegisterList().getNameList().size() == 10) {
+                    if (gameClient.getRegisterList().getNameList().size() == 20) {
                         gameServerFull = true;
                     } else {
                         while (gameClient.getRegisterList().getNameList().contains(clientName)) {
-                            clientName = "P" + (Integer.parseInt(String.valueOf(clientName.charAt(clientName.length() - 1))) + 1);
+                            clientName = "P" + (Integer.parseInt(clientName.substring(1)) + 1);
                         }
                         gameClient.connectedListener(clientName);
                     }
@@ -181,7 +181,6 @@ class MainClient {
                     break;
                 } else {
                     if (System.currentTimeMillis() - GameClient.getConnectingTimeout() > startGetRegisterList) {
-                        GameClient.setConnectingTimeout(GameClient.getConnectingTimeout() * 2);
                         if (GameClient.getConnectingTimeout() >= 4000) {
                             try {
                                 restartGame();
@@ -189,6 +188,7 @@ class MainClient {
                                 e.printStackTrace();
                             }
                         }
+                        GameClient.setConnectingTimeout(GameClient.getConnectingTimeout() * 2);
                         break;
                     }
                 }
@@ -563,38 +563,41 @@ class MainClient {
                     if (readyToFire) {
                         if (System.currentTimeMillis() - lastShot > 1000f / playableCharacter.getAttackNumberPerSecond()) {
                             if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
-                                Bullet bullet = new Bullet();
-
-                                bullet.setRelativeWidth(0.012f);
-                                bullet.setRelativeHeight(0.012f * 768f / 372f);
-                                bullet.setDamage(0.25f);
-                                lastShot = System.currentTimeMillis();
-                                bullet.setRelativeX(playableCharacter.getRelativeX());
-                                bullet.setRelativeY(playableCharacter.getRelativeY());
-                                bullet.setBulletRangeRatio(100);
-
-                                for (Platform platform : platforms) {
-                                    if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.NONE)) {
-                                        float bulletMovementY = 0.005f;
-                                        bullet.setMovementY(bulletMovementY);
-                                        break;
-                                    } else {
-                                        float bulletMovementY = 0f;
-                                        bullet.setMovementY(bulletMovementY);
-
-
+                                if (playableCharacter.isUltimate1Running()) {
+                                    if (collisionOnBottom) {
+                                        // Create trampoline
                                     }
-                                }
+                                } else {
+                                    Bullet bullet = new Bullet();
 
-                                SwingUtilities.invokeLater(() -> {
-                                    for (Bullet bullet1 : playableCharacter.getBullets()) {
-                                        if (bullet1.getRelativeWidth() == 0 && bullet1.getRelativeHeight() == 0) {
-                                            playableCharacter.getBullets().set(playableCharacter.getBullets().indexOf(bullet1), bullet);
+                                    bullet.setRelativeWidth(0.012f);
+                                    bullet.setRelativeHeight(0.012f * 768f / 372f);
+                                    bullet.setDamage(0.25f);
+                                    lastShot = System.currentTimeMillis();
+                                    bullet.setRelativeX(playableCharacter.getRelativeX());
+                                    bullet.setRelativeY(playableCharacter.getRelativeY());
+                                    bullet.setBulletRangeRatio(100);
+
+                                    for (Platform platform : platforms) {
+                                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.NONE)) {
+                                            float bulletMovementY = 0.005f;
+                                            bullet.setMovementY(bulletMovementY);
                                             break;
+                                        } else {
+                                            float bulletMovementY = 0f;
+                                            bullet.setMovementY(bulletMovementY);
                                         }
                                     }
-                                });
 
+                                    SwingUtilities.invokeLater(() -> {
+                                        for (Bullet bullet1 : playableCharacter.getBullets()) {
+                                            if (bullet1.getRelativeWidth() == 0 && bullet1.getRelativeHeight() == 0) {
+                                                playableCharacter.getBullets().set(playableCharacter.getBullets().indexOf(bullet1), bullet);
+                                                break;
+                                            }
+                                        }
+                                    });
+                                }
                             } else {
                                 Bullet bullet = new Bullet();
 

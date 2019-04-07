@@ -41,7 +41,7 @@ class MainServer {
         serverFrame.addWindowListener(new WindowAdapter() {
             public void windowClosed (WindowEvent evt) {
                 gameServer.stop();
-                System.out.println("Server closed.");
+                System.out.println("Server closed");
             }
         });
 

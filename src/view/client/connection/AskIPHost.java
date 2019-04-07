@@ -22,7 +22,7 @@ public class AskIPHost extends JOptionPane {
 
             if (!(IPAddressValidator.validate(input.trim()) || input.trim().equals("localhost"))) {
                 messageBeginning = "(\"" + input.trim() + "\" is not a valid IP) -> ";
-                System.out.println("The IP is not valid");
+                System.out.println("\n\"" + input.trim() + "\" is not a valid IP");
             }
 
             goBack = false;

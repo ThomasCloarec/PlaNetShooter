@@ -115,21 +115,25 @@ public class CharacterView {
 
     public void ultimate1() {
         ultimate1Running = true;
-        if (classCharacter.equals(ClassCharacters.ANGELO) || classCharacter.equals(ClassCharacters.TATITATOO) || classCharacter.equals(ClassCharacters.MEDUSO))
+        try {
             characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/ultimate1.gif"));
+        } catch (NullPointerException ignored) {
+        }
     }
 
     public void ultimate2() {
         ultimate2Running = true;
-        if (classCharacter.equals(ClassCharacters.ANGELO) || classCharacter.equals(ClassCharacters.MEDUSO)) {
+        try {
             characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/ultimate2.gif"));
+        } catch (NullPointerException ignored) {
         }
     }
 
     public void ultimate3() {
         ultimate3Running = true;
-        if (classCharacter.equals(ClassCharacters.ANGELO) || classCharacter.equals(ClassCharacters.MEDUSO)) {
+        try {
             characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/ultimate3.gif"));
+        } catch (NullPointerException ignored) {
         }
     }
 
