@@ -820,9 +820,9 @@ class MainClient {
         double RandSpawn = Math.random();
         relativeMovementX = 0;
         relativeMovementY = 0;
+        ultimateClick = false;
         playableCharacter.setClassCharacter(characterView.getClassCharacter());
         characterView.setClassCharacter(playableCharacter.getClassCharacter());
-        ultimateClick = false;
 
         if (RandSpawn  < 0.25){
             playableCharacter.setRelativeX(0.03f);
