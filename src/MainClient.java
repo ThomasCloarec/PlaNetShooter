@@ -771,8 +771,9 @@ class MainClient {
                 }
                 else if (gameClient.getOtherPlayers().get(i).isUltimate3Running() && !gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate3Running()) {
                     gameFrame.getGamePanel().getOtherPlayersViews().get(i).ultimate3();
-                }
-                else if (!gameClient.getOtherPlayers().get(i).isUltimate3Running() && gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate3Running()) {
+                } else if ((!gameClient.getOtherPlayers().get(i).isUltimate3Running() && gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate3Running())
+                        || (!gameClient.getOtherPlayers().get(i).isUltimate3Running() && !gameClient.getOtherPlayers().get(i).isUltimate2Running() && gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate2Running())
+                        || (!gameClient.getOtherPlayers().get(i).isUltimate3Running() && !gameClient.getOtherPlayers().get(i).isUltimate2Running() && !gameClient.getOtherPlayers().get(i).isUltimate1Running() && gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate1Running())) {
                     gameFrame.getGamePanel().getOtherPlayersViews().get(i).setClassCharacter(gameClient.getOtherPlayers().get(i).getClassCharacter());
                 }
 
@@ -819,6 +820,10 @@ class MainClient {
         double RandSpawn = Math.random();
         relativeMovementX = 0;
         relativeMovementY = 0;
+        playableCharacter.setClassCharacter(characterView.getClassCharacter());
+        characterView.setClassCharacter(playableCharacter.getClassCharacter());
+        ultimateClick = false;
+
         if (RandSpawn  < 0.25){
             playableCharacter.setRelativeX(0.03f);
             playableCharacter.setRelativeY(0.95f - playableCharacter.getRelativeHeight() - 0.01f);
