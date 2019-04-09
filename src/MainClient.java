@@ -821,6 +821,8 @@ class MainClient {
         relativeMovementX = 0;
         relativeMovementY = 0;
         ultimateClick = false;
+        playableCharacter.setHealth(1);
+        playableCharacter.setUltimateLoading(0);
         playableCharacter.setClassCharacter(characterView.getClassCharacter());
         characterView.setClassCharacter(playableCharacter.getClassCharacter());
 
