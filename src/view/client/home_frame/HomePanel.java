@@ -36,7 +36,7 @@ public class HomePanel extends JPanel {
 
         leftPanel.setBackground(Color.gray);
         JLabel jLabel = new JLabel();
-        jLabel.setIcon(new ArrayIcon("/view/resources/game/names/P?.png"));
+        jLabel.setIcon(new ArrayIcon("/view/resources/game/names/P_unknow.png"));
         jLabel.setBorder(new CompoundBorder(
                 BorderFactory.createMatteBorder(1, 1, 1, 0, Color.ORANGE),
                 BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)));
@@ -48,19 +48,19 @@ public class HomePanel extends JPanel {
                 BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)));
         leftPanel.add(jLabel2);
         JLabel jLabel3 = new JLabel();
-        jLabel3.setIcon(new ArrayIcon("/view/resources/game/names/P?.png"));
+        jLabel3.setIcon(new ArrayIcon("/view/resources/game/names/P_unknow.png"));
         jLabel3.setBorder(new CompoundBorder(
                 BorderFactory.createMatteBorder(1, 0, 1, 0, Color.ORANGE),
                 BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)));
         leftPanel.add(jLabel3);
         JLabel jLabel4 = new JLabel();
-        jLabel4.setIcon(new ArrayIcon("/view/resources/game/names/P?.png"));
+        jLabel4.setIcon(new ArrayIcon("/view/resources/game/names/P_unknow.png"));
         jLabel4.setBorder(new CompoundBorder(
                 BorderFactory.createMatteBorder(1, 0, 1, 0, Color.ORANGE),
                 BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)));
         leftPanel.add(jLabel4);
         JLabel jLabel5 = new JLabel();
-        jLabel5.setIcon(new ArrayIcon("/view/resources/game/names/P?.png"));
+        jLabel5.setIcon(new ArrayIcon("/view/resources/game/names/P_unknow.png"));
         jLabel5.setBorder(new CompoundBorder(
                 BorderFactory.createMatteBorder(1, 0, 1, 1, Color.ORANGE),
                 BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)));

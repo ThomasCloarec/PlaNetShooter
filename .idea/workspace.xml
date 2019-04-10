@@ -7,9 +7,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69852263-13d6-4002-be51-1cde4d96d645" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="69852263-13d6-4002-be51-1cde4d96d645" name="Default Changelist" comment="" />
     <ignored path="$PROJECT_DIR$/target/" />
     <ignored path="Lien vers characters/" />
     <ignored mask="Lien vers characters" />
@@ -159,8 +157,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/view/client/home_frame/HomePanel.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="291">
-              <caret line="38" selection-start-line="38" selection-end-line="38" />
+            <state relative-caret-position="186">
+              <caret line="31" column="2" lean-forward="true" selection-start-line="31" selection-start-column="2" selection-end-line="31" selection-end-column="2" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -421,13 +419,6 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1552598369586</updated>
-    </task>
-    <task id="LOCAL-00084" summary="Tatitatoo is now doing damages with bombs">
-      <created>1554325938341</created>
-      <option name="number" value="00084" />
-      <option name="presentableId" value="LOCAL-00084" />
-      <option name="project" value="LOCAL" />
-      <updated>1554325938349</updated>
     </task>
     <task id="LOCAL-00085" summary="Minor change (Adjust lines)">
       <created>1554326073476</created>
@@ -765,14 +756,20 @@
       <option name="project" value="LOCAL" />
       <updated>1554937001078</updated>
     </task>
-    <option name="localTasksCounter" value="133" />
+    <task id="LOCAL-00133" summary="Minor improvement">
+      <created>1554937380036</created>
+      <option name="number" value="00133" />
+      <option name="presentableId" value="LOCAL-00133" />
+      <option name="project" value="LOCAL" />
+      <updated>1554937380036</updated>
+    </task>
+    <option name="localTasksCounter" value="134" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" id="Repositories" visible="true" weight="0.32982844" />
+      <window_info id="Repositories" weight="0.32982844" />
       <window_info content_ui="combo" id="Project" order="0" weight="0.5124516" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
@@ -789,7 +786,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.4969563" weight="0.32829374" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5019369" side_tool="true" weight="0.32829374" />
-      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4980631" visible="true" weight="0.32937366" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="9" sideWeight="0.4980631" visible="true" weight="0.32937366" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32937366" />
       <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.32937366" />
       <window_info anchor="bottom" id="Analyze Dataflow to" order="12" weight="0.32937366" />
@@ -866,13 +863,13 @@
     <MESSAGE value="Improve centerPanel of Home" />
     <MESSAGE value="Add images" />
     <MESSAGE value="Preparing players array" />
-    <MESSAGE value="Minor improvement" />
     <MESSAGE value="Begun home array" />
     <MESSAGE value="Try (not working version)" />
     <MESSAGE value="Fix everything from the past hour" />
     <MESSAGE value="Merge branch 'master' into HEAD&#10;&#10;# Conflicts:&#10;#&#9;out/Client-PlaNetShooter.jar&#10;#&#9;out/Server-PlaNetShooter.jar&#10;#&#9;src/MainClient.java&#10;#&#9;src/view/client/home_frame/HomePanel.java&#10;#&#9;src/view/resources/home/faces/monk_face.png&#10;#&#9;src/view/resources/home/labels/monk_label.png" />
     <MESSAGE value="Add mystery face" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add mystery face" />
+    <MESSAGE value="Minor improvement" />
+    <option name="LAST_COMMIT_MESSAGE" value="Minor improvement" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
@@ -1311,8 +1308,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/view/client/home_frame/HomePanel.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="291">
-          <caret line="38" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="186">
+          <caret line="31" column="2" lean-forward="true" selection-start-line="31" selection-start-column="2" selection-end-line="31" selection-end-column="2" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
