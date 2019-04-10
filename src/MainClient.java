@@ -812,8 +812,7 @@ class MainClient {
         }
     }
 
-    private static void randomSpawn(){
-        double RandSpawn = Math.random();
+    private static void randomSpawn() {
         relativeMovementX = 0;
         relativeMovementY = 0;
         ultimateClick = false;
@@ -825,37 +824,49 @@ class MainClient {
         playableCharacter.setClassCharacter(characterView.getClassCharacter());
         characterView.setClassCharacter(playableCharacter.getClassCharacter());
 
-        if (RandSpawn  < 0.25){
-            playableCharacter.setRelativeX(0.03f);
-            playableCharacter.setRelativeY(0.95f - playableCharacter.getRelativeHeight() - 0.01f);
-            playableCharacter.setHorizontalDirection(-1);
-            characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
-            playableCharacter.setHorizontalDirection(0);
-            characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
-        }
-        else if (RandSpawn > 0.25 & RandSpawn < 0.50){
-            playableCharacter.setRelativeX(0.03f);
-            playableCharacter.setRelativeY(0.65f - playableCharacter.getRelativeHeight() - 0.01f);
-            playableCharacter.setHorizontalDirection(-1);
-            characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
-            playableCharacter.setHorizontalDirection(0);
-            characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
-        }
-        else if (RandSpawn > 0.50 & RandSpawn < 0.75){
-            playableCharacter.setRelativeX(0.91f);
-            playableCharacter.setRelativeY(0.95f - playableCharacter.getRelativeHeight() - 0.01f);
-            playableCharacter.setHorizontalDirection(1);
-            characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
-            playableCharacter.setHorizontalDirection(0);
-            characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
-        }
-        else if (RandSpawn > 0.75){
-            playableCharacter.setRelativeX(0.91f);
-            playableCharacter.setRelativeY(0.65f - playableCharacter.getRelativeHeight() - 0.01f);
-            playableCharacter.setHorizontalDirection(1);
-            characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
-            playableCharacter.setHorizontalDirection(0);
-            characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
+        while (true) {
+            double RandSpawn = Math.random();
+            if (RandSpawn < 0.25) {
+                if (CollisionDetection.isCollisionBetween(platforms[0], playableCharacter).equals(PlayerCollisionSide.NONE)) {
+                    playableCharacter.setRelativeX(0.03f);
+                    playableCharacter.setRelativeY(0.95f - playableCharacter.getRelativeHeight() - 0.01f);
+                    playableCharacter.setHorizontalDirection(-1);
+                    characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
+                    playableCharacter.setHorizontalDirection(0);
+                    characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
+                    break;
+                }
+            } else if (RandSpawn > 0.25 & RandSpawn < 0.50) {
+                if (CollisionDetection.isCollisionBetween(platforms[1], playableCharacter).equals(PlayerCollisionSide.NONE)) {
+                    playableCharacter.setRelativeX(0.03f);
+                    playableCharacter.setRelativeY(0.65f - playableCharacter.getRelativeHeight() - 0.01f);
+                    playableCharacter.setHorizontalDirection(-1);
+                    characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
+                    playableCharacter.setHorizontalDirection(0);
+                    characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
+                    break;
+                }
+            } else if (RandSpawn > 0.50 & RandSpawn < 0.75) {
+                if (CollisionDetection.isCollisionBetween(platforms[8], playableCharacter).equals(PlayerCollisionSide.NONE)) {
+                    playableCharacter.setRelativeX(0.91f);
+                    playableCharacter.setRelativeY(0.95f - playableCharacter.getRelativeHeight() - 0.01f);
+                    playableCharacter.setHorizontalDirection(1);
+                    characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
+                    playableCharacter.setHorizontalDirection(0);
+                    characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
+                    break;
+                }
+            } else if (RandSpawn > 0.75 && CollisionDetection.isCollisionBetween(platforms[7], playableCharacter).equals(PlayerCollisionSide.NONE)) {
+                if (CollisionDetection.isCollisionBetween(platforms[7], playableCharacter).equals(PlayerCollisionSide.NONE)) {
+                    playableCharacter.setRelativeX(0.91f);
+                    playableCharacter.setRelativeY(0.65f - playableCharacter.getRelativeHeight() - 0.01f);
+                    playableCharacter.setHorizontalDirection(1);
+                    characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
+                    playableCharacter.setHorizontalDirection(0);
+                    characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
+                    break;
+                }
+            }
         }
     }
 }
