@@ -4,4 +4,4 @@
 .DS_STORE
 
 target/
-ideaworkspace.xml
+idea/workspace.xml
