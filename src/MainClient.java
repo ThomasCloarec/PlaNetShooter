@@ -331,7 +331,7 @@ class MainClient {
             }
         });
 
-        gameFrame.getHomePanel().getBackToGameButton().addActionListener(e -> {
+        gameFrame.getHomePanel().getPlayButton().addActionListener(e -> {
             gameFrame.getCardLayout().next(gameFrame.getContentPane());
             gameFrame.getGamePanel().requestFocus();
             playableCharacter.setAtHome(false);

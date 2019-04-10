@@ -8,7 +8,7 @@ import java.awt.*;
 public class HomePanel extends JPanel {
     private final JButton changeCharacterButton = new JButton("Change character");
     private final JLabel characterLabel = new JLabel();
-    private final JButton backToGameButton = new JButton("Back to game");
+    private final JButton playButton = new JButton();
 
     private final JPanel leftPanel = new JPanel(null);
     private final JPanel centerPanel = new JPanel(null);
@@ -16,6 +16,8 @@ public class HomePanel extends JPanel {
 
     private int characterIconWidth;
     private int characterIconHeight;
+    private int playIconWidth;
+    private int playIconHeight;
 
     public HomePanel() {
         super();
@@ -24,7 +26,8 @@ public class HomePanel extends JPanel {
         this.setLayout(null);
 
         changeCharacterButton.setFocusPainted(false);
-        backToGameButton.setFocusPainted(false);
+        playButton.setFocusPainted(false);
+        playButton.setIcon(new PlayIcon("/view/resources/home/buttons/play.png"));
 
         leftPanel.setBackground(Color.gray);
         this.add(leftPanel);
@@ -32,7 +35,7 @@ public class HomePanel extends JPanel {
         centerPanel.setBackground(Color.gray);
         centerPanel.add(changeCharacterButton);
         centerPanel.add(characterLabel);
-        centerPanel.add(backToGameButton);
+        centerPanel.add(playButton);
         this.add(centerPanel);
 
         rightPanel.setBackground(Color.gray);
@@ -56,6 +59,12 @@ public class HomePanel extends JPanel {
         }
     }
 
+    private void drawCenterPanel(int marginY) {
+        changeCharacterButton.setBounds(0, 0, centerPanel.getWidth(), (int) (1f / 4f * centerPanel.getHeight()) - marginY);
+        characterLabel.setBounds(0, (int) (1f / 4f * centerPanel.getHeight()), centerPanel.getWidth(), (int) (2f / 4f * centerPanel.getHeight()));
+        playButton.setBounds(0, marginY + centerPanel.getHeight() - (int) (1f / 4f * centerPanel.getHeight()), centerPanel.getWidth(), (int) (1f / 4f * centerPanel.getHeight()) - marginY);
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -76,18 +85,29 @@ public class HomePanel extends JPanel {
     private void drawLeftPanel() {
     }
 
-    private void drawCenterPanel(int marginY) {
-        changeCharacterButton.setBounds(0, 0, centerPanel.getWidth(), (int)(1f / 4f * centerPanel.getHeight()) - marginY);
-        characterLabel.setBounds(0, (int)(1f / 4f * centerPanel.getHeight()), centerPanel.getWidth(), (int)(2f / 4f * centerPanel.getHeight()));
-        backToGameButton.setBounds(0, marginY + centerPanel.getHeight() - (int)(1f / 4f * centerPanel.getHeight()), centerPanel.getWidth(), (int)(1f / 4f * centerPanel.getHeight()) - marginY);
+    public JButton getPlayButton() {
+        return playButton;
     }
 
     @SuppressWarnings("EmptyMethod")
     private void drawRightPanel() {
     }
 
-    public JButton getBackToGameButton() {
-        return backToGameButton;
+    private class PlayIcon extends ImageIcon {
+        PlayIcon(String filename) {
+            super(HomePanel.class.getResource(filename));
+            playIconWidth = this.getIconWidth();
+            playIconHeight = this.getIconHeight();
+        }
+
+        @Override
+        public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.scale((float) (playButton.getWidth()) / (float) (playIconWidth), (float) (playButton.getHeight()) / (float) (playIconHeight));
+            x = 0;
+            y = 0;
+            super.paintIcon(c, g2, x, y);
+        }
     }
 
     public JButton getChangeCharacterButton() {
