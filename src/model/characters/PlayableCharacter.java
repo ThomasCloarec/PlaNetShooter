@@ -163,7 +163,7 @@ public class PlayableCharacter extends SolidObject {
             this.ultimate1DurationMillis = 660;
             this.relativeWidth = 0.05f;
             this.relativeHeight = 200f/200f * 0.044f * 768f/372f;
-            this.attackNumberPerSecond = 0f;
+            this.attackNumberPerSecond = 1f;
             this.relativeX -= (0.045f - 0.04f);
             this.relativeY -= (0.044f * 768f/372f - 0.04f * 768f/372f);
         }
@@ -208,7 +208,7 @@ public class PlayableCharacter extends SolidObject {
             this.ultimate3DurationMillis = 1100;
             this.relativeWidth = 0.045f;
             this.relativeHeight = 200f/200f * 0.045f * 768f/372f;
-            this.attackNumberPerSecond = 0f;
+            this.attackNumberPerSecond = 1f;
         }
         else {
             this.ultimate3DurationMillis = 0;

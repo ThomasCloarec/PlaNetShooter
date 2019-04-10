@@ -611,8 +611,13 @@ class MainClient {
                                     bullet.setDamage(0.15f);
                                 }
                                 if (playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) {
-                                    bullet.setRelativeWidth(0.02f);
-                                    bullet.setRelativeHeight(0.015f * 768f / 372f);
+                                    if (ultimateClick) {
+                                        bullet.setRelativeWidth(0.04f);
+                                        bullet.setRelativeHeight(0.04f * 768f / 372f);
+                                    } else {
+                                        bullet.setRelativeWidth(0.02f);
+                                        bullet.setRelativeHeight(0.02f * 768f / 372f);
+                                    }
                                     bullet.setSpeed(0.0075f);
                                 }
 
@@ -697,7 +702,7 @@ class MainClient {
                         if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO) && playableCharacter.isUltimate1Running()) {
                             for (PlayableCharacter otherPlayer : gameClient.getOtherPlayers()) {
                                 if (!CollisionDetection.isCollisionBetween(otherPlayer, playableCharacter).equals(PlayerCollisionSide.NONE)) {
-                                    gameClient.sendHit(new Network.Hit(otherPlayer.getName(), 0.03f));
+                                    gameClient.sendHit(new Network.Hit(otherPlayer.getName(), 0.01f));
                                 }
                             }
                         }
