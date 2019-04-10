@@ -131,10 +131,15 @@ public class HomePanel extends JPanel {
                         ((JLabel) leftPanel.getComponent(11)).setIcon(new ArrayIcon("/view/resources/home/faces/" + otherPlayers.get(i).getClassCharacter().name().toLowerCase() + "_face.png"));
                     }
                 } else {
-                    this.otherPlayersHome.add(otherPlayers.get(i));
-                    ((JLabel) leftPanel.getComponent(10)).setIcon(new ArrayIcon("/view/resources/game/names/" + otherPlayers.get(i).getName() + ".png"));
+                    PlayableCharacter playableCharacter = new PlayableCharacter();
+                    playableCharacter.setName(otherPlayers.get(i).getName());
+                    playableCharacter.setClassCharacter(otherPlayers.get(i).getClassCharacter());
+                    this.otherPlayersHome.add(playableCharacter);
+
+                    ((JLabel) leftPanel.getComponent(10)).setIcon(new ArrayIcon("/view/resources/game/names/" + playableCharacter.getName() + ".png"));
+                    ((JLabel) leftPanel.getComponent(10)).setIcon(new ArrayIcon("/view/resources/game/names/" + playableCharacter.getName() + ".png"));
                     ((JLabel) leftPanel.getComponent(10)).setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                    ((JLabel) leftPanel.getComponent(11)).setIcon(new ArrayIcon("/view/resources/home/faces/" + otherPlayers.get(i).getClassCharacter().name().toLowerCase() + "_face.png"));
+                    ((JLabel) leftPanel.getComponent(11)).setIcon(new ArrayIcon("/view/resources/home/faces/" + playableCharacter.getClassCharacter().name().toLowerCase() + "_face.png"));
                     ((JLabel) leftPanel.getComponent(11)).setBorder(BorderFactory.createLineBorder(Color.BLACK));
                 }
             }

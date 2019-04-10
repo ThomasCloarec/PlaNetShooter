@@ -615,8 +615,7 @@ class MainClient {
                                     bullet.setRelativeWidth(0.012f);
                                     bullet.setRelativeHeight(0.012f * 768f / 372f);
                                     bullet.setDamage(0.15f);
-                                }
-                                if (playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) {
+                                } else if (playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) {
                                     if (ultimateClick) {
                                         bullet.setRelativeWidth(0.04f);
                                         bullet.setRelativeHeight(0.04f * 768f / 372f);
@@ -625,6 +624,10 @@ class MainClient {
                                         bullet.setRelativeHeight(0.02f * 768f / 372f);
                                     }
                                     bullet.setSpeed(0.0075f);
+                                } else if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
+                                    bullet.setRelativeWidth(0.015f);
+                                    bullet.setRelativeHeight(0.015f * 768f / 372f);
+                                    bullet.setDamage(0.15f);
                                 }
 
                                 float relativeBulletStartX = playableCharacter.getRelativeX() + ((float) -characterView.getHorizontalDirection() + 1) * playableCharacter.getRelativeWidth() / 2f;
@@ -645,7 +648,12 @@ class MainClient {
                                 bullet.setMovementX(bulletMovementX);
                                 bullet.setMovementY(bulletMovementY);
 
-                                float bulletRangeRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f;
+                                float bulletRangeRatio;
+                                if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
+                                    bulletRangeRatio = 100;
+                                } else {
+                                    bulletRangeRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f;
+                                }
                                 bullet.setBulletRangeRatio(bulletRangeRatio);
 
                                 SwingUtilities.invokeLater(() -> {
