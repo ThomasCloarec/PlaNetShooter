@@ -222,54 +222,54 @@ public class GamePanel extends JPanel {
     public void otherPlayersPainting(List<PlayableCharacter> otherPlayers) {
         SwingUtilities.invokeLater(() -> {
             for (int i = 0; i < otherPlayers.size(); i++) {
-                if (this.getOtherPlayersViews().size() > i) {
+                if (this.otherPlayersViews.size() > i) {
                     for (PlayableCharacter playableCharacter : otherPlayers) {
                         if (playableCharacter.isClassCharacterChanged()) {
-                            for (BulletView bulletView : this.getOtherPlayersViews().get(otherPlayers.indexOf(playableCharacter)).getBulletsViews()) {
+                            for (BulletView bulletView : this.otherPlayersViews.get(otherPlayers.indexOf(playableCharacter)).getBulletsViews()) {
                                 try {
                                     bulletView.setIcon("/view/resources/game/characters/" + playableCharacter.getClassCharacter().name().toLowerCase() + "/bullet.png");
                                 } catch (NullPointerException ex) {
                                     System.err.println("Can't find \"/view/resources/game/characters/" + playableCharacter.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
                                 }
                             }
-                            this.getOtherPlayersViews().get(otherPlayers.indexOf(playableCharacter)).setClassCharacter(playableCharacter.getClassCharacter());
+                            this.otherPlayersViews.get(otherPlayers.indexOf(playableCharacter)).setClassCharacter(playableCharacter.getClassCharacter());
 
                             playableCharacter.setClassCharacterChanged(false);
                         }
                     }
 
-                    this.getOtherPlayersViews().get(i).setHealth(otherPlayers.get(i).getHealth());
-                    this.getOtherPlayersViews().get(i).setHorizontalDirection(otherPlayers.get(i).getLastHorizontalDirection());
-                    this.getOtherPlayersViews().get(i).setHorizontalDirection(otherPlayers.get(i).getHorizontalDirection());
-                    this.getOtherPlayersViews().get(i).setUltimateLoading(otherPlayers.get(i).getUltimateLoading());
+                    this.otherPlayersViews.get(i).setHealth(otherPlayers.get(i).getHealth());
+                    this.otherPlayersViews.get(i).setHorizontalDirection(otherPlayers.get(i).getLastHorizontalDirection());
+                    this.otherPlayersViews.get(i).setHorizontalDirection(otherPlayers.get(i).getHorizontalDirection());
+                    this.otherPlayersViews.get(i).setUltimateLoading(otherPlayers.get(i).getUltimateLoading());
 
-                    if (otherPlayers.get(i).isUltimate1Running() && !this.getOtherPlayersViews().get(i).isUltimate1Running()) {
-                        this.getOtherPlayersViews().get(i).ultimate1();
-                    } else if (otherPlayers.get(i).isUltimate2Running() && !this.getOtherPlayersViews().get(i).isUltimate2Running()) {
-                        this.getOtherPlayersViews().get(i).ultimate2();
-                    } else if (otherPlayers.get(i).isUltimate3Running() && !this.getOtherPlayersViews().get(i).isUltimate3Running()) {
-                        this.getOtherPlayersViews().get(i).ultimate3();
-                    } else if ((!otherPlayers.get(i).isUltimate3Running() && this.getOtherPlayersViews().get(i).isUltimate3Running())
-                            || (!otherPlayers.get(i).isUltimate3Running() && !otherPlayers.get(i).isUltimate2Running() && this.getOtherPlayersViews().get(i).isUltimate2Running())
-                            || (!otherPlayers.get(i).isUltimate3Running() && !otherPlayers.get(i).isUltimate2Running() && !otherPlayers.get(i).isUltimate1Running() && this.getOtherPlayersViews().get(i).isUltimate1Running())) {
-                        this.getOtherPlayersViews().get(i).setClassCharacter(otherPlayers.get(i).getClassCharacter());
+                    if (otherPlayers.get(i).isUltimate1Running() && !this.otherPlayersViews.get(i).isUltimate1Running()) {
+                        this.otherPlayersViews.get(i).ultimate1();
+                    } else if (otherPlayers.get(i).isUltimate2Running() && !this.otherPlayersViews.get(i).isUltimate2Running()) {
+                        this.otherPlayersViews.get(i).ultimate2();
+                    } else if (otherPlayers.get(i).isUltimate3Running() && !this.otherPlayersViews.get(i).isUltimate3Running()) {
+                        this.otherPlayersViews.get(i).ultimate3();
+                    } else if ((!otherPlayers.get(i).isUltimate3Running() && this.otherPlayersViews.get(i).isUltimate3Running())
+                            || (!otherPlayers.get(i).isUltimate3Running() && !otherPlayers.get(i).isUltimate2Running() && this.otherPlayersViews.get(i).isUltimate2Running())
+                            || (!otherPlayers.get(i).isUltimate3Running() && !otherPlayers.get(i).isUltimate2Running() && !otherPlayers.get(i).isUltimate1Running() && this.otherPlayersViews.get(i).isUltimate1Running())) {
+                        this.otherPlayersViews.get(i).setClassCharacter(otherPlayers.get(i).getClassCharacter());
                     }
 
-                    this.getOtherPlayersViews().get(i).setUltimate1Running(otherPlayers.get(i).isUltimate1Running());
-                    this.getOtherPlayersViews().get(i).setUltimate2Running(otherPlayers.get(i).isUltimate2Running());
-                    this.getOtherPlayersViews().get(i).setUltimate3Running(otherPlayers.get(i).isUltimate3Running());
+                    this.otherPlayersViews.get(i).setUltimate1Running(otherPlayers.get(i).isUltimate1Running());
+                    this.otherPlayersViews.get(i).setUltimate2Running(otherPlayers.get(i).isUltimate2Running());
+                    this.otherPlayersViews.get(i).setUltimate3Running(otherPlayers.get(i).isUltimate3Running());
 
-                    this.getOtherPlayersViews().get(i).setRelativeX(otherPlayers.get(i).getRelativeX());
-                    this.getOtherPlayersViews().get(i).setRelativeY(otherPlayers.get(i).getRelativeY());
-                    this.getOtherPlayersViews().get(i).setRelativeWidth(otherPlayers.get(i).getRelativeWidth());
-                    this.getOtherPlayersViews().get(i).setRelativeHeight(otherPlayers.get(i).getRelativeHeight());
+                    this.otherPlayersViews.get(i).setRelativeX(otherPlayers.get(i).getRelativeX());
+                    this.otherPlayersViews.get(i).setRelativeY(otherPlayers.get(i).getRelativeY());
+                    this.otherPlayersViews.get(i).setRelativeWidth(otherPlayers.get(i).getRelativeWidth());
+                    this.otherPlayersViews.get(i).setRelativeHeight(otherPlayers.get(i).getRelativeHeight());
 
                     try {
                         for (int j = 0; j < otherPlayers.get(i).getBullets().size(); j++) {
-                            this.getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeX(otherPlayers.get(i).getBullets().get(j).getRelativeX());
-                            this.getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeY(otherPlayers.get(i).getBullets().get(j).getRelativeY());
-                            this.getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeWidth(otherPlayers.get(i).getBullets().get(j).getRelativeWidth());
-                            this.getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeHeight(otherPlayers.get(i).getBullets().get(j).getRelativeHeight());
+                            this.otherPlayersViews.get(i).getBulletsViews().get(j).setRelativeX(otherPlayers.get(i).getBullets().get(j).getRelativeX());
+                            this.otherPlayersViews.get(i).getBulletsViews().get(j).setRelativeY(otherPlayers.get(i).getBullets().get(j).getRelativeY());
+                            this.otherPlayersViews.get(i).getBulletsViews().get(j).setRelativeWidth(otherPlayers.get(i).getBullets().get(j).getRelativeWidth());
+                            this.otherPlayersViews.get(i).getBulletsViews().get(j).setRelativeHeight(otherPlayers.get(i).getBullets().get(j).getRelativeHeight());
                         }
                     } catch (NullPointerException e) {
                         e.printStackTrace();
@@ -287,7 +287,7 @@ public class GamePanel extends JPanel {
                         characterView.getBulletsViews().add(new BulletView(0, 0, 0, 0));
                     }
                     characterView.setHorizontalDirection(otherPlayers.get(i).getLastHorizontalDirection());
-                    this.getOtherPlayersViews().add(characterView);
+                    this.otherPlayersViews.add(characterView);
                 }
             }
             this.repaint();

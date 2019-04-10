@@ -141,7 +141,7 @@ class MainClient {
                                     gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getCharacterLabel());
 
                                 gameFrame.getGamePanel().getOtherPlayersViews().remove(gameClient.getRegisterList().getNameList().indexOf(removeName.name));
-
+                                gameFrame.getHomePanel().removeOtherPlayerHome(gameClient.getRegisterList().getNameList().indexOf(removeName.name));
                             }
                             if (object instanceof Network.Hit) {
                                 if ((!playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) || (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running())) {
@@ -732,6 +732,7 @@ class MainClient {
                     gameClient.sendBulletsInformation(playableCharacter);
 
                     gameFrame.getGamePanel().otherPlayersPainting(gameClient.getOtherPlayers());
+                    gameFrame.getHomePanel().refreshHome(gameClient.getOtherPlayers());
 
                     if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO) && playableCharacter.isUltimate1Running())
                         playableCharacter.setRelativeY(playableCharacter.getRelativeY() - 0.0075f);
