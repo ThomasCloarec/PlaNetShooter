@@ -56,7 +56,6 @@ public class HomePanel extends JPanel {
 
         rightPanel.setBackground(Color.gray);
         this.add(rightPanel);
-
    }
 
     private void drawCenterPanel(int marginX, int marginY) {
