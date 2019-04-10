@@ -726,10 +726,7 @@ class MainClient {
                     gameClient.sendPlayerInformation(playableCharacter);
                     gameClient.sendBulletsInformation(playableCharacter);
 
-                    SwingUtilities.invokeLater(() -> {
-                        otherPlayersPainting();
-                        gameFrame.getGamePanel().repaint();
-                    });
+                    gameFrame.getGamePanel().otherPlayersPainting(gameClient.getOtherPlayers());
 
                     if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO) && playableCharacter.isUltimate1Running())
                         playableCharacter.setRelativeY(playableCharacter.getRelativeY() - 0.0075f);
@@ -740,82 +737,6 @@ class MainClient {
             }
         });
         gameLoopThread.start();
-    }
-
-    private static void otherPlayersPainting() {
-        for (int i = 0; i < gameClient.getOtherPlayers().size(); i++) {
-            if (gameFrame.getGamePanel().getOtherPlayersViews().size() > i) {
-                for (PlayableCharacter playableCharacter : gameClient.getOtherPlayers()) {
-                    if (playableCharacter.isClassCharacterChanged()) {
-                        for (BulletView bulletView : gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getOtherPlayers().indexOf(playableCharacter)).getBulletsViews()) {
-                            try {
-                                bulletView.setIcon("/view/resources/game/characters/" + playableCharacter.getClassCharacter().name().toLowerCase() + "/bullet.png");
-                            } catch (NullPointerException ex) {
-                                System.err.println("Can't find \"/view/resources/game/characters/" + playableCharacter.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
-                            }
-                        }
-                        gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getOtherPlayers().indexOf(playableCharacter)).setClassCharacter(playableCharacter.getClassCharacter());
-
-                        playableCharacter.setClassCharacterChanged(false);
-                    }
-                }
-
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHealth(gameClient.getOtherPlayers().get(i).getHealth());
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHorizontalDirection(gameClient.getOtherPlayers().get(i).getLastHorizontalDirection());
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setHorizontalDirection(gameClient.getOtherPlayers().get(i).getHorizontalDirection());
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setUltimateLoading(gameClient.getOtherPlayers().get(i).getUltimateLoading());
-
-                if (gameClient.getOtherPlayers().get(i).isUltimate1Running() && !gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate1Running()) {
-                    gameFrame.getGamePanel().getOtherPlayersViews().get(i).ultimate1();
-                }
-                else if (gameClient.getOtherPlayers().get(i).isUltimate2Running() && !gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate2Running()) {
-                    gameFrame.getGamePanel().getOtherPlayersViews().get(i).ultimate2();
-                }
-                else if (gameClient.getOtherPlayers().get(i).isUltimate3Running() && !gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate3Running()) {
-                    gameFrame.getGamePanel().getOtherPlayersViews().get(i).ultimate3();
-                } else if ((!gameClient.getOtherPlayers().get(i).isUltimate3Running() && gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate3Running())
-                        || (!gameClient.getOtherPlayers().get(i).isUltimate3Running() && !gameClient.getOtherPlayers().get(i).isUltimate2Running() && gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate2Running())
-                        || (!gameClient.getOtherPlayers().get(i).isUltimate3Running() && !gameClient.getOtherPlayers().get(i).isUltimate2Running() && !gameClient.getOtherPlayers().get(i).isUltimate1Running() && gameFrame.getGamePanel().getOtherPlayersViews().get(i).isUltimate1Running())) {
-                    gameFrame.getGamePanel().getOtherPlayersViews().get(i).setClassCharacter(gameClient.getOtherPlayers().get(i).getClassCharacter());
-                }
-
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setUltimate1Running(gameClient.getOtherPlayers().get(i).isUltimate1Running());
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setUltimate2Running(gameClient.getOtherPlayers().get(i).isUltimate2Running());
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setUltimate3Running(gameClient.getOtherPlayers().get(i).isUltimate3Running());
-
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeX(gameClient.getOtherPlayers().get(i).getRelativeX());
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeY(gameClient.getOtherPlayers().get(i).getRelativeY());
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeWidth(gameClient.getOtherPlayers().get(i).getRelativeWidth());
-                gameFrame.getGamePanel().getOtherPlayersViews().get(i).setRelativeHeight(gameClient.getOtherPlayers().get(i).getRelativeHeight());
-
-                try {
-                    for (int j = 0; j < gameClient.getOtherPlayers().get(i).getBullets().size(); j++) {
-                            gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeX(gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeX());
-                            gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeY(gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeY());
-                            gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeWidth(gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeWidth());
-                            gameFrame.getGamePanel().getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeHeight(gameClient.getOtherPlayers().get(i).getBullets().get(j).getRelativeHeight());
-                    }
-                }
-                catch(NullPointerException e){
-                    e.printStackTrace();
-                }
-            }
-            else {
-                CharacterView characterView = new CharacterView(
-                        gameClient.getOtherPlayers().get(i).getRelativeX(),
-                        gameClient.getOtherPlayers().get(i).getRelativeY(),
-                        gameClient.getOtherPlayers().get(i).getRelativeWidth(),
-                        gameClient.getOtherPlayers().get(i).getRelativeHeight(),
-                        gameClient.getOtherPlayers().get(i).getName(),
-                        gameClient.getOtherPlayers().get(i).getClassCharacter(),
-                        gameClient.getOtherPlayers().get(i).getHealth());
-                for (int j = 0; j < PlayableCharacter.getMaxBulletNumberPerPlayer(); j++) {
-                    characterView.getBulletsViews().add(new BulletView(0,0,0,0));
-                }
-                characterView.setHorizontalDirection(gameClient.getOtherPlayers().get(i).getLastHorizontalDirection());
-                gameFrame.getGamePanel().getOtherPlayersViews().add(characterView);
-            }
-        }
     }
 
     private static void randomSpawn() {

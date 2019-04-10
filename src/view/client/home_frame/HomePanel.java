@@ -1,9 +1,12 @@
 package view.client.home_frame;
 
 import model.characters.ClassCharacters;
+import model.characters.PlayableCharacter;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class HomePanel extends JPanel {
     private final JLabel nameLabel = new JLabel();
@@ -12,6 +15,7 @@ public class HomePanel extends JPanel {
     private final JButton changeCharacterButton = new JButton();
     private final JLabel characterLabel = new JLabel();
     private final JButton playButton = new JButton();
+    private final List<PlayableCharacter> otherPlayers = new ArrayList<>();
 
     private final JPanel leftPanel = new JPanel(new GridLayout(8, 5));
     private final JPanel centerPanel = new JPanel(null);
@@ -43,9 +47,6 @@ public class HomePanel extends JPanel {
         playButton.setIcon(new PlayIcon("/view/resources/home/buttons/play.png"));
 
         leftPanel.setBackground(Color.gray);
-        for (int i = 1; i <= 40; i++) {
-            leftPanel.add(new JButton("N" + i));
-        }
         this.add(leftPanel);
 
         centerPanel.setBackground(Color.gray);
@@ -211,5 +212,9 @@ public class HomePanel extends JPanel {
             y = 0;
             super.paintIcon(c, g2, x, y);
         }
+    }
+
+    public List<PlayableCharacter> getOtherPlayers() {
+        return otherPlayers;
     }
 }

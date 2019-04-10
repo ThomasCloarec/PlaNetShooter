@@ -1,5 +1,7 @@
 package view.client.game_frame;
 
+import model.characters.PlayableCharacter;
+
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
@@ -215,6 +217,81 @@ public class GamePanel extends JPanel {
                 otherPlayerView.getNameLabel().setLocation((int) ((otherPlayerView.getRelativeX() + otherPlayerView.getRelativeWidth() / 2) * this.getWidth() - otherPlayerView.getNameIconWidth() * otherPlayerView.getScaleWidthName() / 2), (int) (otherPlayerView.getRelativeY() * this.getHeight() - 0.02f * this.getHeight() - otherPlayerView.getScaleHeightName() * otherPlayerView.getNameIconHeight()));
             }
         }
+    }
+
+    public void otherPlayersPainting(List<PlayableCharacter> otherPlayers) {
+        SwingUtilities.invokeLater(() -> {
+            for (int i = 0; i < otherPlayers.size(); i++) {
+                if (this.getOtherPlayersViews().size() > i) {
+                    for (PlayableCharacter playableCharacter : otherPlayers) {
+                        if (playableCharacter.isClassCharacterChanged()) {
+                            for (BulletView bulletView : this.getOtherPlayersViews().get(otherPlayers.indexOf(playableCharacter)).getBulletsViews()) {
+                                try {
+                                    bulletView.setIcon("/view/resources/game/characters/" + playableCharacter.getClassCharacter().name().toLowerCase() + "/bullet.png");
+                                } catch (NullPointerException ex) {
+                                    System.err.println("Can't find \"/view/resources/game/characters/" + playableCharacter.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
+                                }
+                            }
+                            this.getOtherPlayersViews().get(otherPlayers.indexOf(playableCharacter)).setClassCharacter(playableCharacter.getClassCharacter());
+
+                            playableCharacter.setClassCharacterChanged(false);
+                        }
+                    }
+
+                    this.getOtherPlayersViews().get(i).setHealth(otherPlayers.get(i).getHealth());
+                    this.getOtherPlayersViews().get(i).setHorizontalDirection(otherPlayers.get(i).getLastHorizontalDirection());
+                    this.getOtherPlayersViews().get(i).setHorizontalDirection(otherPlayers.get(i).getHorizontalDirection());
+                    this.getOtherPlayersViews().get(i).setUltimateLoading(otherPlayers.get(i).getUltimateLoading());
+
+                    if (otherPlayers.get(i).isUltimate1Running() && !this.getOtherPlayersViews().get(i).isUltimate1Running()) {
+                        this.getOtherPlayersViews().get(i).ultimate1();
+                    } else if (otherPlayers.get(i).isUltimate2Running() && !this.getOtherPlayersViews().get(i).isUltimate2Running()) {
+                        this.getOtherPlayersViews().get(i).ultimate2();
+                    } else if (otherPlayers.get(i).isUltimate3Running() && !this.getOtherPlayersViews().get(i).isUltimate3Running()) {
+                        this.getOtherPlayersViews().get(i).ultimate3();
+                    } else if ((!otherPlayers.get(i).isUltimate3Running() && this.getOtherPlayersViews().get(i).isUltimate3Running())
+                            || (!otherPlayers.get(i).isUltimate3Running() && !otherPlayers.get(i).isUltimate2Running() && this.getOtherPlayersViews().get(i).isUltimate2Running())
+                            || (!otherPlayers.get(i).isUltimate3Running() && !otherPlayers.get(i).isUltimate2Running() && !otherPlayers.get(i).isUltimate1Running() && this.getOtherPlayersViews().get(i).isUltimate1Running())) {
+                        this.getOtherPlayersViews().get(i).setClassCharacter(otherPlayers.get(i).getClassCharacter());
+                    }
+
+                    this.getOtherPlayersViews().get(i).setUltimate1Running(otherPlayers.get(i).isUltimate1Running());
+                    this.getOtherPlayersViews().get(i).setUltimate2Running(otherPlayers.get(i).isUltimate2Running());
+                    this.getOtherPlayersViews().get(i).setUltimate3Running(otherPlayers.get(i).isUltimate3Running());
+
+                    this.getOtherPlayersViews().get(i).setRelativeX(otherPlayers.get(i).getRelativeX());
+                    this.getOtherPlayersViews().get(i).setRelativeY(otherPlayers.get(i).getRelativeY());
+                    this.getOtherPlayersViews().get(i).setRelativeWidth(otherPlayers.get(i).getRelativeWidth());
+                    this.getOtherPlayersViews().get(i).setRelativeHeight(otherPlayers.get(i).getRelativeHeight());
+
+                    try {
+                        for (int j = 0; j < otherPlayers.get(i).getBullets().size(); j++) {
+                            this.getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeX(otherPlayers.get(i).getBullets().get(j).getRelativeX());
+                            this.getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeY(otherPlayers.get(i).getBullets().get(j).getRelativeY());
+                            this.getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeWidth(otherPlayers.get(i).getBullets().get(j).getRelativeWidth());
+                            this.getOtherPlayersViews().get(i).getBulletsViews().get(j).setRelativeHeight(otherPlayers.get(i).getBullets().get(j).getRelativeHeight());
+                        }
+                    } catch (NullPointerException e) {
+                        e.printStackTrace();
+                    }
+                } else {
+                    CharacterView characterView = new CharacterView(
+                            otherPlayers.get(i).getRelativeX(),
+                            otherPlayers.get(i).getRelativeY(),
+                            otherPlayers.get(i).getRelativeWidth(),
+                            otherPlayers.get(i).getRelativeHeight(),
+                            otherPlayers.get(i).getName(),
+                            otherPlayers.get(i).getClassCharacter(),
+                            otherPlayers.get(i).getHealth());
+                    for (int j = 0; j < PlayableCharacter.getMaxBulletNumberPerPlayer(); j++) {
+                        characterView.getBulletsViews().add(new BulletView(0, 0, 0, 0));
+                    }
+                    characterView.setHorizontalDirection(otherPlayers.get(i).getLastHorizontalDirection());
+                    this.getOtherPlayersViews().add(characterView);
+                }
+            }
+            this.repaint();
+        });
     }
 
     public void setPlatformsView(PlatformView[] platforms) {
