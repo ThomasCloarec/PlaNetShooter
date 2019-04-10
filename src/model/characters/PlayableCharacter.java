@@ -157,7 +157,7 @@ public class PlayableCharacter extends SolidObject {
             this.relativeHeight = 200f/200f * 0.04f * 768f/372f;
             this.relativeMaxSpeed = 0.0055f;
             this.attackNumberPerSecond = 0f;
-            this.maxHealth = 1.5f;
+            this.maxHealth = 2f;
         }
         else if (classCharacter.equals(ClassCharacters.MEDUSO)) {
             this.ultimate1DurationMillis = 660;

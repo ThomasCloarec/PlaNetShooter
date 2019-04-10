@@ -575,35 +575,32 @@ class MainClient {
                                         // Create trampoline
                                     }
                                 } else {
-                                    Bullet bullet = new Bullet();
+                                    if (collisionOnBottom) {
+                                        Bullet bullet = new Bullet();
 
-                                    bullet.setRelativeWidth(0.012f);
-                                    bullet.setRelativeHeight(0.012f * 768f / 372f);
-                                    bullet.setDamage(0.25f);
-                                    lastShot = System.currentTimeMillis();
-                                    bullet.setRelativeX(playableCharacter.getRelativeX() + ((float) -characterView.getHorizontalDirection() + 1) * playableCharacter.getRelativeWidth() / 2f);
-                                    bullet.setRelativeY(playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() / 2 - bullet.getRelativeHeight() / 2);
-                                    bullet.setBulletRangeRatio(100);
+                                        bullet.setRelativeWidth(0.012f);
+                                        bullet.setRelativeHeight(0.012f * 768f / 372f);
+                                        bullet.setDamage(0.25f);
+                                        bullet.setRelativeX(playableCharacter.getRelativeX() + ((float) -characterView.getHorizontalDirection() + 1) * (playableCharacter.getRelativeWidth() / 2f - bullet.getRelativeWidth() / 2f));
+                                        bullet.setRelativeY(playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() - bullet.getRelativeHeight());
 
-                                    for (Platform platform : platforms) {
-                                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.NONE)) {
-                                            float bulletMovementY = 0.005f;
-                                            bullet.setMovementY(bulletMovementY);
-                                            break;
-                                        } else {
-                                            float bulletMovementY = 0f;
-                                            bullet.setMovementY(bulletMovementY);
-                                        }
-                                    }
+                                        bullet.setMovementX(0);
+                                        bullet.setMovementY(0);
 
-                                    SwingUtilities.invokeLater(() -> {
-                                        for (Bullet bullet1 : playableCharacter.getBullets()) {
-                                            if (bullet1.getRelativeWidth() == 0 && bullet1.getRelativeHeight() == 0) {
-                                                playableCharacter.getBullets().set(playableCharacter.getBullets().indexOf(bullet1), bullet);
-                                                break;
+                                        for (Platform platform : platforms) {
+                                            if (!CollisionDetection.isCollisionBetween(bullet, platform).equals(PlayerCollisionSide.NONE)) {
+                                                SwingUtilities.invokeLater(() -> {
+                                                    for (Bullet bullet1 : playableCharacter.getBullets()) {
+                                                        if (bullet1.getRelativeWidth() == 0 && bullet1.getRelativeHeight() == 0) {
+                                                            playableCharacter.getBullets().set(playableCharacter.getBullets().indexOf(bullet1), bullet);
+                                                            lastShot = System.currentTimeMillis();
+                                                            break;
+                                                        }
+                                                    }
+                                                });
                                             }
                                         }
-                                    });
+                                    }
                                 }
                             } else {
                                 Bullet bullet = new Bullet();
@@ -669,10 +666,7 @@ class MainClient {
 
                             for (Platform platform : platforms) {
                                 if (!CollisionDetection.isCollisionBetween(bullet, platform).equals(PlayerCollisionSide.NONE)) {
-                                    if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)){
-                                        playableCharacter.getBullets().get(bulletIndex).setMovementY(0);
-                                    }
-                                    else {
+                                    if (!playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
                                         playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
                                         playableCharacter.getBullets().get(bulletIndex).setRelativeHeight(0);
                                     }
@@ -693,15 +687,17 @@ class MainClient {
                                     || (bullet.getRelativeY() > 1)
                                     || (Math.sqrt(Math.pow(bullet.getRelativeX() - bullet.getRelativeBulletStartX(), 2) + Math.pow(bullet.getRelativeY() - bullet.getRelativeBulletStartY(), 2))) > Math.sqrt(2) * bullet.getRelativeMaxRange() * bullet.getBulletRangeRatio()) {
 
-                                playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
-                                playableCharacter.getBullets().get(bulletIndex).setRelativeHeight(0);
+                                if (!playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
+                                    playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
+                                    playableCharacter.getBullets().get(bulletIndex).setRelativeHeight(0);
+                                }
                             }
                         }
 
                         if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO) && playableCharacter.isUltimate1Running()) {
                             for (PlayableCharacter otherPlayer : gameClient.getOtherPlayers()) {
                                 if (!CollisionDetection.isCollisionBetween(otherPlayer, playableCharacter).equals(PlayerCollisionSide.NONE)) {
-                                    gameClient.sendHit(new Network.Hit(otherPlayer.getName(), 0.01f));
+                                    gameClient.sendHit(new Network.Hit(otherPlayer.getName(), 0.03f));
                                 }
                             }
                         }
@@ -822,7 +818,10 @@ class MainClient {
         relativeMovementY = 0;
         ultimateClick = false;
         playableCharacter.setHealth(1);
-        playableCharacter.setUltimateLoading(0);
+        if (playableCharacter.getUltimateLoading() - 0.25f < 0)
+            playableCharacter.setUltimateLoading(0);
+        else
+            playableCharacter.setUltimateLoading(playableCharacter.getUltimateLoading() - 0.25f);
         playableCharacter.setClassCharacter(characterView.getClassCharacter());
         characterView.setClassCharacter(playableCharacter.getClassCharacter());
 
