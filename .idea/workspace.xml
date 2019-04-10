@@ -7,21 +7,16 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="69852263-13d6-4002-be51-1cde4d96d645" name="Default Changelist" comment="" />
-    <ignored path="$PROJECT_DIR$/target/" />
-    <ignored path="Lien vers characters/" />
-    <ignored mask="Lien vers characters" />
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <list default="true" id="980edff6-2099-4c54-9c3d-bc286c526f0f" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/Client-PlaNetShooter.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/Client-PlaNetShooter.jar" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/Server-PlaNetShooter.jar" beforeDir="false" afterPath="$PROJECT_DIR$/out/Server-PlaNetShooter.jar" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="CodeInsightWorkspaceSettings">
-    <option name="optimizeImportsOnTheFly" value="true" />
-  </component>
-  <component name="CoverageDataManager">
-    <SUITE FILE_PATH="coverage/PlaNetShooter$MainClient.ic" NAME="MainClient Coverage Results" MODIFIED="1552857186770" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="idea" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
@@ -154,14 +149,28 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/view/client/home_frame/HomePanel.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="186">
-              <caret line="31" column="2" lean-forward="true" selection-start-line="31" selection-start-column="2" selection-end-line="31" selection-end-column="2" />
+              <caret line="31" column="2" selection-start-line="31" selection-start-column="2" selection-end-line="31" selection-end-column="2" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="vcs://src/view/resources/game/names/P?.png">
+          <provider selected="true" editor-type-id="images" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/.gitignore">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
             </state>
           </provider>
         </entry>
@@ -208,143 +217,15 @@
       </file>
     </leaf>
   </component>
-  <component name="FileTemplateManagerImpl">
-    <option name="RECENT_TEMPLATES">
-      <list>
-        <option value="Enum" />
-        <option value="Class" />
-      </list>
-    </option>
-  </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>yodel</find>
-      <find>setHori</find>
-      <find>Bullets().add</find>
-      <find>ClassCHaracterCha</find>
-      <find>ultimateClick = false</find>
-      <find>Changed</find>
-      <find>float</find>
-      <find>ultimateLo</find>
-      <find>ultimateLoading</find>
-      <find>setUlt</find>
-      <find>backTo</find>
-      <find>characterLabel</find>
-      <find>characterIcon</find>
-      <find>Play</find>
-      <find>play</find>
-      <find>playButton</find>
-      <find>character</find>
-      <find>name</find>
-      <find>arrow</find>
-      <find>VK_E</find>
-      <find>NameIcon</find>
-      <find>gameFrame.getGamePanel()</find>
-      <find>gameClient.getOtherPlayers()</find>
-      <find>getOtherPlayersViews()</find>
-      <find>jLabel</find>
-      <find>jLabel2</find>
-      <find>CYAN</find>
-      <find>_label</find>
-      <find>NameArrayIcon</find>
-      <find>home</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>playableCharacter</replace>
-      <replace>bulletTest</replace>
-      <replace>bulletTest2</replace>
-      <replace>clientName</replace>
-      <replace>playerOnRightYodel</replace>
-      <replace>yodelDetection</replace>
-      <replace>2</replace>
-      <replace>3</replace>
-      <replace>0.045f</replace>
-      <replace>gameFrame.getGamePanel().getCharacterView()</replace>
-      <replace>gameFrame.getGamePanel()</replace>
-      <replace>0.043f</replace>
-      <replace>otherPlayerView</replace>
-      <replace>playButton</replace>
-      <replace>playIcon</replace>
-      <replace>play</replace>
-      <replace>character</replace>
-      <replace>changeCharacter</replace>
-      <replace>changeCharacterButton</replace>
-      <replace>arrow</replace>
-      <replace>characterName</replace>
-      <replace>name</replace>
-      <replace>this</replace>
-      <replace>otherPlayers</replace>
-      <replace>otherPlayersViews</replace>
-      <replace>otherPlayersHome</replace>
-      <replace>jLabel5</replace>
-      <replace>jLabel3</replace>
-      <replace>ORANGE</replace>
-      <replace>ArrayIcon</replace>
-    </replaceStrings>
-    <dirStrings>
-      <dir>$PROJECT_DIR$/src</dir>
-    </dirStrings>
-  </component>
   <component name="Git.Settings">
-    <option name="PREVIOUS_COMMIT_AUTHORS">
-      <list>
-        <option value="me" />
-      </list>
-    </option>
-    <option name="UPDATE_TYPE" value="MERGE" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="RECENT_BRANCH_BY_REPOSITORY">
-      <map>
-        <entry key="$PROJECT_DIR$" value="2a5961361093140c34a88f331efff2d9db88314d" />
-      </map>
-    </option>
-    <option name="RESET_MODE" value="HARD" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/view/client/game_frame/GameFrame.java" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/view/client/game_frame/BulletView.java" />
-        <option value="$PROJECT_DIR$/src/model/SolidObject.java" />
-        <option value="$PROJECT_DIR$/src/view/client/game_frame/HomeView.java" />
-        <option value="$PROJECT_DIR$/src/model/Terrain.java" />
-        <option value="$PROJECT_DIR$/src/model/platforms/Platform.java" />
-        <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/view/client/connection/AskClientName.java" />
-        <option value="$PROJECT_DIR$/src/model/bullets/Bullet.java" />
-        <option value="$PROJECT_DIR$/src/model/CollisionDetection.java" />
-        <option value="$PROJECT_DIR$/src/view/client/game_frame/yodel/Yodel.java" />
-        <option value="$PROJECT_DIR$/src/view/client/game_frame/Trampoline.java" />
-        <option value="$PROJECT_DIR$/src/view/client/game_frame/YodelView.java" />
-        <option value="$PROJECT_DIR$/src/view/client/game_frame/TrampolineView.java" />
-        <option value="$PROJECT_DIR$/src/network/GameServer.java" />
-        <option value="$PROJECT_DIR$/src/MainServer.java" />
-        <option value="$PROJECT_DIR$/src/view/client/connection/AskIPHost.java" />
-        <option value="$PROJECT_DIR$/src/view/client/connection/ServerFullError.java" />
-        <option value="$PROJECT_DIR$/src/network/Network.java" />
-        <option value="$PROJECT_DIR$/src/view/client/game_frame/CharacterView.java" />
-        <option value="$PROJECT_DIR$/src/network/GameClient.java" />
-        <option value="$PROJECT_DIR$/src/view/client/game_frame/GamePanel.java" />
-        <option value="$PROJECT_DIR$/src/model/characters/PlayableCharacter.java" />
-        <option value="$PROJECT_DIR$/src/model/characters/ClassCharacters.java" />
-        <option value="$PROJECT_DIR$/src/MainClient.java" />
-        <option value="$PROJECT_DIR$/src/view/client/home_frame/HomePanel.java" />
+        <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
-  </component>
-  <component name="MavenImportPreferences">
-    <option name="importingSettings">
-      <MavenImportingSettings>
-        <option name="importAutomatically" value="true" />
-      </MavenImportingSettings>
-    </option>
-  </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="68" />
-    <option name="y" value="27" />
-    <option name="width" value="1221" />
-    <option name="height" value="1048" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -352,34 +233,62 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="ProjectPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="PlaNetShooter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PlaNetShooter" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PlaNetShooter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PlaNetShooter" type="462c0819:PsiDirectoryNode" />
+              <item name=".idea" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PlaNetShooter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PlaNetShooter" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PlaNetShooter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PlaNetShooter" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PlaNetShooter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PlaNetShooter" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PlaNetShooter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PlaNetShooter" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="PlaNetShooter" type="b2602c69:ProjectViewProjectNode" />
+              <item name="PlaNetShooter" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="view" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="game" type="462c0819:PsiDirectoryNode" />
+              <item name="names" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="GenerateAntBuildDialog.backupFiles" value="true" />
-    <property name="GenerateAntBuildDialog.enableUiFormCompile" value="true" />
-    <property name="GenerateAntBuildDialog.forceTargetJdk" value="true" />
-    <property name="GenerateAntBuildDialog.outputFileNameProperty" value="planetshooter" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1554491703453" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/view/resources/home/faces" />
-    <property name="project.structure.last.edited" value="Artifacts" />
-    <property name="project.structure.proportion" value="0.15" />
-    <property name="project.structure.side.proportion" value="0.1150748" />
-    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
-  </component>
-  <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/view/resources/home/labels" />
-      <recent name="$PROJECT_DIR$/src/view/resources/home/faces" />
-      <recent name="$PROJECT_DIR$/src/view/resources/home/buttons" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/view/resources/home/faces" />
-      <recent name="$PROJECT_DIR$/src/view/resources/home/labels" />
-    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -393,384 +302,18 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="MainClient" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="MainClient" />
-      <module name="PlaNetShooter" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.MainClient" />
-        <item itemvalue="Application.MainClient" />
-        <item itemvalue="Application.MainClient" />
-      </list>
-    </recent_temporary>
-  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
   <component name="TaskManager">
-    <task active="true" id="Default" summary="Default task">
-      <changelist id="69852263-13d6-4002-be51-1cde4d96d645" name="Default Changelist" comment="" />
-      <created>1552598369586</created>
-      <option name="number" value="Default" />
-      <option name="presentableId" value="Default" />
-      <updated>1552598369586</updated>
-    </task>
-    <task id="LOCAL-00085" summary="Minor change (Adjust lines)">
-      <created>1554326073476</created>
-      <option name="number" value="00085" />
-      <option name="presentableId" value="LOCAL-00085" />
-      <option name="project" value="LOCAL" />
-      <updated>1554326073477</updated>
-    </task>
-    <task id="LOCAL-00086" summary="Reduce bullets number per character">
-      <created>1554478871559</created>
-      <option name="number" value="00086" />
-      <option name="presentableId" value="LOCAL-00086" />
-      <option name="project" value="LOCAL" />
-      <updated>1554478871561</updated>
-    </task>
-    <task id="LOCAL-00087" summary="Solve bug when ultimate 3 Angelo finished">
-      <created>1554483439450</created>
-      <option name="number" value="00087" />
-      <option name="presentableId" value="LOCAL-00087" />
-      <option name="project" value="LOCAL" />
-      <updated>1554483439450</updated>
-    </task>
-    <task id="LOCAL-00088" summary="Simplify Yodel">
-      <created>1554487974621</created>
-      <option name="number" value="00088" />
-      <option name="presentableId" value="LOCAL-00088" />
-      <option name="project" value="LOCAL" />
-      <updated>1554487974621</updated>
-    </task>
-    <task id="LOCAL-00089" summary="Updating width/height when ultimate running">
-      <created>1554496318003</created>
-      <option name="number" value="00089" />
-      <option name="presentableId" value="LOCAL-00089" />
-      <option name="project" value="LOCAL" />
-      <updated>1554496318003</updated>
-    </task>
-    <task id="LOCAL-00090" summary="Sending ultimate steps">
-      <created>1554496588063</created>
-      <option name="number" value="00090" />
-      <option name="presentableId" value="LOCAL-00090" />
-      <option name="project" value="LOCAL" />
-      <updated>1554496588063</updated>
-    </task>
-    <task id="LOCAL-00091" summary="Started to show on all the clients the ultimates running">
-      <created>1554497881653</created>
-      <option name="number" value="00091" />
-      <option name="presentableId" value="LOCAL-00091" />
-      <option name="project" value="LOCAL" />
-      <updated>1554497881653</updated>
-    </task>
-    <task id="LOCAL-00092" summary="Angelo's ultimate is now showed to all the clients">
-      <created>1554534964479</created>
-      <option name="number" value="00092" />
-      <option name="presentableId" value="LOCAL-00092" />
-      <option name="project" value="LOCAL" />
-      <updated>1554534964480</updated>
-    </task>
-    <task id="LOCAL-00093" summary="Add Tatitatoo's ultimate (properties to define)">
-      <created>1554537563021</created>
-      <option name="number" value="00093" />
-      <option name="presentableId" value="LOCAL-00093" />
-      <option name="project" value="LOCAL" />
-      <updated>1554537563022</updated>
-    </task>
-    <task id="LOCAL-00094" summary="Solve bug class character changed">
-      <created>1554538976091</created>
-      <option name="number" value="00094" />
-      <option name="presentableId" value="LOCAL-00094" />
-      <option name="project" value="LOCAL" />
-      <updated>1554538976092</updated>
-    </task>
-    <task id="LOCAL-00095" summary="Character movement equals 0 when respawning">
-      <created>1554539843460</created>
-      <option name="number" value="00095" />
-      <option name="presentableId" value="LOCAL-00095" />
-      <option name="project" value="LOCAL" />
-      <updated>1554539843460</updated>
-    </task>
-    <task id="LOCAL-00096" summary="Set time duration to Tatitatoo's ultimate">
-      <created>1554540207498</created>
-      <option name="number" value="00096" />
-      <option name="presentableId" value="LOCAL-00096" />
-      <option name="project" value="LOCAL" />
-      <updated>1554540207499</updated>
-    </task>
-    <task id="LOCAL-00097" summary="Generify ultimate system">
-      <created>1554540656991</created>
-      <option name="number" value="00097" />
-      <option name="presentableId" value="LOCAL-00097" />
-      <option name="project" value="LOCAL" />
-      <updated>1554540656991</updated>
-    </task>
-    <task id="LOCAL-00098" summary="Stop ultimate when changing character">
-      <created>1554541065324</created>
-      <option name="number" value="00098" />
-      <option name="presentableId" value="LOCAL-00098" />
-      <option name="project" value="LOCAL" />
-      <updated>1554541065324</updated>
-    </task>
-    <task id="LOCAL-00099" summary="Tatitatoo's ultimate now doing damages and set superior health">
-      <created>1554553035946</created>
-      <option name="number" value="00099" />
-      <option name="presentableId" value="LOCAL-00099" />
-      <option name="project" value="LOCAL" />
-      <updated>1554553035951</updated>
-    </task>
-    <task id="LOCAL-00100" summary="Add Meduso's ultimate">
-      <created>1554558939115</created>
-      <option name="number" value="00100" />
-      <option name="presentableId" value="LOCAL-00100" />
-      <option name="project" value="LOCAL" />
-      <updated>1554558939115</updated>
-    </task>
-    <task id="LOCAL-00101" summary="Improve Client connection">
-      <created>1554568477005</created>
-      <option name="number" value="00101" />
-      <option name="presentableId" value="LOCAL-00101" />
-      <option name="project" value="LOCAL" />
-      <updated>1554568477006</updated>
-    </task>
-    <task id="LOCAL-00102" summary="Improve network">
-      <created>1554627743928</created>
-      <option name="number" value="00102" />
-      <option name="presentableId" value="LOCAL-00102" />
-      <option name="project" value="LOCAL" />
-      <updated>1554627743959</updated>
-    </task>
-    <task id="LOCAL-00103" summary="Center Tatitatoo's Bombs">
-      <created>1554628192468</created>
-      <option name="number" value="00103" />
-      <option name="presentableId" value="LOCAL-00103" />
-      <option name="project" value="LOCAL" />
-      <updated>1554628192469</updated>
-    </task>
-    <task id="LOCAL-00104" summary="Simplify property changes while ultimating">
-      <created>1554628821086</created>
-      <option name="number" value="00104" />
-      <option name="presentableId" value="LOCAL-00104" />
-      <option name="project" value="LOCAL" />
-      <updated>1554628821086</updated>
-    </task>
-    <task id="LOCAL-00105" summary="Improve Meduso's ultimate">
-      <created>1554629731942</created>
-      <option name="number" value="00105" />
-      <option name="presentableId" value="LOCAL-00105" />
-      <option name="project" value="LOCAL" />
-      <updated>1554629731942</updated>
-    </task>
-    <task id="LOCAL-00106" summary="Preparing names">
-      <created>1554632663571</created>
-      <option name="number" value="00106" />
-      <option name="presentableId" value="LOCAL-00106" />
-      <option name="project" value="LOCAL" />
-      <updated>1554632663572</updated>
-    </task>
-    <task id="LOCAL-00107" summary="Preparing names 2">
-      <created>1554633125253</created>
-      <option name="number" value="00107" />
-      <option name="presentableId" value="LOCAL-00107" />
-      <option name="project" value="LOCAL" />
-      <updated>1554633125253</updated>
-    </task>
-    <task id="LOCAL-00108" summary="Preparing names 3 (unplayable version)">
-      <created>1554636777739</created>
-      <option name="number" value="00108" />
-      <option name="presentableId" value="LOCAL-00108" />
-      <option name="project" value="LOCAL" />
-      <updated>1554636777746</updated>
-    </task>
-    <task id="LOCAL-00109" summary="Add player names above them">
-      <created>1554643001216</created>
-      <option name="number" value="00109" />
-      <option name="presentableId" value="LOCAL-00109" />
-      <option name="project" value="LOCAL" />
-      <updated>1554643001216</updated>
-    </task>
-    <task id="LOCAL-00110" summary="Add player names above them">
-      <created>1554643034491</created>
-      <option name="number" value="00110" />
-      <option name="presentableId" value="LOCAL-00110" />
-      <option name="project" value="LOCAL" />
-      <updated>1554643034491</updated>
-    </task>
-    <task id="LOCAL-00111" summary="Improve collision system">
-      <created>1554649231880</created>
-      <option name="number" value="00111" />
-      <option name="presentableId" value="LOCAL-00111" />
-      <option name="project" value="LOCAL" />
-      <updated>1554649231881</updated>
-    </task>
-    <task id="LOCAL-00112" summary="Improve Tatitatoo's ultimate">
-      <created>1554649926654</created>
-      <option name="number" value="00112" />
-      <option name="presentableId" value="LOCAL-00112" />
-      <option name="project" value="LOCAL" />
-      <updated>1554649926654</updated>
-    </task>
-    <task id="LOCAL-00113" summary="Improve Tatitatoo's ultimate view for others clients">
-      <created>1554650088388</created>
-      <option name="number" value="00113" />
-      <option name="presentableId" value="LOCAL-00113" />
-      <option name="project" value="LOCAL" />
-      <updated>1554650088389</updated>
-    </task>
-    <task id="LOCAL-00114" summary="Improve idle_ultimate1 image for Tatitatoo">
-      <created>1554650726587</created>
-      <option name="number" value="00114" />
-      <option name="presentableId" value="LOCAL-00114" />
-      <option name="project" value="LOCAL" />
-      <updated>1554650726587</updated>
-    </task>
-    <task id="LOCAL-00115" summary="Players now respawning looking toward the center">
-      <created>1554651034237</created>
-      <option name="number" value="00115" />
-      <option name="presentableId" value="LOCAL-00115" />
-      <option name="project" value="LOCAL" />
-      <updated>1554651034237</updated>
-    </task>
-    <task id="LOCAL-00116" summary="Players now respawning looking toward the center">
-      <created>1554656647659</created>
-      <option name="number" value="00116" />
-      <option name="presentableId" value="LOCAL-00116" />
-      <option name="project" value="LOCAL" />
-      <updated>1554656647660</updated>
-    </task>
-    <task id="LOCAL-00117" summary="Variable name improvement">
-      <created>1554656777625</created>
-      <option name="number" value="00117" />
-      <option name="presentableId" value="LOCAL-00117" />
-      <option name="project" value="LOCAL" />
-      <updated>1554656777625</updated>
-    </task>
-    <task id="LOCAL-00118" summary="Horizontal direction is now displayed correctly on all the clients">
-      <created>1554660294270</created>
-      <option name="number" value="00118" />
-      <option name="presentableId" value="LOCAL-00118" />
-      <option name="project" value="LOCAL" />
-      <updated>1554660294270</updated>
-    </task>
-    <task id="LOCAL-00119" summary="Solve infinite ultimate3 bug">
-      <created>1554741560969</created>
-      <option name="number" value="00119" />
-      <option name="presentableId" value="LOCAL-00119" />
-      <option name="project" value="LOCAL" />
-      <updated>1554741560972</updated>
-    </task>
-    <task id="LOCAL-00120" summary="Improve Tatitatoo's bombs">
-      <created>1554887122656</created>
-      <option name="number" value="00120" />
-      <option name="presentableId" value="LOCAL-00120" />
-      <option name="project" value="LOCAL" />
-      <updated>1554887122656</updated>
-    </task>
-    <task id="LOCAL-00121" summary="Prevent respawn on same platform">
-      <created>1554889067491</created>
-      <option name="number" value="00121" />
-      <option name="presentableId" value="LOCAL-00121" />
-      <option name="project" value="LOCAL" />
-      <updated>1554889067492</updated>
-    </task>
-    <task id="LOCAL-00122" summary="Minor gameplay improvement">
-      <created>1554900821257</created>
-      <option name="number" value="00122" />
-      <option name="presentableId" value="LOCAL-00122" />
-      <option name="project" value="LOCAL" />
-      <updated>1554900821258</updated>
-    </task>
-    <task id="LOCAL-00123" summary="Add play button image">
-      <created>1554903249619</created>
-      <option name="number" value="00123" />
-      <option name="presentableId" value="LOCAL-00123" />
-      <option name="project" value="LOCAL" />
-      <updated>1554903249620</updated>
-    </task>
-    <task id="LOCAL-00124" summary="Improve centerPanel of Home">
-      <created>1554912173149</created>
-      <option name="number" value="00124" />
-      <option name="presentableId" value="LOCAL-00124" />
-      <option name="project" value="LOCAL" />
-      <updated>1554912173149</updated>
-    </task>
-    <task id="LOCAL-00125" summary="Add images">
-      <created>1554912252661</created>
-      <option name="number" value="00125" />
-      <option name="presentableId" value="LOCAL-00125" />
-      <option name="project" value="LOCAL" />
-      <updated>1554912252661</updated>
-    </task>
-    <task id="LOCAL-00126" summary="Preparing players array">
-      <created>1554914997149</created>
-      <option name="number" value="00126" />
-      <option name="presentableId" value="LOCAL-00126" />
-      <option name="project" value="LOCAL" />
-      <updated>1554914997149</updated>
-    </task>
-    <task id="LOCAL-00127" summary="Minor improvement">
-      <created>1554917367130</created>
-      <option name="number" value="00127" />
-      <option name="presentableId" value="LOCAL-00127" />
-      <option name="project" value="LOCAL" />
-      <updated>1554917367130</updated>
-    </task>
-    <task id="LOCAL-00128" summary="Begun home array">
-      <created>1554932218566</created>
-      <option name="number" value="00128" />
-      <option name="presentableId" value="LOCAL-00128" />
-      <option name="project" value="LOCAL" />
-      <updated>1554932218567</updated>
-    </task>
-    <task id="LOCAL-00129" summary="Try (not working version)">
-      <created>1554934968665</created>
-      <option name="number" value="00129" />
-      <option name="presentableId" value="LOCAL-00129" />
-      <option name="project" value="LOCAL" />
-      <updated>1554934968666</updated>
-    </task>
-    <task id="LOCAL-00130" summary="Fix everything from the past hour">
-      <created>1554935859122</created>
-      <option name="number" value="00130" />
-      <option name="presentableId" value="LOCAL-00130" />
-      <option name="project" value="LOCAL" />
-      <updated>1554935859125</updated>
-    </task>
-    <task id="LOCAL-00131" summary="Merge branch 'master' into HEAD&#10;&#10;# Conflicts:&#10;#&#9;out/Client-PlaNetShooter.jar&#10;#&#9;out/Server-PlaNetShooter.jar&#10;#&#9;src/MainClient.java&#10;#&#9;src/view/client/home_frame/HomePanel.java&#10;#&#9;src/view/resources/home/faces/monk_face.png&#10;#&#9;src/view/resources/home/labels/monk_label.png">
-      <created>1554936137289</created>
-      <option name="number" value="00131" />
-      <option name="presentableId" value="LOCAL-00131" />
-      <option name="project" value="LOCAL" />
-      <updated>1554936137289</updated>
-    </task>
-    <task id="LOCAL-00132" summary="Add mystery face">
-      <created>1554937001078</created>
-      <option name="number" value="00132" />
-      <option name="presentableId" value="LOCAL-00132" />
-      <option name="project" value="LOCAL" />
-      <updated>1554937001078</updated>
-    </task>
-    <task id="LOCAL-00133" summary="Minor improvement">
-      <created>1554937380036</created>
-      <option name="number" value="00133" />
-      <option name="presentableId" value="LOCAL-00133" />
-      <option name="project" value="LOCAL" />
-      <updated>1554937380036</updated>
-    </task>
-    <option name="localTasksCounter" value="134" />
     <servers />
   </component>
   <component name="ToolWindowManager">
     <frame x="67" y="25" width="1853" height="1055" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Repositories" weight="0.32982844" />
-      <window_info content_ui="combo" id="Project" order="0" weight="0.5124516" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.5124516" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -786,7 +329,7 @@
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Terminal" order="7" sideWeight="0.4969563" weight="0.32829374" />
       <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.5019369" side_tool="true" weight="0.32829374" />
-      <window_info active="true" anchor="bottom" id="Version Control" order="9" sideWeight="0.4980631" visible="true" weight="0.32937366" />
+      <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.4980631" weight="0.32937366" />
       <window_info anchor="bottom" id="Messages" order="10" weight="0.32937366" />
       <window_info anchor="bottom" id="Inspection Results" order="11" weight="0.32937366" />
       <window_info anchor="bottom" id="Analyze Dataflow to" order="12" weight="0.32937366" />
@@ -803,30 +346,6 @@
     </layout>
   </component>
   <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
-      <map>
-        <entry key="MAIN">
-          <value>
-            <State>
-              <option name="RECENTLY_FILTERED_USER_GROUPS">
-                <collection />
-              </option>
-              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
-                <collection />
-              </option>
-              <option name="COLUMN_ORDER">
-                <list>
-                  <option value="0" />
-                  <option value="1" />
-                  <option value="2" />
-                  <option value="3" />
-                </list>
-              </option>
-            </State>
-          </value>
-        </entry>
-      </map>
-    </option>
     <option name="RECENT_FILTERS">
       <map>
         <entry key="Branch">
@@ -842,557 +361,13 @@
       </map>
     </option>
   </component>
-  <component name="VcsManagerConfiguration">
-    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
-    <MESSAGE value="Preparing names" />
-    <MESSAGE value="Preparing names 2" />
-    <MESSAGE value="Preparing names 3 (unplayable version)" />
-    <MESSAGE value="Add player names above them" />
-    <MESSAGE value="Improve collision system" />
-    <MESSAGE value="Improve Tatitatoo's ultimate" />
-    <MESSAGE value="Improve Tatitatoo's ultimate view for others clients" />
-    <MESSAGE value="Improve idle_ultimate1 image for Tatitatoo" />
-    <MESSAGE value="Players now respawning looking toward the center" />
-    <MESSAGE value="Variable name improvement" />
-    <MESSAGE value="Horizontal direction is now displayed correctly on all the clients" />
-    <MESSAGE value="Solve infinite ultimate3 bug" />
-    <MESSAGE value="Improve Tatitatoo's bombs" />
-    <MESSAGE value="Prevent respawn on same platform" />
-    <MESSAGE value="Minor gameplay improvement" />
-    <MESSAGE value="Add play button image" />
-    <MESSAGE value="Improve centerPanel of Home" />
-    <MESSAGE value="Add images" />
-    <MESSAGE value="Preparing players array" />
-    <MESSAGE value="Begun home array" />
-    <MESSAGE value="Try (not working version)" />
-    <MESSAGE value="Fix everything from the past hour" />
-    <MESSAGE value="Merge branch 'master' into HEAD&#10;&#10;# Conflicts:&#10;#&#9;out/Client-PlaNetShooter.jar&#10;#&#9;out/Server-PlaNetShooter.jar&#10;#&#9;src/MainClient.java&#10;#&#9;src/view/client/home_frame/HomePanel.java&#10;#&#9;src/view/resources/home/faces/monk_face.png&#10;#&#9;src/view/resources/home/labels/monk_label.png" />
-    <MESSAGE value="Add mystery face" />
-    <MESSAGE value="Minor improvement" />
-    <option name="LAST_COMMIT_MESSAGE" value="Minor improvement" />
-    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
-    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
-    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
-  </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints-defaults>
-        <breakpoint suspend="THREAD" type="java-exception" />
-      </breakpoints-defaults>
-      <default-breakpoints>
-        <breakpoint enabled="true" type="java-exception">
-          <properties />
-        </breakpoint>
-      </default-breakpoints>
-    </breakpoint-manager>
-  </component>
-  <component name="antWorkspaceConfiguration">
-    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
-    <option name="FILTER_TARGETS" value="false" />
-  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/view/resources/game/characters/meduso/run.gif">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/resources/game/characters/meduso/idle.gif">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/server/PortAlreadyUsedError.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="13" selection-start-line="4" selection-start-column="13" selection-end-line="4" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/resources/game/characters/tatitatoo/idle.gif">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/client/keyboard_actions/PressAction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="8" column="30" selection-start-line="8" selection-end-line="9" />
-          <folding>
-            <element signature="e#494#495#0" expanded="true" />
-            <element signature="e#530#531#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/_config.yml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/.idea/workspace.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="17" column="40" selection-start-line="17" selection-start-column="40" selection-end-line="17" selection-end-column="40" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/kryonet/kryonet/2.21/kryonet-2.21.jar!/com/esotericsoftware/kryonet/FrameworkMessage.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="27" lean-forward="true" selection-start-line="27" selection-end-line="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/kryonet/kryonet/2.21/kryonet-2.21.jar!/com/esotericsoftware/kryonet/Client.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-660">
-          <caret line="114" lean-forward="true" selection-start-line="114" selection-end-line="114" />
-          <folding>
-            <element signature="e#0#16613#0" expanded="true" />
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$MAVEN_REPOSITORY$/kryonet/kryonet/2.21/kryonet-2.21.jar!/com/esotericsoftware/kryonet/Server.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="196">
-          <caret line="48" column="39" selection-start-line="48" selection-start-column="39" selection-end-line="48" selection-end-column="39" />
-          <folding>
-            <element signature="e#1525#1526#0" expanded="true" />
-            <element signature="e#1558#1559#0" expanded="true" />
-            <element signature="e#1656#1657#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/client/game_frame/GameFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="375">
-          <caret line="28" column="28" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/resources/game/characters/tatitatoo/bullet.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/SolidObject.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/PlaNetShooter.iml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/PlayerCollisionSide.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="12" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/client/connection/AskClientName.java" />
-    <entry file="file://$PROJECT_DIR$/src/view/resources/game/characters/angelo/ultimate1.gif">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/resources/game/characters/angelo/ultimate3.gif">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/resources/game/characters/angelo/ultimate2.gif">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/Terrain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="4" column="59" selection-start-line="4" selection-start-column="59" selection-end-line="4" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/server/ServerFrame.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="23" column="33" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/pom.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="20" selection-start-line="24" selection-start-column="20" selection-end-line="24" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/CollisionDetection.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/client/game_frame/yodel/LeftYodel.java" />
-    <entry file="file://$PROJECT_DIR$/src/view/client/game_frame/yodel/RightYodel.java" />
-    <entry file="file://$PROJECT_DIR$/src/view/client/connection/IPAddressValidator.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="23" column="5" selection-start-line="23" selection-start-column="5" selection-end-line="23" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/resources/game/characters/tatitatoo/ulti.gif" />
-    <entry file="file://$PROJECT_DIR$/src/view/client/game_frame/YodelView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="18" column="5" selection-start-line="18" selection-start-column="5" selection-end-line="18" selection-end-column="5" />
-          <folding>
-            <element signature="e#577#578#0" expanded="true" />
-            <element signature="e#609#610#0" expanded="true" />
-            <element signature="e#644#645#0" expanded="true" />
-            <element signature="e#676#677#0" expanded="true" />
-            <element signature="e#715#716#0" expanded="true" />
-            <element signature="e#751#752#0" expanded="true" />
-            <element signature="e#791#792#0" expanded="true" />
-            <element signature="e#828#829#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/client/game_frame/PlatformView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="29" column="1" selection-start-line="29" selection-start-column="1" selection-end-line="29" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/network/GameServer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="825">
-          <caret line="60" column="9" selection-start-line="60" selection-start-column="9" selection-end-line="60" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/client/connection/ServerFullError.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="7" column="63" selection-start-line="7" selection-start-column="63" selection-end-line="7" selection-end-column="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MainServer.java">
+    <entry file="file://$PROJECT_DIR$/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
-          <caret line="6" column="10" selection-start-line="6" selection-start-column="10" selection-end-line="6" selection-end-column="10" />
+          <caret line="6" column="13" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/client/connection/AskIPHost.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="38" selection-start-line="24" selection-start-column="38" selection-end-line="24" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/client/game_frame/BulletView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="915">
-          <caret line="88" column="5" selection-start-line="88" selection-start-column="5" selection-end-line="88" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1770#1771#0" expanded="true" />
-            <element signature="e#1828#1829#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/characters/Direction.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="30">
-          <caret line="2" column="18" selection-start-line="2" selection-start-column="12" selection-end-line="2" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/bullets/Bullet.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/network/Network.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="975">
-          <caret line="89" column="5" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="5" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/platforms/Platform.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" column="7" selection-start-line="24" selection-start-column="7" selection-end-line="24" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/resources/game/characters/meduso/bullet.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/client/game_frame/TrampolineView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="32" selection-start-line="12" selection-start-column="32" selection-end-line="12" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/resources/home/labels/tatitatoo_label.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/resources/home/labels/monk_label.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/MainClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="9225">
-          <caret line="615" column="72" selection-start-line="615" selection-start-column="72" selection-end-line="615" selection-end-column="72" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#10131#10327#0" expanded="true" />
-            <element signature="e#10326#10327#0" expanded="true" />
-            <element signature="e#13503#14470#0" expanded="true" />
-            <element signature="e#14469#14470#0" expanded="true" />
-            <element signature="e#15480#15722#0" expanded="true" />
-            <element signature="e#15721#15722#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/characters/ClassCharacters.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="12" column="9" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/client/game_frame/CharacterView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="585">
-          <caret line="44" column="46" selection-start-line="44" selection-end-line="45" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#6460#6461#0" expanded="true" />
-            <element signature="e#6495#6496#0" expanded="true" />
-            <element signature="e#6520#6521#0" expanded="true" />
-            <element signature="e#6549#6550#0" expanded="true" />
-            <element signature="e#6592#6593#0" expanded="true" />
-            <element signature="e#6628#6629#0" expanded="true" />
-            <element signature="e#6665#6666#0" expanded="true" />
-            <element signature="e#6706#6707#0" expanded="true" />
-            <element signature="e#6744#6745#0" expanded="true" />
-            <element signature="e#6786#6787#0" expanded="true" />
-            <element signature="e#7353#7354#0" expanded="true" />
-            <element signature="e#7390#7391#0" expanded="true" />
-            <element signature="e#7447#7448#0" expanded="true" />
-            <element signature="e#7497#7498#0" expanded="true" />
-            <element signature="e#7556#7557#0" expanded="true" />
-            <element signature="e#7608#7609#0" expanded="true" />
-            <element signature="e#7642#7643#0" expanded="true" />
-            <element signature="e#7680#7681#0" expanded="true" />
-            <element signature="e#7741#7742#0" expanded="true" />
-            <element signature="e#7795#7796#0" expanded="true" />
-            <element signature="e#7860#7861#0" expanded="true" />
-            <element signature="e#7916#7917#0" expanded="true" />
-            <element signature="e#7981#7982#0" expanded="true" />
-            <element signature="e#8037#8038#0" expanded="true" />
-            <element signature="e#8102#8103#0" expanded="true" />
-            <element signature="e#8158#8159#0" expanded="true" />
-            <element signature="e#8201#8202#0" expanded="true" />
-            <element signature="e#8240#8241#0" expanded="true" />
-            <element signature="e#8283#8284#0" expanded="true" />
-            <element signature="e#8322#8323#0" expanded="true" />
-            <element signature="e#8365#8366#0" expanded="true" />
-            <element signature="e#8404#8405#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/client/game_frame/GamePanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3975">
-          <caret line="271" column="58" selection-start-line="271" selection-start-column="58" selection-end-line="271" selection-end-column="58" />
-          <folding>
-            <element signature="e#20567#20568#0" expanded="true" />
-            <element signature="e#20609#20610#0" expanded="true" />
-            <element signature="e#20682#20683#0" expanded="true" />
-            <element signature="e#20730#20731#0" expanded="true" />
-            <element signature="e#20795#20796#0" expanded="true" />
-            <element signature="e#20845#20846#0" expanded="true" />
-            <element signature="e#20902#20903#0" expanded="true" />
-            <element signature="e#20942#20943#0" expanded="true" />
-            <element signature="e#20979#20980#0" expanded="true" />
-            <element signature="e#21013#21014#0" expanded="true" />
-            <element signature="e#21066#21067#0" expanded="true" />
-            <element signature="e#21110#21111#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/network/GameClient.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="35" column="77" selection-start-line="35" selection-start-column="77" selection-end-line="35" selection-end-column="77" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/client/game_frame/HomeView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="19" column="29" selection-start-line="19" selection-start-column="29" selection-end-line="19" selection-end-column="29" />
-          <folding>
-            <element signature="e#381#382#0" expanded="true" />
-            <element signature="e#413#414#0" expanded="true" />
-            <element signature="e#448#449#0" expanded="true" />
-            <element signature="e#480#481#0" expanded="true" />
-            <element signature="e#519#520#0" expanded="true" />
-            <element signature="e#555#556#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/model/characters/PlayableCharacter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1140">
-          <caret line="108" selection-start-line="108" selection-end-line="108" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1662#1663#0" expanded="true" />
-            <element signature="e#1694#1695#0" expanded="true" />
-            <element signature="e#1729#1730#0" expanded="true" />
-            <element signature="e#1761#1762#0" expanded="true" />
-            <element signature="e#1800#1801#0" expanded="true" />
-            <element signature="e#1836#1837#0" expanded="true" />
-            <element signature="e#1876#1877#0" expanded="true" />
-            <element signature="e#1913#1914#0" expanded="true" />
-            <element signature="e#1962#1963#0" expanded="true" />
-            <element signature="e#2004#2005#0" expanded="true" />
-            <element signature="e#2046#2047#0" expanded="true" />
-            <element signature="e#2085#2086#0" expanded="true" />
-            <element signature="e#2134#2135#0" expanded="true" />
-            <element signature="e#2176#2177#0" expanded="true" />
-            <element signature="e#2233#2234#0" expanded="true" />
-            <element signature="e#2283#2284#0" expanded="true" />
-            <element signature="e#2323#2324#0" expanded="true" />
-            <element signature="e#2355#2356#0" expanded="true" />
-            <element signature="e#2414#2415#0" expanded="true" />
-            <element signature="e#2466#2467#0" expanded="true" />
-            <element signature="e#2511#2512#0" expanded="true" />
-            <element signature="e#2555#2556#0" expanded="true" />
-            <element signature="e#2601#2602#0" expanded="true" />
-            <element signature="e#2644#2645#0" expanded="true" />
-            <element signature="e#2675#2676#0" expanded="true" />
-            <element signature="e#2702#2703#0" expanded="true" />
-            <element signature="e#2752#2753#0" expanded="true" />
-            <element signature="e#2794#2795#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/view/client/home_frame/HomePanel.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="186">
-          <caret line="31" column="2" lean-forward="true" selection-start-line="31" selection-start-column="2" selection-end-line="31" selection-end-column="2" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-  </component>
-  <component name="masterDetails">
-    <states>
-      <state key="ArtifactsStructureConfigurable.UI">
-        <settings>
-          <artifact-editor />
-          <last-edited>Server-PlaNetShooter:jar</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.1150748" />
-                <option value="0.5" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="FacetStructureConfigurable.UI">
-        <settings>
-          <last-edited>No facets are configured</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.1150748" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="GlobalLibrariesConfigurable.UI">
-        <settings>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="JdkListConfigurable.UI">
-        <settings>
-          <last-edited>1.8</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.2" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ModuleStructureConfigurable.UI">
-        <settings>
-          <last-edited>PlaNetShooter</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.1150748" />
-                <option value="0.6" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-      <state key="ProjectLibrariesConfigurable.UI">
-        <settings>
-          <last-edited>Maven: com.esotericsoftware.minlog:minlog:1.2</last-edited>
-          <splitter-proportions>
-            <option name="proportions">
-              <list>
-                <option value="0.1150748" />
-              </list>
-            </option>
-          </splitter-proportions>
-        </settings>
-      </state>
-    </states>
   </component>
 </project>
