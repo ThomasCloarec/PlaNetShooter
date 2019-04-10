@@ -42,7 +42,7 @@ public class HomePanel extends JPanel {
                 BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)));
         leftPanel.add(jLabel);
         JLabel jLabel2 = new JLabel();
-        jLabel2.setIcon(new ArrayIcon("/view/resources/game/names/P?.png"));
+        jLabel2.setIcon(new ArrayIcon("/view/resources/home/faces/mystery_face.png"));
         jLabel2.setBorder(new CompoundBorder(
                 BorderFactory.createMatteBorder(1, 0, 1, 0, Color.ORANGE),
                 BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)));
