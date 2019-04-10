@@ -13,7 +13,7 @@ public class HomePanel extends JPanel {
     private final JLabel characterLabel = new JLabel();
     private final JButton playButton = new JButton();
 
-    private final JPanel leftPanel = new JPanel(null);
+    private final JPanel leftPanel = new JPanel(new GridLayout(8, 5));
     private final JPanel centerPanel = new JPanel(null);
     private final JPanel rightPanel = new JPanel(null);
 
@@ -43,6 +43,9 @@ public class HomePanel extends JPanel {
         playButton.setIcon(new PlayIcon("/view/resources/home/buttons/play.png"));
 
         leftPanel.setBackground(Color.gray);
+        for (int i = 1; i <= 40; i++) {
+            leftPanel.add(new JButton("N" + i));
+        }
         this.add(leftPanel);
 
         centerPanel.setBackground(Color.gray);
@@ -74,6 +77,7 @@ public class HomePanel extends JPanel {
         int marginY = (int) (0.02 * this.getHeight());
 
         leftPanel.setBounds(marginX, marginY, (int) (1f / 3f * this.getWidth()) - marginX, this.getHeight() - marginY * 2);
+        leftPanel.doLayout();
         drawLeftPanel();
 
         centerPanel.setBounds(marginX + leftPanel.getX() + leftPanel.getWidth(), marginY, (int) (1f / 3f * this.getWidth()) - marginX, this.getHeight() - marginY * 2);
