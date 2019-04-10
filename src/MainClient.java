@@ -257,6 +257,7 @@ class MainClient {
 
         gameFrame.getGamePanel().setCharacterView(characterView);
         gameFrame.getHomePanel().setClassCharacter(playableCharacter.getClassCharacter());
+        gameFrame.getHomePanel().setPlayerName(playableCharacter.getName());
     }
 
 
