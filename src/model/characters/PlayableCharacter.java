@@ -119,6 +119,12 @@ public class PlayableCharacter extends SolidObject {
             this.relativeMaxSpeed = 0.0045f;
             this.attackNumberPerSecond = 1f;
         }
+        else if (this.classCharacter.equals(ClassCharacters.MONK)) {
+            this.relativeWidth = 0.04f;
+            this.relativeHeight = 163f / 130f * 0.04f * 768f / 372f;
+            this.relativeMaxSpeed = 0.004f;
+            this.attackNumberPerSecond = 4f;
+        }
         else if (this.classCharacter.equals(ClassCharacters.MEDUSO)) {
             this.relativeWidth = 0.04f;
             this.relativeHeight = 200f / 200f * 0.04f * 768f / 372f;

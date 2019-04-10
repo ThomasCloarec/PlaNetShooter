@@ -55,6 +55,7 @@ class MainClient {
     private static boolean playerOnLeftYodel = false;
     private static boolean playerOnRightYodel = false;
     private static boolean yodelDetection = false;
+    private static boolean cancelUltimate = false;
 
     public static void main(String[] args) {
         System.out.println("Starting client...");
@@ -313,6 +314,10 @@ class MainClient {
                 else if (SwingUtilities.isRightMouseButton(e) && playableCharacter.getUltimateLoading() == 1) {
                     ultimateClick = true;
                 }
+                else if (ultimateClick)
+                    if (SwingUtilities.isRightMouseButton(e)) {
+                        cancelUltimate = true;
+                    }
             }
 
             @Override

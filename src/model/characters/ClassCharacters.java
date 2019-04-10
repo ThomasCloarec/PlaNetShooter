@@ -9,6 +9,7 @@ public enum ClassCharacters {
     BOB,
     MEDUSO,
     ANGELO,
+    MONK,
     TATITATOO;
 
     ClassCharacters() {
