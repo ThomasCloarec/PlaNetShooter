@@ -651,8 +651,14 @@ class MainClient {
                                         } else if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
                                             bullet.setRelativeWidth(0.015f);
                                             bullet.setRelativeHeight(0.015f * 768f / 372f);
-                                            bullet.setDamage(0.15f);
+                                            bullet.setDamage(0.1f);
+                                        } else if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
+                                            bullet.setRelativeWidth(0.02f);
+                                            bullet.setRelativeHeight(0.02f * 768f / 372f);
+                                            bullet.setDamage(0.2f);
+                                            bullet.setSpeed(0.008f);
                                         }
+
 
                                         float relativeBulletStartX = playableCharacter.getRelativeX() + ((float) -characterView.getHorizontalDirection() + 1) * playableCharacter.getRelativeWidth() / 2f;
                                         float relativeBulletStartY = playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() / 2f - bullet.getRelativeHeight() / 2f;
@@ -677,7 +683,7 @@ class MainClient {
                                             bulletRangeRatio = 100;
                                         }
                                         if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
-                                            bulletRangeRatio = (float)0.3;
+                                            bulletRangeRatio = (float)0.1;
                                         }
                                         else {
                                             bulletRangeRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f;
