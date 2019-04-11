@@ -265,7 +265,6 @@ class MainClient {
         gameFrame.getHomePanel().setPlayerName(playableCharacter.getName());
     }
 
-
     private static void createKeyMap() {
         final InputMap IM = gameFrame.getGamePanel().getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         final ActionMap AM = gameFrame.getGamePanel().getActionMap();

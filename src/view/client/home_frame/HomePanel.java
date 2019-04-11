@@ -220,8 +220,8 @@ public class HomePanel extends JPanel {
     }
 
     private class AdaptableIcon extends ImageIcon {
-        private int characterIconWidth;
-        private int characterIconHeight;
+        private final int characterIconWidth;
+        private final int characterIconHeight;
         private JLabel label;
         private JButton button;
 
