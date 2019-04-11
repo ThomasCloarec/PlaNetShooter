@@ -1,5 +1,6 @@
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.esotericsoftware.minlog.Log;
 import model.CollisionDetection;
 import model.PlayerCollisionSide;
 import model.Terrain;
@@ -58,6 +59,7 @@ class MainClient {
     private static boolean cancelUltimate = false;
 
     public static void main(String[] args) {
+        Log.set(Log.LEVEL_NONE);
         System.out.println("Starting client...");
         launchGameClient();
         if (!gameServerFull) {
