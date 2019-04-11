@@ -76,6 +76,7 @@ class MainClient {
         }
     }
 
+    
     private static void restartGame() throws IOException, URISyntaxException {
         final String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
         final File currentJar = new File(MainClient.class.getProtectionDomain().getCodeSource().getLocation().toURI());
@@ -415,12 +416,22 @@ class MainClient {
                             playableCharacter.ultimate1();
                             characterView.ultimate1();
                         } else if (playableCharacter.isUltimate1Running()) {
+                            if ((playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) &&(cancelUltimate)) {
+                                playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
+                                characterView.setClassCharacter(playableCharacter.getClassCharacter());
+                                ultimateClick = false;
+                                cancelUltimate = false;
+                            }
                             if (System.currentTimeMillis() - playableCharacter.getUltimate1StartTimeMillis() > playableCharacter.getUltimate1DurationMillis()) {
                                 playableCharacter.ultimate2();
                                 characterView.ultimate2();
                             }
                         } else if (playableCharacter.isUltimate2Running()) {
-                            if (System.currentTimeMillis() - playableCharacter.getUltimate2StartTimeMillis() > playableCharacter.getUltimate2DurationMillis()) {
+                            if (((playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) &&(cancelUltimate)) || ((playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) &&(cancelUltimate))){
+                                playableCharacter.ultimate3();
+                                characterView.ultimate3();
+                            }
+                            else if (System.currentTimeMillis() - playableCharacter.getUltimate2StartTimeMillis() > playableCharacter.getUltimate2DurationMillis()) {
                                 playableCharacter.ultimate3();
                                 characterView.ultimate3();
                             }
@@ -430,9 +441,11 @@ class MainClient {
                                 characterView.setClassCharacter(playableCharacter.getClassCharacter());
 
                                 ultimateClick = false;
+                                cancelUltimate = false;
                             }
                         } else {
                             ultimateClick = false;
+                            cancelUltimate = false;
                         }
                         playableCharacter.setUltimateLoading(0f);
                     }
