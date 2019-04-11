@@ -8,11 +8,11 @@ import java.util.List;
 
 public class PlayableCharacter extends SolidObject {
     private final static int MAX_BULLET_NUMBER_PER_PLAYER = 10;
-    private float relativeMaxSpeed = 0.004f;
+    private float relativeMaxSpeed;
     private final float RELATIVE_SPEED_GROWTH = relativeMaxSpeed/10;
-    private float relativeJumpStrength = 0.013f;
-    private float relativeWidth = 0.04f;
-    private float relativeHeight = 0.04f*768f/372f;
+    private float relativeJumpStrength;
+    private float relativeWidth;
+    private float relativeHeight;
     private ClassCharacters classCharacter;
     private float relativeX = 0.45f;
     private float relativeY = 0.1f;
@@ -20,17 +20,17 @@ public class PlayableCharacter extends SolidObject {
     private double horizontalDirection = 1;
     private double lastHorizontalDirection;
     private List<Bullet> bullets = new ArrayList<>();
-    private float maxHealth = 1f;
+    private float maxHealth;
     private float health = maxHealth;
-    private float reloadTimeSmallWaves = 0f;
+    private float reloadTimeSmallWaves;
     private long lastSmallWave;
-    private int numberOfSmallWavesInMediumWaves = 1;
-    private float reloadTimeMediumWaves = 0f;
+    private int numberOfSmallWavesInMediumWaves;
+    private float reloadTimeMediumWaves;
     private long lastMediumWave;
-    private int numberOfMediumWavesInLargeWaves = 1;
-    private float reloadTimeLargeWaves = 0.25f;
+    private int numberOfMediumWavesInLargeWaves;
+    private float reloadTimeLargeWaves;
     private long lastLargeWave;
-    private float ultimateLoading = 0;
+    private float ultimateLoading;
     private boolean atHome = true;
     private boolean ultimate1Running = false;
     private boolean ultimate2Running = false;
@@ -57,36 +57,30 @@ public class PlayableCharacter extends SolidObject {
 
     public void setClassCharacter(ClassCharacters classCharacter) {
         this.classCharacter = classCharacter;
+        this.ultimateLoading = 0;
 
-        this.relativeJumpStrength = 0.013f;
-        this.maxHealth = 1f;
-
-        if (this.classCharacter.equals(ClassCharacters.ANGELO)) {
-            this.relativeWidth = 0.03f;
-            this.relativeHeight = 140f/80f * 0.035f * 768f/372f;
-            this.relativeMaxSpeed = 0.0035f;
-            this.reloadTimeLargeWaves = 0.3f;
-            this.numberOfSmallWavesInMediumWaves = 1;
-            this.numberOfMediumWavesInLargeWaves = 1;
-        }
-        else if (this.classCharacter.equals(ClassCharacters.TATITATOO)) {
+        if (this.classCharacter.equals(ClassCharacters.BOB)) {
             this.relativeWidth = 0.04f;
-            this.relativeHeight = 200f/200f * 0.04f * 768f/372f;
+            this.relativeHeight = 0.04f*768f/372f;
             this.relativeMaxSpeed = 0.0045f;
-            this.reloadTimeLargeWaves = 1f;
-            this.numberOfSmallWavesInMediumWaves = 1;
-            this.numberOfMediumWavesInLargeWaves = 1;
-        }
-        else if (this.classCharacter.equals(ClassCharacters.MONK)) {
-            this.relativeWidth = 0.03f;
-            this.relativeHeight = 163f / 130f * 0.03f * 768f / 372f;
-            this.relativeMaxSpeed = 0.004f;
-            this.reloadTimeLargeWaves = 0.75f;
+            this.relativeJumpStrength = 0.013f;
+            this.maxHealth = 1f;
+            this.reloadTimeSmallWaves = 0.1f;
+            this.numberOfSmallWavesInMediumWaves = 3;
+            this.reloadTimeMediumWaves = 0.5f;
+            this.numberOfMediumWavesInLargeWaves = 2;
+            this.reloadTimeLargeWaves = 2f;
         }
         else if (this.classCharacter.equals(ClassCharacters.MEDUSO)) {
             this.relativeWidth = 0.04f;
-            this.relativeHeight = 200f / 200f * 0.04f * 768f / 372f;
+            this.relativeHeight = 0.04f*768f/372f;
             this.relativeMaxSpeed = 0.004f;
+            this.relativeJumpStrength = 0.013f;
+            this.maxHealth = 1f;
+            this.reloadTimeSmallWaves = 0f;
+            this.numberOfSmallWavesInMediumWaves = 1;
+            this.reloadTimeMediumWaves = 0f;
+            this.numberOfMediumWavesInLargeWaves = 1;
             this.reloadTimeLargeWaves = 0.3f;
 
             if (!(ultimate1Running && ultimate2Running && ultimate3Running)) {
@@ -94,11 +88,42 @@ public class PlayableCharacter extends SolidObject {
                 this.relativeY += 0.044f * 768f / 372f - 0.04f * 768f / 372f;
             }
         }
-        else {
-            this.relativeWidth = 0.04f;
-            this.relativeHeight = 200f/200f * 0.04f * 768f/372f;
+        else if (this.classCharacter.equals(ClassCharacters.ANGELO)) {
+            this.relativeWidth = 0.03f;
+            this.relativeHeight = 140f/80f * 0.035f * 768f/372f;
+            this.relativeMaxSpeed = 0.0035f;
+            this.relativeJumpStrength = 0.013f;
+            this.maxHealth = 1f;
             this.relativeMaxSpeed = 0.004f;
-            this.reloadTimeLargeWaves = 0.25f;
+            this.reloadTimeSmallWaves = 0f;
+            this.numberOfSmallWavesInMediumWaves = 1;
+            this.reloadTimeMediumWaves = 0f;
+            this.numberOfMediumWavesInLargeWaves = 1;
+            this.reloadTimeLargeWaves = 0.3f;
+        }
+        else if (this.classCharacter.equals(ClassCharacters.TATITATOO)) {
+            this.relativeWidth = 0.04f;
+            this.relativeHeight = 0.04f*768f/372f;
+            this.relativeMaxSpeed = 0.0045f;
+            this.relativeJumpStrength = 0.013f;
+            this.maxHealth = 1f;
+            this.reloadTimeSmallWaves = 0f;
+            this.numberOfSmallWavesInMediumWaves = 1;
+            this.reloadTimeMediumWaves = 0f;
+            this.numberOfMediumWavesInLargeWaves = 1;
+            this.reloadTimeLargeWaves = 1f;
+        }
+        else if (this.classCharacter.equals(ClassCharacters.MONK)) {
+            this.relativeWidth = 0.03f;
+            this.relativeHeight = 163f / 130f * 0.03f * 768f / 372f;
+            this.relativeJumpStrength = 0.013f;
+            this.maxHealth = 1f;
+            this.relativeMaxSpeed = 0.004f;
+            this.reloadTimeSmallWaves = 0f;
+            this.numberOfSmallWavesInMediumWaves = 1;
+            this.reloadTimeMediumWaves = 0f;
+            this.numberOfMediumWavesInLargeWaves = 1;
+            this.reloadTimeLargeWaves = 0.75f;
         }
 
         this.ultimate1Running = false;

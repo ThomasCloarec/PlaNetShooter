@@ -613,10 +613,10 @@ class MainClient {
                         collisionOnBottom = true;
                     }
 
-                    if (readyToFire) {
-                        if (System.currentTimeMillis() - playableCharacter.getLastLargeWave() > 1000f * playableCharacter.getReloadTimeLargeWaves() && playableCharacter.getNumberOfMediumWavesInLargeWaves() > 0) {
+                    if (System.currentTimeMillis() - playableCharacter.getLastSmallWave() > 1000f * playableCharacter.getReloadTimeSmallWaves()) {
+                        if (readyToFire) {
                             if (System.currentTimeMillis() - playableCharacter.getLastMediumWave() > 1000f * playableCharacter.getReloadTimeMediumWaves() && playableCharacter.getNumberOfSmallWavesInMediumWaves() > 0) {
-                                if (System.currentTimeMillis() - playableCharacter.getLastSmallWave() > 1000f * playableCharacter.getReloadTimeSmallWaves()) {
+                                if (System.currentTimeMillis() - playableCharacter.getLastLargeWave() > 1000f * playableCharacter.getReloadTimeLargeWaves() && playableCharacter.getNumberOfMediumWavesInLargeWaves() > 0) {
                                     if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
                                         if (playableCharacter.isUltimate1Running()) {
                                             //noinspection StatementWithEmptyBody
