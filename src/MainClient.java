@@ -453,6 +453,9 @@ class MainClient {
                                 characterView.ultimate2();
                             }
                         } else if (playableCharacter.isUltimate2Running()) {
+                            if ((playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) && (playableCharacter.getHealth() < 1f)){
+                                playableCharacter.setHealth(playableCharacter.getHealth()+0.0015f);
+                            }
                             if (((playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) &&(cancelUltimate)) || ((playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) &&(cancelUltimate))){
                                 playableCharacter.ultimate3();
                                 characterView.ultimate3();
