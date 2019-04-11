@@ -9,7 +9,7 @@ import java.util.List;
 public class PlayableCharacter extends SolidObject {
     private final static int MAX_BULLET_NUMBER_PER_PLAYER = 10;
     private float relativeMaxSpeed;
-    private final float RELATIVE_SPEED_GROWTH = relativeMaxSpeed/10;
+    private float relativeSpeedGrowth;
     private float relativeJumpStrength;
     private float relativeWidth;
     private float relativeHeight;
@@ -61,7 +61,7 @@ public class PlayableCharacter extends SolidObject {
 
         if (this.classCharacter.equals(ClassCharacters.BOB)) {
             this.relativeWidth = 0.04f;
-            this.relativeHeight = 0.04f*768f/372f;
+            this.relativeHeight = 181f/164f *  0.04f*768f/372f;
             this.relativeMaxSpeed = 0.0045f;
             this.relativeJumpStrength = 0.013f;
             this.maxHealth = 1f;
@@ -114,8 +114,8 @@ public class PlayableCharacter extends SolidObject {
             this.reloadTimeLargeWaves = 1f;
         }
         else if (this.classCharacter.equals(ClassCharacters.MONK)) {
-            this.relativeWidth = 0.03f;
-            this.relativeHeight = 163f / 130f * 0.03f * 768f / 372f;
+            this.relativeWidth = 0.035f;
+            this.relativeHeight = 163f / 130f * 0.035f * 768f / 372f;
             this.relativeJumpStrength = 0.013f;
             this.maxHealth = 1f;
             this.relativeMaxSpeed = 0.004f;
@@ -126,6 +126,7 @@ public class PlayableCharacter extends SolidObject {
             this.reloadTimeLargeWaves = 0.75f;
         }
 
+        this.relativeSpeedGrowth = this.relativeMaxSpeed/10;
         this.ultimate1Running = false;
         this.ultimate2Running = false;
         this.ultimate3Running = false;
@@ -257,7 +258,7 @@ public class PlayableCharacter extends SolidObject {
     }
 
     public float getRelativeSpeedGrowth() {
-        return RELATIVE_SPEED_GROWTH;
+        return relativeSpeedGrowth;
     }
 
     public float getRelativeJumpStrength() {
