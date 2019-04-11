@@ -1,6 +1,8 @@
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import model.CollisionDetection;
 import model.PlayerCollisionSide;
 import model.Terrain;
@@ -17,6 +19,7 @@ import view.client.game_frame.*;
 import view.client.keyboard_actions.PressAction;
 import view.client.keyboard_actions.ReleaseAction;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -151,6 +154,7 @@ class MainClient {
                                     Network.Hit hit = (Network.Hit) object;
                                     playableCharacter.setHealth(playableCharacter.getHealth() - hit.getDamage() / playableCharacter.getMaxHealth());
                                     if (playableCharacter.getHealth() <= 0) {
+                                        playableCharacter.setDeaths(playableCharacter.getDeaths() + 1);
                                         randomSpawn();
                                         playableCharacter.setHealth(1);
                                     }
@@ -367,6 +371,29 @@ class MainClient {
         });
 
         System.out.println("Client successfully started !");
+
+        AudioInputStream audioIn = null;
+        try {
+            audioIn = AudioSystem.getAudioInputStream(MainClient.class.getResource("/view/resources/music.wav"));
+        } catch (UnsupportedAudioFileException | IOException e) {
+            e.printStackTrace();
+        }
+        Clip clip = null;
+        try {
+            clip = AudioSystem.getClip();
+        } catch (LineUnavailableException e) {
+            e.printStackTrace();
+        }
+        try {
+            if (clip != null) {
+                clip.open(audioIn);
+            }
+        } catch (LineUnavailableException | IOException e) {
+            e.printStackTrace();
+        }
+        if (clip != null) {
+            clip.start();
+        }
     }
 
     private static void launchGameLoop() {
@@ -558,8 +585,10 @@ class MainClient {
                             jumpKeyJustPressed = false;
                         }
 
-                        if (playableCharacter.getRelativeY() >= 1)
+                        if (playableCharacter.getRelativeY() >= 1) {
+                            playableCharacter.setDeaths(playableCharacter.getDeaths() + 1);
                             randomSpawn();
+                        }
 
                         playableCharacter.setRelativeX(playableCharacter.getRelativeX() + relativeMovementX);
                         playableCharacter.setRelativeY(playableCharacter.getRelativeY() + relativeMovementY);

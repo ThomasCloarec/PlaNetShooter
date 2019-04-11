@@ -74,6 +74,10 @@ public class GameClient extends Client {
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setUltimate2Running(playableCharacter.isUltimate2Running());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setUltimate3Running(playableCharacter.isUltimate3Running());
 
+                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setKills(playableCharacter.getKills());
+                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setDeaths(playableCharacter.getDeaths());
+                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setMoney(playableCharacter.getMoney());
+
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeX(playableCharacter.getRelativeX());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeY(playableCharacter.getRelativeY());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeWidth(playableCharacter.getRelativeWidth());
@@ -123,6 +127,9 @@ public class GameClient extends Client {
         characterCopy.setRelativeWidth(character.getRelativeWidth());
         characterCopy.setRelativeHeight(character.getRelativeHeight());
         characterCopy.setLastHorizontalDirection(character.getLastHorizontalDirection());
+        characterCopy.setKills(character.getKills());
+        characterCopy.setDeaths(character.getDeaths());
+        characterCopy.setMoney(character.getMoney());
 
         this.sendUDP(characterCopy);
     }

@@ -136,12 +136,12 @@ public class HomePanel extends JPanel {
                 BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLUE),
                 BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK)));
 
-        ((JLabel) leftPanel.getComponent(8)).setText(Integer.toString(playableCharacter.getKills()));
+        ((JLabel) leftPanel.getComponent(8)).setText(Integer.toString(playableCharacter.getDeaths()));
         ((JLabel) leftPanel.getComponent(8)).setBorder(new CompoundBorder(
                 BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLUE),
                 BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK)));
 
-        ((JLabel) leftPanel.getComponent(9)).setText(Integer.toString(playableCharacter.getKills()));
+        ((JLabel) leftPanel.getComponent(9)).setText(Integer.toString(playableCharacter.getMoney()));
         ((JLabel) leftPanel.getComponent(9)).setBorder(new CompoundBorder(
                 BorderFactory.createMatteBorder(2, 0, 2, 2, Color.BLUE),
                 BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK)));
@@ -153,7 +153,10 @@ public class HomePanel extends JPanel {
                 if (this.otherPlayersHome.size() > i) {
                     if (!otherPlayersHome.get(i).getClassCharacter().equals(otherPlayers.get(i).getClassCharacter())) {
                         otherPlayersHome.get(i).setClassCharacter(otherPlayers.get(i).getClassCharacter());
-                        ((JLabel) leftPanel.getComponent(11 + i *5)).setIcon(new ArrayIcon("/view/resources/home/faces/" + otherPlayers.get(i).getClassCharacter().name().toLowerCase() + "_face.png"));
+                        ((JLabel) leftPanel.getComponent(11 + i * 5)).setIcon(new ArrayIcon("/view/resources/home/faces/" + otherPlayers.get(i).getClassCharacter().name().toLowerCase() + "_face.png"));
+                        ((JLabel) leftPanel.getComponent(12 + i * 5)).setText(Integer.toString(otherPlayers.get(i).getKills()));
+                        ((JLabel) leftPanel.getComponent(13 + i * 5)).setText(Integer.toString(otherPlayers.get(i).getDeaths()));
+                        ((JLabel) leftPanel.getComponent(14 + i * 5)).setText(Integer.toString(otherPlayers.get(i).getMoney()));
                     }
                 } else {
                     if (i < 5 ) {
@@ -162,26 +165,26 @@ public class HomePanel extends JPanel {
                         playableCharacter.setClassCharacter(otherPlayers.get(i).getClassCharacter());
                         this.otherPlayersHome.add(playableCharacter);
 
-                        ((JLabel) leftPanel.getComponent(10 + otherPlayersHome.indexOf(playableCharacter) * 5)).setIcon(new ArrayIcon("/view/resources/game/names/" + playableCharacter.getName() + ".png"));
-                        ((JLabel) leftPanel.getComponent(11 + otherPlayersHome.indexOf(playableCharacter) * 5)).setIcon(new ArrayIcon("/view/resources/home/faces/" + playableCharacter.getClassCharacter().name().toLowerCase() + "_face.png"));
+                        ((JLabel) leftPanel.getComponent(10 + i * 5)).setIcon(new ArrayIcon("/view/resources/game/names/" + playableCharacter.getName() + ".png"));
+                        ((JLabel) leftPanel.getComponent(11 + i * 5)).setIcon(new ArrayIcon("/view/resources/home/faces/" + playableCharacter.getClassCharacter().name().toLowerCase() + "_face.png"));
                         if (i == 0) {
-                            ((JLabel) leftPanel.getComponent(10 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(2,2,2,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(11 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(12 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(13 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(14 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,2,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(10 + i * 5)).setBorder(BorderFactory.createMatteBorder(2,2,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(11 + i * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(12 + i * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(13 + i * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(14 + i * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,2,Color.BLACK));
                         }
                         else {
-                            ((JLabel) leftPanel.getComponent(10 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(0,2,2,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(11 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(12 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(13 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(14 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,2,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(10 + i * 5)).setBorder(BorderFactory.createMatteBorder(0,2,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(11 + i * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(12 + i * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(13 + i * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(14 + i * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,2,Color.BLACK));
                         }
 
-                        ((JLabel) leftPanel.getComponent(12 + otherPlayersHome.indexOf(playableCharacter) * 5)).setText("0");
-                        ((JLabel) leftPanel.getComponent(13 + otherPlayersHome.indexOf(playableCharacter) * 5)).setText("0");
-                        ((JLabel) leftPanel.getComponent(14 + otherPlayersHome.indexOf(playableCharacter) * 5)).setText("0");
+                        ((JLabel) leftPanel.getComponent(12 + i * 5)).setText("0");
+                        ((JLabel) leftPanel.getComponent(13 + i * 5)).setText("0");
+                        ((JLabel) leftPanel.getComponent(14 + i * 5)).setText("0");
                     }
                 }
             }

@@ -363,4 +363,16 @@ public class PlayableCharacter extends SolidObject {
     public int getMoney() {
         return money;
     }
+
+    public void setKills(int kills) {
+        this.kills = kills;
+    }
+
+    public void setDeaths(int deaths) {
+        this.deaths = deaths;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
 }
