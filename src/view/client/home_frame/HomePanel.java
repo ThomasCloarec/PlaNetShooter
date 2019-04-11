@@ -154,10 +154,10 @@ public class HomePanel extends JPanel {
                     if (!otherPlayersHome.get(i).getClassCharacter().equals(otherPlayers.get(i).getClassCharacter())) {
                         otherPlayersHome.get(i).setClassCharacter(otherPlayers.get(i).getClassCharacter());
                         ((JLabel) leftPanel.getComponent(11 + i * 5)).setIcon(new ArrayIcon("/view/resources/home/faces/" + otherPlayers.get(i).getClassCharacter().name().toLowerCase() + "_face.png"));
-                        ((JLabel) leftPanel.getComponent(12 + i * 5)).setText(Integer.toString(otherPlayers.get(i).getKills()));
-                        ((JLabel) leftPanel.getComponent(13 + i * 5)).setText(Integer.toString(otherPlayers.get(i).getDeaths()));
-                        ((JLabel) leftPanel.getComponent(14 + i * 5)).setText(Integer.toString(otherPlayers.get(i).getMoney()));
                     }
+                    ((JLabel) leftPanel.getComponent(12 + i * 5)).setText(Integer.toString(otherPlayers.get(i).getKills()));
+                    ((JLabel) leftPanel.getComponent(13 + i * 5)).setText(Integer.toString(otherPlayers.get(i).getDeaths()));
+                    ((JLabel) leftPanel.getComponent(14 + i * 5)).setText(Integer.toString(otherPlayers.get(i).getMoney()));
                 } else {
                     if (i < 5 ) {
                         PlayableCharacter playableCharacter = new PlayableCharacter();
