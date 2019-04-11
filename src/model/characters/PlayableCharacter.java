@@ -35,6 +35,9 @@ public class PlayableCharacter extends SolidObject {
     private int ultimate3DurationMillis;
     private long ultimate3StartTimeMillis;
     private boolean classCharacterChanged = false;
+    private int kills = 0;
+    private int deaths = 0;
+    private int money = 0;
 
     // Default constructor used for reflection (by Kryo serialization)
     public PlayableCharacter() {
@@ -347,5 +350,17 @@ public class PlayableCharacter extends SolidObject {
 
     public float getMaxHealth() {
         return maxHealth;
+    }
+
+    public int getKills() {
+        return kills;
+    }
+
+    public int getDeaths() {
+        return deaths;
+    }
+
+    public int getMoney() {
+        return money;
     }
 }

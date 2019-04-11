@@ -756,6 +756,7 @@ class MainClient {
 
                     gameFrame.getGamePanel().otherPlayersPainting(gameClient.getOtherPlayers());
                     gameFrame.getHomePanel().refreshHome(gameClient.getOtherPlayers());
+                    gameFrame.getHomePanel().setPlayerValues(playableCharacter);
 
                     if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO) && playableCharacter.isUltimate1Running())
                         playableCharacter.setRelativeY(playableCharacter.getRelativeY() - 0.0075f);

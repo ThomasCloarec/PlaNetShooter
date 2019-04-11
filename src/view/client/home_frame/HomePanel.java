@@ -130,6 +130,23 @@ public class HomePanel extends JPanel {
                 BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK)));
     }
 
+    public void setPlayerValues(PlayableCharacter playableCharacter) {
+        ((JLabel) leftPanel.getComponent(7)).setText(Integer.toString(playableCharacter.getKills()));
+        ((JLabel) leftPanel.getComponent(7)).setBorder(new CompoundBorder(
+                BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLUE),
+                BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK)));
+
+        ((JLabel) leftPanel.getComponent(8)).setText(Integer.toString(playableCharacter.getKills()));
+        ((JLabel) leftPanel.getComponent(8)).setBorder(new CompoundBorder(
+                BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLUE),
+                BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK)));
+
+        ((JLabel) leftPanel.getComponent(9)).setText(Integer.toString(playableCharacter.getKills()));
+        ((JLabel) leftPanel.getComponent(9)).setBorder(new CompoundBorder(
+                BorderFactory.createMatteBorder(2, 0, 2, 2, Color.BLUE),
+                BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK)));
+    }
+
     public void refreshHome(List<PlayableCharacter> otherPlayers) {
         SwingUtilities.invokeLater(() -> {
             for (int i = 0; i < otherPlayers.size(); i++) {
@@ -150,11 +167,21 @@ public class HomePanel extends JPanel {
                         if (i == 0) {
                             ((JLabel) leftPanel.getComponent(10 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(2,2,2,1,Color.BLACK));
                             ((JLabel) leftPanel.getComponent(11 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(12 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(13 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(14 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,2,Color.BLACK));
                         }
                         else {
                             ((JLabel) leftPanel.getComponent(10 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(0,2,2,1,Color.BLACK));
                             ((JLabel) leftPanel.getComponent(11 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(12 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(13 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(14 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,2,Color.BLACK));
                         }
+
+                        ((JLabel) leftPanel.getComponent(12 + otherPlayersHome.indexOf(playableCharacter) * 5)).setText("0");
+                        ((JLabel) leftPanel.getComponent(13 + otherPlayersHome.indexOf(playableCharacter) * 5)).setText("0");
+                        ((JLabel) leftPanel.getComponent(14 + otherPlayersHome.indexOf(playableCharacter) * 5)).setText("0");
                     }
                 }
             }
@@ -167,18 +194,23 @@ public class HomePanel extends JPanel {
             if ( 5 - index != 0) {
                 ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setIcon(((JLabel) leftPanel.getComponent(10 + (index + i + 1) * 5)).getIcon());
                 ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setIcon(((JLabel) leftPanel.getComponent(11 + (index + i + 1) * 5)).getIcon());
-                if (((JLabel) leftPanel.getComponent(10 + (index + i + 1) * 5)).getBorder() == null) {
+                if (((JLabel) leftPanel.getComponent(10 + (index + i + 1) * 5)).getBorder() == null && ((JLabel) leftPanel.getComponent(11 + (index + i + 1) * 5)).getBorder() == null) {
+                    ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setIcon(null);
                     ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setBorder(null);
-                }
-                if (((JLabel) leftPanel.getComponent(11 + (index + i + 1) * 5)).getBorder() == null) {
+                    ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setIcon(null);
                     ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setBorder(null);
+                    ((JLabel) leftPanel.getComponent(12 + (index + i) * 5)).setText(null);
+                    ((JLabel) leftPanel.getComponent(12 + (index + i) * 5)).setBorder(null);
+                    ((JLabel) leftPanel.getComponent(13 + (index + i) * 5)).setText(null);
+                    ((JLabel) leftPanel.getComponent(13 + (index + i) * 5)).setBorder(null);
+                    ((JLabel) leftPanel.getComponent(14 + (index + i) * 5)).setText(null);
+                    ((JLabel) leftPanel.getComponent(14 + (index + i) * 5)).setBorder(null);
                 }
-            }
-            else {
-                ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setIcon(null);
-                ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setBorder(null);
-                ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setIcon(null);
-                ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setBorder(null);
+                else {
+                    ((JLabel) leftPanel.getComponent(12 + (index + i) * 5)).setText(((JLabel) leftPanel.getComponent(12 + (index + i + 1) * 5)).getText());
+                    ((JLabel) leftPanel.getComponent(13 + (index + i) * 5)).setText(((JLabel) leftPanel.getComponent(13 + (index + i + 1) * 5)).getText());
+                    ((JLabel) leftPanel.getComponent(14 + (index + i) * 5)).setText(((JLabel) leftPanel.getComponent(14 + (index + i + 1) * 5)).getText());
+                }
             }
         }
         otherPlayersHome.remove(index);
