@@ -57,14 +57,14 @@ public class HomePanel extends JPanel {
         leftPanel.add(jLabel3);
 
         JLabel jLabel4 = new JLabel();
-        jLabel4.setIcon(new ArrayIcon("/view/resources/game/names/P_unknown.png"));
+        jLabel4.setIcon(new ArrayIcon("/view/resources/home/death.png"));
         jLabel4.setBorder(new CompoundBorder(
                 BorderFactory.createMatteBorder(2, 0, 2, 0, Color.ORANGE),
                 BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK)));
         leftPanel.add(jLabel4);
 
         JLabel jLabel5 = new JLabel();
-        jLabel5.setIcon(new ArrayIcon("/view/resources/game/names/P_unknown.png"));
+        jLabel5.setIcon(new ArrayIcon("/view/resources/home/money.png"));
         jLabel5.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 2, Color.ORANGE));
         leftPanel.add(jLabel5);
 
@@ -120,7 +120,6 @@ public class HomePanel extends JPanel {
         ((JLabel) leftPanel.getComponent(6)).setBorder(new CompoundBorder(
                 BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLUE),
                 BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK)));
-
     }
 
     public void setPlayerName(String playerName) {
