@@ -9,8 +9,5 @@
         <module name="PlaNetShooter" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel>
-      <module name="PlaNetShooter" target="8" />
-    </bytecodeTargetLevel>
   </component>
 </project>

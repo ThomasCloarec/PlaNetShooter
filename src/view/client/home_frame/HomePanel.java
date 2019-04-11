@@ -36,34 +36,36 @@ public class HomePanel extends JPanel {
 
         leftPanel.setBackground(Color.gray);
         JLabel jLabel = new JLabel();
-        jLabel.setIcon(new ArrayIcon("/view/resources/game/names/P_unknow.png"));
+        jLabel.setIcon(new ArrayIcon("/view/resources/game/names/P_unknown.png"));
         jLabel.setBorder(new CompoundBorder(
-                BorderFactory.createMatteBorder(1, 1, 1, 0, Color.ORANGE),
-                BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)));
+                BorderFactory.createMatteBorder(2, 2, 2, 0, Color.ORANGE),
+                BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK)));
         leftPanel.add(jLabel);
+
         JLabel jLabel2 = new JLabel();
         jLabel2.setIcon(new ArrayIcon("/view/resources/home/faces/mystery_face.png"));
         jLabel2.setBorder(new CompoundBorder(
-                BorderFactory.createMatteBorder(1, 0, 1, 0, Color.ORANGE),
-                BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)));
+                BorderFactory.createMatteBorder(2, 0, 2, 0, Color.ORANGE),
+                BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK)));
         leftPanel.add(jLabel2);
+
         JLabel jLabel3 = new JLabel();
         jLabel3.setIcon(new ArrayIcon("/view/resources/home/kill.png"));
         jLabel3.setBorder(new CompoundBorder(
-                BorderFactory.createMatteBorder(1, 0, 1, 0, Color.ORANGE),
-                BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)));
+                BorderFactory.createMatteBorder(2, 0, 2, 0, Color.ORANGE),
+                BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK)));
         leftPanel.add(jLabel3);
+
         JLabel jLabel4 = new JLabel();
-        jLabel4.setIcon(new ArrayIcon("/view/resources/game/names/P_unknow.png"));
+        jLabel4.setIcon(new ArrayIcon("/view/resources/game/names/P_unknown.png"));
         jLabel4.setBorder(new CompoundBorder(
-                BorderFactory.createMatteBorder(1, 0, 1, 0, Color.ORANGE),
-                BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)));
+                BorderFactory.createMatteBorder(2, 0, 2, 0, Color.ORANGE),
+                BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK)));
         leftPanel.add(jLabel4);
+
         JLabel jLabel5 = new JLabel();
-        jLabel5.setIcon(new ArrayIcon("/view/resources/game/names/P_unknow.png"));
-        jLabel5.setBorder(new CompoundBorder(
-                BorderFactory.createMatteBorder(1, 0, 1, 1, Color.ORANGE),
-                BorderFactory.createMatteBorder(1, 1, 1, 1, Color.BLACK)));
+        jLabel5.setIcon(new ArrayIcon("/view/resources/game/names/P_unknown.png"));
+        jLabel5.setBorder(BorderFactory.createMatteBorder(2, 0, 2, 2, Color.ORANGE));
         leftPanel.add(jLabel5);
 
         for (int i = 0; i < 35; i++) {
@@ -115,11 +117,18 @@ public class HomePanel extends JPanel {
         characterNameLabel.setIcon(new CharacterNameIcon("/view/resources/home/labels/" + classCharacter.name().toLowerCase() + "_label.png"));
         characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" + classCharacter.name().toLowerCase() + "/idle.gif"));
         ((JLabel) leftPanel.getComponent(6)).setIcon(new ArrayIcon("/view/resources/home/faces/" + classCharacter.name().toLowerCase() + "_face.png"));
+        ((JLabel) leftPanel.getComponent(6)).setBorder(new CompoundBorder(
+                BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLUE),
+                BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK)));
+
     }
 
     public void setPlayerName(String playerName) {
         nameLabel.setIcon(new NameIcon("/view/resources/game/names/" + playerName + ".png"));
         ((JLabel) leftPanel.getComponent(5)).setIcon(new ArrayIcon("/view/resources/game/names/" + playerName + ".png"));
+        ((JLabel) leftPanel.getComponent(5)).setBorder(new CompoundBorder(
+                BorderFactory.createMatteBorder(2, 2, 2, 0, Color.BLUE),
+                BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK)));
     }
 
     public void refreshHome(List<PlayableCharacter> otherPlayers) {
