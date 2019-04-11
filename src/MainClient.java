@@ -376,8 +376,7 @@ class MainClient {
         String gameFrameTitleWithoutFPS = gameFrame.getTitle();
         final long[] a = {System.currentTimeMillis()};
 
-        Thread gameLoopThread
-                ;
+        Thread gameLoopThread;
         gameLoopThread = new Thread(() -> {
             long lastTime = System.currentTimeMillis();
 
@@ -680,10 +679,10 @@ class MainClient {
 
                                         float bulletRangeRatio;
                                         if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
-                                            bulletRangeRatio = 100;
+                                            bulletRangeRatio = 100f;
                                         }
-                                        if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
-                                            bulletRangeRatio = (float)0.1;
+                                        else if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
+                                            bulletRangeRatio = 0.1f;
                                         }
                                         else {
                                             bulletRangeRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f;
