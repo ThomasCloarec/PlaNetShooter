@@ -148,16 +148,12 @@ public class HomePanel extends JPanel {
                         ((JLabel) leftPanel.getComponent(10 + otherPlayersHome.indexOf(playableCharacter) * 5)).setIcon(new ArrayIcon("/view/resources/game/names/" + playableCharacter.getName() + ".png"));
                         ((JLabel) leftPanel.getComponent(11 + otherPlayersHome.indexOf(playableCharacter) * 5)).setIcon(new ArrayIcon("/view/resources/home/faces/" + playableCharacter.getClassCharacter().name().toLowerCase() + "_face.png"));
                         if (i == 0) {
-                            ((JLabel) leftPanel.getComponent(10 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(2,2,1,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(11 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(2,0,1,1,Color.BLACK));
-                        }
-                        else if (i == 4) {
-                            ((JLabel) leftPanel.getComponent(10 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(1,2,2,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(11 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(1,0,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(10 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(2,2,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(11 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,1,Color.BLACK));
                         }
                         else {
-                            ((JLabel) leftPanel.getComponent(10 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(1,2,1,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(11 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(1,0,1,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(10 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(0,2,2,1,Color.BLACK));
+                            ((JLabel) leftPanel.getComponent(11 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,1,Color.BLACK));
                         }
                     }
                 }
@@ -171,6 +167,12 @@ public class HomePanel extends JPanel {
             if ( 5 - index != 0) {
                 ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setIcon(((JLabel) leftPanel.getComponent(10 + (index + i + 1) * 5)).getIcon());
                 ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setIcon(((JLabel) leftPanel.getComponent(11 + (index + i + 1) * 5)).getIcon());
+                if (((JLabel) leftPanel.getComponent(10 + (index + i + 1) * 5)).getBorder() == null) {
+                    ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setBorder(null);
+                }
+                if (((JLabel) leftPanel.getComponent(11 + (index + i + 1) * 5)).getBorder() == null) {
+                    ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setBorder(null);
+                }
             }
             else {
                 ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setIcon(null);
