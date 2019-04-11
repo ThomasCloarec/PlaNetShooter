@@ -137,19 +137,21 @@ public class HomePanel extends JPanel {
                 if (this.otherPlayersHome.size() > i) {
                     if (!otherPlayersHome.get(i).getClassCharacter().equals(otherPlayers.get(i).getClassCharacter())) {
                         otherPlayersHome.get(i).setClassCharacter(otherPlayers.get(i).getClassCharacter());
-                        ((JLabel) leftPanel.getComponent(11)).setIcon(new ArrayIcon("/view/resources/home/faces/" + otherPlayers.get(i).getClassCharacter().name().toLowerCase() + "_face.png"));
+                        ((JLabel) leftPanel.getComponent(11 + i *5)).setIcon(new ArrayIcon("/view/resources/home/faces/" + otherPlayers.get(i).getClassCharacter().name().toLowerCase() + "_face.png"));
                     }
                 } else {
-                    PlayableCharacter playableCharacter = new PlayableCharacter();
-                    playableCharacter.setName(otherPlayers.get(i).getName());
-                    playableCharacter.setClassCharacter(otherPlayers.get(i).getClassCharacter());
-                    this.otherPlayersHome.add(playableCharacter);
+                    if (i < 5 ) {
+                        PlayableCharacter playableCharacter = new PlayableCharacter();
+                        playableCharacter.setName(otherPlayers.get(i).getName());
+                        playableCharacter.setClassCharacter(otherPlayers.get(i).getClassCharacter());
+                        this.otherPlayersHome.add(playableCharacter);
 
-                    ((JLabel) leftPanel.getComponent(10)).setIcon(new ArrayIcon("/view/resources/game/names/" + playableCharacter.getName() + ".png"));
-                    ((JLabel) leftPanel.getComponent(10)).setIcon(new ArrayIcon("/view/resources/game/names/" + playableCharacter.getName() + ".png"));
-                    ((JLabel) leftPanel.getComponent(10)).setBorder(BorderFactory.createLineBorder(Color.BLACK));
-                    ((JLabel) leftPanel.getComponent(11)).setIcon(new ArrayIcon("/view/resources/home/faces/" + playableCharacter.getClassCharacter().name().toLowerCase() + "_face.png"));
-                    ((JLabel) leftPanel.getComponent(11)).setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                        ((JLabel) leftPanel.getComponent(10 + otherPlayersHome.indexOf(playableCharacter) * 5)).setIcon(new ArrayIcon("/view/resources/game/names/" + playableCharacter.getName() + ".png"));
+                        ((JLabel) leftPanel.getComponent(10 + otherPlayersHome.indexOf(playableCharacter) * 5)).setIcon(new ArrayIcon("/view/resources/game/names/" + playableCharacter.getName() + ".png"));
+                        ((JLabel) leftPanel.getComponent(10 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                        ((JLabel) leftPanel.getComponent(11 + otherPlayersHome.indexOf(playableCharacter) * 5)).setIcon(new ArrayIcon("/view/resources/home/faces/" + playableCharacter.getClassCharacter().name().toLowerCase() + "_face.png"));
+                        ((JLabel) leftPanel.getComponent(11 + otherPlayersHome.indexOf(playableCharacter) * 5)).setBorder(BorderFactory.createLineBorder(Color.BLACK));
+                    }
                 }
             }
             this.repaint();
@@ -157,10 +159,20 @@ public class HomePanel extends JPanel {
     }
 
     public void removeOtherPlayerHome(int index) {
-        ((JLabel) leftPanel.getComponent(10)).setIcon(null);
-        ((JLabel) leftPanel.getComponent(10)).setBorder(null);
-        ((JLabel) leftPanel.getComponent(11)).setIcon(null);
-        ((JLabel) leftPanel.getComponent(11)).setBorder(null);
+        for (int i = 0; i < 5 - index; i++) {
+            if ( 5 - index != 0) {
+                ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setIcon(((JLabel) leftPanel.getComponent(10 + (index + i + 1) * 5)).getIcon());
+                ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setBorder((((JLabel) leftPanel.getComponent(10 + (index + i + 1) * 5)).getBorder()));
+                ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setIcon(((JLabel) leftPanel.getComponent(11 + (index + i + 1) * 5)).getIcon());
+                ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setBorder((((JLabel) leftPanel.getComponent(11 + (index + i + 1) * 5)).getBorder()));
+            }
+            else {
+                ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setIcon(null);
+                ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setBorder(null);
+                ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setIcon(null);
+                ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setBorder(null);
+            }
+        }
         otherPlayersHome.remove(index);
     }
 
