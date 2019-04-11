@@ -697,7 +697,11 @@ class MainClient {
                                         float bulletRangeRatio;
                                         if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
                                             bulletRangeRatio = 100;
-                                        } else {
+                                        }
+                                        if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
+                                            bulletRangeRatio = (float)0.3;
+                                        }
+                                        else {
                                             bulletRangeRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f;
                                         }
                                         bullet.setBulletRangeRatio(bulletRangeRatio);

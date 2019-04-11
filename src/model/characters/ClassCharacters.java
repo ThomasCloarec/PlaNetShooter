@@ -9,7 +9,8 @@ public enum ClassCharacters {
     MEDUSO,
     ANGELO,
     TATITATOO,
-    MONK;
+    MONK,
+    ELBOMBAS;
 
     ClassCharacters() {
     }

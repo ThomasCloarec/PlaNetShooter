@@ -125,6 +125,18 @@ public class PlayableCharacter extends SolidObject {
             this.numberOfMediumWavesInLargeWaves = 1;
             this.reloadTimeLargeWaves = 0.75f;
         }
+        else if (this.classCharacter.equals(ClassCharacters.ELBOMBAS)) {
+            this.relativeWidth = 0.04f;
+            this.relativeHeight = 193f / 135f * 0.04f * 768f / 372f;
+            this.relativeJumpStrength = 0.013f;
+            this.maxHealth = 1f;
+            this.relativeMaxSpeed = 0.004f;
+            this.reloadTimeSmallWaves = 0f;
+            this.numberOfSmallWavesInMediumWaves = 1;
+            this.reloadTimeMediumWaves = 0f;
+            this.numberOfMediumWavesInLargeWaves = 1;
+            this.reloadTimeLargeWaves = 0.2f;
+        }
 
         this.relativeSpeedGrowth = this.relativeMaxSpeed/10;
         this.ultimate1Running = false;
