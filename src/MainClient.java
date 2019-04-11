@@ -11,13 +11,13 @@ import model.characters.PlayableCharacter;
 import model.platforms.Platform;
 import network.GameClient;
 import network.Network;
+import view.client.Audio;
 import view.client.connection.AskIPHost;
 import view.client.connection.ServerFullError;
 import view.client.game_frame.*;
 import view.client.keyboard_actions.PressAction;
 import view.client.keyboard_actions.ReleaseAction;
 
-import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -205,9 +205,11 @@ class MainClient {
     }
 
     private static void launchGameFrame() {
-        GameFrame.setIsClientAdmin(serverIP.equals("localhost"));
+        Audio music = new Audio("/view/resources/music.wav");
+        music.play(true);
 
         gameFrame = new GameFrame(clientName);
+        gameFrame.setIsClientAdmin(serverIP.equals("localhost"));
 
         gameFrame.addWindowListener(new WindowAdapter() {
             public void windowClosing(WindowEvent evt) {
@@ -367,29 +369,6 @@ class MainClient {
         });
 
         System.out.println("Client successfully started !");
-
-        AudioInputStream audioIn = null;
-        try {
-            audioIn = AudioSystem.getAudioInputStream(MainClient.class.getResource("/view/resources/music.wav"));
-        } catch (UnsupportedAudioFileException | IOException e) {
-            e.printStackTrace();
-        }
-        Clip clip = null;
-        try {
-            clip = AudioSystem.getClip();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
-        }
-        try {
-            if (clip != null) {
-                clip.open(audioIn);
-            }
-        } catch (LineUnavailableException | IOException e) {
-            e.printStackTrace();
-        }
-        if (clip != null) {
-            clip.start();
-        }
     }
 
     private static void launchGameLoop() {
