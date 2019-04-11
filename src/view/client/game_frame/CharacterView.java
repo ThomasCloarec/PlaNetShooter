@@ -253,15 +253,15 @@ public class CharacterView {
         this.ultimate3Running = ultimate3Running;
     }
 
-    public boolean isUltimate1Running() {
+    boolean isUltimate1Running() {
         return ultimate1Running;
     }
 
-    public boolean isUltimate2Running() {
+    boolean isUltimate2Running() {
         return ultimate2Running;
     }
 
-    public boolean isUltimate3Running() {
+    boolean isUltimate3Running() {
         return ultimate3Running;
     }
 }

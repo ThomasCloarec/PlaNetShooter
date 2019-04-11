@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public enum ClassCharacters {
-    BOB (),
+    BOB,
     MEDUSO,
     ANGELO,
     TATITATOO,
