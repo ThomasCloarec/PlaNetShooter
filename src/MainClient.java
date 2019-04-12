@@ -59,7 +59,6 @@ class MainClient {
     private static boolean playerOnRightYodel = false;
     private static boolean yodelDetection = false;
     private static boolean cancelUltimate = false;
-    private static boolean explode = false;
 
     public static void main(String[] args) {
         Log.set(Log.LEVEL_NONE);
@@ -329,7 +328,6 @@ class MainClient {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     lastMousePressedEvent = e;
                     readyToFire = true;
-                    explode = true;
                 }
                 else if (SwingUtilities.isRightMouseButton(e) && playableCharacter.getUltimateLoading() == 1) {
                     ultimateClick = true;
@@ -618,8 +616,8 @@ class MainClient {
                                             //noinspection StatementWithEmptyBody
                                             if (collisionOnBottom) {
                                                 Bullet bullet = new TrampolineView();
-                                                bullet.setRelativeX(playableCharacter.getRelativeX() + ((float) -characterView.getHorizontalDirection() + 1) * (playableCharacter.getRelativeWidth() / 2f - bullet.getRelativeWidth() / 2f));
-                                                bullet.setRelativeY(playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() - bullet.getRelativeHeight());
+                                                bullet.setRelativeX(playableCharacter.getRelativeX());
+                                                bullet.setRelativeY(playableCharacter.getRelativeY());
                                                 bullet.setDamage(0f);
 
                                                 for (Platform platform : platforms) {
