@@ -461,6 +461,7 @@ class MainClient {
 
                                 ultimateClick = false;
                                 cancelUltimate = false;
+                                jumpKeyJustPressed = false;
                             }
                         } else {
                             ultimateClick = false;
