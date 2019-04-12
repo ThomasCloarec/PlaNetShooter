@@ -655,7 +655,7 @@ class MainClient {
                                     if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
                                         if (playableCharacter.isUltimate1Running()) {
                                             if (collisionOnBottom) {
-                                                Trampoline trampoline = new Trampoline(playableCharacter.getRelativeX(), playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight());
+                                                Trampoline trampoline = new Trampoline(playableCharacter.getRelativeX() + playableCharacter.getRelativeWidth()/2 - new Trampoline().getRelativeWidth()/2, playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight());
                                                 trampoline.setRelativeY(trampoline.getRelativeY() - trampoline.getRelativeHeight());
                                                 playableCharacter.getInventory().add(trampoline);
                                                 playableCharacter.setLastLargeWave(System.currentTimeMillis());
