@@ -23,13 +23,13 @@ public class PlayableCharacter extends SolidObject {
     private float maxHealth;
     private float health = maxHealth;
     private float reloadTimeSmallWaves;
-    private long lastSmallWave;
+    private long lastSmallWave = 0;
     private int numberOfSmallWavesInMediumWaves;
     private float reloadTimeMediumWaves;
-    private long lastMediumWave;
+    private long lastMediumWave = 0;
     private int numberOfMediumWavesInLargeWaves;
     private float reloadTimeLargeWaves;
-    private long lastLargeWave;
+    private long lastLargeWave = 0;
     private float ultimateLoading;
     private boolean atHome = true;
     private boolean ultimate1Running = false;
