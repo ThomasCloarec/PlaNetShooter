@@ -615,8 +615,8 @@ class MainClient {
                                         if (playableCharacter.isUltimate1Running()) {
                                             if (collisionOnBottom) {
                                                 Bullet bullet = new TrampolineView();
-                                                bullet.setRelativeX(playableCharacter.getRelativeX() + ((float) -characterView.getHorizontalDirection() + 1) * (playableCharacter.getRelativeWidth() / 2f - bullet.getRelativeWidth() / 2f));
-                                                bullet.setRelativeY(playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() - bullet.getRelativeHeight());
+                                                bullet.setRelativeX(playableCharacter.getRelativeX());
+                                                bullet.setRelativeY(playableCharacter.getRelativeY());
                                                 bullet.setDamage(0f);
 
                                                 for (Platform platform : platforms) {
