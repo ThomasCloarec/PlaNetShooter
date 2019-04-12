@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayableCharacter extends SolidObject {
-    private final static int MAX_BULLET_NUMBER_PER_PLAYER = 10;
+    private final static int MAX_BULLET_NUMBER_PER_PLAYER = 25;
     private float relativeMaxSpeed;
     private float relativeSpeedGrowth;
     private float relativeJumpStrength;
@@ -23,13 +23,15 @@ public class PlayableCharacter extends SolidObject {
     private float maxHealth;
     private float health = maxHealth;
     private float reloadTimeSmallWaves;
-    private long lastSmallWave = 0;
+    private long lastSmallWaveTime = 0;
     private int numberOfSmallWavesInMediumWaves;
+    private int numberOfSmallWavesAlreadySentInMediumWaves;
     private float reloadTimeMediumWaves;
-    private long lastMediumWave = 0;
+    private long lastMediumWaveTime = 0;
     private int numberOfMediumWavesInLargeWaves;
+    private int numberOfMediumWavesAlreadySentInLargeWaves;
     private float reloadTimeLargeWaves;
-    private long lastLargeWave = 0;
+    private long lastLargeWaveTime = 0;
     private float ultimateLoading;
     private boolean atHome = true;
     private boolean ultimate1Running = false;
@@ -69,11 +71,11 @@ public class PlayableCharacter extends SolidObject {
             this.relativeMaxSpeed = 0.0045f;
             this.relativeJumpStrength = 0.013f;
             this.maxHealth = 1f;
-            this.reloadTimeSmallWaves = 0.1f;
-            this.numberOfSmallWavesInMediumWaves = 3;
-            this.reloadTimeMediumWaves = 0.5f;
+            this.reloadTimeSmallWaves = 0.02f;
+            this.numberOfSmallWavesInMediumWaves = 2;
+            this.reloadTimeMediumWaves = 0.2f;
             this.numberOfMediumWavesInLargeWaves = 2;
-            this.reloadTimeLargeWaves = 2f;
+            this.reloadTimeLargeWaves = 1f;
         }
         else if (this.classCharacter.equals(ClassCharacters.MEDUSO)) {
             this.relativeWidth = 0.04f;
@@ -123,11 +125,11 @@ public class PlayableCharacter extends SolidObject {
             this.relativeJumpStrength = 0.013f;
             this.maxHealth = 1f;
             this.relativeMaxSpeed = 0.004f;
-            this.reloadTimeSmallWaves = 0f;
-            this.numberOfSmallWavesInMediumWaves = 1;
-            this.reloadTimeMediumWaves = 0f;
-            this.numberOfMediumWavesInLargeWaves = 1;
-            this.reloadTimeLargeWaves = 0.75f;
+            this.reloadTimeSmallWaves = 0.02f;
+            this.numberOfSmallWavesInMediumWaves = 3;
+            this.reloadTimeMediumWaves = 0.2f;
+            this.numberOfMediumWavesInLargeWaves = 2;
+            this.reloadTimeLargeWaves = 0.4f;
         }
         else if (this.classCharacter.equals(ClassCharacters.ELBOMBAS)) {
             this.relativeWidth = 0.04f;
@@ -142,6 +144,7 @@ public class PlayableCharacter extends SolidObject {
             this.reloadTimeLargeWaves = 0.2f;
         }
 
+        this.numberOfSmallWavesAlreadySentInMediumWaves = this.numberOfSmallWavesInMediumWaves;
         this.relativeSpeedGrowth = this.relativeMaxSpeed/10;
         this.ultimate1Running = false;
         this.ultimate2Running = false;
@@ -230,8 +233,8 @@ public class PlayableCharacter extends SolidObject {
         this.ultimate3StartTimeMillis = System.currentTimeMillis();
     }
 
-    public void setLastLargeWave(long lastLargeWave) {
-        this.lastLargeWave = lastLargeWave;
+    public void setLastLargeWaveTime(long lastLargeWaveTime) {
+        this.lastLargeWaveTime = lastLargeWaveTime;
     }
 
     public float getRelativeX() {
@@ -314,8 +317,8 @@ public class PlayableCharacter extends SolidObject {
         return reloadTimeSmallWaves;
     }
 
-    public long getLastSmallWave() {
-        return lastSmallWave;
+    public long getLastSmallWaveTime() {
+        return lastSmallWaveTime;
     }
 
     public int getNumberOfSmallWavesInMediumWaves() {
@@ -326,16 +329,16 @@ public class PlayableCharacter extends SolidObject {
         return reloadTimeMediumWaves;
     }
 
-    public long getLastMediumWave() {
-        return lastMediumWave;
+    public long getLastMediumWaveTime() {
+        return lastMediumWaveTime;
     }
 
     public int getNumberOfMediumWavesInLargeWaves() {
         return numberOfMediumWavesInLargeWaves;
     }
 
-    public long getLastLargeWave() {
-        return lastLargeWave;
+    public long getLastLargeWaveTime() {
+        return lastLargeWaveTime;
     }
 
     public double getLastHorizontalDirection() {
@@ -445,6 +448,30 @@ public class PlayableCharacter extends SolidObject {
 
     public void setClassCharacterChanged(boolean classCharacterChanged) {
         this.classCharacterChanged = classCharacterChanged;
+    }
+
+    public int getNumberOfSmallWavesAlreadySentInMediumWaves() {
+        return numberOfSmallWavesAlreadySentInMediumWaves;
+    }
+
+    public int getNumberOfMediumWavesAlreadySentInLargeWaves() {
+        return numberOfMediumWavesAlreadySentInLargeWaves;
+    }
+
+    public void setNumberOfSmallWavesAlreadySentInMediumWaves(int numberOfSmallWavesAlreadySentInMediumWaves) {
+        this.numberOfSmallWavesAlreadySentInMediumWaves = numberOfSmallWavesAlreadySentInMediumWaves;
+    }
+
+    public void setNumberOfMediumWavesAlreadySentInLargeWaves(int numberOfMediumWavesAlreadySentInLargeWaves) {
+        this.numberOfMediumWavesAlreadySentInLargeWaves = numberOfMediumWavesAlreadySentInLargeWaves;
+    }
+
+    public void setLastMediumWaveTime(long lastMediumWaveTime) {
+        this.lastMediumWaveTime = lastMediumWaveTime;
+    }
+
+    public void setLastSmallWaveTime(long lastSmallWaveTime) {
+        this.lastSmallWaveTime = lastSmallWaveTime;
     }
 
     public float getMaxHealth() {
