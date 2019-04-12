@@ -496,7 +496,7 @@ class MainClient {
                     for (Object object : playableCharacter.getInventory()) {
                         if (object instanceof Trampoline) {
 
-                            if ((!CollisionDetection.isCollisionBetween(playableCharacter, (Trampoline) object).equals(PlayerCollisionSide.NONE)) && (!CollisionDetection.isCollisionBetween(playableCharacter, (Trampoline) object).equals(PlayerCollisionSide.TOP))) {
+                            if ((!CollisionDetection.isCollisionBetween(playableCharacter, (Trampoline) object).equals(PlayerCollisionSide.NONE)) && (!collisionOnTop)) {
                                 collisionTrampoline = true;
                                 break;
                             }
@@ -507,7 +507,7 @@ class MainClient {
                         for (PlayableCharacter otherPlayer : gameClient.getOtherPlayers()) {
                             for (Object object : otherPlayer.getInventory()) {
                                 if (object instanceof Trampoline) {
-                                    if ((!CollisionDetection.isCollisionBetween(playableCharacter, (Trampoline) object).equals(PlayerCollisionSide.NONE)) && (!CollisionDetection.isCollisionBetween(playableCharacter, (Trampoline) object).equals(PlayerCollisionSide.TOP))) {
+                                    if ((!CollisionDetection.isCollisionBetween(playableCharacter, (Trampoline) object).equals(PlayerCollisionSide.NONE)) && (!collisionOnTop)) {
                                         collisionTrampoline = true;
                                         break;
                                     }
