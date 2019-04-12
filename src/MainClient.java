@@ -642,9 +642,9 @@ class MainClient {
                         collisionOnBottom = true;
                     }
 
-                    if ((System.currentTimeMillis() - playableCharacter.getLastLargeWave() > 7000f) && (System.currentTimeMillis() - lastDamageOnPlayer > 7000f)){
+                    if ((System.currentTimeMillis() - playableCharacter.getLastLargeWave() > 3000f) && (System.currentTimeMillis() - lastDamageOnPlayer > 3000f)){
                         if (playableCharacter.getHealth() < 1f){
-                            playableCharacter.setHealth(playableCharacter.getHealth() + 0.0005f);
+                            playableCharacter.setHealth(playableCharacter.getHealth() + 0.0015f);
                         }
                     }
 
@@ -739,7 +739,7 @@ class MainClient {
                                             bulletRangeRatio = 100f;
                                         }
                                         else if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
-                                            bulletRangeRatio = 0.05f;
+                                            bulletRangeRatio = 0.07f;
                                         }
                                         else {
                                             bulletRangeRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f;
