@@ -408,6 +408,10 @@ class MainClient {
                         e.printStackTrace();
                     }
 
+                    if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO) && ultimateClick) {
+                        totalDirection = 0;
+                    }
+
                     if (!gameFrame.getGamePanel().hasFocus()) {
                         releaseActionLeft.removeMovements();
                         releaseActionRight.removeMovements();

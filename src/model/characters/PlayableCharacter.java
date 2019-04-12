@@ -176,6 +176,7 @@ public class PlayableCharacter extends SolidObject {
         else {
             this.ultimate1DurationMillis = 0;
         }
+
         this.ultimate1StartTimeMillis = System.currentTimeMillis();
         this.ultimate1Running = true;
     }
@@ -199,6 +200,7 @@ public class PlayableCharacter extends SolidObject {
         else {
             this.ultimate2DurationMillis = 0;
         }
+
         this.ultimate2StartTimeMillis = System.currentTimeMillis();
         this.ultimate2Running = true;
         this.ultimate1Running = false;
@@ -222,6 +224,7 @@ public class PlayableCharacter extends SolidObject {
         else {
             this.ultimate3DurationMillis = 0;
         }
+
         this.ultimate3Running = true;
         this.ultimate2Running = false;
         this.ultimate3StartTimeMillis = System.currentTimeMillis();
