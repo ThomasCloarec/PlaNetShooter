@@ -103,7 +103,7 @@ public class PlayableCharacter extends SolidObject {
             this.numberOfSmallWavesInMediumWaves = 1;
             this.reloadTimeMediumWaves = 0f;
             this.numberOfMediumWavesInLargeWaves = 1;
-            this.reloadTimeLargeWaves = 0.3f;
+            this.reloadTimeLargeWaves = 0.7f;
         }
         else if (this.classCharacter.equals(ClassCharacters.TATITATOO)) {
             this.relativeWidth = 0.04f;

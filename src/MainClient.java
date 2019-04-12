@@ -682,8 +682,8 @@ class MainClient {
                                             bullet.setRelativeHeight(0.015f * 768f / 372f);
                                             bullet.setDamage(0.1f);
                                         } else if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
-                                            bullet.setRelativeWidth(0.01f);
-                                            bullet.setRelativeHeight(0.01f * 768f / 372f);
+                                            bullet.setRelativeWidth(0.015f);
+                                            bullet.setRelativeHeight(0.015f * 768f / 372f);
                                             bullet.setDamage(0.25f);
                                             bullet.setSpeed(0.008f);
                                         }
