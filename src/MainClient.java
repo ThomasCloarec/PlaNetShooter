@@ -753,7 +753,7 @@ class MainClient {
                                         bulletRangeRatio = 100f;
                                     }
                                     else if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
-                                        bulletRangeRatio = 0.07f;
+                                        bulletRangeRatio = 0.09f;
                                     }
                                     else {
                                         bulletRangeRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f;

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayableCharacter extends SolidObject {
-    private final static int MAX_BULLET_NUMBER_PER_PLAYER = 25;
+    private final static int MAX_BULLET_NUMBER_PER_PLAYER = 20;
     private float relativeMaxSpeed;
     private float relativeSpeedGrowth;
     private float relativeJumpStrength;
@@ -137,11 +137,11 @@ public class PlayableCharacter extends SolidObject {
             this.relativeJumpStrength = 0.013f;
             this.maxHealth = 1.5f;
             this.relativeMaxSpeed = 0.004f;
-            this.reloadTimeSmallWaves = 0f;
-            this.numberOfSmallWavesInMediumWaves = 1;
-            this.reloadTimeMediumWaves = 0f;
-            this.numberOfMediumWavesInLargeWaves = 1;
-            this.reloadTimeLargeWaves = 0.2f;
+            this.reloadTimeSmallWaves = 0.08f;
+            this.numberOfSmallWavesInMediumWaves = 3;
+            this.reloadTimeMediumWaves = 0.4f;
+            this.numberOfMediumWavesInLargeWaves = 3;
+            this.reloadTimeLargeWaves = 1f;
         }
 
         this.numberOfSmallWavesAlreadySentInMediumWaves = this.numberOfSmallWavesInMediumWaves;
