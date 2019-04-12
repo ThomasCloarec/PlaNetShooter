@@ -25,12 +25,4 @@ public class SolidObject {
     public float getRelativeX() {
         return relativeX;
     }
-
-    public void setRelativeY(float relativeY) {
-        this.relativeY = relativeY;
-    }
-
-    public void setRelativeX(float relativeX) {
-        this.relativeX = relativeX;
-    }
 }

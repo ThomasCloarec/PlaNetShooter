@@ -163,8 +163,6 @@ public class PlayableCharacter extends SolidObject {
             this.relativeWidth = 0.04f;
             this.relativeHeight = 200f/200f * 0.04f * 768f/372f;
             this.relativeMaxSpeed = 0.0055f;
-            this.numberOfSmallWavesInMediumWaves = 1;
-            this.numberOfMediumWavesInLargeWaves = 1;
             this.maxHealth = 2f;
         }
         else if (classCharacter.equals(ClassCharacters.MEDUSO)) {
@@ -476,5 +474,9 @@ public class PlayableCharacter extends SolidObject {
 
     public List<Object> getInventory() {
         return inventory;
+    }
+
+    public void setInventory(List<Object> inventory) {
+        this.inventory = inventory;
     }
 }

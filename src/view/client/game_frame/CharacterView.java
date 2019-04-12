@@ -32,6 +32,7 @@ public class CharacterView {
     private boolean ultimate1Running = false;
     private boolean ultimate2Running = false;
     private boolean ultimate3Running = false;
+    private List<Object> inventory = new ArrayList<>();
 
     public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name, ClassCharacters classCharacter, float health) {
         this.relativeX = relativeX;
@@ -263,5 +264,13 @@ public class CharacterView {
 
     boolean isUltimate3Running() {
         return ultimate3Running;
+    }
+
+    List<Object> getInventory() {
+        return inventory;
+    }
+
+    public void setInventory(List<Object> inventory) {
+        this.inventory = inventory;
     }
 }

@@ -41,13 +41,21 @@ public class GamePanel extends JPanel {
                 (int) (new YodelView("right").getRelativeWidth() * this.getWidth()),
                 (int) (new YodelView("right").getRelativeHeight() * this.getHeight()));
 
-        /*g.setColor(Color.red);
+        g.setColor(Color.red);
         for (Object object : characterView.getInventory()) {
             if (object instanceof Trampoline) {
                 g.fillRect((int) (((Trampoline) object).getRelativeX() * this.getWidth()), (int) (((Trampoline) object).getRelativeY() * this.getHeight()), (int) (((Trampoline) object).getRelativeWidth() * this.getWidth()), (int) (((Trampoline) object).getRelativeHeight() * this.getHeight()));
             }
-        }*/
+        }
 
+        g.setColor(Color.pink);
+        for (CharacterView otherPlayerView : otherPlayersViews) {
+            for (Object object : otherPlayerView.getInventory()) {
+                if (object instanceof Trampoline) {
+                    g.fillRect((int) (((Trampoline) object).getRelativeX() * this.getWidth()), (int) (((Trampoline) object).getRelativeY() * this.getHeight()), (int) (((Trampoline) object).getRelativeWidth() * this.getWidth()), (int) (((Trampoline) object).getRelativeHeight() * this.getHeight()));
+                }
+            }
+        }
 
         for (PlatformView platform : platforms) {
             if (platform != null) {
@@ -231,6 +239,7 @@ public class GamePanel extends JPanel {
             for (int i = 0; i < otherPlayers.size(); i++) {
                 if (this.otherPlayersViews.size() > i) {
                     for (PlayableCharacter playableCharacter : otherPlayers) {
+                        this.otherPlayersViews.get(otherPlayers.indexOf(playableCharacter)).setInventory(playableCharacter.getInventory());
                         if (playableCharacter.isClassCharacterChanged()) {
                             for (BulletView bulletView : this.otherPlayersViews.get(otherPlayers.indexOf(playableCharacter)).getBulletsViews()) {
                                 try {

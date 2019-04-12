@@ -82,6 +82,8 @@ public class GameClient extends Client {
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeY(playableCharacter.getRelativeY());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeWidth(playableCharacter.getRelativeWidth());
                         otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setRelativeHeight(playableCharacter.getRelativeHeight());
+
+                        otherPlayers.get(registerList.getNameList().indexOf(playableCharacter.getName())).setInventory(playableCharacter.getInventory());
                     }
                     else {
                         for (int i = 0; i < PlayableCharacter.getMaxBulletNumberPerPlayer(); i++) {
@@ -131,6 +133,7 @@ public class GameClient extends Client {
         characterCopy.setDeaths(character.getDeaths());
         characterCopy.setMoney(character.getMoney());
         characterCopy.setHits(character.getHits());
+        characterCopy.setInventory(character.getInventory());
 
         this.sendUDP(characterCopy);
     }

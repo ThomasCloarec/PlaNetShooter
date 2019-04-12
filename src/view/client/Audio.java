@@ -3,7 +3,7 @@ package view.client;
 import javax.sound.sampled.*;
 import java.io.IOException;
 
-public class Audio {
+class Audio {
     private Clip clip;
 
     public Audio(String resourceName) {

@@ -7,13 +7,11 @@ import model.Terrain;
 import model.bullets.Bullet;
 import model.characters.ClassCharacters;
 import model.characters.Direction;
-//import model.characters.Hit;
 import model.characters.Hit;
 import model.characters.PlayableCharacter;
 import model.platforms.Platform;
 import network.GameClient;
 import network.Network;
-import view.client.Audio;
 import view.client.connection.AskIPHost;
 import view.client.connection.ServerFullError;
 import view.client.game_frame.*;
@@ -26,10 +24,7 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.*;
 
 class MainClient {
     private static String clientName;
@@ -60,7 +55,7 @@ class MainClient {
     private static boolean playerOnRightYodel = false;
     private static boolean yodelDetection = false;
     private static boolean cancelUltimate = false;
-    public static long lastDamageOnPlayer = 0;
+    private static long lastDamageOnPlayer = 0;
 
     public static void main(String[] args) {
         Log.set(Log.LEVEL_NONE);
@@ -222,9 +217,6 @@ class MainClient {
     }
 
     private static void launchGameFrame() {
-        Audio music = new Audio("/view/resources/game/audio/music.wav");
-        music.play(true);
-
         gameFrame = new GameFrame(clientName);
         gameFrame.setIsClientAdmin(serverIP.equals("localhost"));
 
@@ -491,10 +483,37 @@ class MainClient {
                             collisionOnLeft = true;
                     }
 
+                    Iterator<Object> itr = playableCharacter.getInventory().iterator();
+                    while (itr.hasNext()) {
+                        Object object = itr.next();
+                        if (object instanceof Trampoline) {
+                            if (System.currentTimeMillis() - ((Trampoline) object).getCreationTime() > ((Trampoline) object).getDurationTime() * 1000) {
+                                itr.remove();
+                            }
+                        }
+                    }
+
                     for (Object object : playableCharacter.getInventory()) {
                         if (object instanceof Trampoline) {
-                            if ((!CollisionDetection.isCollisionBetween(playableCharacter, (Trampoline) object).equals(PlayerCollisionSide.NONE))) {
+
+                            if ((!CollisionDetection.isCollisionBetween(playableCharacter, (Trampoline) object).equals(PlayerCollisionSide.NONE)) && (!CollisionDetection.isCollisionBetween(playableCharacter, (Trampoline) object).equals(PlayerCollisionSide.TOP))) {
                                 collisionTrampoline = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!collisionTrampoline) {
+                        for (PlayableCharacter otherPlayer : gameClient.getOtherPlayers()) {
+                            for (Object object : otherPlayer.getInventory()) {
+                                if (object instanceof Trampoline) {
+                                    if ((!CollisionDetection.isCollisionBetween(playableCharacter, (Trampoline) object).equals(PlayerCollisionSide.NONE)) && (!CollisionDetection.isCollisionBetween(playableCharacter, (Trampoline) object).equals(PlayerCollisionSide.TOP))) {
+                                        collisionTrampoline = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (collisionTrampoline) {
                                 break;
                             }
                         }
@@ -544,6 +563,7 @@ class MainClient {
                     }
                     else if (collisionTrampoline) {
                         relativeMovementY = -0.017f;
+                        playableCharacter.setRelativeY(playableCharacter.getRelativeY() - new Trampoline().getRelativeWidth());
                     }
                     else {
                         if ((collisionOnRight && relativeMovementX > 0) || (collisionOnLeft && relativeMovementX < 0))
@@ -609,7 +629,7 @@ class MainClient {
 
                     if (collisionOnBottom) {
                         while (collisionOnBottom) {
-                            playableCharacter.setRelativeY(playableCharacter.getRelativeY() - 0.005f);
+                            playableCharacter.setRelativeY(playableCharacter.getRelativeY() - 0.001f);
 
                             for (Platform platform : platforms) {
                                 collisionOnBottom = CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM);
@@ -618,7 +638,7 @@ class MainClient {
                                 }
                             }
                         }
-                        playableCharacter.setRelativeY(playableCharacter.getRelativeY() + 0.005f);
+                        playableCharacter.setRelativeY(playableCharacter.getRelativeY() + 0.001f);
                         collisionOnBottom = true;
                     }
 
@@ -636,7 +656,9 @@ class MainClient {
                                         if (playableCharacter.isUltimate1Running()) {
                                             if (collisionOnBottom) {
                                                 Trampoline trampoline = new Trampoline(playableCharacter.getRelativeX(), playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight());
+                                                trampoline.setRelativeY(trampoline.getRelativeY() - trampoline.getRelativeHeight());
                                                 playableCharacter.getInventory().add(trampoline);
+                                                playableCharacter.setLastLargeWave(System.currentTimeMillis());
                                             }
                                         }
                                         else {
@@ -806,6 +828,7 @@ class MainClient {
                     gameClient.sendPlayerInformation(playableCharacter);
                     gameClient.sendBulletsInformation(playableCharacter);
 
+                    characterView.setInventory(playableCharacter.getInventory());
                     gameFrame.getGamePanel().otherPlayersPainting(gameClient.getOtherPlayers());
                     gameFrame.getHomePanel().refreshHome(gameClient.getOtherPlayers());
                     gameFrame.getHomePanel().setPlayerValues(playableCharacter);
