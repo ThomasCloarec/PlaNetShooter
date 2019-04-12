@@ -59,7 +59,6 @@ class MainClient {
     private static boolean playerOnRightYodel = false;
     private static boolean yodelDetection = false;
     private static boolean cancelUltimate = false;
-    private static boolean explode = false;
 
     public static void main(String[] args) {
         Log.set(Log.LEVEL_NONE);
@@ -329,7 +328,6 @@ class MainClient {
                 if (SwingUtilities.isLeftMouseButton(e)) {
                     lastMousePressedEvent = e;
                     readyToFire = true;
-                    explode = true;
                 }
                 else if (SwingUtilities.isRightMouseButton(e) && playableCharacter.getUltimateLoading() == 1) {
                     ultimateClick = true;
@@ -615,7 +613,6 @@ class MainClient {
                                 if (System.currentTimeMillis() - playableCharacter.getLastLargeWave() > 1000f * playableCharacter.getReloadTimeLargeWaves() && playableCharacter.getNumberOfMediumWavesInLargeWaves() > 0) {
                                     if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
                                         if (playableCharacter.isUltimate1Running()) {
-                                            //noinspection StatementWithEmptyBody
                                             if (collisionOnBottom) {
                                                 Bullet bullet = new TrampolineView();
                                                 bullet.setRelativeX(playableCharacter.getRelativeX() + ((float) -characterView.getHorizontalDirection() + 1) * (playableCharacter.getRelativeWidth() / 2f - bullet.getRelativeWidth() / 2f));
@@ -685,13 +682,13 @@ class MainClient {
                                             bullet.setRelativeHeight(0.015f * 768f / 372f);
                                             bullet.setDamage(0.1f);
                                         } else if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
-                                            bullet.setRelativeWidth(0.02f);
-                                            bullet.setRelativeHeight(0.02f * 768f / 372f);
-                                            bullet.setDamage(0.2f);
+                                            bullet.setRelativeWidth(0.01f);
+                                            bullet.setRelativeHeight(0.01f * 768f / 372f);
+                                            bullet.setDamage(0.25f);
                                             bullet.setSpeed(0.008f);
                                         }
 
-                                        float relativeBulletStartX = playableCharacter.getRelativeX() + ((float) -characterView.getHorizontalDirection() + 1) * playableCharacter.getRelativeWidth() / 2f;
+                                        float relativeBulletStartX = playableCharacter.getRelativeX() + ((float) -characterView.getHorizontalDirection() + 1) * (playableCharacter.getRelativeWidth() / 2f - bullet.getRelativeWidth()/2f);
                                         float relativeBulletStartY = playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() / 2f - bullet.getRelativeHeight() / 2f;
                                         bullet.setRelativeBulletStartX(relativeBulletStartX);
                                         bullet.setRelativeBulletStartY(relativeBulletStartY);
@@ -714,7 +711,7 @@ class MainClient {
                                             bulletRangeRatio = 100f;
                                         }
                                         else if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
-                                            bulletRangeRatio = 0.1f;
+                                            bulletRangeRatio = 0.05f;
                                         }
                                         else {
                                             bulletRangeRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f;

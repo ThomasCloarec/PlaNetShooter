@@ -133,7 +133,7 @@ public class PlayableCharacter extends SolidObject {
             this.relativeWidth = 0.04f;
             this.relativeHeight = 193f / 135f * 0.04f * 768f / 372f;
             this.relativeJumpStrength = 0.013f;
-            this.maxHealth = 1f;
+            this.maxHealth = 1.5f;
             this.relativeMaxSpeed = 0.004f;
             this.reloadTimeSmallWaves = 0f;
             this.numberOfSmallWavesInMediumWaves = 1;
