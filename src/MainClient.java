@@ -218,7 +218,7 @@ class MainClient {
     }
 
     private static void launchGameFrame() {
-        Audio music = new Audio("/view/resources/music.wav");
+        Audio music = new Audio("/view/resources/game/audio/music.wav");
         music.play(true);
 
         gameFrame = new GameFrame(clientName);
