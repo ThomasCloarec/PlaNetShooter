@@ -55,10 +55,6 @@ public class GameServer extends Server {
             Network.UpdateBullet updateBullet = (Network.UpdateBullet)object;
             this.sendToAllExceptUDP(gameConnection.getID(), updateBullet);
         }
-        if (object instanceof Network.Hit) {
-            Network.Hit hit = (Network.Hit) object;
-            this.sendToTCP(registerList.getConnectionIDList().get(registerList.getNameList().indexOf(hit.getVictimName())), hit);
-        }
     }
 
     public void disconnectedListener(Connection connection) {

@@ -45,9 +45,13 @@ public class PlayableCharacter extends SolidObject {
     private int kills = 0;
     private int deaths = 0;
     private int money = 0;
+    private List<Hit> hits = new ArrayList<>();
 
     // Default constructor used for reflection (by Kryo serialization)
     public PlayableCharacter() {
+        for (int i = 0; i < 50; i ++) {
+            hits.add(new Hit());
+        }
     }
 
     public PlayableCharacter(String name) {
@@ -255,6 +259,14 @@ public class PlayableCharacter extends SolidObject {
 
     public void setRelativeY(float relativeY) {
         this.relativeY = relativeY;
+    }
+
+    public void setHits(List<Hit> hits) {
+        this.hits = hits;
+    }
+
+    public List<Hit> getHits() {
+        return hits;
     }
 
     public void setRelativeWidth(float relativeWidth) {

@@ -7,6 +7,8 @@ import model.Terrain;
 import model.bullets.Bullet;
 import model.characters.ClassCharacters;
 import model.characters.Direction;
+//import model.characters.Hit;
+import model.characters.Hit;
 import model.characters.PlayableCharacter;
 import model.platforms.Platform;
 import network.GameClient;
@@ -78,7 +80,6 @@ class MainClient {
         }
     }
 
-    
     private static void restartGame() throws IOException, URISyntaxException {
         final String javaBin = System.getProperty("java.home") + File.separator + "bin" + File.separator + "java";
         final File currentJar = new File(MainClient.class.getProtectionDomain().getCodeSource().getLocation().toURI());
@@ -130,6 +131,25 @@ class MainClient {
                 public void received(Connection connection, Object object) {
                     SwingUtilities.invokeLater(() -> {
                         if (finalGameClientLaunched[0]) {
+                            if (object instanceof PlayableCharacter) {
+                                gameClient.receivedListener(object);
+                                PlayableCharacter otherPlayer = (PlayableCharacter) object;
+
+                                for (Hit hit : otherPlayer.getHits()) {
+                                    if (hit.getPlayerHit().equals((playableCharacter.getName())) && hit.getHitTime() != gameClient.getOtherPlayers().get(gameClient.getRegisterList().getNameList().indexOf(otherPlayer.getName())).getHits().get(otherPlayer.getHits().indexOf(hit)).getHitTime()) {
+                                        if ((!playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) || (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running())) {
+                                            playableCharacter.setHealth(playableCharacter.getHealth() - hit.getHitDamage() / playableCharacter.getMaxHealth());
+                                            if (playableCharacter.getHealth() <= 0) {
+                                                playableCharacter.setDeaths(playableCharacter.getDeaths() + 1);
+                                                randomSpawn();
+                                                playableCharacter.setHealth(1);
+                                            }
+                                        }
+                                    }
+                                }
+                                if (gameClient.getRegisterList().getNameList().indexOf(otherPlayer.getName()) < gameClient.getOtherPlayers().size())
+                                    gameClient.getOtherPlayers().get(gameClient.getRegisterList().getNameList().indexOf(otherPlayer.getName())).setHits(otherPlayer.getHits());
+                            }
                             if (object instanceof Network.RemoveName) {
                                 Network.RemoveName removeName = (Network.RemoveName) object;
 
@@ -145,20 +165,13 @@ class MainClient {
 
                                 gameFrame.getGamePanel().getOtherPlayersViews().remove(gameClient.getRegisterList().getNameList().indexOf(removeName.name));
                                 gameFrame.getHomePanel().removeOtherPlayerHome(gameClient.getRegisterList().getNameList().indexOf(removeName.name));
-                            }
-                            if (object instanceof Network.Hit) {
-                                if ((!playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) || (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running())) {
-                                    Network.Hit hit = (Network.Hit) object;
-                                    playableCharacter.setHealth(playableCharacter.getHealth() - hit.getDamage() / playableCharacter.getMaxHealth());
-                                    if (playableCharacter.getHealth() <= 0) {
-                                        playableCharacter.setDeaths(playableCharacter.getDeaths() + 1);
-                                        randomSpawn();
-                                        playableCharacter.setHealth(1);
-                                    }
-                                }
+
+                                gameClient.receivedListener(object);
                             }
                         }
-                        gameClient.receivedListener(object);
+                        if (!(object instanceof Network.RemoveName) && !(object instanceof PlayableCharacter)) {
+                            gameClient.receivedListener(object);
+                        }
                     });
                 }
 
@@ -658,7 +671,6 @@ class MainClient {
                                             bullet.setSpeed(0.008f);
                                         }
 
-
                                         float relativeBulletStartX = playableCharacter.getRelativeX() + ((float) -characterView.getHorizontalDirection() + 1) * playableCharacter.getRelativeWidth() / 2f;
                                         float relativeBulletStartY = playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() / 2f - bullet.getRelativeHeight() / 2f;
                                         bullet.setRelativeBulletStartX(relativeBulletStartX);
@@ -729,7 +741,7 @@ class MainClient {
 
                             for (PlayableCharacter otherPlayer : gameClient.getOtherPlayers()) {
                                 if (!CollisionDetection.isCollisionBetween(otherPlayer, bullet).equals(PlayerCollisionSide.NONE)) {
-                                    gameClient.sendHit(new Network.Hit(otherPlayer.getName(), bullet.getDamage()));
+                                    addHit(otherPlayer.getName(), bullet.getDamage());
                                     playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
                                     playableCharacter.getBullets().get(bulletIndex).setRelativeHeight(0);
                                 }
@@ -751,7 +763,7 @@ class MainClient {
                         if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO) && playableCharacter.isUltimate1Running()) {
                             for (PlayableCharacter otherPlayer : gameClient.getOtherPlayers()) {
                                 if (!CollisionDetection.isCollisionBetween(otherPlayer, playableCharacter).equals(PlayerCollisionSide.NONE)) {
-                                    gameClient.sendHit(new Network.Hit(otherPlayer.getName(), 0.01f));
+                                    addHit(otherPlayer.getName(), 0.01f);
                                 }
                             }
                         }
@@ -787,6 +799,24 @@ class MainClient {
             }
         });
         gameLoopThread.start();
+    }
+
+    private static void addHit(String playerName, float hitDamage) {
+        int oldestHitIndex = 0;
+        long oldestHitTime = 0;
+
+        for (Hit hit : playableCharacter.getHits()) {
+            if (oldestHitTime == 0) {
+                oldestHitTime = hit.getHitTime();
+            } else if (playableCharacter.getHits().get(oldestHitIndex).getHitTime() > hit.getHitTime()) {
+                oldestHitIndex = playableCharacter.getHits().indexOf(hit);
+                oldestHitTime = hit.getHitTime();
+            }
+        }
+
+        playableCharacter.getHits().get(oldestHitIndex).setHitTime(System.currentTimeMillis());
+        playableCharacter.getHits().get(oldestHitIndex).setPlayerHit(playerName);
+        playableCharacter.getHits().get(oldestHitIndex).setHitDamage(hitDamage);
     }
 
     private static void randomSpawn() {

@@ -5,6 +5,7 @@ import com.esotericsoftware.kryonet.EndPoint;
 import model.SolidObject;
 import model.bullets.Bullet;
 import model.characters.ClassCharacters;
+import model.characters.Hit;
 import model.characters.PlayableCharacter;
 
 import java.util.ArrayList;
@@ -86,26 +87,6 @@ public class Network {
 
         void setBulletIndex(int bulletIndex) {
             this.bulletIndex = bulletIndex;
-        }
-    }
-
-    public static class Hit {
-        private String victimName;
-        private float damage;
-
-        Hit() {
-        }
-        public Hit(String victimName, float damage) {
-            this.victimName = victimName;
-            this.damage = damage;
-        }
-
-        String getVictimName() {
-            return victimName;
-        }
-
-        public float getDamage() {
-            return damage;
         }
     }
 

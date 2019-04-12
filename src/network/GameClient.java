@@ -130,6 +130,7 @@ public class GameClient extends Client {
         characterCopy.setKills(character.getKills());
         characterCopy.setDeaths(character.getDeaths());
         characterCopy.setMoney(character.getMoney());
+        characterCopy.setHits(character.getHits());
 
         this.sendUDP(characterCopy);
     }
@@ -145,10 +146,6 @@ public class GameClient extends Client {
             }
         }
         i++;
-    }
-
-    public void sendHit(Network.Hit hit) {
-        this.sendTCP(hit);
     }
 
     public Network.RegisterList getRegisterList() {
