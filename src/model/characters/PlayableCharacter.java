@@ -46,8 +46,8 @@ public class PlayableCharacter extends SolidObject {
     private int deaths = 0;
     private int money = 0;
     private List<Hit> hits = new ArrayList<>();
+    private List<Object> inventory = new ArrayList<>();
 
-    // Default constructor used for reflection (by Kryo serialization)
     public PlayableCharacter() {
         for (int i = 0; i < 50; i ++) {
             hits.add(new Hit());
@@ -163,8 +163,8 @@ public class PlayableCharacter extends SolidObject {
             this.relativeWidth = 0.04f;
             this.relativeHeight = 200f/200f * 0.04f * 768f/372f;
             this.relativeMaxSpeed = 0.0055f;
-            this.numberOfSmallWavesInMediumWaves = 0;
-            this.numberOfMediumWavesInLargeWaves = 0;
+            this.numberOfSmallWavesInMediumWaves = 1;
+            this.numberOfMediumWavesInLargeWaves = 1;
             this.maxHealth = 2f;
         }
         else if (classCharacter.equals(ClassCharacters.MEDUSO)) {
@@ -472,5 +472,9 @@ public class PlayableCharacter extends SolidObject {
 
     public void setMoney(int money) {
         this.money = money;
+    }
+
+    public List<Object> getInventory() {
+        return inventory;
     }
 }

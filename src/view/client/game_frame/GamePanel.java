@@ -1,12 +1,12 @@
 package view.client.game_frame;
 
+import model.characters.ClassCharacters;
 import model.characters.PlayableCharacter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Objects;
 
 public class GamePanel extends JPanel {
     private PlatformView[] platforms;
@@ -41,11 +41,13 @@ public class GamePanel extends JPanel {
                 (int) (new YodelView("right").getRelativeWidth() * this.getWidth()),
                 (int) (new YodelView("right").getRelativeHeight() * this.getHeight()));
 
-        g.setColor(Color.red);
-        g.fillRect((int) (new TrampolineView(characterView.getRelativeX()).getRelativeX() * this.getWidth()),
-                (int) (new TrampolineView().getRelativeY() * this.getHeight()),
-                (int) (new TrampolineView().getRelativeWidth() * this.getWidth()),
-                (int) (new TrampolineView().getRelativeHeight() * this.getHeight()));
+        /*g.setColor(Color.red);
+        for (Object object : characterView.getInventory()) {
+            if (object instanceof Trampoline) {
+                g.fillRect((int) (((Trampoline) object).getRelativeX() * this.getWidth()), (int) (((Trampoline) object).getRelativeY() * this.getHeight()), (int) (((Trampoline) object).getRelativeWidth() * this.getWidth()), (int) (((Trampoline) object).getRelativeHeight() * this.getHeight()));
+            }
+        }*/
+
 
         for (PlatformView platform : platforms) {
             if (platform != null) {
@@ -73,7 +75,12 @@ public class GamePanel extends JPanel {
                     characterView.getCharacterLabel().setLocation((int) ((characterView.getRelativeX() - characterView.getRelativeWidth() / characterView.getScaleWidthCharacter() + characterView.getRelativeWidth()) * this.getWidth()), (int) ((characterView.getRelativeY()) * this.getHeight()));
                 } else
                     characterView.getCharacterLabel().setLocation((int) (characterView.getRelativeX() * this.getWidth()), (int) ((characterView.getRelativeY()) * this.getHeight()));
-            }
+
+                if (characterView.getClassCharacter().equals(ClassCharacters.TATITATOO) && characterView.isUltimate1Running())
+                {
+                    characterView.getCharacterLabel().setLocation(characterView.getCharacterLabel().getLocation().x,  characterView.getCharacterLabel().getLocation().y + (int) (0.0075f * this.getHeight()));
+                }
+          }
 
             for (BulletView bulletView : Objects.requireNonNull(characterView).getBulletsViews()) {
                 if (bulletView != null) {

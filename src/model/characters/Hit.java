@@ -1,35 +1,35 @@
 package model.characters;
 
 public class Hit {
-    private long hitTime = 0;
-    private String playerHit = "";
-    private float hitDamage = 0;
+    private long time = 0;
+    private String victim = "";
+    private float damage = 0;
 
     Hit() {
 
     }
 
-    public long getHitTime() {
-        return hitTime;
+    public long getTime() {
+        return time;
     }
 
-    public void setHitTime(long hitTime) {
-        this.hitTime = hitTime;
+    public void setTime(long time) {
+        this.time = time;
     }
 
-    public String getPlayerHit() {
-        return playerHit;
+    public String getVictim() {
+        return victim;
     }
 
-    public void setPlayerHit(String playerHit) {
-        this.playerHit = playerHit;
+    public void setVictim(String victim) {
+        this.victim = victim;
     }
 
-    public float getHitDamage() {
-        return hitDamage;
+    public float getDamage() {
+        return damage;
     }
 
-    public void setHitDamage(float hitDamage) {
-        this.hitDamage = hitDamage;
+    public void setDamage(float damage) {
+        this.damage = damage;
     }
 }

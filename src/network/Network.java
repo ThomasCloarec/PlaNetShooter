@@ -7,6 +7,7 @@ import model.bullets.Bullet;
 import model.characters.ClassCharacters;
 import model.characters.Hit;
 import model.characters.PlayableCharacter;
+import view.client.game_frame.Trampoline;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class Network {
         kryo.register(SolidObject.class);
         kryo.register(Hit.class);
         kryo.register(UpdateBullet.class);
+        kryo.register(Trampoline.class);
     }
 
     static class RegisterName {
