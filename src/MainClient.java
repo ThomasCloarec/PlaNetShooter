@@ -813,6 +813,18 @@ class MainClient {
                                     bullet.setMovementX(bulletMovementX);
                                     bullet.setMovementY(bulletMovementY);
 
+                                    float bulletRangeRatio;
+                                    if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
+                                        bulletRangeRatio = 100f;
+                                    }
+                                    else if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
+                                        bulletRangeRatio = 0.09f;
+                                    }
+                                    else {
+                                        bulletRangeRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f;
+                                    }
+                                    bullet.setBulletRangeRatio(bulletRangeRatio);
+
                                     double shootingAngle;
                                     if (relativeCursorGoY < relativeBulletStartY) {
                                         if (relativeCursorGoX < relativeBulletStartX)
@@ -828,18 +840,6 @@ class MainClient {
                                     }
 
                                     System.out.println("Shooting angle : " +shootingAngle+ "°");
-
-                                    float bulletRangeRatio;
-                                    if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
-                                        bulletRangeRatio = 100f;
-                                    }
-                                    else if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
-                                        bulletRangeRatio = 0.09f;
-                                    }
-                                    else {
-                                        bulletRangeRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f;
-                                    }
-                                    bullet.setBulletRangeRatio(bulletRangeRatio);
 
                                     SwingUtilities.invokeLater(() -> {
                                         for (Bullet bullet1 : playableCharacter.getBullets()) {

@@ -49,6 +49,7 @@ public class PlayableCharacter extends SolidObject {
     private int money = 0;
     private List<Hit> hits = new ArrayList<>();
     private List<Object> inventory = new ArrayList<>();
+    private List<Integer> angleDegreesBulletsInSmallWave;
 
     public PlayableCharacter() {
         for (int i = 0; i < 50; i ++) {
@@ -64,6 +65,8 @@ public class PlayableCharacter extends SolidObject {
     public void setClassCharacter(ClassCharacters classCharacter) {
         this.classCharacter = classCharacter;
         this.ultimateLoading = 0;
+        angleDegreesBulletsInSmallWave = new ArrayList<>();
+        angleDegreesBulletsInSmallWave.add(0);
 
         if (this.classCharacter.equals(ClassCharacters.BOB)) {
             this.relativeWidth = 0.04f;
@@ -258,6 +261,10 @@ public class PlayableCharacter extends SolidObject {
 
     public void setRelativeX(float relativeX) {
         this.relativeX = relativeX;
+    }
+
+    public List<Integer> getAngleDegreesBulletsInSmallWave() {
+        return angleDegreesBulletsInSmallWave;
     }
 
     public float getRelativeMaxSpeed() {
