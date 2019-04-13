@@ -854,13 +854,17 @@ class MainClient {
                             int bulletIndex = playableCharacter.getBullets().indexOf(bullet);
 
                             for (Platform platform : platforms) {
-                                if ((playableCharacter.getClassCharacter().equals(ClassCharacters.BOB)) && (bullet.getRelativeHeight() > 0.06f * 768f / 372f))
-                                if (!CollisionDetection.isCollisionBetween(bullet, platform).equals(PlayerCollisionSide.NONE)) {
-                                    if (!playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
-                                        playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
-                                        playableCharacter.getBullets().get(bulletIndex).setRelativeHeight(0);
+
+                                    if (!CollisionDetection.isCollisionBetween(bullet, platform).equals(PlayerCollisionSide.NONE)) {
+                                        if ((playableCharacter.getClassCharacter().equals(ClassCharacters.BOB) && (bullet.getRelativeWidth() != 0.06f)) || (!playableCharacter.getClassCharacter().equals(ClassCharacters.BOB))) {
+
+                                            if (!playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
+                                                playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
+                                                playableCharacter.getBullets().get(bulletIndex).setRelativeHeight(0);
+
+                                            }
+                                        }
                                     }
-                                }
                             }
 
                             for (PlayableCharacter otherPlayer : gameClient.getOtherPlayers()) {
