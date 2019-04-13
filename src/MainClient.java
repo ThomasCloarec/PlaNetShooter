@@ -871,7 +871,6 @@ class MainClient {
                             for (Platform platform : platforms) {
                                 if (!CollisionDetection.isCollisionBetween(bullet, platform).equals(PlayerCollisionSide.NONE)) {
                                     if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.BOB) && bullet.getRelativeWidth() == 0.06f)) {
-                                        System.out.println("class : " +playableCharacter.getClassCharacter()+ " | relativeWidth : " +bullet.getRelativeWidth());
                                         if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.MONK))){
                                             if (!playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
                                                 playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
@@ -887,7 +886,6 @@ class MainClient {
                                             bullet.setMovementX(0);
                                             bullet.setBulletLifeTime(System.currentTimeMillis());
                                         }
-
                                     }
                                 }
                             }
