@@ -858,8 +858,7 @@ class MainClient {
                             for (Platform platform : platforms) {
 
                                     if (!CollisionDetection.isCollisionBetween(bullet, platform).equals(PlayerCollisionSide.NONE)) {
-                                        if ((playableCharacter.getClassCharacter().equals(ClassCharacters.BOB) && (bullet.getRelativeWidth() != 0.06f)) || (!playableCharacter.getClassCharacter().equals(ClassCharacters.BOB))) {
-
+                                        if (!playableCharacter.getClassCharacter().equals(ClassCharacters.BOB) || (bullet.getRelativeWidth() != 0.06f)) {
                                             if (!playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
                                                 playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
                                                 playableCharacter.getBullets().get(bulletIndex).setRelativeHeight(0);
