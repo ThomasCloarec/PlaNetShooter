@@ -427,12 +427,28 @@ class MainClient {
                             playableCharacter.setUltimateLoading(playableCharacter.getUltimateLoading() + playableCharacter.getUltimateLoadingPerSecond() / 60f);
                     }
 
+                    if (ultimateClick){
+                        if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO))) {
+                            if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO))){
+                                if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO))) {
+                                    playableCharacter.setHealth(playableCharacter.getHealth() + 0.2f);
+                                    if (playableCharacter.getHealth() > 1f) {
+                                        playableCharacter.setHealth(1f);
+                                    }
+                                    ultimateClick = false;
+                                    playableCharacter.setUltimateLoading(0f);
+                                }
+                            }
+                        }
+                     }
+
+
                     if (ultimateClick) {
                         if (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running()) {
                             playableCharacter.ultimate1();
                             characterView.ultimate1();
                         } else if (playableCharacter.isUltimate1Running()) {
-                            if ((playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) &&(cancelUltimate)) {
+                            if ((playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) && (cancelUltimate)) {
                                 playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
                                 characterView.setClassCharacter(playableCharacter.getClassCharacter());
                                 ultimateClick = false;
@@ -444,7 +460,7 @@ class MainClient {
                             }
                         } else if (playableCharacter.isUltimate2Running()) {
                             if ((playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) && (playableCharacter.getHealth() < 1f)){
-                                playableCharacter.setHealth(playableCharacter.getHealth()+0.0015f);
+                                playableCharacter.setHealth(playableCharacter.getHealth()+0.0013f);
                             }
                             if (((playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) &&(cancelUltimate)) || ((playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) &&(cancelUltimate))){
                                 playableCharacter.ultimate3();
@@ -463,7 +479,8 @@ class MainClient {
                                 cancelUltimate = false;
                                 jumpKeyJustPressed = false;
                             }
-                        } else {
+                        } else
+                            {
                             ultimateClick = false;
                             cancelUltimate = false;
                         }
