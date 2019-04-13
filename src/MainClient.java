@@ -803,8 +803,8 @@ class MainClient {
                                     float relativeCursorGoX = (lastMousePressedEvent.getX() - bullet.getRelativeWidth() * gameFrame.getGamePanel().getWidth() / 2f) / (float) gameFrame.getGamePanel().getWidth();
                                     float relativeCursorGoY = (lastMousePressedEvent.getY() - bullet.getRelativeHeight() * gameFrame.getGamePanel().getHeight() / 2f) / (float) gameFrame.getGamePanel().getHeight();
 
-                                    float tempDeltaX = Math.abs(relativeBulletStartX * (float) gameFrame.getGamePanel().getWidth() - relativeCursorGoX * (float) gameFrame.getGamePanel().getWidth());
-                                    float tempDeltaY = Math.abs(relativeBulletStartY * (float) gameFrame.getGamePanel().getHeight() - relativeCursorGoY * (float) gameFrame.getGamePanel().getHeight());
+                                    float tempDeltaX = Math.abs((relativeBulletStartX - relativeCursorGoX) * (float) gameFrame.getGamePanel().getWidth());
+                                    float tempDeltaY = Math.abs((relativeBulletStartY - relativeCursorGoY) * (float) gameFrame.getGamePanel().getHeight());
 
                                     float bulletSpeedRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f * ((float) gameFrame.getGamePanel().getHeight() / (float) gameFrame.getGamePanel().getWidth() - 372f / 768f) * 768f / 372f + 1f;
 
