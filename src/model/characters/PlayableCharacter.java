@@ -182,6 +182,7 @@ public class PlayableCharacter extends SolidObject {
 
         this.ultimate1StartTimeMillis = System.currentTimeMillis();
         this.ultimate1Running = true;
+        this.numberOfSmallWavesAlreadySentInMediumWaves = this.numberOfSmallWavesInMediumWaves;
     }
 
     public void ultimate2() {
@@ -207,6 +208,7 @@ public class PlayableCharacter extends SolidObject {
         this.ultimate2StartTimeMillis = System.currentTimeMillis();
         this.ultimate2Running = true;
         this.ultimate1Running = false;
+        this.numberOfSmallWavesAlreadySentInMediumWaves = this.numberOfSmallWavesInMediumWaves;
     }
 
     public void ultimate3() {
@@ -231,6 +233,7 @@ public class PlayableCharacter extends SolidObject {
         this.ultimate3Running = true;
         this.ultimate2Running = false;
         this.ultimate3StartTimeMillis = System.currentTimeMillis();
+        this.numberOfSmallWavesAlreadySentInMediumWaves = this.numberOfSmallWavesInMediumWaves;
     }
 
     public void setLastLargeWaveTime(long lastLargeWaveTime) {
