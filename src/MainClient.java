@@ -826,22 +826,65 @@ class MainClient {
                                     bullet.setMovementY(bulletMovementY);
 
                                     double shootingAngle = Math.toDegrees(Math.atan(bulletMovementY / bulletMovementX));
-
                                     double hypotenuse = Math.sqrt(Math.pow(bulletMovementX, 2) + Math.pow(bulletMovementY, 2));
+                                    double sign = Math.abs(bulletMovementX)/bulletMovementX;
 
-                                    bulletMovementX = (float) (hypotenuse * Math.cos(Math.toRadians(shootingAngle-0)));
-                                    bulletMovementY = (float) (hypotenuse * Math.sin(Math.toRadians(shootingAngle-0)));
-                                    bullet.setMovementX(bulletMovementX);
-                                    bullet.setMovementY(bulletMovementY);
+                                    for (Integer angleChangeInDegrees : playableCharacter.getAngleDegreesBulletsInSmallWave()) {
+                                        bullet = new Bullet();
 
-                                    SwingUtilities.invokeLater(() -> {
-                                        for (Bullet bullet1 : playableCharacter.getBullets()) {
-                                            if (bullet1.getRelativeWidth() == 0 && bullet1.getRelativeHeight() == 0) {
-                                                playableCharacter.getBullets().set(playableCharacter.getBullets().indexOf(bullet1), bullet);
-                                                break;
+                                        if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) {
+                                            bullet.setRelativeWidth(0.012f);
+                                            bullet.setRelativeHeight(0.012f * 768f / 372f);
+                                            bullet.setDamage(0.15f);
+                                        } else if (playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) {
+                                            if (ultimateClick) {
+                                                bullet.setRelativeWidth(0.04f);
+                                                bullet.setRelativeHeight(0.04f * 768f / 372f);
+                                            } else {
+                                                bullet.setRelativeWidth(0.02f);
+                                                bullet.setRelativeHeight(0.02f * 768f / 372f);
                                             }
+                                            bullet.setSpeed(0.0075f);
+                                        } else if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
+                                            bullet.setRelativeWidth(0.015f);
+                                            bullet.setRelativeHeight(0.015f * 768f / 372f);
+                                            bullet.setDamage(0.1f);
+                                        } else if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
+                                            bullet.setRelativeWidth(0.015f);
+                                            bullet.setRelativeHeight(0.015f * 768f / 372f);
+                                            bullet.setDamage(0.13f);
+                                            bullet.setSpeed(0.008f);
                                         }
-                                    });
+
+                                        bullet.setRelativeBulletStartX(relativeBulletStartX);
+                                        bullet.setRelativeBulletStartY(relativeBulletStartY);
+
+                                        if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
+                                            bulletRangeRatio = 100f;
+                                        }
+                                        else if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
+                                            bulletRangeRatio = 0.09f;
+                                        }
+                                        else {
+                                            bulletRangeRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f;
+                                        }
+                                        bullet.setBulletRangeRatio(bulletRangeRatio);
+
+                                        bulletMovementX = (float) (hypotenuse * Math.cos(Math.toRadians(shootingAngle - angleChangeInDegrees)) * sign);
+                                        bulletMovementY = (float) (hypotenuse * Math.sin(Math.toRadians(shootingAngle - angleChangeInDegrees)) * sign);
+                                        bullet.setMovementX(bulletMovementX);
+                                        bullet.setMovementY(bulletMovementY);
+
+                                        Bullet finalBullet = bullet;
+                                        SwingUtilities.invokeLater(() -> {
+                                            for (Bullet bullet1 : playableCharacter.getBullets()) {
+                                                if (bullet1.getRelativeWidth() == 0 && bullet1.getRelativeHeight() == 0) {
+                                                    playableCharacter.getBullets().set(playableCharacter.getBullets().indexOf(bullet1), finalBullet);
+                                                    break;
+                                                }
+                                            }
+                                        });
+                                    }
                                 }
 
                                 playableCharacter.setLastSmallWaveTime(System.currentTimeMillis());
