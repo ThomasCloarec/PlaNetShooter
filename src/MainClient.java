@@ -56,6 +56,7 @@ class MainClient {
     private static boolean yodelDetection = false;
     private static boolean cancelUltimate = false;
     private static long lastDamageOnPlayer = 0;
+    private static long lastUltimateFire = 0;
 
     public static void main(String[] args) {
         Log.set(Log.LEVEL_NONE);
@@ -485,6 +486,7 @@ class MainClient {
                                     }
                                 }
                             });
+                            lastUltimateFire = System.currentTimeMillis();
                         }
                         if (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running()) {
                             playableCharacter.ultimate1();
@@ -706,7 +708,7 @@ class MainClient {
                         collisionOnBottom = true;
                     }
 
-                    if ((System.currentTimeMillis() - playableCharacter.getLastSmallWaveTime() > 3000f) && (System.currentTimeMillis() - lastDamageOnPlayer > 3000f)) {
+                    if ((System.currentTimeMillis() - playableCharacter.getLastSmallWaveTime() > 3000f) && (System.currentTimeMillis() - lastDamageOnPlayer > 3000f) && (System.currentTimeMillis() - lastUltimateFire > 3000f)) {
                         if (playableCharacter.getHealth() < 1f){
                             playableCharacter.setHealth(playableCharacter.getHealth() + 0.0015f);
                         }
