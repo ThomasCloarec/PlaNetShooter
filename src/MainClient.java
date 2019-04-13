@@ -326,11 +326,13 @@ class MainClient {
                     readyToFire = true;
                 }
                 else if (SwingUtilities.isRightMouseButton(e) && playableCharacter.getUltimateLoading() == 1) {
+                    lastMousePressedEvent = e;
                     ultimateClick = true;
                 }
                 else if (ultimateClick)
                     if (SwingUtilities.isRightMouseButton(e)) {
                         cancelUltimate = true;
+                        lastMousePressedEvent = e;
                     }
             }
 
@@ -346,8 +348,7 @@ class MainClient {
             @Override
             public void mouseDragged(MouseEvent e) {
                 super.mouseMoved(e);
-                if (readyToFire)
-                    lastMousePressedEvent = e;
+                lastMousePressedEvent = e;
             }
         });
 
@@ -431,12 +432,14 @@ class MainClient {
                         if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO))) {
                             if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO))){
                                 if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO))) {
-                                    playableCharacter.setHealth(playableCharacter.getHealth() + 0.2f);
-                                    if (playableCharacter.getHealth() > 1f) {
-                                        playableCharacter.setHealth(1f);
+                                    if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.BOB))) {
+                                        playableCharacter.setHealth(playableCharacter.getHealth() + 0.2f);
+                                        if (playableCharacter.getHealth() > 1f) {
+                                            playableCharacter.setHealth(1f);
+                                        }
+                                        ultimateClick = false;
+                                        playableCharacter.setUltimateLoading(0f);
                                     }
-                                    ultimateClick = false;
-                                    playableCharacter.setUltimateLoading(0f);
                                 }
                             }
                         }
@@ -444,6 +447,45 @@ class MainClient {
 
 
                     if (ultimateClick) {
+                        if ((playableCharacter.getClassCharacter().equals(ClassCharacters.BOB))) {
+                            System.out.println(1);
+                            playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
+                            characterView.setClassCharacter(playableCharacter.getClassCharacter());
+                            ultimateClick = false;
+                            Bullet bullet = new Bullet();
+                            bullet.setDamage(0.4f);
+                            bullet.setRelativeHeight(0.06f * 768f / 372f);
+                            bullet.setRelativeWidth(0.06f);
+
+                            float relativeBulletStartX = playableCharacter.getRelativeX() + ((float) -characterView.getHorizontalDirection() + 1) * (playableCharacter.getRelativeWidth() / 2f - bullet.getRelativeWidth()/2f);
+                            float relativeBulletStartY = playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() / 2f - bullet.getRelativeHeight() / 2f;
+                            bullet.setRelativeBulletStartX(relativeBulletStartX);
+                            bullet.setRelativeBulletStartY(relativeBulletStartY);
+
+                            float relativeCursorGoX = lastMousePressedEvent.getX() - bullet.getRelativeWidth() * gameFrame.getGamePanel().getWidth() / 2f;
+                            float relativeCursorGoY = lastMousePressedEvent.getY() - bullet.getRelativeHeight() * gameFrame.getGamePanel().getHeight() / 2f;
+
+                            float tempDeltaX = Math.abs(relativeBulletStartX * (float) gameFrame.getGamePanel().getWidth() - relativeCursorGoX);
+                            float tempDeltaY = Math.abs(relativeBulletStartY * (float) gameFrame.getGamePanel().getHeight() - relativeCursorGoY);
+
+                            float bulletSpeedRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f * ((float) gameFrame.getGamePanel().getHeight() / (float) gameFrame.getGamePanel().getWidth() - 372f / 768f) * 768f / 372f + 1f;
+
+                            float bulletMovementX = bulletSpeedRatio * tempDeltaX / (tempDeltaX + tempDeltaY) * bullet.getSpeed() * (relativeCursorGoX - relativeBulletStartX * gameFrame.getGamePanel().getWidth()) / tempDeltaX;
+                            float bulletMovementY = bulletSpeedRatio * tempDeltaY / (tempDeltaX + tempDeltaY) * bullet.getSpeed() * (relativeCursorGoY - relativeBulletStartY * gameFrame.getGamePanel().getHeight()) / tempDeltaY;
+                            bullet.setMovementX(bulletMovementX);
+                            bullet.setMovementY(bulletMovementY);
+
+                            bullet.setBulletRangeRatio(2f);
+
+                            SwingUtilities.invokeLater(() -> {
+                                for (Bullet bullet1 : playableCharacter.getBullets()) {
+                                    if (bullet1.getRelativeWidth() == 0 && bullet1.getRelativeHeight() == 0) {
+                                        playableCharacter.getBullets().set(playableCharacter.getBullets().indexOf(bullet1), bullet);
+                                        break;
+                                    }
+                                }
+                            });
+                        }
                         if (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running()) {
                             playableCharacter.ultimate1();
                             characterView.ultimate1();
@@ -454,6 +496,7 @@ class MainClient {
                                 ultimateClick = false;
                                 cancelUltimate = false;
                             }
+
                             if (System.currentTimeMillis() - playableCharacter.getUltimate1StartTimeMillis() > playableCharacter.getUltimate1DurationMillis()) {
                                 playableCharacter.ultimate2();
                                 characterView.ultimate2();
@@ -811,6 +854,7 @@ class MainClient {
                             int bulletIndex = playableCharacter.getBullets().indexOf(bullet);
 
                             for (Platform platform : platforms) {
+                                if ((playableCharacter.getClassCharacter().equals(ClassCharacters.BOB)) && (bullet.getRelativeHeight() > 0.06f * 768f / 372f))
                                 if (!CollisionDetection.isCollisionBetween(bullet, platform).equals(PlayerCollisionSide.NONE)) {
                                     if (!playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
                                         playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
