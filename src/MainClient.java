@@ -305,7 +305,7 @@ class MainClient {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_Z) {
                     if (collisionOnBottom)
                         jumpKeyJustPressed = true;
-                    yodelDetection = false;
+                        yodelDetection = false;
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(playableCharacter, new HomeView()).equals(PlayerCollisionSide.NONE))) {
                     gameFrame.getCardLayout().next(gameFrame.getContentPane());
@@ -865,13 +865,11 @@ class MainClient {
                             int bulletIndex = playableCharacter.getBullets().indexOf(bullet);
 
                             for (Platform platform : platforms) {
-
                                 if (!CollisionDetection.isCollisionBetween(bullet, platform).equals(PlayerCollisionSide.NONE)) {
                                     if (!playableCharacter.getClassCharacter().equals(ClassCharacters.BOB) || (bullet.getRelativeWidth() != 0.06f)) {
                                         if (!playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
                                             playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
                                             playableCharacter.getBullets().get(bulletIndex).setRelativeHeight(0);
-
                                         }
                                     }
                                 }
