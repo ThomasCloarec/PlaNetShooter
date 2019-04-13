@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayableCharacter extends SolidObject {
-    private final static int MAX_BULLET_NUMBER_PER_PLAYER = 500;
+    private final static int MAX_BULLET_NUMBER_PER_PLAYER = 12;
     private float relativeMaxSpeed;
     private float relativeSpeedGrowth;
     private float relativeJumpStrength;
@@ -128,24 +128,13 @@ public class PlayableCharacter extends SolidObject {
             this.relativeJumpStrength = 0.013f;
             this.maxHealth = 1f;
             this.relativeMaxSpeed = 0.004f;
-            this.reloadTimeSmallWaves = 0.02f;
-            this.numberOfSmallWavesInMediumWaves = 2;
-            this.reloadTimeMediumWaves = 0.05f;
-            this.numberOfMediumWavesInLargeWaves = 3;
-            this.reloadTimeLargeWaves = 0.2f;
-            this.angleDegreesBulletsInSmallWave.add(5);
-            this.angleDegreesBulletsInSmallWave.add(-5);
+            this.reloadTimeSmallWaves = 0f;
+            this.numberOfSmallWavesInMediumWaves = 1;
+            this.reloadTimeMediumWaves = 0.2f;
+            this.numberOfMediumWavesInLargeWaves = 2;
+            this.reloadTimeLargeWaves = 1f;
             this.angleDegreesBulletsInSmallWave.add(10);
             this.angleDegreesBulletsInSmallWave.add(-10);
-            this.angleDegreesBulletsInSmallWave.add(15);
-            this.angleDegreesBulletsInSmallWave.add(-15);
-            this.angleDegreesBulletsInSmallWave.add(15);
-            this.angleDegreesBulletsInSmallWave.add(-20);
-            this.angleDegreesBulletsInSmallWave.add(20);
-            this.angleDegreesBulletsInSmallWave.add(-25);
-            this.angleDegreesBulletsInSmallWave.add(25);
-            this.angleDegreesBulletsInSmallWave.add(-30);
-            this.angleDegreesBulletsInSmallWave.add(30);
         }
         else if (this.classCharacter.equals(ClassCharacters.ELBOMBAS)) {
             this.relativeWidth = 0.04f;

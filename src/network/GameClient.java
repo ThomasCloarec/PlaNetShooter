@@ -140,10 +140,19 @@ public class GameClient extends Client {
 
     public void sendBulletsInformation(PlayableCharacter character) {
         if (i % 2 == 0) {
-            for (Bullet bullet : character.getBullets()) {
+            for (int j = 0; j < character.getBullets().size()/2; j++) {
                 Network.UpdateBullet updateBullet = new Network.UpdateBullet();
-                updateBullet.setBullet(bullet);
-                updateBullet.setBulletIndex(character.getBullets().indexOf(bullet));
+                updateBullet.setBullet(character.getBullets().get(j));
+                updateBullet.setBulletIndex(character.getBullets().indexOf(character.getBullets().get(j)));
+                updateBullet.setName(character.getName());
+                this.sendUDP(updateBullet);
+            }
+        }
+        else {
+            for (int j = character.getBullets().size()/2; j < character.getBullets().size(); j++) {
+                Network.UpdateBullet updateBullet = new Network.UpdateBullet();
+                updateBullet.setBullet(character.getBullets().get(j));
+                updateBullet.setBulletIndex(character.getBullets().indexOf(character.getBullets().get(j)));
                 updateBullet.setName(character.getName());
                 this.sendUDP(updateBullet);
             }
