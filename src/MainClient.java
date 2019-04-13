@@ -449,7 +449,6 @@ class MainClient {
 
                     if (ultimateClick) {
                         if ((playableCharacter.getClassCharacter().equals(ClassCharacters.BOB))) {
-                            System.out.println(1);
                             playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
                             characterView.setClassCharacter(playableCharacter.getClassCharacter());
                             ultimateClick = false;
@@ -871,21 +870,23 @@ class MainClient {
 
                             for (Platform platform : platforms) {
                                 if (!CollisionDetection.isCollisionBetween(bullet, platform).equals(PlayerCollisionSide.NONE)) {
-                                    if (!playableCharacter.getClassCharacter().equals(ClassCharacters.BOB) || bullet.getRelativeWidth() != 0.06f) {
+                                    if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.BOB) && bullet.getRelativeWidth() == 0.06f)) {
+                                        System.out.println("class : " +playableCharacter.getClassCharacter()+ " | relativeWidth : " +bullet.getRelativeWidth());
                                         if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.MONK))){
                                             if (!playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
                                                 playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
                                                 playableCharacter.getBullets().get(bulletIndex).setRelativeHeight(0);
-                                                System.out.println(2);
                                             }
                                         }
                                     }
                                     if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
-                                        bullet.setDamage(0.05f);
-                                        bullet.setSpeed(0);
-                                        bullet.setMovementY(0);
-                                        bullet.setMovementX(0);
-                                        bullet.setBulletLifeTime(System.currentTimeMillis());
+                                        if (bullet.getBulletLifeTime() == 0) {
+                                            bullet.setDamage(0.05f);
+                                            bullet.setSpeed(0);
+                                            bullet.setMovementY(0);
+                                            bullet.setMovementX(0);
+                                            bullet.setBulletLifeTime(System.currentTimeMillis());
+                                        }
 
                                     }
                                 }
@@ -893,9 +894,10 @@ class MainClient {
 
                             if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
                                 if (bullet.getMovementX() == 0){
-                                    if (System.currentTimeMillis() - bullet.getBulletLifeTime() > 2000) {
+                                    if (System.currentTimeMillis() - bullet.getBulletLifeTime() > 1000) {
                                         playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
                                         playableCharacter.getBullets().get(bulletIndex).setRelativeHeight(0);
+                                        bullet.setBulletLifeTime(0);
                                     }
                                 }
                             }
