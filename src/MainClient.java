@@ -488,48 +488,48 @@ class MainClient {
                             });
                             lastUltimateFire = System.currentTimeMillis();
                         }
-                        if (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running()) {
-                            playableCharacter.ultimate1();
-                            characterView.ultimate1();
-                        } else if (playableCharacter.isUltimate1Running()) {
-                            if ((playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) && (cancelUltimate)) {
-                                playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
-                                characterView.setClassCharacter(playableCharacter.getClassCharacter());
+                        if (!playableCharacter.getClassCharacter().equals(ClassCharacters.BOB)) {
+                            if (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running()) {
+                                playableCharacter.ultimate1();
+                                characterView.ultimate1();
+                            } else if (playableCharacter.isUltimate1Running()) {
+                                if ((playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) && (cancelUltimate)) {
+                                    playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
+                                    characterView.setClassCharacter(playableCharacter.getClassCharacter());
+                                    ultimateClick = false;
+                                    cancelUltimate = false;
+                                }
+
+                                if (System.currentTimeMillis() - playableCharacter.getUltimate1StartTimeMillis() > playableCharacter.getUltimate1DurationMillis()) {
+                                    playableCharacter.ultimate2();
+                                    characterView.ultimate2();
+                                }
+                            } else if (playableCharacter.isUltimate2Running()) {
+                                if ((playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) && (playableCharacter.getHealth() < 1f)) {
+                                    playableCharacter.setHealth(playableCharacter.getHealth() + 0.0013f);
+                                }
+                                if (((playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) && (cancelUltimate)) || ((playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) && (cancelUltimate))) {
+                                    playableCharacter.ultimate3();
+                                    characterView.ultimate3();
+                                } else if (System.currentTimeMillis() - playableCharacter.getUltimate2StartTimeMillis() > playableCharacter.getUltimate2DurationMillis()) {
+                                    playableCharacter.ultimate3();
+                                    characterView.ultimate3();
+                                }
+                            } else if (playableCharacter.isUltimate3Running()) {
+                                if (System.currentTimeMillis() - playableCharacter.getUltimate3StartTimeMillis() > playableCharacter.getUltimate3DurationMillis()) {
+                                    playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
+                                    characterView.setClassCharacter(playableCharacter.getClassCharacter());
+
+                                    ultimateClick = false;
+                                    cancelUltimate = false;
+                                    jumpKeyJustPressed = false;
+                                }
+                            } else {
                                 ultimateClick = false;
                                 cancelUltimate = false;
                             }
-
-                            if (System.currentTimeMillis() - playableCharacter.getUltimate1StartTimeMillis() > playableCharacter.getUltimate1DurationMillis()) {
-                                playableCharacter.ultimate2();
-                                characterView.ultimate2();
-                            }
-                        } else if (playableCharacter.isUltimate2Running()) {
-                            if ((playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) && (playableCharacter.getHealth() < 1f)){
-                                playableCharacter.setHealth(playableCharacter.getHealth()+0.0013f);
-                            }
-                            if (((playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) &&(cancelUltimate)) || ((playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) &&(cancelUltimate))){
-                                playableCharacter.ultimate3();
-                                characterView.ultimate3();
-                            }
-                            else if (System.currentTimeMillis() - playableCharacter.getUltimate2StartTimeMillis() > playableCharacter.getUltimate2DurationMillis()) {
-                                playableCharacter.ultimate3();
-                                characterView.ultimate3();
-                            }
-                        } else if (playableCharacter.isUltimate3Running()) {
-                            if (System.currentTimeMillis() - playableCharacter.getUltimate3StartTimeMillis() > playableCharacter.getUltimate3DurationMillis()) {
-                                playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
-                                characterView.setClassCharacter(playableCharacter.getClassCharacter());
-
-                                ultimateClick = false;
-                                cancelUltimate = false;
-                                jumpKeyJustPressed = false;
-                            }
-                        } else
-                            {
-                            ultimateClick = false;
-                            cancelUltimate = false;
+                            playableCharacter.setUltimateLoading(0f);
                         }
-                        playableCharacter.setUltimateLoading(0f);
                     }
 
                     collisionOnTop = false;
