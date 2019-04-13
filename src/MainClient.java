@@ -669,10 +669,14 @@ class MainClient {
                         }
                     }
 
+                    if (System.currentTimeMillis() - (long) (playableCharacter.getReloadTimeLargeWaves() * 1000L) > playableCharacter.getLastMediumWaveTime())
+                    {
+                        playableCharacter.setNumberOfMediumWavesAlreadySentInLargeWaves(0);
+                    }
+
                     if (System.currentTimeMillis() - playableCharacter.getLastSmallWaveTime() > 1000f * playableCharacter.getReloadTimeSmallWaves()) {
                         if (System.currentTimeMillis() - playableCharacter.getLastLargeWaveTime() > 1000f * playableCharacter.getReloadTimeLargeWaves() && readyToFire && System.currentTimeMillis() - playableCharacter.getLastMediumWaveTime() > 1000f * playableCharacter.getReloadTimeMediumWaves()) {
                             playableCharacter.setNumberOfSmallWavesAlreadySentInMediumWaves(0);
-
                             playableCharacter.setLastMediumWaveTime(System.currentTimeMillis());
                             playableCharacter.setNumberOfMediumWavesAlreadySentInLargeWaves(playableCharacter.getNumberOfMediumWavesAlreadySentInLargeWaves() + 1);
 
