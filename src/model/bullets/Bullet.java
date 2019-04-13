@@ -14,9 +14,14 @@ public class Bullet extends SolidObject {
     private float relativeWidth = 0.008f;
     private float relativeHeight = 0.008f * 768f / 372f;
     private float damage = 0.1f;
+    private long bulletLifeTime = 0;
 
     public Bullet() {
     }
+
+    public void setBulletLifeTime(long bulletLifeTime) { this.bulletLifeTime = bulletLifeTime; }
+
+    public long getBulletLifeTime() { return bulletLifeTime; }
 
     public float getRelativeX() {
         return relativeX;
