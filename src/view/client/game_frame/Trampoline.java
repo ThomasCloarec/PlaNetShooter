@@ -6,11 +6,12 @@ public class Trampoline extends SolidObject {
     private float relativeX;
     private float relativeY;
     @SuppressWarnings("FieldCanBeLocal")
-    private float relativeWidth = 0.06f;
-    private float relativeHeight = 0.015f;
+    private final float relativeWidth = 0.06f;
+    @SuppressWarnings("FieldCanBeLocal")
+    private final float relativeHeight = 0.015f;
     private long creationTime;
     @SuppressWarnings("FieldCanBeLocal")
-    private float durationTime = 3f;
+    private final float durationTime = 3f;
 
     public Trampoline() {
     }

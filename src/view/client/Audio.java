@@ -3,10 +3,12 @@ package view.client;
 import javax.sound.sampled.*;
 import java.io.IOException;
 
+@SuppressWarnings("unused")
 class Audio {
     private Clip clip;
 
-    public Audio(String resourceName) {
+    @SuppressWarnings("unused")
+    private Audio(String resourceName) {
         AudioInputStream audioIn = null;
         try {
             audioIn = AudioSystem.getAudioInputStream(Audio.class.getResource(resourceName));

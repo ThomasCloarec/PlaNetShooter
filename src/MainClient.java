@@ -663,14 +663,13 @@ class MainClient {
                         collisionOnBottom = true;
                     }
 
-                    if ((System.currentTimeMillis() - playableCharacter.getLastSmallWaveTime() > 3000f) && (System.currentTimeMillis() - lastDamageOnPlayer > 3000f)){
+                    if ((System.currentTimeMillis() - playableCharacter.getLastSmallWaveTime() > 3000f) && (System.currentTimeMillis() - lastDamageOnPlayer > 3000f)) {
                         if (playableCharacter.getHealth() < 1f){
                             playableCharacter.setHealth(playableCharacter.getHealth() + 0.0015f);
                         }
                     }
 
-                    if (System.currentTimeMillis() - (long) (playableCharacter.getReloadTimeLargeWaves() * 1000L) > playableCharacter.getLastMediumWaveTime())
-                    {
+                    if (System.currentTimeMillis() - (long) (playableCharacter.getReloadTimeLargeWaves() * 1000L) > playableCharacter.getLastMediumWaveTime()) {
                         playableCharacter.setNumberOfMediumWavesAlreadySentInLargeWaves(0);
                     }
 
