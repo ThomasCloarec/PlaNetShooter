@@ -601,9 +601,9 @@ class MainClient {
                         if (playerOnRightYodel) {
                             if (playableCharacter.getRelativeX() > 0.61f) {
                                 playableCharacter.setRelativeX(playableCharacter.getRelativeX() - 0.004f);
-                                playableCharacter.setRelativeY(0.22f);
+                                playableCharacter.setRelativeY(0.21f);
                                 relativeMovementY = -0.005f;
-                                relativeMovementX = -0.003f;
+                                relativeMovementX = -0.004f;
 
                             } else if (playableCharacter.getRelativeX() <= 0.61f) {
                                 playerOnRightYodel = false;
@@ -615,9 +615,9 @@ class MainClient {
                         if (playerOnLeftYodel) {
                             if (playableCharacter.getRelativeX() < 0.35f) {
                                 playableCharacter.setRelativeX(playableCharacter.getRelativeX() + 0.004f);
-                                playableCharacter.setRelativeY(0.22f);
+                                playableCharacter.setRelativeY(0.21f);
                                 relativeMovementY = -0.005f;
-                                relativeMovementX = 0.003f;
+                                relativeMovementX = 0.004f;
 
                             } else if (playableCharacter.getRelativeX() >= 0.35f) {
                                 playerOnLeftYodel = false;
