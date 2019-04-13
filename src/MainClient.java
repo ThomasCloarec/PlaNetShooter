@@ -800,18 +800,34 @@ class MainClient {
                                     bullet.setRelativeBulletStartX(relativeBulletStartX);
                                     bullet.setRelativeBulletStartY(relativeBulletStartY);
 
-                                    float relativeCursorGoX = lastMousePressedEvent.getX() - bullet.getRelativeWidth() * gameFrame.getGamePanel().getWidth() / 2f;
-                                    float relativeCursorGoY = lastMousePressedEvent.getY() - bullet.getRelativeHeight() * gameFrame.getGamePanel().getHeight() / 2f;
+                                    float relativeCursorGoX = (lastMousePressedEvent.getX() - bullet.getRelativeWidth() * gameFrame.getGamePanel().getWidth() / 2f) / (float) gameFrame.getGamePanel().getWidth();
+                                    float relativeCursorGoY = (lastMousePressedEvent.getY() - bullet.getRelativeHeight() * gameFrame.getGamePanel().getHeight() / 2f) / (float) gameFrame.getGamePanel().getHeight();
 
-                                    float tempDeltaX = Math.abs(relativeBulletStartX * (float) gameFrame.getGamePanel().getWidth() - relativeCursorGoX);
-                                    float tempDeltaY = Math.abs(relativeBulletStartY * (float) gameFrame.getGamePanel().getHeight() - relativeCursorGoY);
+                                    float tempDeltaX = Math.abs(relativeBulletStartX * (float) gameFrame.getGamePanel().getWidth() - relativeCursorGoX * (float) gameFrame.getGamePanel().getWidth());
+                                    float tempDeltaY = Math.abs(relativeBulletStartY * (float) gameFrame.getGamePanel().getHeight() - relativeCursorGoY * (float) gameFrame.getGamePanel().getHeight());
 
                                     float bulletSpeedRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f * ((float) gameFrame.getGamePanel().getHeight() / (float) gameFrame.getGamePanel().getWidth() - 372f / 768f) * 768f / 372f + 1f;
 
-                                    float bulletMovementX = bulletSpeedRatio * tempDeltaX / (tempDeltaX + tempDeltaY) * bullet.getSpeed() * (relativeCursorGoX - relativeBulletStartX * gameFrame.getGamePanel().getWidth()) / tempDeltaX;
-                                    float bulletMovementY = bulletSpeedRatio * tempDeltaY / (tempDeltaX + tempDeltaY) * bullet.getSpeed() * (relativeCursorGoY - relativeBulletStartY * gameFrame.getGamePanel().getHeight()) / tempDeltaY;
+                                    float bulletMovementX = bulletSpeedRatio * tempDeltaX / (tempDeltaX + tempDeltaY) * bullet.getSpeed() * ((relativeCursorGoX - relativeBulletStartX) / tempDeltaX) * gameFrame.getGamePanel().getWidth();
+                                    float bulletMovementY = bulletSpeedRatio * tempDeltaY / (tempDeltaX + tempDeltaY) * bullet.getSpeed() * ((relativeCursorGoY - relativeBulletStartY) / tempDeltaY) * gameFrame.getGamePanel().getHeight();
                                     bullet.setMovementX(bulletMovementX);
                                     bullet.setMovementY(bulletMovementY);
+
+                                    double shootingAngle;
+                                    if (relativeCursorGoY < relativeBulletStartY) {
+                                        if (relativeCursorGoX < relativeBulletStartX)
+                                            shootingAngle = 180 - Math.toDegrees(Math.atan(bulletMovementY / bulletMovementX));
+                                        else
+                                            shootingAngle = Math.toDegrees(-Math.atan(bulletMovementY / bulletMovementX));
+                                    }
+                                    else {
+                                        if (relativeCursorGoX < relativeBulletStartX)
+                                            shootingAngle = 180 + Math.toDegrees(-Math.atan(bulletMovementY / bulletMovementX));
+                                        else
+                                            shootingAngle = 360 - Math.toDegrees(Math.atan(bulletMovementY / bulletMovementX));
+                                    }
+
+                                    System.out.println(shootingAngle);
 
                                     float bulletRangeRatio;
                                     if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
