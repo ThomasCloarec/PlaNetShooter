@@ -827,7 +827,7 @@ class MainClient {
                                             shootingAngle = 360 - Math.toDegrees(Math.atan(bulletMovementY / bulletMovementX));
                                     }
 
-                                    System.out.println(shootingAngle);
+                                    System.out.println("Shooting angle : " +shootingAngle+ "°");
 
                                     float bulletRangeRatio;
                                     if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
