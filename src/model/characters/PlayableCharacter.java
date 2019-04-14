@@ -4,6 +4,7 @@ import model.SolidObject;
 import model.bullets.Bullet;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class PlayableCharacter extends SolidObject {
@@ -49,6 +50,7 @@ public class PlayableCharacter extends SolidObject {
     private int money = 0;
     private List<Hit> hits = new ArrayList<>();
     private List<Object> inventory = new ArrayList<>();
+    private List<SmallWave> smallWaves;
     private List<Integer> angleDegreesBulletsInSmallWave;
 
     public PlayableCharacter() {
@@ -65,6 +67,7 @@ public class PlayableCharacter extends SolidObject {
     public void setClassCharacter(ClassCharacters classCharacter) {
         this.classCharacter = classCharacter;
         this.ultimateLoading = 0;
+        smallWaves = new ArrayList<>();
         angleDegreesBulletsInSmallWave = new ArrayList<>();
         angleDegreesBulletsInSmallWave.add(0);
 
@@ -239,6 +242,19 @@ public class PlayableCharacter extends SolidObject {
         this.ultimate2Running = false;
         this.ultimate3StartTimeMillis = System.currentTimeMillis();
         this.numberOfSmallWavesAlreadySentInMediumWaves = this.numberOfSmallWavesInMediumWaves;
+    }
+
+    private class SmallWave {
+        private List<Integer> angleDegreesBullets = new ArrayList<>();
+
+        SmallWave(int[] angleDegreesBullets) {
+            for (int angleDegreesBullet : angleDegreesBullets)
+            this.angleDegreesBullets.add(angleDegreesBullet);
+        }
+
+        public List<Integer> getAngleDegreesBullets() {
+            return angleDegreesBullets;
+        }
     }
 
     public void setLastLargeWaveTime(long lastLargeWaveTime) {
