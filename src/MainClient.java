@@ -729,7 +729,7 @@ class MainClient {
                             }
                         }
                         else {
-                            if (playableCharacter.getNumberOfSmallWavesAlreadySentInMediumWaves() != playableCharacter.getNumberOfSmallWavesInMediumWaves()) {
+                            if (playableCharacter.getNumberOfSmallWavesAlreadySentInMediumWaves() != playableCharacter.getSmallWaves().size()) {
                                 if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
                                     if (playableCharacter.isUltimate1Running()) {
                                         if (collisionOnBottom) {
@@ -822,7 +822,7 @@ class MainClient {
                                     double hypotenuse = Math.sqrt(Math.pow(normalBullet.getMovementX(), 2) + Math.pow(normalBullet.getMovementY(), 2));
                                     double sign = Math.abs(normalBullet.getMovementX())/normalBullet.getMovementX();
 
-                                    for (Integer angleChangeInDegrees : playableCharacter.getAngleDegreesBulletsInSmallWave()) {
+                                    for (Integer angleChangeInDegrees : playableCharacter.getSmallWaves().get(playableCharacter.getNumberOfSmallWavesAlreadySentInMediumWaves()).getAngleDegreesBullets()) {
                                         Bullet bullet = new Bullet();
 
                                         bullet.setRelativeWidth(normalBullet.getRelativeWidth());

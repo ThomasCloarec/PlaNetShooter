@@ -4,7 +4,6 @@ import model.SolidObject;
 import model.bullets.Bullet;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class PlayableCharacter extends SolidObject {
@@ -25,7 +24,6 @@ public class PlayableCharacter extends SolidObject {
     private float health = maxHealth;
     private float reloadTimeSmallWaves;
     private long lastSmallWaveTime = 0;
-    private int numberOfSmallWavesInMediumWaves;
     private int numberOfSmallWavesAlreadySentInMediumWaves;
     private float reloadTimeMediumWaves;
     private long lastMediumWaveTime = 0;
@@ -51,7 +49,6 @@ public class PlayableCharacter extends SolidObject {
     private List<Hit> hits = new ArrayList<>();
     private List<Object> inventory = new ArrayList<>();
     private List<SmallWave> smallWaves;
-    private List<Integer> angleDegreesBulletsInSmallWave;
 
     public PlayableCharacter() {
         for (int i = 0; i < 50; i ++) {
@@ -68,8 +65,6 @@ public class PlayableCharacter extends SolidObject {
         this.classCharacter = classCharacter;
         this.ultimateLoading = 0;
         smallWaves = new ArrayList<>();
-        angleDegreesBulletsInSmallWave = new ArrayList<>();
-        angleDegreesBulletsInSmallWave.add(0);
 
         if (this.classCharacter.equals(ClassCharacters.BOB)) {
             this.relativeWidth = 0.04f;
@@ -78,7 +73,8 @@ public class PlayableCharacter extends SolidObject {
             this.relativeJumpStrength = 0.013f;
             this.maxHealth = 1f;
             this.reloadTimeSmallWaves = 0.04f;
-            this.numberOfSmallWavesInMediumWaves = 2;
+            this.smallWaves.add(new SmallWave());
+            this.smallWaves.add(new SmallWave());
             this.reloadTimeMediumWaves = 0.4f;
             this.numberOfMediumWavesInLargeWaves = 3;
             this.reloadTimeLargeWaves = 0.8f;
@@ -90,7 +86,7 @@ public class PlayableCharacter extends SolidObject {
             this.relativeJumpStrength = 0.013f;
             this.maxHealth = 1f;
             this.reloadTimeSmallWaves = 0f;
-            this.numberOfSmallWavesInMediumWaves = 1;
+            this.smallWaves.add(new SmallWave());
             this.reloadTimeMediumWaves = 0f;
             this.numberOfMediumWavesInLargeWaves = 1;
             this.reloadTimeLargeWaves = 0.3f;
@@ -108,7 +104,7 @@ public class PlayableCharacter extends SolidObject {
             this.maxHealth = 1f;
             this.relativeMaxSpeed = 0.004f;
             this.reloadTimeSmallWaves = 0f;
-            this.numberOfSmallWavesInMediumWaves = 1;
+            this.smallWaves.add(new SmallWave());
             this.reloadTimeMediumWaves = 0f;
             this.numberOfMediumWavesInLargeWaves = 1;
             this.reloadTimeLargeWaves = 0.7f;
@@ -120,7 +116,7 @@ public class PlayableCharacter extends SolidObject {
             this.relativeJumpStrength = 0.013f;
             this.maxHealth = 1f;
             this.reloadTimeSmallWaves = 0f;
-            this.numberOfSmallWavesInMediumWaves = 1;
+            this.smallWaves.add(new SmallWave());
             this.reloadTimeMediumWaves = 0f;
             this.numberOfMediumWavesInLargeWaves = 1;
             this.reloadTimeLargeWaves = 1f;
@@ -132,12 +128,11 @@ public class PlayableCharacter extends SolidObject {
             this.maxHealth = 1f;
             this.relativeMaxSpeed = 0.004f;
             this.reloadTimeSmallWaves = 0f;
-            this.numberOfSmallWavesInMediumWaves = 1;
+            this.smallWaves.add(new SmallWave());
+            this.smallWaves.add(new SmallWave(new int[] {10, -10}));
             this.reloadTimeMediumWaves = 0.2f;
             this.numberOfMediumWavesInLargeWaves = 2;
             this.reloadTimeLargeWaves = 1f;
-            this.angleDegreesBulletsInSmallWave.add(10);
-            this.angleDegreesBulletsInSmallWave.add(-10);
         }
         else if (this.classCharacter.equals(ClassCharacters.ELBOMBAS)) {
             this.relativeWidth = 0.04f;
@@ -146,13 +141,15 @@ public class PlayableCharacter extends SolidObject {
             this.maxHealth = 1.5f;
             this.relativeMaxSpeed = 0.004f;
             this.reloadTimeSmallWaves = 0.08f;
-            this.numberOfSmallWavesInMediumWaves = 3;
+            this.smallWaves.add(new SmallWave());
+            this.smallWaves.add(new SmallWave());
+            this.smallWaves.add(new SmallWave());
             this.reloadTimeMediumWaves = 0.4f;
             this.numberOfMediumWavesInLargeWaves = 3;
             this.reloadTimeLargeWaves = 1f;
         }
 
-        this.numberOfSmallWavesAlreadySentInMediumWaves = this.numberOfSmallWavesInMediumWaves;
+        this.numberOfSmallWavesAlreadySentInMediumWaves = this.smallWaves.size();
         this.relativeSpeedGrowth = this.relativeMaxSpeed/10;
         this.ultimate1Running = false;
         this.ultimate2Running = false;
@@ -160,13 +157,14 @@ public class PlayableCharacter extends SolidObject {
     }
 
     public void ultimate1() {
+        smallWaves = new ArrayList<>();
+
         if (classCharacter.equals(ClassCharacters.ANGELO)) {
             this.ultimate1DurationMillis = 1400;
             this.relativeWidth = 0.0386f;
             this.relativeHeight = 140f/80f * 0.035f * 768f/372f;
             this.relativeMaxSpeed = 0f;
             this.relativeJumpStrength = 0f;
-            this.numberOfSmallWavesInMediumWaves = 0;
             this.numberOfMediumWavesInLargeWaves = 0;
         }
         else if (classCharacter.equals(ClassCharacters.TATITATOO)) {
@@ -190,15 +188,17 @@ public class PlayableCharacter extends SolidObject {
 
         this.ultimate1StartTimeMillis = System.currentTimeMillis();
         this.ultimate1Running = true;
-        this.numberOfSmallWavesAlreadySentInMediumWaves = this.numberOfSmallWavesInMediumWaves;
+        this.numberOfSmallWavesAlreadySentInMediumWaves = this.smallWaves.size();
     }
 
     public void ultimate2() {
+        smallWaves = new ArrayList<>();
+
         if (classCharacter.equals(ClassCharacters.ANGELO)) {
             this.ultimate2DurationMillis = 10_000;
             this.relativeWidth = 0.0386f;
             this.relativeHeight = 76f/102f * 0.044f * 768f/372f;
-            this.numberOfSmallWavesInMediumWaves = 1;
+            this.smallWaves.add(new SmallWave());
             this.numberOfMediumWavesInLargeWaves = 1;
             this.reloadTimeLargeWaves = 0.15f;
             this.relativeY += (140f/80f * 0.035f * 768f/372f - 76f/102f * 0.044f * 768f/372f);
@@ -216,16 +216,17 @@ public class PlayableCharacter extends SolidObject {
         this.ultimate2StartTimeMillis = System.currentTimeMillis();
         this.ultimate2Running = true;
         this.ultimate1Running = false;
-        this.numberOfSmallWavesAlreadySentInMediumWaves = this.numberOfSmallWavesInMediumWaves;
+        this.numberOfSmallWavesAlreadySentInMediumWaves = this.smallWaves.size();
     }
 
     public void ultimate3() {
+        smallWaves = new ArrayList<>();
+
         if (classCharacter.equals(ClassCharacters.ANGELO)) {
             this.ultimate3DurationMillis = 1400;
             this.relativeWidth = 0.0386f;
             this.relativeHeight = 140f/80f * 0.035f * 768f/372f;
             this.relativeY -= (140f/80f * 0.035f * 768f/372f - 76f/102f * 0.044f * 768f/372f);
-            this.numberOfSmallWavesInMediumWaves = 0;
             this.numberOfMediumWavesInLargeWaves = 0;
         }
         else if (classCharacter.equals(ClassCharacters.MEDUSO)) {
@@ -241,15 +242,19 @@ public class PlayableCharacter extends SolidObject {
         this.ultimate3Running = true;
         this.ultimate2Running = false;
         this.ultimate3StartTimeMillis = System.currentTimeMillis();
-        this.numberOfSmallWavesAlreadySentInMediumWaves = this.numberOfSmallWavesInMediumWaves;
+        this.numberOfSmallWavesAlreadySentInMediumWaves = this.smallWaves.size();
     }
 
-    private class SmallWave {
+    public class SmallWave {
         private List<Integer> angleDegreesBullets = new ArrayList<>();
+
+        SmallWave() {
+            this.angleDegreesBullets.add(0);
+        }
 
         SmallWave(int[] angleDegreesBullets) {
             for (int angleDegreesBullet : angleDegreesBullets)
-            this.angleDegreesBullets.add(angleDegreesBullet);
+                this.angleDegreesBullets.add(angleDegreesBullet);
         }
 
         public List<Integer> getAngleDegreesBullets() {
@@ -279,10 +284,6 @@ public class PlayableCharacter extends SolidObject {
 
     public void setRelativeX(float relativeX) {
         this.relativeX = relativeX;
-    }
-
-    public List<Integer> getAngleDegreesBulletsInSmallWave() {
-        return angleDegreesBulletsInSmallWave;
     }
 
     public float getRelativeMaxSpeed() {
@@ -349,8 +350,8 @@ public class PlayableCharacter extends SolidObject {
         return lastSmallWaveTime;
     }
 
-    public int getNumberOfSmallWavesInMediumWaves() {
-        return numberOfSmallWavesInMediumWaves;
+    public List<SmallWave> getSmallWaves() {
+        return smallWaves;
     }
 
     public float getReloadTimeMediumWaves() {

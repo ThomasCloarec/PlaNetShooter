@@ -30,6 +30,7 @@ public class Network {
         kryo.register(Hit.class);
         kryo.register(UpdateBullet.class);
         kryo.register(Trampoline.class);
+        kryo.register(PlayableCharacter.SmallWave.class);
     }
 
     static class RegisterName {
