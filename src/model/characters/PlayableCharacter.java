@@ -89,9 +89,9 @@ public class PlayableCharacter extends SolidObject {
             this.maxHealth = 1f;
             this.reloadTimeSmallWaves = 0f;
             this.smallWaves.add(new SmallWave());
-            this.reloadTimeMediumWaves = 0f;
+            this.reloadTimeMediumWaves = 0.3f;
             this.numberOfMediumWavesInLargeWaves = 1;
-            this.reloadTimeLargeWaves = 0.3f;
+            this.reloadTimeLargeWaves = 0f;
 
             if (!(ultimate1Running && ultimate2Running && ultimate3Running)) {
                 this.relativeX += 0.045f - 0.04f;
@@ -107,9 +107,9 @@ public class PlayableCharacter extends SolidObject {
             this.relativeMaxSpeed = 0.004f;
             this.reloadTimeSmallWaves = 0f;
             this.smallWaves.add(new SmallWave());
-            this.reloadTimeMediumWaves = 0f;
+            this.reloadTimeMediumWaves = 0.7f;
             this.numberOfMediumWavesInLargeWaves = 1;
-            this.reloadTimeLargeWaves = 0.7f;
+            this.reloadTimeLargeWaves = 0f;
         }
         else if (this.classCharacter.equals(ClassCharacters.TATITATOO)) {
             this.relativeWidth = 0.04f;
@@ -166,7 +166,6 @@ public class PlayableCharacter extends SolidObject {
             this.relativeHeight = 140f/80f * 0.035f * 768f/372f;
             this.relativeMaxSpeed = 0f;
             this.relativeJumpStrength = 0f;
-            this.numberOfMediumWavesInLargeWaves = 0;
         }
         else if (classCharacter.equals(ClassCharacters.TATITATOO)) {
             this.ultimate1DurationMillis = 10_000;
@@ -180,7 +179,8 @@ public class PlayableCharacter extends SolidObject {
             this.ultimate1DurationMillis = 660;
             this.relativeWidth = 0.05f;
             this.relativeHeight = 200f/200f * 0.044f * 768f/372f;
-            this.reloadTimeLargeWaves = 1f;
+            this.smallWaves.add(new SmallWave());
+            this.reloadTimeMediumWaves = 1f;
             this.relativeX -= (0.045f - 0.04f);
             this.relativeY -= (0.044f * 768f/372f - 0.04f * 768f/372f);
         }
@@ -202,14 +202,15 @@ public class PlayableCharacter extends SolidObject {
             this.relativeHeight = 76f/102f * 0.044f * 768f/372f;
             this.smallWaves.add(new SmallWave());
             this.numberOfMediumWavesInLargeWaves = 1;
-            this.reloadTimeLargeWaves = 0.15f;
+            this.reloadTimeMediumWaves = 0.15f;
             this.relativeY += (140f/80f * 0.035f * 768f/372f - 76f/102f * 0.044f * 768f/372f);
         }
         else if (classCharacter.equals(ClassCharacters.MEDUSO)) {
             this.ultimate2DurationMillis = 5000;
             this.relativeWidth = 0.045f;
             this.relativeHeight = 200f / 200f * 0.045f * 768f / 372f;
-            this.reloadTimeLargeWaves = 1f;
+            this.smallWaves.add(new SmallWave());
+            this.reloadTimeMediumWaves = 1f;
         }
         else {
             this.ultimate2DurationMillis = 0;
@@ -235,7 +236,8 @@ public class PlayableCharacter extends SolidObject {
             this.ultimate3DurationMillis = 1100;
             this.relativeWidth = 0.045f;
             this.relativeHeight = 200f/200f * 0.045f * 768f/372f;
-            this.reloadTimeLargeWaves = 1f;
+            this.reloadTimeMediumWaves = 1f;
+            this.smallWaves.add(new SmallWave());
         }
         else {
             this.ultimate3DurationMillis = 0;
