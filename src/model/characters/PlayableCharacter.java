@@ -130,7 +130,7 @@ public class PlayableCharacter extends SolidObject {
             this.maxHealth = 1f;
             this.relativeMaxSpeed = 0.004f;
             this.reloadTimeSmallWaves = 0f;
-            this.smallWaves.add(new SmallWave(new int[] {0, 10, -10}));
+            this.smallWaves.add(new SmallWave(new int[] {0, 5, -5}));
             this.reloadTimeMediumWaves = 0.2f;
             this.numberOfMediumWavesInLargeWaves = 2;
             this.reloadTimeLargeWaves = 1f;

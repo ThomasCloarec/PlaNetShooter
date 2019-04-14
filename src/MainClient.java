@@ -434,12 +434,14 @@ class MainClient {
                             if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO))){
                                 if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO))) {
                                     if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.BOB))) {
-                                        playableCharacter.setHealth(playableCharacter.getHealth() + 0.2f);
-                                        if (playableCharacter.getHealth() > 1f) {
-                                            playableCharacter.setHealth(1f);
+                                        if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.MONK))) {
+                                            playableCharacter.setHealth(playableCharacter.getHealth() + 0.4f);
+                                            if (playableCharacter.getHealth() > 1f) {
+                                                playableCharacter.setHealth(1f);
+                                            }
+                                            ultimateClick = false;
+                                            playableCharacter.setUltimateLoading(0f);
                                         }
-                                        ultimateClick = false;
-                                        playableCharacter.setUltimateLoading(0f);
                                     }
                                 }
                             }
@@ -448,7 +450,14 @@ class MainClient {
 
 
                     if (ultimateClick) {
-                        if ((playableCharacter.getClassCharacter().equals(ClassCharacters.BOB))) {
+                        if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)){
+                            playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
+                            characterView.setClassCharacter(playableCharacter.getClassCharacter());
+                            playableCharacter.setRelativeY((lastMousePressedEvent.getY() - playableCharacter.getRelativeHeight() * gameFrame.getGamePanel().getHeight() / 2f) / (float) gameFrame.getGamePanel().getHeight());
+                            playableCharacter.setRelativeX((lastMousePressedEvent.getX() - playableCharacter.getRelativeWidth() * gameFrame.getGamePanel().getWidth() / 2f) / (float) gameFrame.getGamePanel().getWidth());
+                            ultimateClick = false;
+                        }
+                        if (playableCharacter.getClassCharacter().equals(ClassCharacters.BOB)) {
                             playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
                             characterView.setClassCharacter(playableCharacter.getClassCharacter());
                             ultimateClick = false;
@@ -488,49 +497,50 @@ class MainClient {
                             lastUltimateFire = System.currentTimeMillis();
                         }
                         if (!playableCharacter.getClassCharacter().equals(ClassCharacters.BOB)) {
-                            if (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running()) {
-                                playableCharacter.ultimate1();
-                                characterView.ultimate1();
-                            } else if (playableCharacter.isUltimate1Running()) {
-                                if ((playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) && (cancelUltimate)) {
-                                    playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
-                                    characterView.setClassCharacter(playableCharacter.getClassCharacter());
+                            if (!playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
+                                if (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running()) {
+                                    playableCharacter.ultimate1();
+                                    characterView.ultimate1();
+                                } else if (playableCharacter.isUltimate1Running()) {
+                                    if ((playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) && (cancelUltimate)) {
+                                        playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
+                                        characterView.setClassCharacter(playableCharacter.getClassCharacter());
+                                        ultimateClick = false;
+                                        cancelUltimate = false;
+                                    }
+
+                                    if (System.currentTimeMillis() - playableCharacter.getUltimate1StartTimeMillis() > playableCharacter.getUltimate1DurationMillis()) {
+                                        playableCharacter.ultimate2();
+                                        characterView.ultimate2();
+                                    }
+                                } else if (playableCharacter.isUltimate2Running()) {
+                                    if ((playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) && (playableCharacter.getHealth() < 1f)) {
+                                        playableCharacter.setHealth(playableCharacter.getHealth() + 0.0013f);
+                                    }
+                                    if (((playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) && (cancelUltimate)) || ((playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) && (cancelUltimate))) {
+                                        playableCharacter.ultimate3();
+                                        characterView.ultimate3();
+                                    } else if (System.currentTimeMillis() - playableCharacter.getUltimate2StartTimeMillis() > playableCharacter.getUltimate2DurationMillis()) {
+                                        playableCharacter.ultimate3();
+                                        characterView.ultimate3();
+                                    }
+                                } else if (playableCharacter.isUltimate3Running()) {
+                                    if (System.currentTimeMillis() - playableCharacter.getUltimate3StartTimeMillis() > playableCharacter.getUltimate3DurationMillis()) {
+                                        playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
+                                        characterView.setClassCharacter(playableCharacter.getClassCharacter());
+
+                                        ultimateClick = false;
+                                        cancelUltimate = false;
+                                        jumpKeyJustPressed = false;
+                                    }
+                                } else {
                                     ultimateClick = false;
                                     cancelUltimate = false;
                                 }
-
-                                if (System.currentTimeMillis() - playableCharacter.getUltimate1StartTimeMillis() > playableCharacter.getUltimate1DurationMillis()) {
-                                    playableCharacter.ultimate2();
-                                    characterView.ultimate2();
-                                }
-                            } else if (playableCharacter.isUltimate2Running()) {
-                                if ((playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) && (playableCharacter.getHealth() < 1f)) {
-                                    playableCharacter.setHealth(playableCharacter.getHealth() + 0.0013f);
-                                }
-                                if (((playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO)) && (cancelUltimate)) || ((playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) && (cancelUltimate))) {
-                                    playableCharacter.ultimate3();
-                                    characterView.ultimate3();
-                                } else if (System.currentTimeMillis() - playableCharacter.getUltimate2StartTimeMillis() > playableCharacter.getUltimate2DurationMillis()) {
-                                    playableCharacter.ultimate3();
-                                    characterView.ultimate3();
-                                }
-                            } else if (playableCharacter.isUltimate3Running()) {
-                                if (System.currentTimeMillis() - playableCharacter.getUltimate3StartTimeMillis() > playableCharacter.getUltimate3DurationMillis()) {
-                                    playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
-                                    characterView.setClassCharacter(playableCharacter.getClassCharacter());
-
-                                    ultimateClick = false;
-                                    cancelUltimate = false;
-                                    jumpKeyJustPressed = false;
-                                }
-                            } else {
-                                ultimateClick = false;
-                                cancelUltimate = false;
+                                playableCharacter.setUltimateLoading(0f);
                             }
-                            playableCharacter.setUltimateLoading(0f);
                         }
                     }
-
                     collisionOnTop = false;
                     collisionOnBottom = false;
                     collisionOnRight = false;
@@ -786,7 +796,7 @@ class MainClient {
                                     } else if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
                                         normalBullet.setRelativeWidth(0.015f);
                                         normalBullet.setRelativeHeight(0.015f * 768f / 372f);
-                                        normalBullet.setDamage(0.1f);
+                                        normalBullet.setDamage(0.7f);
                                     } else if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
                                         normalBullet.setRelativeWidth(0.015f);
                                         normalBullet.setRelativeHeight(0.015f * 768f / 372f);
@@ -806,7 +816,7 @@ class MainClient {
                                     float bulletSpeedRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f * ((float) gameFrame.getGamePanel().getHeight() / (float) gameFrame.getGamePanel().getWidth() - 372f / 768f) * 768f / 372f + 1f;
 
                                     if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
-                                        normalBullet.setBulletRangeRatio(100f);
+                                        normalBullet.setBulletRangeRatio(1.8f);
                                     }
                                     else if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
                                         normalBullet.setBulletRangeRatio(0.09f);
@@ -880,7 +890,7 @@ class MainClient {
                                     }
                                     if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
                                         if (bullet.getBulletLifeTime() == 0) {
-                                            bullet.setDamage(0.05f);
+                                            bullet.setDamage(0.04f);
                                             bullet.setSpeed(0);
                                             bullet.setMovementY(0);
                                             bullet.setMovementX(0);
