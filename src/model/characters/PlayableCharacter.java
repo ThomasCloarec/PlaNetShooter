@@ -49,6 +49,8 @@ public class PlayableCharacter extends SolidObject {
     private List<Hit> hits = new ArrayList<>();
     private List<Object> inventory = new ArrayList<>();
     private List<SmallWave> smallWaves;
+    private String lastKiller = "";
+    private long lastDeathTime = 0;
 
     public PlayableCharacter() {
         for (int i = 0; i < 50; i ++) {
@@ -488,6 +490,22 @@ public class PlayableCharacter extends SolidObject {
 
     public void setLastSmallWaveTime(long lastSmallWaveTime) {
         this.lastSmallWaveTime = lastSmallWaveTime;
+    }
+
+    public String getLastKiller() {
+        return lastKiller;
+    }
+
+    public long getLastDeathTime() {
+        return lastDeathTime;
+    }
+
+    public void setLastDeathTime(long lastDeathTime) {
+        this.lastDeathTime = lastDeathTime;
+    }
+
+    public void setLastKiller(String lastKiller) {
+        this.lastKiller = lastKiller;
     }
 
     public float getMaxHealth() {

@@ -134,6 +134,8 @@ public class GameClient extends Client {
         characterCopy.setMoney(character.getMoney());
         characterCopy.setHits(character.getHits());
         characterCopy.setInventory(character.getInventory());
+        characterCopy.setLastKiller(character.getLastKiller());
+        characterCopy.setLastDeathTime(character.getLastDeathTime());
 
         this.sendUDP(characterCopy);
     }

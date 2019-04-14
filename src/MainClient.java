@@ -140,6 +140,8 @@ class MainClient {
                                         if ((!playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) || (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running())) {
                                             playableCharacter.setHealth(playableCharacter.getHealth() - hit.getDamage() / playableCharacter.getMaxHealth());
                                             if (playableCharacter.getHealth() <= 0) {
+                                                playableCharacter.setLastDeathTime(System.currentTimeMillis());
+                                                playableCharacter.setLastKiller(otherPlayer.getName());
                                                 playableCharacter.setDeaths(playableCharacter.getDeaths() + 1);
                                                 randomSpawn();
                                                 playableCharacter.setHealth(1);
@@ -147,8 +149,14 @@ class MainClient {
                                         }
                                     }
                                 }
-                                if (gameClient.getRegisterList().getNameList().indexOf(otherPlayer.getName()) < gameClient.getOtherPlayers().size())
+                                if (gameClient.getRegisterList().getNameList().indexOf(otherPlayer.getName()) < gameClient.getOtherPlayers().size()) {
                                     gameClient.getOtherPlayers().get(gameClient.getRegisterList().getNameList().indexOf(otherPlayer.getName())).setHits(otherPlayer.getHits());
+                                    if (otherPlayer.getLastKiller().equals(playableCharacter.getName()) && otherPlayer.getLastDeathTime() != gameClient.getOtherPlayers().get(gameClient.getRegisterList().getNameList().indexOf(otherPlayer.getName())).getLastDeathTime()) {
+                                        playableCharacter.setKills(playableCharacter.getKills() + 1);
+                                        gameClient.getOtherPlayers().get(gameClient.getRegisterList().getNameList().indexOf(otherPlayer.getName())).setLastKiller(otherPlayer.getLastKiller());
+                                        gameClient.getOtherPlayers().get(gameClient.getRegisterList().getNameList().indexOf(otherPlayer.getName())).setLastDeathTime(otherPlayer.getLastDeathTime());
+                                    }
+                                }
                             }
                             if (object instanceof Network.RemoveName) {
                                 Network.RemoveName removeName = (Network.RemoveName) object;
