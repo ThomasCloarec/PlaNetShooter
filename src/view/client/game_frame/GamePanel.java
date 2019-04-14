@@ -238,22 +238,19 @@ public class GamePanel extends JPanel {
         SwingUtilities.invokeLater(() -> {
             for (int i = 0; i < otherPlayers.size(); i++) {
                 if (this.otherPlayersViews.size() > i) {
-                    for (PlayableCharacter playableCharacter : otherPlayers) {
-                        this.otherPlayersViews.get(otherPlayers.indexOf(playableCharacter)).setInventory(playableCharacter.getInventory());
-                        if (playableCharacter.isClassCharacterChanged()) {
-                            for (BulletView bulletView : this.otherPlayersViews.get(otherPlayers.indexOf(playableCharacter)).getBulletsViews()) {
-                                try {
-                                    bulletView.setIcon("/view/resources/game/characters/" + playableCharacter.getClassCharacter().name().toLowerCase() + "/bullet.png");
-                                } catch (NullPointerException ex) {
-                                    System.err.println("Can't find \"/view/resources/game/characters/" + playableCharacter.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
-                                }
+                    if (otherPlayers.get(i).isClassCharacterChanged()) {
+                        for (BulletView bulletView : this.otherPlayersViews.get(otherPlayers.indexOf(otherPlayers.get(i))).getBulletsViews()) {
+                            try {
+                                bulletView.setIcon("/view/resources/game/characters/" + otherPlayers.get(i).getClassCharacter().name().toLowerCase() + "/bullet.png");
+                            } catch (NullPointerException ex) {
+                                System.err.println("Can't find \"/view/resources/game/characters/" + otherPlayers.get(i).getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
                             }
-                            this.otherPlayersViews.get(otherPlayers.indexOf(playableCharacter)).setClassCharacter(playableCharacter.getClassCharacter());
-
-                            playableCharacter.setClassCharacterChanged(false);
                         }
-                    }
+                        this.otherPlayersViews.get(otherPlayers.indexOf(otherPlayers.get(i))).setClassCharacter(otherPlayers.get(i).getClassCharacter());
 
+                        otherPlayers.get(i).setClassCharacterChanged(false);
+                    }
+                    this.otherPlayersViews.get(i).setInventory(otherPlayers.get(i).getInventory());
                     this.otherPlayersViews.get(i).setHealth(otherPlayers.get(i).getHealth());
                     this.otherPlayersViews.get(i).setHorizontalDirection(otherPlayers.get(i).getLastHorizontalDirection());
                     this.otherPlayersViews.get(i).setHorizontalDirection(otherPlayers.get(i).getHorizontalDirection());
