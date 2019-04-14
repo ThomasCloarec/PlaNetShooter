@@ -173,6 +173,7 @@ public class PlayableCharacter extends SolidObject {
             this.relativeWidth = 0.04f;
             this.relativeHeight = 200f/200f * 0.04f * 768f/372f;
             this.relativeMaxSpeed = 0.0055f;
+            smallWaves.add(new SmallWave());
             this.maxHealth = 2f;
         }
         else if (classCharacter.equals(ClassCharacters.MEDUSO)) {
