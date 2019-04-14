@@ -794,8 +794,8 @@ class MainClient {
                                         }
                                         normalBullet.setSpeed(0.0075f);
                                     } else if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
-                                        normalBullet.setRelativeWidth(0.015f);
-                                        normalBullet.setRelativeHeight(0.015f * 768f / 372f);
+                                        normalBullet.setRelativeWidth(0.02f);
+                                        normalBullet.setRelativeHeight(0.02f * 768f / 372f);
                                         normalBullet.setDamage(0.7f);
                                     } else if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
                                         normalBullet.setRelativeWidth(0.015f);
