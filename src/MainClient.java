@@ -698,7 +698,7 @@ class MainClient {
                         }
 
                         if (playableCharacter.getRelativeY() >= 1) {
-                            if (System.currentTimeMillis()  - 1500 > lastDamageOnPlayerTime) {
+                            if (System.currentTimeMillis()  - 1500 < lastDamageOnPlayerTime) {
                                 playableCharacter.setLastKiller(lastAttackerOnPlayer);
                                 playableCharacter.setLastDeathTime(lastDamageOnPlayerTime);
                             }
