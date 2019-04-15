@@ -69,7 +69,19 @@ public class HomePanel extends JPanel {
         leftPanel.add(jLabel5);
 
         for (int i = 0; i < 35; i++) {
-            leftPanel.add(new JLabel());
+            //noinspection ConstantConditions
+            if (i % 5 - 2 == 0 || i % 5 - 3 == 0 || i % 5 - 4 == 0) {
+                JPanel jPanel = new JPanel(new GridLayout(1,3));
+                jPanel.setBackground(Color.gray);
+                for (int j = 0; j < 3; j++) {
+                    jPanel.add(new JLabel());
+                }
+
+                leftPanel.add(jPanel);
+            }
+            else {
+                leftPanel.add(new JLabel());
+            }
         }
 
         this.add(leftPanel);
@@ -104,6 +116,9 @@ public class HomePanel extends JPanel {
 
         leftPanel.setBounds(marginX, marginY, (int) (1f / 3f * this.getWidth()) - marginX, this.getHeight() - marginY * 2);
         leftPanel.doLayout();
+        for (int i = 0; i < leftPanel.getComponents().length; i++) {
+            leftPanel.getComponent(i).doLayout();
+        }
         drawLeftPanel();
 
         centerPanel.setBounds(marginX + leftPanel.getX() + leftPanel.getWidth(), marginY, (int) (1f / 3f * this.getWidth()) - marginX, this.getHeight() - marginY * 2);
@@ -131,18 +146,60 @@ public class HomePanel extends JPanel {
     }
 
     public void setPlayerValues(PlayableCharacter playableCharacter) {
-        ((JLabel) leftPanel.getComponent(7)).setText(Integer.toString(playableCharacter.getKills()));
-        ((JLabel) leftPanel.getComponent(7)).setBorder(new CompoundBorder(
+        if (Integer.toString(playableCharacter.getKills()).length() == 3) {
+            ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getKills()).charAt(2) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(2))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getKills()).charAt(1) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(1))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getKills()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(0))));
+        }
+        else if (Integer.toString(playableCharacter.getKills()).length() == 2) {
+            ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getKills()).charAt(1) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(2))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getKills()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(1))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(0))));
+        }
+        else if (Integer.toString(playableCharacter.getKills()).length() == 1) {
+            ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getKills()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(2))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(1))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(0))));
+        }
+        ((JPanel) leftPanel.getComponent(7)).setBorder(new CompoundBorder(
                 BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLUE),
                 BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK)));
 
-        ((JLabel) leftPanel.getComponent(8)).setText(Integer.toString(playableCharacter.getDeaths()));
-        ((JLabel) leftPanel.getComponent(8)).setBorder(new CompoundBorder(
+        if (Integer.toString(playableCharacter.getDeaths()).length() == 3) {
+            ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getDeaths()).charAt(2) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(2))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getDeaths()).charAt(1) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(1))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getDeaths()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(0))));
+        }
+        else if (Integer.toString(playableCharacter.getDeaths()).length() == 2) {
+            ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getDeaths()).charAt(1) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(2))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getDeaths()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(1))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(0))));
+        }
+        else if (Integer.toString(playableCharacter.getDeaths()).length() == 1) {
+            ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getDeaths()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(2))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(1))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(8)).getComponent(0))));
+        }
+        ((JPanel) leftPanel.getComponent(8)).setBorder(new CompoundBorder(
                 BorderFactory.createMatteBorder(2, 0, 2, 0, Color.BLUE),
                 BorderFactory.createMatteBorder(0, 0, 0, 1, Color.BLACK)));
 
-        ((JLabel) leftPanel.getComponent(9)).setText(Integer.toString(playableCharacter.getMoney()));
-        ((JLabel) leftPanel.getComponent(9)).setBorder(new CompoundBorder(
+        if (Integer.toString(playableCharacter.getMoney()).length() == 3) {
+            ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getMoney()).charAt(2) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(2))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getMoney()).charAt(1) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(1))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getMoney()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(0))));
+        }
+        else if (Integer.toString(playableCharacter.getMoney()).length() == 2) {
+            ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getMoney()).charAt(1) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(2))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getMoney()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(1))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(0))));
+        }
+        else if (Integer.toString(playableCharacter.getMoney()).length() == 1) {
+            ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(playableCharacter.getMoney()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(2))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(1))));
+            ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(9)).getComponent(0))));
+        }
+        ((JPanel) leftPanel.getComponent(9)).setBorder(new CompoundBorder(
                 BorderFactory.createMatteBorder(2, 0, 2, 2, Color.BLUE),
                 BorderFactory.createMatteBorder(0, 0, 0, 0, Color.BLACK)));
     }
@@ -155,9 +212,53 @@ public class HomePanel extends JPanel {
                         otherPlayersHome.get(i).setClassCharacter(otherPlayers.get(i).getClassCharacter());
                         ((JLabel) leftPanel.getComponent(11 + i * 5)).setIcon(new AdaptableIcon("/view/resources/home/faces/" + otherPlayers.get(i).getClassCharacter().name().toLowerCase() + "_face.png", (JLabel) (leftPanel.getComponent(11 + i * 5))));
                     }
-                    ((JLabel) leftPanel.getComponent(12 + i * 5)).setText(Integer.toString(otherPlayers.get(i).getKills()));
-                    ((JLabel) leftPanel.getComponent(13 + i * 5)).setText(Integer.toString(otherPlayers.get(i).getDeaths()));
-                    ((JLabel) leftPanel.getComponent(14 + i * 5)).setText(Integer.toString(otherPlayers.get(i).getMoney()));
+                    if (Integer.toString(otherPlayers.get(i).getKills()).length() == 3) {
+                        ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getKills()).charAt(2) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(2))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getKills()).charAt(1) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(1))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getKills()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(0))));
+                    }
+                    else if (Integer.toString(otherPlayers.get(i).getKills()).length() == 2) {
+                        ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getKills()).charAt(1) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(2))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getKills()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(1))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(0))));
+                    }
+                    else if (Integer.toString(otherPlayers.get(i).getKills()).length() == 1) {
+                        ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getKills()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(2))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(1))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(7)).getComponent(0))));
+                    }
+                    
+                    if (Integer.toString(otherPlayers.get(i).getDeaths()).length() == 3) {
+                        ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getDeaths()).charAt(2) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(2))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getDeaths()).charAt(1) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(1))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getDeaths()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(0))));
+                    }
+                    else if (Integer.toString(otherPlayers.get(i).getDeaths()).length() == 2) {
+                        ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getDeaths()).charAt(1) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(2))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getDeaths()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(1))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(0))));
+                    }
+                    else if (Integer.toString(otherPlayers.get(i).getDeaths()).length() == 1) {
+                        ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getDeaths()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(2))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(1))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(0))));
+                    }
+                   
+                    if (Integer.toString(otherPlayers.get(i).getMoney()).length() == 3) {
+                        ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getMoney()).charAt(2) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(2))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getMoney()).charAt(1) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(1))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getMoney()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(0))));
+                    }
+                    else if (Integer.toString(otherPlayers.get(i).getMoney()).length() == 2) {
+                        ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getMoney()).charAt(1) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(2))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getMoney()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(1))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(0))));
+                    }
+                    else if (Integer.toString(otherPlayers.get(i).getMoney()).length() == 1) {
+                        ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + Integer.toString(otherPlayers.get(i).getMoney()).charAt(0) + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(2))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(1))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(0))));
+                    }
                 } else {
                     if (i < 5 ) {
                         PlayableCharacter playableCharacter = new PlayableCharacter();
@@ -167,24 +268,33 @@ public class HomePanel extends JPanel {
 
                         ((JLabel) leftPanel.getComponent(10 + i * 5)).setIcon(new AdaptableIcon("/view/resources/game/names/" + playableCharacter.getName() + ".png", (JLabel) (leftPanel.getComponent(10 + i * 5))));
                         ((JLabel) leftPanel.getComponent(11 + i * 5)).setIcon(new AdaptableIcon("/view/resources/home/faces/" + playableCharacter.getClassCharacter().name().toLowerCase() + "_face.png", (JLabel) (leftPanel.getComponent(11 + i * 5))));
+
                         if (i == 0) {
                             ((JLabel) leftPanel.getComponent(10 + i * 5)).setBorder(BorderFactory.createMatteBorder(2,2,2,1,Color.BLACK));
                             ((JLabel) leftPanel.getComponent(11 + i * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(12 + i * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(13 + i * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(14 + i * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,2,Color.BLACK));
+                            ((JPanel) leftPanel.getComponent(12 + i * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,1,Color.BLACK));
+                            ((JPanel) leftPanel.getComponent(13 + i * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,1,Color.BLACK));
+                            ((JPanel) leftPanel.getComponent(14 + i * 5)).setBorder(BorderFactory.createMatteBorder(2,0,2,2,Color.BLACK));
                         }
                         else {
                             ((JLabel) leftPanel.getComponent(10 + i * 5)).setBorder(BorderFactory.createMatteBorder(0,2,2,1,Color.BLACK));
                             ((JLabel) leftPanel.getComponent(11 + i * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(12 + i * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(13 + i * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,1,Color.BLACK));
-                            ((JLabel) leftPanel.getComponent(14 + i * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,2,Color.BLACK));
+                            ((JPanel) leftPanel.getComponent(12 + i * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,1,Color.BLACK));
+                            ((JPanel) leftPanel.getComponent(13 + i * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,1,Color.BLACK));
+                            ((JPanel) leftPanel.getComponent(14 + i * 5)).setBorder(BorderFactory.createMatteBorder(0,0,2,2,Color.BLACK));
                         }
 
-                        ((JLabel) leftPanel.getComponent(12 + i * 5)).setText("0");
-                        ((JLabel) leftPanel.getComponent(13 + i * 5)).setText("0");
-                        ((JLabel) leftPanel.getComponent(14 + i * 5)).setText("0");
+                        ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(2))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(1))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(12 + i * 5)).getComponent(0))));
+
+                        ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(2))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(1))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(13 + i * 5)).getComponent(0))));
+
+                        ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(2)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(2))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(1)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(1))));
+                        ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(0)).setIcon(new AdaptableIcon("/view/resources/home/numbers/" + 0 + ".png", ((JLabel) ((JPanel) leftPanel.getComponent(14 + i * 5)).getComponent(0))));
                     }
                 }
             }
@@ -195,24 +305,23 @@ public class HomePanel extends JPanel {
     public void removeOtherPlayerHome(int index) {
         for (int i = 0; i < 5 - index; i++) {
             if ( 5 - index != 0) {
-                ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setIcon(((JLabel) leftPanel.getComponent(10 + (index + i + 1) * 5)).getIcon());
-                ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setIcon(((JLabel) leftPanel.getComponent(11 + (index + i + 1) * 5)).getIcon());
                 if (((JLabel) leftPanel.getComponent(10 + (index + i + 1) * 5)).getBorder() == null && ((JLabel) leftPanel.getComponent(11 + (index + i + 1) * 5)).getBorder() == null) {
                     ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setIcon(null);
                     ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setBorder(null);
                     ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setIcon(null);
                     ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setBorder(null);
-                    ((JLabel) leftPanel.getComponent(12 + (index + i) * 5)).setText(null);
                     ((JLabel) leftPanel.getComponent(12 + (index + i) * 5)).setBorder(null);
-                    ((JLabel) leftPanel.getComponent(13 + (index + i) * 5)).setText(null);
                     ((JLabel) leftPanel.getComponent(13 + (index + i) * 5)).setBorder(null);
-                    ((JLabel) leftPanel.getComponent(14 + (index + i) * 5)).setText(null);
                     ((JLabel) leftPanel.getComponent(14 + (index + i) * 5)).setBorder(null);
                 }
                 else {
-                    ((JLabel) leftPanel.getComponent(12 + (index + i) * 5)).setText(((JLabel) leftPanel.getComponent(12 + (index + i + 1) * 5)).getText());
-                    ((JLabel) leftPanel.getComponent(13 + (index + i) * 5)).setText(((JLabel) leftPanel.getComponent(13 + (index + i + 1) * 5)).getText());
-                    ((JLabel) leftPanel.getComponent(14 + (index + i) * 5)).setText(((JLabel) leftPanel.getComponent(14 + (index + i + 1) * 5)).getText());
+                    ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setIcon(((JLabel) leftPanel.getComponent(10 + (index + i + 1) * 5)).getIcon());
+                    ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setIcon(((JLabel) leftPanel.getComponent(11 + (index + i + 1) * 5)).getIcon());
+                    for (int j = 0; i < 3; i++) {
+                        ((JLabel) ((JPanel) leftPanel.getComponent(12 + (index + i) * 5)).getComponent(j)).setIcon(((JLabel) ((JPanel) leftPanel.getComponent(12 + (index + i + 1) * 5)).getComponent(j)).getIcon());
+                        ((JLabel) ((JPanel) leftPanel.getComponent(13 + (index + i) * 5)).getComponent(j)).setIcon(((JLabel) ((JPanel) leftPanel.getComponent(13 + (index + i + 1) * 5)).getComponent(j)).getIcon());
+                        ((JLabel) ((JPanel) leftPanel.getComponent(14 + (index + i) * 5)).getComponent(j)).setIcon(((JLabel) ((JPanel) leftPanel.getComponent(14 + (index + i + 1) * 5)).getComponent(j)).getIcon());
+                    }
                 }
             }
         }
