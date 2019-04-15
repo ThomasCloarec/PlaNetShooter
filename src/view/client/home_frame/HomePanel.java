@@ -310,14 +310,20 @@ public class HomePanel extends JPanel {
                     ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setBorder(null);
                     ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setIcon(null);
                     ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setBorder(null);
-                    ((JLabel) leftPanel.getComponent(12 + (index + i) * 5)).setBorder(null);
-                    ((JLabel) leftPanel.getComponent(13 + (index + i) * 5)).setBorder(null);
-                    ((JLabel) leftPanel.getComponent(14 + (index + i) * 5)).setBorder(null);
+                    ((JPanel) leftPanel.getComponent(12 + (index + i) * 5)).setBorder(null);
+                    ((JPanel) leftPanel.getComponent(13 + (index + i) * 5)).setBorder(null);
+                    ((JPanel) leftPanel.getComponent(14 + (index + i) * 5)).setBorder(null);
+
+                    for (int j = 0; j < 3; j++) {
+                        ((JLabel) ((JPanel) leftPanel.getComponent(12 + (index + i) * 5)).getComponent(j)).setIcon(null);
+                        ((JLabel) ((JPanel) leftPanel.getComponent(13 + (index + i) * 5)).getComponent(j)).setIcon(null);
+                        ((JLabel) ((JPanel) leftPanel.getComponent(14 + (index + i) * 5)).getComponent(j)).setIcon(null);
+                    }
                 }
                 else {
                     ((JLabel) leftPanel.getComponent(10 + (index + i) * 5)).setIcon(((JLabel) leftPanel.getComponent(10 + (index + i + 1) * 5)).getIcon());
                     ((JLabel) leftPanel.getComponent(11 + (index + i) * 5)).setIcon(((JLabel) leftPanel.getComponent(11 + (index + i + 1) * 5)).getIcon());
-                    for (int j = 0; i < 3; i++) {
+                    for (int j = 0; j < 3; j++) {
                         ((JLabel) ((JPanel) leftPanel.getComponent(12 + (index + i) * 5)).getComponent(j)).setIcon(((JLabel) ((JPanel) leftPanel.getComponent(12 + (index + i + 1) * 5)).getComponent(j)).getIcon());
                         ((JLabel) ((JPanel) leftPanel.getComponent(13 + (index + i) * 5)).getComponent(j)).setIcon(((JLabel) ((JPanel) leftPanel.getComponent(13 + (index + i + 1) * 5)).getComponent(j)).getIcon());
                         ((JLabel) ((JPanel) leftPanel.getComponent(14 + (index + i) * 5)).getComponent(j)).setIcon(((JLabel) ((JPanel) leftPanel.getComponent(14 + (index + i + 1) * 5)).getComponent(j)).getIcon());

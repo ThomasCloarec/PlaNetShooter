@@ -969,25 +969,31 @@ class MainClient {
                             }
                         }
                     });
-                    characterView.setHealth(playableCharacter.getHealth());
-                    characterView.setUltimateLoading(playableCharacter.getUltimateLoading());
-                    characterView.setUltimate1Running(playableCharacter.isUltimate1Running());
-                    characterView.setUltimate2Running(playableCharacter.isUltimate2Running());
-                    characterView.setUltimate3Running(playableCharacter.isUltimate3Running());
-                    characterView.setRelativeX(playableCharacter.getRelativeX());
-
-                    characterView.setRelativeY(playableCharacter.getRelativeY());
-
-                    characterView.setRelativeWidth(playableCharacter.getRelativeWidth());
-                    characterView.setRelativeHeight(playableCharacter.getRelativeHeight());
 
                     gameClient.sendPlayerInformation(playableCharacter);
                     gameClient.sendBulletsInformation(playableCharacter);
 
-                    characterView.setInventory(playableCharacter.getInventory());
-                    gameFrame.getGamePanel().otherPlayersPainting(gameClient.getOtherPlayers());
-                    gameFrame.getHomePanel().refreshHome(gameClient.getOtherPlayers());
-                    gameFrame.getHomePanel().setPlayerValues(playableCharacter);
+                    if (playableCharacter.isAtHome()) {
+                        gameFrame.getHomePanel().refreshHome(gameClient.getOtherPlayers());
+                        gameFrame.getHomePanel().setPlayerValues(playableCharacter);
+                    }
+                    else {
+                        characterView.setHealth(playableCharacter.getHealth());
+                        characterView.setUltimateLoading(playableCharacter.getUltimateLoading());
+                        characterView.setUltimate1Running(playableCharacter.isUltimate1Running());
+                        characterView.setUltimate2Running(playableCharacter.isUltimate2Running());
+                        characterView.setUltimate3Running(playableCharacter.isUltimate3Running());
+                        characterView.setRelativeX(playableCharacter.getRelativeX());
+
+                        characterView.setRelativeY(playableCharacter.getRelativeY());
+
+                        characterView.setRelativeWidth(playableCharacter.getRelativeWidth());
+                        characterView.setRelativeHeight(playableCharacter.getRelativeHeight());
+
+                        characterView.setInventory(playableCharacter.getInventory());
+
+                        gameFrame.getGamePanel().otherPlayersPainting(gameClient.getOtherPlayers());
+                    }
 
                     if (IS_UNIX_OS)
                         Toolkit.getDefaultToolkit().sync();
