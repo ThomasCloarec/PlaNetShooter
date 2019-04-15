@@ -79,9 +79,9 @@ public class PlayableCharacter extends SolidObject {
             this.smallWaves.add(new SmallWave(new int[] {-10,10}));
             this.smallWaves.add(new SmallWave(new int[] {-20,20}));
             this.smallWaves.add(new SmallWave(new int[] {0,-10,10,-20,20}));
-            this.reloadTimeMediumWaves = 0.4f;
+            this.reloadTimeMediumWaves = 1f;
             this.numberOfMediumWavesInLargeWaves = 3;
-            this.reloadTimeLargeWaves = 0.8f;
+            this.reloadTimeLargeWaves = 2f;
         }
         else if (this.classCharacter.equals(ClassCharacters.MEDUSO)) {
             this.relativeWidth = 0.04f;

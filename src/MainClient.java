@@ -145,7 +145,7 @@ class MainClient {
                                                 playableCharacter.setLastDeathTime(System.currentTimeMillis());
                                                 playableCharacter.setLastKiller(otherPlayer.getName());
                                                 playableCharacter.setDeaths(playableCharacter.getDeaths() + 1);
-                                                
+
                                                 if (playableCharacter.getMoney() >= 1)
                                                     playableCharacter.setMoney(playableCharacter.getMoney() - 1);
 
@@ -325,6 +325,10 @@ class MainClient {
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(playableCharacter, new HomeView()).equals(PlayerCollisionSide.NONE))) {
                     gameFrame.getCardLayout().next(gameFrame.getContentPane());
+
+                    if (playableCharacter.getMoney() >= 5)
+                        playableCharacter.setMoney(playableCharacter.getMoney() - 5);
+
                     playableCharacter.setRelativeY(-1.15f);
                     playableCharacter.setAtHome(true);
                 }
