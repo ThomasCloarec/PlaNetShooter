@@ -55,7 +55,8 @@ class MainClient {
     private static boolean playerOnRightYodel = false;
     private static boolean yodelDetection = false;
     private static boolean cancelUltimate = false;
-    private static long lastDamageOnPlayer = 0;
+    private static long lastDamageOnPlayerTime = 0;
+    private static String lastAttackerOnPlayer;
     private static long lastUltimateFire = 0;
 
     public static void main(String[] args) {
@@ -135,8 +136,9 @@ class MainClient {
 
                                 for (Hit hit : otherPlayer.getHits()) {
                                     if (hit.getVictim().equals((playableCharacter.getName())) && hit.getTime() != gameClient.getOtherPlayers().get(gameClient.getRegisterList().getNameList().indexOf(otherPlayer.getName())).getHits().get(otherPlayer.getHits().indexOf(hit)).getTime()) {
-                                        lastDamageOnPlayer = 0;
-                                        lastDamageOnPlayer = System.currentTimeMillis();
+                                        lastDamageOnPlayerTime = System.currentTimeMillis();
+                                        lastAttackerOnPlayer = otherPlayer.getName();
+
                                         if ((!playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO)) || (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running())) {
                                             playableCharacter.setHealth(playableCharacter.getHealth() - hit.getDamage() / playableCharacter.getMaxHealth());
                                             if (playableCharacter.getHealth() <= 0) {
@@ -225,6 +227,8 @@ class MainClient {
     }
 
     private static void launchGameFrame() {
+        // Load audios here
+
         gameFrame = new GameFrame(clientName);
         gameFrame.setIsClientAdmin(serverIP.equals("localhost"));
 
@@ -694,6 +698,11 @@ class MainClient {
                         }
 
                         if (playableCharacter.getRelativeY() >= 1) {
+                            if (System.currentTimeMillis()  - 1500 > lastDamageOnPlayerTime) {
+                                playableCharacter.setLastKiller(lastAttackerOnPlayer);
+                                playableCharacter.setLastDeathTime(lastDamageOnPlayerTime);
+                            }
+
                             playableCharacter.setDeaths(playableCharacter.getDeaths() + 1);
                             randomSpawn();
                         }
@@ -724,7 +733,7 @@ class MainClient {
                         collisionOnBottom = true;
                     }
 
-                    if ((System.currentTimeMillis() - playableCharacter.getLastSmallWaveTime() > 3000f) && (System.currentTimeMillis() - lastDamageOnPlayer > 3000f) && (System.currentTimeMillis() - lastUltimateFire > 3000f)) {
+                    if ((System.currentTimeMillis() - playableCharacter.getLastSmallWaveTime() > 3000f) && (System.currentTimeMillis() - lastDamageOnPlayerTime > 3000f) && (System.currentTimeMillis() - lastUltimateFire > 3000f)) {
                         if (playableCharacter.getHealth() < 1f){
                             playableCharacter.setHealth(playableCharacter.getHealth() + 0.0015f);
                         }
