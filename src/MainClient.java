@@ -145,6 +145,10 @@ class MainClient {
                                                 playableCharacter.setLastDeathTime(System.currentTimeMillis());
                                                 playableCharacter.setLastKiller(otherPlayer.getName());
                                                 playableCharacter.setDeaths(playableCharacter.getDeaths() + 1);
+                                                
+                                                if (playableCharacter.getMoney() >= 1)
+                                                    playableCharacter.setMoney(playableCharacter.getMoney() - 1);
+
                                                 randomSpawn();
                                             }
                                         }
@@ -154,6 +158,7 @@ class MainClient {
                                     gameClient.getOtherPlayers().get(gameClient.getRegisterList().getNameList().indexOf(otherPlayer.getName())).setHits(otherPlayer.getHits());
                                     if (otherPlayer.getLastKiller().equals(playableCharacter.getName()) && otherPlayer.getLastDeathTime() != gameClient.getOtherPlayers().get(gameClient.getRegisterList().getNameList().indexOf(otherPlayer.getName())).getLastDeathTime()) {
                                         playableCharacter.setKills(playableCharacter.getKills() + 1);
+                                        playableCharacter.setMoney(playableCharacter.getMoney() + 3);
                                         gameClient.getOtherPlayers().get(gameClient.getRegisterList().getNameList().indexOf(otherPlayer.getName())).setLastKiller(otherPlayer.getLastKiller());
                                         gameClient.getOtherPlayers().get(gameClient.getRegisterList().getNameList().indexOf(otherPlayer.getName())).setLastDeathTime(otherPlayer.getLastDeathTime());
                                     }
@@ -702,6 +707,9 @@ class MainClient {
                                 playableCharacter.setLastKiller(lastAttackerOnPlayer);
                                 playableCharacter.setLastDeathTime(lastDamageOnPlayerTime);
                             }
+
+                            if (playableCharacter.getMoney() >= 1)
+                                playableCharacter.setMoney(playableCharacter.getMoney() - 1);
 
                             playableCharacter.setDeaths(playableCharacter.getDeaths() + 1);
                             randomSpawn();
