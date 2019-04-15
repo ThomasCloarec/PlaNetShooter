@@ -328,6 +328,8 @@ class MainClient {
 
                     if (playableCharacter.getMoney() >= 5)
                         playableCharacter.setMoney(playableCharacter.getMoney() - 5);
+                    else
+                        playableCharacter.setMoney(0);
 
                     playableCharacter.setRelativeY(-1.15f);
                     playableCharacter.setAtHome(true);
