@@ -178,7 +178,7 @@ class MainClient {
                                     gameFrame.getGamePanel().remove(gameFrame.getGamePanel().getOtherPlayersViews().get(gameClient.getRegisterList().getNameList().indexOf(removeName.name)).getCharacterLabel());
 
                                 gameFrame.getGamePanel().getOtherPlayersViews().remove(gameClient.getRegisterList().getNameList().indexOf(removeName.name));
-                                gameFrame.getHomePanel().removeOtherPlayerHome(gameClient.getRegisterList().getNameList().indexOf(removeName.name));
+                                gameFrame.getHomePanel().getRemoveOthersPlayersHomeIndex().add(gameClient.getRegisterList().getNameList().indexOf(removeName.name));
 
                                 gameClient.receivedListener(object);
                             }
@@ -973,27 +973,24 @@ class MainClient {
                     gameClient.sendPlayerInformation(playableCharacter);
                     gameClient.sendBulletsInformation(playableCharacter);
 
-                    if (playableCharacter.isAtHome()) {
-                        gameFrame.getHomePanel().refreshHome(gameClient.getOtherPlayers());
-                        gameFrame.getHomePanel().setPlayerValues(playableCharacter);
-                    }
-                    else {
-                        characterView.setHealth(playableCharacter.getHealth());
-                        characterView.setUltimateLoading(playableCharacter.getUltimateLoading());
-                        characterView.setUltimate1Running(playableCharacter.isUltimate1Running());
-                        characterView.setUltimate2Running(playableCharacter.isUltimate2Running());
-                        characterView.setUltimate3Running(playableCharacter.isUltimate3Running());
-                        characterView.setRelativeX(playableCharacter.getRelativeX());
+                    gameFrame.getHomePanel().refreshHome(gameClient.getOtherPlayers());
+                    gameFrame.getHomePanel().setPlayerValues(playableCharacter);
 
-                        characterView.setRelativeY(playableCharacter.getRelativeY());
+                    characterView.setHealth(playableCharacter.getHealth());
+                    characterView.setUltimateLoading(playableCharacter.getUltimateLoading());
+                    characterView.setUltimate1Running(playableCharacter.isUltimate1Running());
+                    characterView.setUltimate2Running(playableCharacter.isUltimate2Running());
+                    characterView.setUltimate3Running(playableCharacter.isUltimate3Running());
+                    characterView.setRelativeX(playableCharacter.getRelativeX());
 
-                        characterView.setRelativeWidth(playableCharacter.getRelativeWidth());
-                        characterView.setRelativeHeight(playableCharacter.getRelativeHeight());
+                    characterView.setRelativeY(playableCharacter.getRelativeY());
 
-                        characterView.setInventory(playableCharacter.getInventory());
+                    characterView.setRelativeWidth(playableCharacter.getRelativeWidth());
+                    characterView.setRelativeHeight(playableCharacter.getRelativeHeight());
 
-                        gameFrame.getGamePanel().otherPlayersPainting(gameClient.getOtherPlayers());
-                    }
+                    characterView.setInventory(playableCharacter.getInventory());
+
+                    gameFrame.getGamePanel().otherPlayersPainting(gameClient.getOtherPlayers());
 
                     if (IS_UNIX_OS)
                         Toolkit.getDefaultToolkit().sync();

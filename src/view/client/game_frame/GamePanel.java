@@ -9,6 +9,8 @@ import java.util.*;
 import java.util.List;
 
 public class GamePanel extends JPanel {
+    private List<JLabel> removeBulletViewLabel = new ArrayList<>();
+
     private PlatformView[] platforms;
     private CharacterView characterView;
     private final List<CharacterView> otherPlayersViews = new ArrayList<>();
@@ -303,6 +305,13 @@ public class GamePanel extends JPanel {
                     this.otherPlayersViews.add(characterView);
                 }
             }
+
+            Iterator<JLabel> integerIterator = removeBulletViewLabel.iterator();
+            while(integerIterator.hasNext()) {
+                this.remove(integerIterator.next());
+                integerIterator.remove();
+            }
+
             this.repaint();
         });
     }
@@ -329,5 +338,9 @@ public class GamePanel extends JPanel {
 
     public void setHitBoxMode(boolean hitBoxMode) {
         this.hitBoxMode = hitBoxMode;
+    }
+
+    public List<JLabel> getRemoveBulletViewLabel() {
+        return removeBulletViewLabel;
     }
 }
