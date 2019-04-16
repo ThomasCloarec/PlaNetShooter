@@ -11,7 +11,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class HomePanel extends JPanel {
-    private List<Integer> removeOthersPlayersHomeIndex = new ArrayList<>();
+    private final List<Integer> removeOthersPlayersHomeIndex = new ArrayList<>();
 
     private final JLabel nameLabel = new JLabel();
     private final JLabel arrowLabel = new JLabel();

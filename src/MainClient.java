@@ -470,7 +470,6 @@ class MainClient {
                         }
                     }
 
-
                     if (ultimateClick) {
                         if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)){
                             playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
