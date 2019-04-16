@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SmallWave {
-    private List<Integer> angleDegreesBullets = new ArrayList<>();
+    private final List<Integer> angleDegreesBullets = new ArrayList<>();
 
     SmallWave() {
         this.angleDegreesBullets.add(0);
