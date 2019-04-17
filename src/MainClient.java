@@ -58,6 +58,7 @@ class MainClient {
     private static long lastDamageOnPlayerTime = 0;
     private static String lastAttackerOnPlayer;
     private static long lastUltimateFire = 0;
+    private static boolean clientSuccessfullyStarted = false;
 
     public static void main(String[] args) {
         Log.set(Log.LEVEL_NONE);
@@ -130,7 +131,7 @@ class MainClient {
                 public void received(Connection connection, Object object) {
                     SwingUtilities.invokeLater(() -> {
                         if (finalGameClientLaunched[0]) {
-                            if (object instanceof PlayableCharacter) {
+                            if (object instanceof PlayableCharacter && clientSuccessfullyStarted) {
                                 gameClient.receivedListener(object);
                                 PlayableCharacter otherPlayer = (PlayableCharacter) object;
 
@@ -402,6 +403,7 @@ class MainClient {
         });
 
         System.out.println("Client successfully started !");
+        clientSuccessfullyStarted = true;
     }
 
     private static void launchGameLoop() {
