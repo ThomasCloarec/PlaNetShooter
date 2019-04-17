@@ -11,8 +11,8 @@ public class Bullet extends SolidObject {
     private float relativeBulletStartX;
     private float relativeBulletStartY;
     private float bulletRangeRatio;
-    private float relativeWidth = 0.008f;
-    private float relativeHeight = 0.008f * 768f / 372f;
+    private float relativeWidth = 0.01f;
+    private float relativeHeight = 0.01f * 768f / 372f;
     private float damage = 0.1f;
     private long bulletLifeTime = 0;
 
