@@ -3,31 +3,16 @@ package view.client.game_frame;
 import model.SolidObject;
 
 public class YodelView extends SolidObject {
-    private static final float relativeWidth = 0.06f;
-    private static final float relativeHeight = 0.1f;
-    private static float relativeX;
-    private static final float relativeY = 0.25f - relativeHeight;
-
     public YodelView(String yodelSide) {
+        super();
+        this.relativeWidth = 0.06f;
+        this.relativeHeight = 0.1f;
+        this.relativeY = 0.25f - relativeHeight;
+
         if (yodelSide.equals("left"))
             relativeX = 0.14f - relativeWidth/2;
         else if (yodelSide.equals("right"))
             relativeX = 0.868f - relativeWidth/2;
-    }
-    public float getRelativeX() {
-        return relativeX;
-    }
-
-    public float getRelativeY() {
-        return relativeY;
-    }
-
-    public float getRelativeWidth() {
-        return relativeWidth;
-    }
-
-    public float getRelativeHeight() {
-        return relativeHeight;
     }
 }
 

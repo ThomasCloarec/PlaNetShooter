@@ -11,11 +11,7 @@ public class PlayableCharacter extends SolidObject {
     private float relativeMaxSpeed;
     private float relativeSpeedGrowth;
     private float relativeJumpStrength;
-    private float relativeWidth;
-    private float relativeHeight;
     private ClassCharacters classCharacter;
-    private float relativeX = 0.45f;
-    private float relativeY = 0.1f;
     private String name;
     private double horizontalDirection = 1;
     private double lastHorizontalDirection;
@@ -53,6 +49,7 @@ public class PlayableCharacter extends SolidObject {
     private long lastDeathTime = 0;
 
     public PlayableCharacter() {
+        super();
         for (int i = 0; i < 50; i ++) {
             hits.add(new Hit());
         }
@@ -76,13 +73,9 @@ public class PlayableCharacter extends SolidObject {
             this.maxHealth = 1f;
             this.reloadTimeSmallWaves = 0.03f;
             this.smallWaves.add(new SmallWave());
-            this.smallWaves.add(new SmallWave());
-            this.smallWaves.add(new SmallWave());
-            this.smallWaves.add(new SmallWave());
-            this.smallWaves.add(new SmallWave());
             this.reloadTimeMediumWaves = 0.5f;
             this.numberOfMediumWavesInLargeWaves = 3;
-            this.reloadTimeLargeWaves = 1.5f;
+            this.reloadTimeLargeWaves = 0f;
         }
         else if (this.classCharacter.equals(ClassCharacters.MEDUSO)) {
             this.relativeWidth = 0.04f;
@@ -256,32 +249,8 @@ public class PlayableCharacter extends SolidObject {
         this.lastLargeWaveTime = lastLargeWaveTime;
     }
 
-    public float getRelativeX() {
-        return relativeX;
-    }
-
-    public float getRelativeY() {
-        return relativeY;
-    }
-
-    public float getRelativeWidth() {
-        return relativeWidth;
-    }
-
-    public float getRelativeHeight() {
-        return relativeHeight;
-    }
-
-    public void setRelativeX(float relativeX) {
-        this.relativeX = relativeX;
-    }
-
     public float getRelativeMaxSpeed() {
         return relativeMaxSpeed;
-    }
-
-    public void setRelativeY(float relativeY) {
-        this.relativeY = relativeY;
     }
 
     public void setHits(List<Hit> hits) {
@@ -292,16 +261,8 @@ public class PlayableCharacter extends SolidObject {
         return hits;
     }
 
-    public void setRelativeWidth(float relativeWidth) {
-        this.relativeWidth = relativeWidth;
-    }
-
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setRelativeHeight(float relativeHeight) {
-        this.relativeHeight = relativeHeight;
     }
 
     public float getRelativeSpeedGrowth() {

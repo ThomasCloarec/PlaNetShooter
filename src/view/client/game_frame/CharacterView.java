@@ -1,5 +1,6 @@
 package view.client.game_frame;
 
+import model.SolidObject;
 import model.characters.ClassCharacters;
 
 import javax.swing.*;
@@ -7,11 +8,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CharacterView {
-    private float relativeX;
-    private float relativeY;
-    private float relativeWidth;
-    private float relativeHeight;
+public class CharacterView extends SolidObject {
     private final JLabel characterLabel = new JLabel();
     private final JLabel nameLabel = new JLabel();
     private double scaleWidthCharacter = 0;
@@ -35,6 +32,7 @@ public class CharacterView {
     private List<Object> inventory = new ArrayList<>();
 
     public CharacterView(float relativeX, float relativeY, float relativeWidth, float relativeHeight, String name, ClassCharacters classCharacter, float health) {
+        super();
         this.relativeX = relativeX;
         this.relativeY = relativeY;
         this.relativeWidth = relativeWidth;
@@ -57,30 +55,6 @@ public class CharacterView {
 
     public JLabel getNameLabel() {
         return nameLabel;
-    }
-
-    public float getRelativeX() {
-        return relativeX;
-    }
-
-    public float getRelativeY() {
-        return relativeY;
-    }
-
-    public float getRelativeWidth() {
-        return relativeWidth;
-    }
-
-    public float getRelativeHeight() {
-        return relativeHeight;
-    }
-
-    public void setRelativeX(float relativeX) {
-        this.relativeX = relativeX;
-    }
-
-    public void setRelativeY(float relativeY) {
-        this.relativeY = relativeY;
     }
 
     public JLabel getCharacterLabel() {
@@ -224,14 +198,6 @@ public class CharacterView {
 
     public ClassCharacters getClassCharacter() {
         return classCharacter;
-    }
-
-    public void setRelativeWidth(float relativeWidth) {
-        this.relativeWidth = relativeWidth;
-    }
-
-    public void setRelativeHeight(float relativeHeight) {
-        this.relativeHeight = relativeHeight;
     }
 
     float getUltimateLoading() {

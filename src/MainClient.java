@@ -320,24 +320,49 @@ class MainClient {
         gameFrame.getGamePanel().addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_Z) {
-                    if (collisionOnBottom)
-                        jumpKeyJustPressed = true;
-                    yodelDetection = false;
-                }
-                else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(playableCharacter, new HomeView()).equals(PlayerCollisionSide.NONE))) {
-                    gameFrame.getCardLayout().next(gameFrame.getContentPane());
+                if (e.getKeyCode() == KeyEvent.VK_B) {
+                    ultimateClick = false;
+                    readyToFire = false;
+                    jumpKeyJustPressed = false;
+                    cancelUltimate = false;
 
-                    if (playableCharacter.getMoney() >= 5)
-                        playableCharacter.setMoney(playableCharacter.getMoney() - 5);
-                    else
-                        playableCharacter.setMoney(0);
+                    playableCharacter.setClassCharacter(ClassCharacters.BOB);
+                    characterView.setClassCharacter(playableCharacter.getClassCharacter());
 
-                    playableCharacter.setRelativeY(-1.15f);
-                    playableCharacter.setAtHome(true);
+                    for (BulletView bulletView : characterView.getBulletsViews()) {
+                        try {
+                            bulletView.setIcon("/view/resources/game/characters/" + characterView.getClassCharacter().name().toLowerCase() + "/bullet.png");
+                        } catch (NullPointerException ex) {
+                            System.err.println("Can't find \"/view/resources/game/characters/" + characterView.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
+                        }
+                    }
+                    gameFrame.getHomePanel().setClassCharacter(playableCharacter.getClassCharacter());
+
+                    randomSpawn();
+
+                    botActivated = !botActivated;
+                    System.out.println("bot activated = " +botActivated);
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_H) {
                     gameFrame.getGamePanel().setHitBoxMode(gameFrame.getGamePanel().isHitBoxMode());
+                }
+
+                if (!botActivated) {
+                    if (e.getKeyCode() == KeyEvent.VK_SPACE || e.getKeyCode() == KeyEvent.VK_UP || e.getKeyCode() == KeyEvent.VK_Z) {
+                        if (collisionOnBottom)
+                            jumpKeyJustPressed = true;
+                        yodelDetection = false;
+                    } else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(playableCharacter, new HomeView()).equals(PlayerCollisionSide.NONE))) {
+                        gameFrame.getCardLayout().next(gameFrame.getContentPane());
+
+                        if (playableCharacter.getMoney() >= 5)
+                            playableCharacter.setMoney(playableCharacter.getMoney() - 5);
+                        else
+                            playableCharacter.setMoney(0);
+
+                        playableCharacter.setRelativeY(-1.15f);
+                        playableCharacter.setAtHome(true);
+                    }
                 }
             }
         });
@@ -345,35 +370,40 @@ class MainClient {
         gameFrame.getGamePanel().addMouseListener(new MouseAdapter() {
             @Override
             public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                if (SwingUtilities.isLeftMouseButton(e)) {
-                    lastMousePressedEvent = e;
-                    readyToFire = true;
-                }
-                else if (SwingUtilities.isRightMouseButton(e) && playableCharacter.getUltimateLoading() == 1) {
-                    lastMousePressedEvent = e;
-                    ultimateClick = true;
-                }
-                else if (ultimateClick)
-                    if (SwingUtilities.isRightMouseButton(e)) {
-                        cancelUltimate = true;
+                if (!botActivated) {
+                    super.mousePressed(e);
+                    if (SwingUtilities.isLeftMouseButton(e)) {
                         lastMousePressedEvent = e;
+                        readyToFire = true;
+                    } else if (SwingUtilities.isRightMouseButton(e) && playableCharacter.getUltimateLoading() == 1) {
+                        lastMousePressedEvent = e;
+                        ultimateClick = true;
+                    } else if (ultimateClick) {
+                        if (SwingUtilities.isRightMouseButton(e)) {
+                            cancelUltimate = true;
+                            lastMousePressedEvent = e;
+                        }
                     }
+                }
             }
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
-                if (SwingUtilities.isLeftMouseButton(e))
-                    readyToFire = false;
+                if (!botActivated) {
+                    super.mouseReleased(e);
+                    if (SwingUtilities.isLeftMouseButton(e))
+                        readyToFire = false;
+                }
             }
         });
 
         gameFrame.getGamePanel().addMouseMotionListener(new MouseMotionAdapter() {
             @Override
             public void mouseDragged(MouseEvent e) {
-                super.mouseMoved(e);
-                lastMousePressedEvent = e;
+                if (!botActivated) {
+                    super.mouseMoved(e);
+                    lastMousePressedEvent = e;
+                }
             }
         });
 
@@ -426,13 +456,18 @@ class MainClient {
                         a[0] = System.currentTimeMillis();
                     }
 
-                    totalDirection = 0;
-                    try {
-                        for (Direction direction : directions) {
-                            totalDirection += direction.getDelta();
+                    if (botActivated) {
+                        jumpKeyJustPressed = true;
+                    }
+                    else {
+                        totalDirection = 0;
+                        try {
+                            for (Direction direction : directions) {
+                                totalDirection += direction.getDelta();
+                            }
+                        } catch (ConcurrentModificationException | NullPointerException e) {
+                            e.printStackTrace();
                         }
-                    } catch (ConcurrentModificationException | NullPointerException e) {
-                        e.printStackTrace();
                     }
 
                     if (playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO) && ultimateClick) {
@@ -486,12 +521,12 @@ class MainClient {
                             characterView.setClassCharacter(playableCharacter.getClassCharacter());
                             ultimateClick = false;
                             Bullet bullet = new Bullet();
-                            bullet.setDamage(0.4f);
+                            bullet.setDamage(0.5f);
                             bullet.setRelativeHeight(0.06f * 768f / 372f);
                             bullet.setRelativeWidth(0.06f);
 
                             float relativeBulletStartX = playableCharacter.getRelativeX() + ((float) -characterView.getHorizontalDirection() + 1) * (playableCharacter.getRelativeWidth() / 2f - bullet.getRelativeWidth()/2f);
-                            float relativeBulletStartY = playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() / 2f - bullet.getRelativeHeight() / 2f;
+                            float relativeBulletStartY = playableCharacter.getCenterY() - bullet.getRelativeHeight() / 2f;
                             bullet.setRelativeBulletStartX(relativeBulletStartX);
                             bullet.setRelativeBulletStartY(relativeBulletStartY);
 
@@ -775,7 +810,7 @@ class MainClient {
                                 if (playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
                                     if (playableCharacter.isUltimate1Running()) {
                                         if (collisionOnBottom) {
-                                            Trampoline trampoline = new Trampoline(playableCharacter.getRelativeX() + playableCharacter.getRelativeWidth()/2 - new Trampoline().getRelativeWidth()/2, playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight());
+                                            Trampoline trampoline = new Trampoline(playableCharacter.getCenterX() - new Trampoline().getRelativeWidth()/2, playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight());
                                             trampoline.setRelativeY(trampoline.getRelativeY() - trampoline.getRelativeHeight());
                                             playableCharacter.getInventory().add(trampoline);
                                             playableCharacter.setLastLargeWaveTime(System.currentTimeMillis());
@@ -835,9 +870,14 @@ class MainClient {
                                         normalBullet.setDamage(0.13f);
                                         normalBullet.setSpeed(0.008f);
                                     }
+                                    else if (playableCharacter.getClassCharacter().equals(ClassCharacters.BOB)) {
+                                        normalBullet.setRelativeWidth(0.015f);
+                                        normalBullet.setRelativeHeight(0.015f * 768f / 372f);
+                                        normalBullet.setDamage(0.25f);
+                                    }
 
                                     normalBullet.setRelativeBulletStartX(playableCharacter.getRelativeX() + ((float) -characterView.getHorizontalDirection() + 1) * (playableCharacter.getRelativeWidth() / 2f - normalBullet.getRelativeWidth()/2f));
-                                    normalBullet.setRelativeBulletStartY(playableCharacter.getRelativeY() + playableCharacter.getRelativeHeight() / 2f - normalBullet.getRelativeHeight() / 2f);
+                                    normalBullet.setRelativeBulletStartY(playableCharacter.getCenterY() - normalBullet.getRelativeHeight() / 2f);
 
                                     float relativeCursorGoX = (lastMousePressedEvent.getX() - normalBullet.getRelativeWidth() * gameFrame.getGamePanel().getWidth() / 2f) / (float) gameFrame.getGamePanel().getWidth();
                                     float relativeCursorGoY = (lastMousePressedEvent.getY() - normalBullet.getRelativeHeight() * gameFrame.getGamePanel().getHeight() / 2f) / (float) gameFrame.getGamePanel().getHeight();
@@ -1079,9 +1119,5 @@ class MainClient {
                 }
             }
         }
-    }
-
-    static void activateBot() {
-        MainClient.botActivated = true;
     }
 }

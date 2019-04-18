@@ -3,29 +3,24 @@ package model.bullets;
 import model.SolidObject;
 
 public class Bullet extends SolidObject {
-    private float relativeX;
-    private float relativeY;
     private float speed  = 0.01f;
     private float movementX;
     private float movementY;
     private float relativeBulletStartX;
     private float relativeBulletStartY;
     private float bulletRangeRatio;
-    private float relativeWidth = 0.01f;
-    private float relativeHeight = 0.01f * 768f / 372f;
     private float damage = 0.1f;
     private long bulletLifeTime = 0;
 
     public Bullet() {
+        super();
+        this.relativeWidth = 0.01f;
+        this.relativeHeight = 0.01f * 768f / 372f;
     }
 
     public void setBulletLifeTime(long bulletLifeTime) { this.bulletLifeTime = bulletLifeTime; }
 
     public long getBulletLifeTime() { return bulletLifeTime; }
-
-    public float getRelativeX() {
-        return relativeX;
-    }
 
     public float getMovementY() {
         return movementY;
@@ -33,18 +28,6 @@ public class Bullet extends SolidObject {
 
     public float getMovementX() {
         return movementX;
-    }
-
-    public float getRelativeY() {
-        return relativeY;
-    }
-
-    public void setRelativeX(float relativeX) {
-        this.relativeX = relativeX;
-    }
-
-    public void setRelativeY(float relativeY) {
-        this.relativeY = relativeY;
     }
 
     public float getRelativeBulletStartX() {
@@ -91,24 +74,6 @@ public class Bullet extends SolidObject {
 
     public void setSpeed(float speed) {
         this.speed = speed;
-    }
-
-    @Override
-    public float getRelativeWidth() {
-        return relativeWidth;
-    }
-
-    @Override
-    public float getRelativeHeight() {
-        return relativeHeight;
-    }
-
-    public void setRelativeWidth(float relativeWidth) {
-        this.relativeWidth = relativeWidth;
-    }
-
-    public void setRelativeHeight(float relativeHeight) {
-        this.relativeHeight = relativeHeight;
     }
 
     public float getDamage() {

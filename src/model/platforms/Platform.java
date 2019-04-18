@@ -3,12 +3,13 @@ package model.platforms;
 import model.SolidObject;
 
 public class Platform extends SolidObject {
-    private float relativeWidth = 0.12f;
-    private float relativeX;
-    private float relativeY;
     private static int platformLoopCount = 0;
 
     public Platform() {
+        super();
+        this.relativeWidth = 0.12f;
+        this.relativeHeight = 0.01f;
+
         /* HOW THE PLATFORMS ARE :
 
 
@@ -63,23 +64,6 @@ public class Platform extends SolidObject {
             this.relativeX = 0f;
 
         platformLoopCount++;
-    }
-
-    public float getRelativeX() {
-        return relativeX;
-    }
-
-    public float getRelativeY() {
-        return relativeY;
-    }
-
-    public float getRelativeWidth() {
-        return relativeWidth;
-    }
-
-    @SuppressWarnings("SameReturnValue")
-    public float getRelativeHeight() {
-        return 0.01f;
     }
 
     @SuppressWarnings("SameReturnValue")
