@@ -338,8 +338,6 @@ class MainClient {
                     }
                     gameFrame.getHomePanel().setClassCharacter(playableCharacter.getClassCharacter());
 
-                    randomSpawn();
-
                     botActivated = !botActivated;
                     System.out.println("bot activated = " +botActivated);
                 }
@@ -457,7 +455,44 @@ class MainClient {
                     }
 
                     if (botActivated) {
-                        jumpKeyJustPressed = true;
+                        float distanceCloserPlatform = 1f;
+                        Platform closerPlatform = null;
+
+                        for (Platform platform : platforms) {
+                            if (playableCharacter.getCenterX() < 0.5f) {
+                                if (platform.getCenterX() <= 0.5f) {
+                                    if (Math.abs(playableCharacter.getCenterY() - platform.getCenterY()) < distanceCloserPlatform && playableCharacter.getCenterY() > platform.getCenterY()) {
+                                        distanceCloserPlatform = Math.abs(playableCharacter.getCenterY() - platform.getCenterY());
+                                        closerPlatform = platform;
+                                    }
+                                }
+                            }
+                            else {
+                                if (platform.getCenterX() >= 0.5f) {
+                                    if (Math.abs(playableCharacter.getCenterY() - platform.getCenterY()) < distanceCloserPlatform && playableCharacter.getCenterY() > platform.getCenterY()) {
+                                        distanceCloserPlatform = Math.abs(playableCharacter.getCenterY() - platform.getCenterY());
+                                        closerPlatform = platform;
+                                    }
+                                }
+                            }
+                        }
+
+                        if (closerPlatform != null) {
+                            for (Platform platform : platforms) {
+                                if (CollisionDetection.isCollisionBetween(playableCharacter, platform) == PlayerCollisionSide.BOTTOM) {
+                                    if (!closerPlatform.equals(platforms[4]))
+                                        jumpKeyJustPressed = true;
+                                }
+                            }
+
+                            if (relativeMovementY >= 0f) {
+                                if (closerPlatform.getCenterX() < playableCharacter.getCenterX()) {
+                                    totalDirection = -1;
+                                } else {
+                                    totalDirection = 1;
+                                }
+                            }
+                        }
                     }
                     else {
                         totalDirection = 0;
@@ -1079,8 +1114,8 @@ class MainClient {
             double RandSpawn = Math.random();
             if (RandSpawn < 0.25) {
                 if (CollisionDetection.isCollisionBetween(platforms[0], playableCharacter).equals(PlayerCollisionSide.NONE)) {
-                    playableCharacter.setRelativeX(0.03f);
-                    playableCharacter.setRelativeY(0.95f - playableCharacter.getRelativeHeight() - 0.01f);
+                    playableCharacter.setRelativeX(platforms[0].getCenterX() - playableCharacter.getRelativeWidth() / 2);
+                    playableCharacter.setRelativeY(platforms[0].getRelativeY() - playableCharacter.getRelativeHeight() - 0.01f);
                     playableCharacter.setHorizontalDirection(-1);
                     characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
                     playableCharacter.setHorizontalDirection(0);
@@ -1089,8 +1124,8 @@ class MainClient {
                 }
             } else if (RandSpawn > 0.25 & RandSpawn < 0.50) {
                 if (CollisionDetection.isCollisionBetween(platforms[1], playableCharacter).equals(PlayerCollisionSide.NONE)) {
-                    playableCharacter.setRelativeX(0.03f);
-                    playableCharacter.setRelativeY(0.65f - playableCharacter.getRelativeHeight() - 0.01f);
+                    playableCharacter.setRelativeX(platforms[1].getCenterX() - playableCharacter.getRelativeWidth() / 2);
+                    playableCharacter.setRelativeY(platforms[1].getRelativeY() - playableCharacter.getRelativeHeight() - 0.01f);
                     playableCharacter.setHorizontalDirection(-1);
                     characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
                     playableCharacter.setHorizontalDirection(0);
@@ -1099,8 +1134,8 @@ class MainClient {
                 }
             } else if (RandSpawn > 0.50 & RandSpawn < 0.75) {
                 if (CollisionDetection.isCollisionBetween(platforms[8], playableCharacter).equals(PlayerCollisionSide.NONE)) {
-                    playableCharacter.setRelativeX(0.91f);
-                    playableCharacter.setRelativeY(0.95f - playableCharacter.getRelativeHeight() - 0.01f);
+                    playableCharacter.setRelativeX(platforms[8].getCenterX() - playableCharacter.getRelativeWidth() / 2);
+                    playableCharacter.setRelativeY(platforms[8].getRelativeY() - playableCharacter.getRelativeHeight() - 0.01f);
                     playableCharacter.setHorizontalDirection(1);
                     characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
                     playableCharacter.setHorizontalDirection(0);
@@ -1109,8 +1144,8 @@ class MainClient {
                 }
             } else if (RandSpawn > 0.75 && CollisionDetection.isCollisionBetween(platforms[7], playableCharacter).equals(PlayerCollisionSide.NONE)) {
                 if (CollisionDetection.isCollisionBetween(platforms[7], playableCharacter).equals(PlayerCollisionSide.NONE)) {
-                    playableCharacter.setRelativeX(0.91f);
-                    playableCharacter.setRelativeY(0.65f - playableCharacter.getRelativeHeight() - 0.01f);
+                    playableCharacter.setRelativeX(platforms[7].getCenterX() - playableCharacter.getRelativeWidth() / 2);
+                    playableCharacter.setRelativeY(platforms[7].getRelativeY() - playableCharacter.getRelativeHeight() - 0.01f);
                     playableCharacter.setHorizontalDirection(1);
                     characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
                     playableCharacter.setHorizontalDirection(0);

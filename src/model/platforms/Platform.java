@@ -31,15 +31,15 @@ public class Platform extends SolidObject {
         if (platformLoopCount == 0 || platformLoopCount == 1)
             this.relativeX = 0f;
         else if (platformLoopCount == 2)
-            this.relativeX = 0.194f;
+            this.relativeX = 0.2f;
         else if (platformLoopCount == 3)
-            this.relativeX = 0.166f;
+            this.relativeX = 0.165f;
         else if (platformLoopCount == 4 || platformLoopCount == 9)
-            this.relativeX = 0.444f;
+            this.relativeX = 0.44f;
         else if (platformLoopCount == 5)
-            this.relativeX = 0.555f;
+            this.relativeX = 0.55f;
         else if (platformLoopCount == 6)
-            this.relativeX = 0.721f;
+            this.relativeX = 0.715f;
         else if (platformLoopCount == 7|| platformLoopCount == 8)
             this.relativeX = 0.88f;
 
