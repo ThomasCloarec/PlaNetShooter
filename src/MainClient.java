@@ -442,17 +442,18 @@ class MainClient {
             if (Math.abs(playableCharacter.getCenterY() - platform.getCenterY()) < Bot.getDistanceCloserPlatform() && playableCharacter.getCenterY() > platform.getCenterY()) {
                 if ((playableCharacter.getCenterX() <= 0.5f && platform.getCenterX() <= 0.5f) || (playableCharacter.getCenterX() >= 0.5f && platform.getCenterX() >= 0.5f)) {
                     Bot.setDistanceCloserPlatform(Math.abs(playableCharacter.getCenterY() - platform.getCenterY()));
-                    Bot.setCloserPlatformAbove(platform);
+                    if (Bot.getCloserPlatformAbove() == null || !Bot.getCloserPlatformAbove().equals(platform)) {
+                        Bot.setCloserPlatformAbove(platform);
+                        System.out.println(Arrays.asList(platforms).indexOf(platform));
+                    }
                 }
             }
         }
 
         if (Bot.getCloserPlatformAbove() != null) {
-            for (Platform platform : platforms) {
-                if (CollisionDetection.isCollisionBetween(playableCharacter, platform) == PlayerCollisionSide.BOTTOM) {
-                    if (!platforms[8].equals(Bot.getCloserPlatformAbove()) && !platforms[9].equals(Bot.getCloserPlatformAbove()))
-                        jumpKeyJustPressed = true;
-                }
+            if (collisionOnBottom) {
+                if (!platforms[8].equals(Bot.getCloserPlatformAbove()) && !platforms[9].equals(Bot.getCloserPlatformAbove()))
+                    jumpKeyJustPressed = true;
             }
 
             if (relativeMovementY >= 0f) {
@@ -482,6 +483,23 @@ class MainClient {
                         gameFrame.setTitle(gameFrameTitleWithoutFPS + " | FPS : " + fpsRecord[0] * 4);
                         fpsRecord[0] = 0;
                         a[0] = System.currentTimeMillis();
+                    }
+
+                    collisionOnTop = false;
+                    collisionOnBottom = false;
+                    collisionOnRight = false;
+                    collisionOnLeft = false;
+                    collisionTrampoline = false;
+
+                    for (Platform platform : platforms) {
+                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.TOP))
+                            collisionOnTop = true;
+                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM))
+                            collisionOnBottom = true;
+                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.RIGHT))
+                            collisionOnRight = true;
+                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.LEFT))
+                            collisionOnLeft = true;
                     }
 
                     if (botActivated) {
@@ -629,22 +647,6 @@ class MainClient {
                                 playableCharacter.setUltimateLoading(0f);
                             }
                         }
-                    }
-                    collisionOnTop = false;
-                    collisionOnBottom = false;
-                    collisionOnRight = false;
-                    collisionOnLeft = false;
-                    collisionTrampoline = false;
-
-                    for (Platform platform : platforms) {
-                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.TOP))
-                            collisionOnTop = true;
-                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM))
-                            collisionOnBottom = true;
-                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.RIGHT))
-                            collisionOnRight = true;
-                        if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.LEFT))
-                            collisionOnLeft = true;
                     }
 
                     Iterator<Object> itr = playableCharacter.getInventory().iterator();
