@@ -435,6 +435,36 @@ class MainClient {
         clientSuccessfullyStarted = true;
     }
 
+    private static void botThinking() {
+        Bot.setDistanceCloserPlatform(1f);
+
+        for (Platform platform : platforms) {
+            if (Math.abs(playableCharacter.getCenterY() - platform.getCenterY()) < Bot.getDistanceCloserPlatform() && playableCharacter.getCenterY() > platform.getCenterY()) {
+                if ((playableCharacter.getCenterX() <= 0.5f && platform.getCenterX() <= 0.5f) || (playableCharacter.getCenterX() >= 0.5f && platform.getCenterX() >= 0.5f)) {
+                    Bot.setDistanceCloserPlatform(Math.abs(playableCharacter.getCenterY() - platform.getCenterY()));
+                    Bot.setCloserPlatformAbove(platform);
+                }
+            }
+        }
+
+        if (Bot.getCloserPlatformAbove() != null) {
+            for (Platform platform : platforms) {
+                if (CollisionDetection.isCollisionBetween(playableCharacter, platform) == PlayerCollisionSide.BOTTOM) {
+                    if (!platforms[8].equals(Bot.getCloserPlatformAbove()) && !platforms[9].equals(Bot.getCloserPlatformAbove()))
+                        jumpKeyJustPressed = true;
+                }
+            }
+
+            if (relativeMovementY >= 0f) {
+                if (Bot.getCloserPlatformAbove().getCenterX() < playableCharacter.getCenterX()) {
+                    totalDirection = -1;
+                } else {
+                    totalDirection = 1;
+                }
+            }
+        }
+    }
+
     private static void launchGameLoop() {
         int[] fpsRecord = new int[1];
         String gameFrameTitleWithoutFPS = gameFrame.getTitle();
@@ -455,44 +485,7 @@ class MainClient {
                     }
 
                     if (botActivated) {
-                        float distanceCloserPlatform = 1f;
-                        Platform closerPlatform = null;
-
-                        for (Platform platform : platforms) {
-                            if (playableCharacter.getCenterX() < 0.5f) {
-                                if (platform.getCenterX() <= 0.5f) {
-                                    if (Math.abs(playableCharacter.getCenterY() - platform.getCenterY()) < distanceCloserPlatform && playableCharacter.getCenterY() > platform.getCenterY()) {
-                                        distanceCloserPlatform = Math.abs(playableCharacter.getCenterY() - platform.getCenterY());
-                                        closerPlatform = platform;
-                                    }
-                                }
-                            }
-                            else {
-                                if (platform.getCenterX() >= 0.5f) {
-                                    if (Math.abs(playableCharacter.getCenterY() - platform.getCenterY()) < distanceCloserPlatform && playableCharacter.getCenterY() > platform.getCenterY()) {
-                                        distanceCloserPlatform = Math.abs(playableCharacter.getCenterY() - platform.getCenterY());
-                                        closerPlatform = platform;
-                                    }
-                                }
-                            }
-                        }
-
-                        if (closerPlatform != null) {
-                            for (Platform platform : platforms) {
-                                if (CollisionDetection.isCollisionBetween(playableCharacter, platform) == PlayerCollisionSide.BOTTOM) {
-                                    if (!closerPlatform.equals(platforms[4]))
-                                        jumpKeyJustPressed = true;
-                                }
-                            }
-
-                            if (relativeMovementY >= 0f) {
-                                if (closerPlatform.getCenterX() < playableCharacter.getCenterX()) {
-                                    totalDirection = -1;
-                                } else {
-                                    totalDirection = 1;
-                                }
-                            }
-                        }
+                        botThinking();
                     }
                     else {
                         totalDirection = 0;
@@ -1120,11 +1113,11 @@ class MainClient {
             if (RandSpawn < 0.25) {
                 platformIndex = 0;
             } else if (RandSpawn < 0.50) {
-                platformIndex = 1;
+                platformIndex = 4;
             } else if (RandSpawn < 0.75) {
-                platformIndex = 8;
+                platformIndex = 1;
             } else {
-                platformIndex = 7;
+                platformIndex = 5;
             }
 
             if (CollisionDetection.isCollisionBetween(platforms[platformIndex], playableCharacter).equals(PlayerCollisionSide.NONE)) {
