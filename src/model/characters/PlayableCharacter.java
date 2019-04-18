@@ -62,7 +62,6 @@ public class PlayableCharacter extends SolidObject {
 
     public void setClassCharacter(ClassCharacters classCharacter) {
         this.classCharacter = classCharacter;
-        this.ultimateLoading = 0;
         smallWaves = new ArrayList<>();
 
         if (this.classCharacter.equals(ClassCharacters.BOB)) {
