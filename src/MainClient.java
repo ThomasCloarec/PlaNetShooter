@@ -27,6 +27,7 @@ import java.net.URISyntaxException;
 import java.util.*;
 
 class MainClient {
+    private static boolean botActivated = false;
     private static String clientName;
     private static GameClient gameClient;
     private static float relativeMovementX = 0f;
@@ -1078,5 +1079,9 @@ class MainClient {
                 }
             }
         }
+    }
+
+    static void activateBot() {
+        MainClient.botActivated = true;
     }
 }
