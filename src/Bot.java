@@ -1,10 +1,10 @@
 import model.platforms.Platform;
 
 class Bot {
-    private static Platform closestPlatformAbove = null;
+    private static Platform closestPlatformAbove;
     private static float distanceXClosestPlatform = 1f;
     private static float distanceYClosestPlatform = 1f;
-    private static float[] jumpInterval = {0,1};
+    private static final float[] jumpInterval = {0,1};
     private static float lastJump;
 
     static Platform getClosestPlatformAbove() {
