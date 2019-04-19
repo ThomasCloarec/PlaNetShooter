@@ -6,6 +6,7 @@ class Bot {
     private static float distanceYClosestPlatform = 1f;
     private static float maxJumpDistance = 1f;
     private static float actualJump;
+    private static Platform lastClosestPlatformAbove;
 
     static Platform getClosestPlatformAbove() {
         return closestPlatformAbove;
@@ -44,5 +45,13 @@ class Bot {
 
     static void setActualJump(float actualJump) {
         Bot.actualJump = actualJump;
+    }
+
+    static Platform getLastClosestPlatformAbove() {
+        return lastClosestPlatformAbove;
+    }
+
+    static void setLastClosestPlatformAbove(Platform lastClosestPlatformAbove) {
+        Bot.lastClosestPlatformAbove = lastClosestPlatformAbove;
     }
 }
