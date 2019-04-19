@@ -326,6 +326,18 @@ class MainClient {
                     jumpKeyJustPressed = false;
                     cancelUltimate = false;
 
+                    playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
+                    characterView.setClassCharacter(playableCharacter.getClassCharacter());
+
+                    for (BulletView bulletView : characterView.getBulletsViews()) {
+                        try {
+                            bulletView.setIcon("/view/resources/game/characters/" + characterView.getClassCharacter().name().toLowerCase() + "/bullet.png");
+                        } catch (NullPointerException ex) {
+                            System.err.println("Can't find \"/view/resources/game/characters/" + characterView.getClassCharacter().name().toLowerCase() + "/bullet.png\" !");
+                        }
+                    }
+                    gameFrame.getHomePanel().setClassCharacter(playableCharacter.getClassCharacter());
+
                     botActivated = !botActivated;
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_H) {
@@ -425,23 +437,23 @@ class MainClient {
     private static void botThinking() {
         if (collisionOnBottom) {
             for (Platform platform : platforms) {
-                    if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM)) {
-                        if (Bot.getLastClosestPlatformAbove() != null && Bot.getLastClosestPlatformAbove().equals(platform)) {
-                            System.out.println(true);
-                        } else if (Bot.getLastClosestPlatformAbove() != null) {
-                            if (Bot.getActualJumpX() < Bot.getMaxJumpDistanceX())
-                                Bot.setMaxJumpDistanceX(Bot.getActualJumpX());
-                        }
-
-                        System.out.println(Bot.getDistanceXClosestPlatform()+ " | " +Bot.getMaxJumpDistanceX());
-
-                        Bot.setLastClosestPlatformAbove(Bot.getClosestPlatformAbove());
-                        Bot.setActualJumpX(Bot.getDistanceXClosestPlatform());
-
-                        if (Bot.getDistanceXClosestPlatform() < Bot.getMaxJumpDistanceX()) {
-                            jumpKeyJustPressed = true;
-                        }
+                if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM)) {
+                    if (Bot.getLastClosestPlatformAbove() != null && Bot.getLastClosestPlatformAbove().equals(platform)) {
+                        System.out.println(true);
+                    } else if (Bot.getLastClosestPlatformAbove() != null) {
+                        if (Bot.getActualJumpX() < Bot.getMaxJumpDistanceX())
+                            Bot.setMaxJumpDistanceX(Bot.getActualJumpX());
                     }
+
+                    System.out.println(Bot.getDistanceXClosestPlatform()+ " | " +Bot.getMaxJumpDistanceX());
+
+                    Bot.setLastClosestPlatformAbove(Bot.getClosestPlatformAbove());
+                    Bot.setActualJumpX(Bot.getDistanceXClosestPlatform());
+
+                    if (Bot.getDistanceXClosestPlatform() < Bot.getMaxJumpDistanceX()) {
+                        jumpKeyJustPressed = true;
+                    }
+                }
             }
         }
 
