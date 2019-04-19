@@ -339,7 +339,6 @@ class MainClient {
                     gameFrame.getHomePanel().setClassCharacter(playableCharacter.getClassCharacter());
 
                     botActivated = !botActivated;
-                    System.out.println("bot activated = " +botActivated);
                 }
                 else if (e.getKeyCode() == KeyEvent.VK_H) {
                     gameFrame.getGamePanel().setHitBoxMode(gameFrame.getGamePanel().isHitBoxMode());
@@ -436,32 +435,43 @@ class MainClient {
     }
 
     private static void botThinking() {
-        Bot.setDistanceCloserPlatform(1f);
+        Bot.setDistanceXClosestPlatform(1f);
+        Bot.setDistanceYClosestPlatform(1f);
 
+        // Distance Y closest platform
         for (Platform platform : platforms) {
-            if (Math.abs(playableCharacter.getCenterY() - platform.getCenterY()) < Bot.getDistanceCloserPlatform() && playableCharacter.getCenterY() > platform.getCenterY()) {
-                if ((playableCharacter.getCenterX() <= 0.5f && platform.getCenterX() <= 0.5f) || (playableCharacter.getCenterX() >= 0.5f && platform.getCenterX() >= 0.5f)) {
-                    Bot.setDistanceCloserPlatform(Math.abs(playableCharacter.getCenterY() - platform.getCenterY()));
-                    if (Bot.getCloserPlatformAbove() == null || !Bot.getCloserPlatformAbove().equals(platform)) {
-                        Bot.setCloserPlatformAbove(platform);
-                        System.out.println(Arrays.asList(platforms).indexOf(platform));
-                    }
+            if (Math.abs(playableCharacter.getCenterY() - platform.getCenterY()) < Bot.getDistanceYClosestPlatform() && playableCharacter.getCenterY() > platform.getCenterY()) {
+                Bot.setDistanceYClosestPlatform(Math.abs(playableCharacter.getCenterY() - platform.getCenterY()));
+            }
+        }
+
+        // Distance X closest platform
+        for (Platform platform : platforms) {
+            if (Math.abs(playableCharacter.getCenterY() - platform.getCenterY()) == Bot.getDistanceYClosestPlatform() && playableCharacter.getCenterY() > platform.getCenterY()) {
+                if (Math.abs(playableCharacter.getCenterX() - platform.getCenterX()) < Bot.getDistanceXClosestPlatform()) {
+                    Bot.setDistanceXClosestPlatform(Math.abs(playableCharacter.getCenterX() - platform.getCenterX()));
                 }
             }
         }
 
-        if (Bot.getCloserPlatformAbove() != null) {
-            if (collisionOnBottom) {
-                if (!platforms[8].equals(Bot.getCloserPlatformAbove()) && !platforms[9].equals(Bot.getCloserPlatformAbove()))
-                    jumpKeyJustPressed = true;
-            }
-
-            if (relativeMovementY >= 0f) {
-                if (Bot.getCloserPlatformAbove().getCenterX() < playableCharacter.getCenterX()) {
-                    totalDirection = -1;
-                } else {
-                    totalDirection = 1;
+        // Set closest platform
+        for (Platform platform : platforms) {
+            if (Math.abs(playableCharacter.getCenterY() - platform.getCenterY()) == Bot.getDistanceYClosestPlatform() && playableCharacter.getCenterY() > platform.getCenterY()) {
+                if (Math.abs(playableCharacter.getCenterX() - platform.getCenterX()) == Bot.getDistanceXClosestPlatform()) {
+                    Bot.setClosestPlatformAbove(platform);
                 }
+            }
+        }
+
+        // Always jump
+        jumpKeyJustPressed = true;
+
+        // Set direction toward closest platform
+        if (relativeMovementY >= 0f) {
+            if (Bot.getClosestPlatformAbove().getCenterX() < playableCharacter.getCenterX()) {
+                totalDirection = -1;
+            } else {
+                totalDirection = 1;
             }
         }
     }
