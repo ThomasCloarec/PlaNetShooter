@@ -4,8 +4,8 @@ class Bot {
     private static Platform closestPlatformAbove;
     private static float distanceXClosestPlatform = 1f;
     private static float distanceYClosestPlatform = 1f;
-    private static final float[] jumpInterval = {0,1};
-    private static float lastJump;
+    private static float maxJumpDistance = 1f;
+    private static float actualJump;
 
     static Platform getClosestPlatformAbove() {
         return closestPlatformAbove;
@@ -30,15 +30,19 @@ class Bot {
         Bot.distanceYClosestPlatform = distanceYClosestPlatform;
     }
 
-    public static float[] getJumpInterval() {
-        return jumpInterval;
+    public static float getMaxJumpDistance() {
+        return maxJumpDistance;
     }
 
-    public static float getLastJump() {
-        return lastJump;
+    public static void setMaxJumpDistance(float maxJumpDistance) {
+        Bot.maxJumpDistance = maxJumpDistance;
     }
 
-    public static void setLastJump(float lastJump) {
-        Bot.lastJump = lastJump;
+    static float getActualJump() {
+        return actualJump;
+    }
+
+    static void setActualJump(float actualJump) {
+        Bot.actualJump = actualJump;
     }
 }
