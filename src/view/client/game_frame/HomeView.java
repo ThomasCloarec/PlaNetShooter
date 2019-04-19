@@ -8,6 +8,6 @@ public class HomeView extends SolidObject {
         this.relativeWidth = 0.06f;
         this.relativeHeight = 0.1f;
         this.relativeX = 0.505f - relativeWidth/2;
-        this.relativeY = 0.28f - relativeHeight;
+        this.relativeY = 0.25f - relativeHeight;
     }
 }

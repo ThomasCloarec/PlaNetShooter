@@ -4,8 +4,10 @@ class Bot {
     private static Platform closestPlatformAbove;
     private static float distanceXClosestPlatform = 1f;
     private static float distanceYClosestPlatform = 1f;
-    private static float maxJumpDistance = 1f;
-    private static float actualJump;
+    private static float maxJumpDistanceX = 1f;
+    private static float maxJumpDistanceY = 1f;
+    private static float actualJumpX;
+    private static float actualJumpY;
     private static Platform lastClosestPlatformAbove;
 
     static Platform getClosestPlatformAbove() {
@@ -31,20 +33,36 @@ class Bot {
         Bot.distanceYClosestPlatform = distanceYClosestPlatform;
     }
 
-    public static float getMaxJumpDistance() {
-        return maxJumpDistance;
+    static float getMaxJumpDistanceX() {
+        return maxJumpDistanceX;
     }
 
-    public static void setMaxJumpDistance(float maxJumpDistance) {
-        Bot.maxJumpDistance = maxJumpDistance;
+    static void setMaxJumpDistanceX(float maxJumpDistanceX) {
+        Bot.maxJumpDistanceX = maxJumpDistanceX;
     }
 
-    static float getActualJump() {
-        return actualJump;
+    static float getMaxJumpDistanceY() {
+        return maxJumpDistanceY;
     }
 
-    static void setActualJump(float actualJump) {
-        Bot.actualJump = actualJump;
+    static void setMaxJumpDistanceY(float maxJumpDistanceY) {
+        Bot.maxJumpDistanceY = maxJumpDistanceY;
+    }
+
+    static float getActualJumpX() {
+        return actualJumpX;
+    }
+
+    static void setActualJumpX(float actualJumpX) {
+        Bot.actualJumpX = actualJumpX;
+    }
+
+    static float getActualJumpY() {
+        return actualJumpY;
+    }
+
+    static void setActualJumpY(float actualJumpY) {
+        Bot.actualJumpY = actualJumpY;
     }
 
     static Platform getLastClosestPlatformAbove() {
