@@ -567,25 +567,6 @@ class MainClient {
                             playableCharacter.setUltimateLoading(playableCharacter.getUltimateLoading() + playableCharacter.getUltimateLoadingPerSecond() / 60f);
                     }
 
-                    if (ultimateClick){
-                        if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.ANGELO))) {
-                            if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO))){
-                                if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.MEDUSO))) {
-                                    if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.BOB))) {
-                                        if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.MONK))) {
-                                            playableCharacter.setHealth(playableCharacter.getHealth() + 0.4f);
-                                            if (playableCharacter.getHealth() > 1f) {
-                                                playableCharacter.setHealth(1f);
-                                            }
-                                            ultimateClick = false;
-                                            playableCharacter.setUltimateLoading(0f);
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-
                     if (ultimateClick) {
                         if (playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)){
                             playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
@@ -595,15 +576,15 @@ class MainClient {
                             ultimateClick = false;
                             playableCharacter.setUltimateLoading(0f);
                         }
-                        if (playableCharacter.getClassCharacter().equals(ClassCharacters.BOB)) {
+                        else if (playableCharacter.getClassCharacter().equals(ClassCharacters.BOB)) {
                             playableCharacter.setClassCharacter(playableCharacter.getClassCharacter());
                             characterView.setClassCharacter(playableCharacter.getClassCharacter());
                             ultimateClick = false;
                             playableCharacter.setUltimateLoading(0f);
                             Bullet bullet = new Bullet();
                             bullet.setDamage(0.5f);
-                            bullet.setRelativeHeight(0.06f * 768f / 372f);
-                            bullet.setRelativeWidth(0.06f);
+                            bullet.setRelativeHeight(0.05f * 768f / 372f);
+                            bullet.setRelativeWidth(0.05f);
 
                             float relativeBulletStartX = playableCharacter.getRelativeX() + ((float) -characterView.getHorizontalDirection() + 1) * (playableCharacter.getRelativeWidth() / 2f - bullet.getRelativeWidth()/2f);
                             float relativeBulletStartY = playableCharacter.getCenterY() - bullet.getRelativeHeight() / 2f;
@@ -635,7 +616,11 @@ class MainClient {
                             });
                             lastUltimateFire = System.currentTimeMillis();
                         }
-                        if (!playableCharacter.getClassCharacter().equals(ClassCharacters.BOB)) {
+                        else //noinspection StatementWithEmptyBody
+                            if (playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
+
+                        }
+                        else if (!playableCharacter.getClassCharacter().equals(ClassCharacters.BOB) && !playableCharacter.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
                             if (!playableCharacter.getClassCharacter().equals(ClassCharacters.MONK)) {
                                 if (!playableCharacter.isUltimate1Running() && !playableCharacter.isUltimate2Running() && !playableCharacter.isUltimate3Running()) {
                                     playableCharacter.ultimate1();
@@ -1016,7 +1001,7 @@ class MainClient {
 
                             for (Platform platform : platforms) {
                                 if (!CollisionDetection.isCollisionBetween(bullet, platform).equals(PlayerCollisionSide.NONE)) {
-                                    if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.BOB) && bullet.getRelativeWidth() == 0.06f)) {
+                                    if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.BOB) && bullet.getRelativeWidth() == 0.05f)) {
                                         if (!(playableCharacter.getClassCharacter().equals(ClassCharacters.MONK))){
                                             if (!playableCharacter.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
                                                 playableCharacter.getBullets().get(bulletIndex).setRelativeWidth(0);
