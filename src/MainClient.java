@@ -427,7 +427,7 @@ class MainClient {
 
             playableCharacter.setUltimateLoading(0f);
             playableCharacter.setRelativeY(-1.15f);
-
+            playableCharacter.setRelativeX(0.5f);
             gameFrame.getHomePanel().setClassCharacter(playableCharacter.getClassCharacter());
         });
 
