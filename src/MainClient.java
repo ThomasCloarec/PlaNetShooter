@@ -267,6 +267,7 @@ class MainClient {
 
         playableCharacter = new PlayableCharacter(clientName);
         playableCharacter.setRelativeY(-1.15f);
+        playableCharacter.setRelativeX(0.5f);
         playableCharacter.setClassCharacter(ClassCharacters.BOB);
         for (int i = 0; i < PlayableCharacter.getMaxBulletNumberPerPlayer() ; i++) {
             Bullet bullet = new Bullet();
@@ -356,7 +357,7 @@ class MainClient {
                             playableCharacter.setMoney(playableCharacter.getMoney() - 5);
                         else
                             playableCharacter.setMoney(0);
-
+                        playableCharacter.setRelativeX(0.5f);
                         playableCharacter.setRelativeY(-1.15f);
                         playableCharacter.setAtHome(true);
                     }
