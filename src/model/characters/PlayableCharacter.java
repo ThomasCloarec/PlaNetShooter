@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PlayableCharacter extends SolidObject {
-    private final static int MAX_BULLET_NUMBER_PER_PLAYER = 500;
+    private final static int MAX_BULLET_NUMBER_PER_PLAYER = 100;
     private float relativeMaxSpeed;
     private float relativeSpeedGrowth;
     private float relativeJumpStrength;
