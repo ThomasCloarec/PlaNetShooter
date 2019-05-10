@@ -66,7 +66,7 @@ public class PlayableCharacter extends SolidObject {
 
         if (this.classCharacter.equals(ClassCharacters.BOB)) {
             this.relativeWidth = 0.04f;
-            this.relativeHeight = 181f/164f *  0.04f*768f/372f;
+            this.relativeHeight = 181f / 164f * 0.04f * 768f / 372f;
             this.relativeMaxSpeed = 0.0045f;
             this.relativeJumpStrength = 0.013f;
             this.maxHealth = 1f;
@@ -75,6 +75,7 @@ public class PlayableCharacter extends SolidObject {
             this.reloadTimeMediumWaves = 0.5f;
             this.numberOfMediumWavesInLargeWaves = 3;
             this.reloadTimeLargeWaves = 0f;
+            this.setUltimateLoading(0.2f);
         }
         else if (this.classCharacter.equals(ClassCharacters.MEDUSO)) {
             this.relativeWidth = 0.04f;
@@ -87,7 +88,7 @@ public class PlayableCharacter extends SolidObject {
             this.reloadTimeMediumWaves = 0.3f;
             this.numberOfMediumWavesInLargeWaves = 1;
             this.reloadTimeLargeWaves = 0f;
-
+            this.setUltimateLoading(0.15f);
             if (!(ultimate1Running && ultimate2Running && ultimate3Running)) {
                 this.relativeX += 0.045f - 0.04f;
                 this.relativeY += 0.044f * 768f / 372f - 0.04f * 768f / 372f;
@@ -105,6 +106,7 @@ public class PlayableCharacter extends SolidObject {
             this.reloadTimeMediumWaves = 0.7f;
             this.numberOfMediumWavesInLargeWaves = 1;
             this.reloadTimeLargeWaves = 0f;
+            this.setUltimateLoading(0.2f);
         }
         else if (this.classCharacter.equals(ClassCharacters.TATITATOO)) {
             this.relativeWidth = 0.04f;
@@ -117,6 +119,7 @@ public class PlayableCharacter extends SolidObject {
             this.reloadTimeMediumWaves = 0f;
             this.numberOfMediumWavesInLargeWaves = 1;
             this.reloadTimeLargeWaves = 1f;
+            this.setUltimateLoading(0.18f);
         }
         else if (this.classCharacter.equals(ClassCharacters.MONK)) {
             this.relativeWidth = 0.035f;
@@ -129,6 +132,7 @@ public class PlayableCharacter extends SolidObject {
             this.reloadTimeMediumWaves = 0.2f;
             this.numberOfMediumWavesInLargeWaves = 2;
             this.reloadTimeLargeWaves = 1f;
+            this.setUltimateLoading(0.1f);
         }
         else if (this.classCharacter.equals(ClassCharacters.ELBOMBAS)) {
             this.relativeWidth = 0.04f;
@@ -143,6 +147,7 @@ public class PlayableCharacter extends SolidObject {
             this.reloadTimeMediumWaves = 0.4f;
             this.numberOfMediumWavesInLargeWaves = 3;
             this.reloadTimeLargeWaves = 1f;
+            this.setUltimateLoading(0.18f);
         }
 
         this.numberOfSmallWavesAlreadySentInMediumWaves = this.smallWaves.size();
@@ -358,7 +363,7 @@ public class PlayableCharacter extends SolidObject {
 
     @SuppressWarnings("SameReturnValue")
     public float getUltimateLoadingPerSecond() {
-        return 0.2f;
+        return getUltimateLoading();
     }
 
     public void setAtHome(boolean atHome) {
