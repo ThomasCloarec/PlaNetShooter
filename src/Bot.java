@@ -1,4 +1,4 @@
-import model.platforms.Platform;
+import model.Platform;
 
 class Bot {
     private static Platform closestPlatformAbove;

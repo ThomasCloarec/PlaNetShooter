@@ -1,43 +1,50 @@
 package view.client;
 
 import javax.sound.sampled.*;
+import java.io.BufferedInputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 
-@SuppressWarnings("unused")
-class Audio {
+public class Audio {
     private Clip clip;
+    public Audio(String fileName) {
+        try {
+            InputStream audioSrc = getClass().getResourceAsStream(fileName);
+            InputStream bufferedIn = new BufferedInputStream(audioSrc);
+            AudioInputStream sound = AudioSystem.getAudioInputStream(bufferedIn);
 
-    @SuppressWarnings("unused")
-    private Audio(String resourceName) {
-        AudioInputStream audioIn = null;
-        try {
-            audioIn = AudioSystem.getAudioInputStream(Audio.class.getResource(resourceName));
-        } catch (UnsupportedAudioFileException | IOException e) {
-            e.printStackTrace();
-        }
-        try {
             clip = AudioSystem.getClip();
-        } catch (LineUnavailableException e) {
-            e.printStackTrace();
+            clip.open(sound);
         }
-        try {
-            if (clip != null) {
-                clip.open(audioIn);
-            }
-        } catch (LineUnavailableException | IOException e) {
+        catch (MalformedURLException e) {
             e.printStackTrace();
+            throw new RuntimeException("Audio: Malformed URL: " + e);
+        }
+        catch (UnsupportedAudioFileException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Audio: Unsupported Audio File: " + e);
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Audio: Input/Output Error: " + e);
+        }
+        catch (LineUnavailableException e) {
+            e.printStackTrace();
+            throw new RuntimeException("Audio: Line Unavailable Exception Error: " + e);
         }
     }
-
-    private void play() {
-        if (clip != null) {
+    public void play(){
+        if (!clip.isRunning()) {
+            clip.setFramePosition(0);
             clip.start();
         }
     }
 
-    public void play(boolean loop) {
-        this.play();
-        if (loop)
-            clip.loop(Clip.LOOP_CONTINUOUSLY);
+    public void loop(){
+        clip.loop(Clip.LOOP_CONTINUOUSLY);
+    }
+    public void stop(){
+        clip.stop();
     }
 }

@@ -3,7 +3,7 @@ package network;
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
 import model.SolidObject;
-import model.bullets.Bullet;
+import model.Bullet;
 import model.characters.ClassCharacters;
 import model.characters.Hit;
 import model.characters.PlayableCharacter;

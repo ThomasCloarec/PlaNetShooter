@@ -1,17 +1,16 @@
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
-import model.CollisionDetection;
-import model.PlayerCollisionSide;
-import model.Terrain;
-import model.bullets.Bullet;
+import model.*;
+import model.Bullet;
 import model.characters.ClassCharacters;
 import model.characters.Direction;
 import model.characters.Hit;
 import model.characters.PlayableCharacter;
-import model.platforms.Platform;
+import model.Platform;
 import network.GameClient;
 import network.Network;
+import view.client.Audio;
 import view.client.connection.AskIPHost;
 import view.client.connection.ServerFullError;
 import view.client.game_frame.*;
@@ -60,6 +59,7 @@ class MainClient {
     private static String lastAttackerOnPlayer;
     private static long lastUltimateFire = 0;
     private static boolean clientSuccessfullyStarted = false;
+    private static HashMap<String, Audio> sounds = new HashMap<>();
 
     public static void main(String[] args) {
         Log.set(Log.LEVEL_NONE);
@@ -147,6 +147,7 @@ class MainClient {
                                                 playableCharacter.setLastDeathTime(System.currentTimeMillis());
                                                 playableCharacter.setLastKiller(otherPlayer.getName());
                                                 playableCharacter.setDeaths(playableCharacter.getDeaths() + 1);
+                                                sounds.get(playableCharacter.getClassCharacter().name().toLowerCase()+ ".dead").play();
 
                                                 if (playableCharacter.getMoney() >= 1)
                                                     playableCharacter.setMoney(playableCharacter.getMoney() - 1);
@@ -234,7 +235,12 @@ class MainClient {
     }
 
     private static void launchGameFrame() {
-        // Load audios here
+        for (ClassCharacters classCharacter : ClassCharacters.getClassCharactersList()) {
+            sounds.put(classCharacter.name().toLowerCase() + ".bullet", new Audio("/view/resources/game/audio/characters/" + classCharacter.name().toLowerCase() + "/bullet.wav"));
+            sounds.put(classCharacter.name().toLowerCase() + ".dead", new Audio("/view/resources/game/audio/characters/" + classCharacter.name().toLowerCase() + "/dead.wav"));
+            sounds.put(classCharacter.name().toLowerCase() + ".home", new Audio("/view/resources/game/audio/characters/" + classCharacter.name().toLowerCase() + "/home.wav"));
+            sounds.put(classCharacter.name().toLowerCase() + ".ultimate", new Audio("/view/resources/game/audio/characters/" + classCharacter.name().toLowerCase() + "/ultimate.wav"));
+        }
 
         gameFrame = new GameFrame(clientName);
         gameFrame.setIsClientAdmin(serverIP.equals("localhost"));
@@ -375,6 +381,7 @@ class MainClient {
                         readyToFire = true;
                     } else if (SwingUtilities.isRightMouseButton(e) && playableCharacter.getUltimateLoading() == 1) {
                         lastMousePressedEvent = e;
+                        sounds.get(playableCharacter.getClassCharacter().name().toLowerCase()+ ".ultimate").play();
                         ultimateClick = true;
                     } else if (ultimateClick) {
                         if (SwingUtilities.isRightMouseButton(e)) {
@@ -410,6 +417,7 @@ class MainClient {
             gameFrame.getGamePanel().requestFocus();
             playableCharacter.setAtHome(false);
             randomSpawn();
+            sounds.get(playableCharacter.getClassCharacter().name().toLowerCase()+ ".home").play();
         });
 
         gameFrame.getHomePanel().getChangeCharacterButton().addActionListener(e -> {
@@ -439,14 +447,10 @@ class MainClient {
         if (collisionOnBottom) {
             for (Platform platform : platforms) {
                 if (CollisionDetection.isCollisionBetween(playableCharacter, platform).equals(PlayerCollisionSide.BOTTOM)) {
-                    if (Bot.getLastClosestPlatformAbove() != null && Bot.getLastClosestPlatformAbove().equals(platform)) {
-                        System.out.println(true);
-                    } else if (Bot.getLastClosestPlatformAbove() != null) {
+                    if (Bot.getLastClosestPlatformAbove() != null) {
                         if (Bot.getActualJumpX() < Bot.getMaxJumpDistanceX())
                             Bot.setMaxJumpDistanceX(Bot.getActualJumpX());
                     }
-
-                    System.out.println(Bot.getDistanceXClosestPlatform()+ " | " +Bot.getMaxJumpDistanceX());
 
                     Bot.setLastClosestPlatformAbove(Bot.getClosestPlatformAbove());
                     Bot.setActualJumpX(Bot.getDistanceXClosestPlatform());
@@ -562,10 +566,10 @@ class MainClient {
                     characterView.setHorizontalDirection(playableCharacter.getHorizontalDirection());
 
                     if (!playableCharacter.isAtHome()) {
-                        if (playableCharacter.getUltimateLoading() >= 1f - playableCharacter.getUltimateLoadingPerSecond() / 60f)
+                        if (playableCharacter.getUltimateLoading() >= 1f - 0.2f / 60f)
                             playableCharacter.setUltimateLoading(1f);
                         else
-                            playableCharacter.setUltimateLoading(playableCharacter.getUltimateLoading() + playableCharacter.getUltimateLoadingPerSecond() / 60f);
+                            playableCharacter.setUltimateLoading(playableCharacter.getUltimateLoading() + 0.2f / 60f);
                     }
 
                     if (ultimateClick) {
@@ -805,6 +809,7 @@ class MainClient {
                                 playableCharacter.setMoney(playableCharacter.getMoney() - 1);
 
                             playableCharacter.setDeaths(playableCharacter.getDeaths() + 1);
+                            sounds.get(playableCharacter.getClassCharacter().name().toLowerCase()+ ".dead").play();
                             randomSpawn();
                         }
 
@@ -973,6 +978,7 @@ class MainClient {
                                             for (Bullet bullet1 : playableCharacter.getBullets()) {
                                                 if (bullet1.getRelativeWidth() == 0 && bullet1.getRelativeHeight() == 0) {
                                                     playableCharacter.getBullets().set(playableCharacter.getBullets().indexOf(bullet1), bullet);
+                                                    sounds.get(playableCharacter.getClassCharacter().name().toLowerCase()+ ".bullet").play();
                                                     break;
                                                 }
                                             }

@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.List;
 
 public class GamePanel extends JPanel {
+    private MapView mapView = new MapView();
     private PlatformView[] platforms;
     private CharacterView characterView;
     private final List<CharacterView> otherPlayersViews = new ArrayList<>();
@@ -16,13 +17,15 @@ public class GamePanel extends JPanel {
 
     GamePanel() {
         super();
-        this.setBackground(Color.lightGray);
+        mapView.setIcon("/view/resources/game/map/maya.png");
+
         this.setFocusable(true);
     }
 
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         g.setColor(Color.magenta);
         g.fillRect((int) (new HomeView().getRelativeX() * this.getWidth()),
                 (int) (new HomeView().getRelativeY() * this.getHeight()),
@@ -232,6 +235,16 @@ public class GamePanel extends JPanel {
                 otherPlayerView.getNameLabel().setLocation((int) ((otherPlayerView.getRelativeX() + otherPlayerView.getRelativeWidth() / 2) * this.getWidth() - otherPlayerView.getNameIconWidth() * otherPlayerView.getScaleWidthName() / 2), (int) (otherPlayerView.getRelativeY() * this.getHeight() - 0.02f * this.getHeight() - otherPlayerView.getScaleHeightName() * otherPlayerView.getNameIconHeight()));
             }
         }
+
+        mapView.setScaleWidthMap(this.getWidth() / mapView.getMapIconWidth());
+        mapView.setScaleHeightMap(this.getHeight() / mapView.getMapIconHeight());
+
+        if (mapView.getMapLabel().getParent() == null) {
+            this.add(mapView.getMapLabel());
+            this.revalidate();
+        }
+
+        mapView.getMapLabel().setLocation(0,  0);
     }
 
     public void otherPlayersPainting(List<PlayableCharacter> otherPlayers) {
@@ -303,7 +316,6 @@ public class GamePanel extends JPanel {
                     this.otherPlayersViews.add(characterView);
                 }
             }
-
             this.repaint();
         });
     }

@@ -1,7 +1,7 @@
 package network;
 
 import com.esotericsoftware.kryonet.Client;
-import model.bullets.Bullet;
+import model.Bullet;
 import model.characters.PlayableCharacter;
 
 import java.io.IOException;
