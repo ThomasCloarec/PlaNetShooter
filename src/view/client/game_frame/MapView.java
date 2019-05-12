@@ -40,7 +40,7 @@ class MapView {
         return mapLabel;
     }
 
-    void setIcon(String filename) {
+    void setIcon(@SuppressWarnings("SameParameterValue") String filename) {
         mapLabel.setIcon(new MapView.MapIcon(filename));
     }
 

@@ -2,12 +2,10 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
 import model.*;
-import model.Bullet;
 import model.characters.ClassCharacters;
 import model.characters.Direction;
 import model.characters.Hit;
 import model.characters.PlayableCharacter;
-import model.Platform;
 import network.GameClient;
 import network.Network;
 import view.client.Audio;
@@ -59,7 +57,7 @@ class MainClient {
     private static String lastAttackerOnPlayer;
     private static long lastUltimateFire = 0;
     private static boolean clientSuccessfullyStarted = false;
-    private static HashMap<String, Audio> sounds = new HashMap<>();
+    private static final HashMap<String, Audio> sounds = new HashMap<>();
 
     public static void main(String[] args) {
         Log.set(Log.LEVEL_NONE);

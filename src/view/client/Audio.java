@@ -41,9 +41,12 @@ public class Audio {
         }
     }
 
+    @SuppressWarnings("unused")
     public void loop(){
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
+
+    @SuppressWarnings("unused")
     public void stop(){
         clip.stop();
     }

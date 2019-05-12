@@ -9,7 +9,7 @@ import java.util.*;
 import java.util.List;
 
 public class GamePanel extends JPanel {
-    private MapView mapView = new MapView();
+    private final MapView mapView = new MapView();
     private PlatformView[] platforms;
     private CharacterView characterView;
     private final List<CharacterView> otherPlayersViews = new ArrayList<>();
