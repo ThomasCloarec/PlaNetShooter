@@ -2,7 +2,7 @@ package view.client.connection;
 
 import javax.swing.*;
 
-public class AskIPHost extends JOptionPane {
+public class ConnectionFrame extends JOptionPane {
     private static boolean goBack = false;
     private static String input = "localhost";
 
@@ -15,7 +15,7 @@ public class AskIPHost extends JOptionPane {
                 messageBeginning = "(\"" + input.trim() + "\" is not a valid game server IP) -> ";
 
             input = (String) showInputDialog(null, messageBeginning + "Server host : ", "Connect to game server",
-                    JOptionPane.QUESTION_MESSAGE, new ImageIcon(AskIPHost.class.getResource("/view/resources/client_connection/host.jpg")), null, input);
+                    JOptionPane.QUESTION_MESSAGE, new ImageIcon(ConnectionFrame.class.getResource("/view/resources/client_connection/host.jpg")), null, input);
 
             if (input == null)
                 System.exit(0);
@@ -32,7 +32,7 @@ public class AskIPHost extends JOptionPane {
     }
 
     public static void setGoBack(boolean goBack) {
-        AskIPHost.goBack = goBack;
+        ConnectionFrame.goBack = goBack;
     }
 
     public static boolean isGoBack() {

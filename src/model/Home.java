@@ -1,9 +1,7 @@
-package view.client.game_frame;
+package model;
 
-import model.SolidObject;
-
-public class HomeView extends SolidObject {
-    public HomeView() {
+public class Home extends SolidObject {
+    public Home() {
         super();
         this.relativeWidth = 0.07f;
         this.relativeHeight = 0.12f;

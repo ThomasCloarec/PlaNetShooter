@@ -2,13 +2,13 @@ package network;
 
 import com.esotericsoftware.kryo.Kryo;
 import com.esotericsoftware.kryonet.EndPoint;
-import model.SolidObject;
 import model.Bullet;
+import model.SolidObject;
+import model.Trampoline;
 import model.characters.ClassCharacters;
 import model.characters.Hit;
 import model.characters.PlayableCharacter;
 import model.characters.SmallWave;
-import view.client.game_frame.Trampoline;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,12 +1,16 @@
 package view.client.game_frame;
 
+import model.Home;
+import model.Trampoline;
+import model.Yodel;
 import model.characters.ClassCharacters;
 import model.characters.PlayableCharacter;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class GamePanel extends JPanel {
     private final MapView mapView = new MapView();
@@ -27,22 +31,22 @@ public class GamePanel extends JPanel {
         super.paintComponent(g);
 
         g.setColor(Color.magenta);
-        g.fillRect((int) (new HomeView().getRelativeX() * this.getWidth()),
-                (int) (new HomeView().getRelativeY() * this.getHeight()),
-                (int) (new HomeView().getRelativeWidth() * this.getWidth()),
-                (int) (new HomeView().getRelativeHeight() * this.getHeight()));
+        g.fillRect((int) (new Home().getRelativeX() * this.getWidth()),
+                (int) (new Home().getRelativeY() * this.getHeight()),
+                (int) (new Home().getRelativeWidth() * this.getWidth()),
+                (int) (new Home().getRelativeHeight() * this.getHeight()));
 
         g.setColor(Color.green);
-        g.fillRect((int) (new YodelView("left").getRelativeX() * this.getWidth()),
-                (int) (new YodelView("left").getRelativeY() * this.getHeight()),
-                (int) (new YodelView("left").getRelativeWidth() * this.getWidth()),
-                (int) (new YodelView("left").getRelativeHeight() * this.getHeight()));
+        g.fillRect((int) (new Yodel("left").getRelativeX() * this.getWidth()),
+                (int) (new Yodel("left").getRelativeY() * this.getHeight()),
+                (int) (new Yodel("left").getRelativeWidth() * this.getWidth()),
+                (int) (new Yodel("left").getRelativeHeight() * this.getHeight()));
 
         g.setColor(Color.green);
-        g.fillRect((int) (new YodelView("right").getRelativeX() * this.getWidth()),
-                (int) (new YodelView("right").getRelativeY() * this.getHeight()),
-                (int) (new YodelView("right").getRelativeWidth() * this.getWidth()),
-                (int) (new YodelView("right").getRelativeHeight() * this.getHeight()));
+        g.fillRect((int) (new Yodel("right").getRelativeX() * this.getWidth()),
+                (int) (new Yodel("right").getRelativeY() * this.getHeight()),
+                (int) (new Yodel("right").getRelativeWidth() * this.getWidth()),
+                (int) (new Yodel("right").getRelativeHeight() * this.getHeight()));
 
         g.setColor(Color.red);
         for (Object object : characterView.getInventory()) {

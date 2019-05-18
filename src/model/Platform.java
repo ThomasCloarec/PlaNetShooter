@@ -1,7 +1,5 @@
 package model;
 
-import model.SolidObject;
-
 public class Platform extends SolidObject {
     private static int platformLoopCount = 0;
 

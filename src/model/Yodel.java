@@ -1,9 +1,7 @@
-package view.client.game_frame;
+package model;
 
-import model.SolidObject;
-
-public class YodelView extends SolidObject {
-    public YodelView(String yodelSide) {
+public class Yodel extends SolidObject {
+    public Yodel(String yodelSide) {
         super();
         this.relativeWidth = 0.06f;
         this.relativeHeight = 0.1f;

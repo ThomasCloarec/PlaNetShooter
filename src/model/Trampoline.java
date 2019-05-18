@@ -1,6 +1,4 @@
-package view.client.game_frame;
-
-import model.SolidObject;
+package model;
 
 public class Trampoline extends SolidObject {
     private long creationTime;

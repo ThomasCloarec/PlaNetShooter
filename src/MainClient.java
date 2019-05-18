@@ -9,9 +9,12 @@ import model.characters.PlayableCharacter;
 import network.GameClient;
 import network.Network;
 import view.client.Audio;
-import view.client.connection.AskIPHost;
+import view.client.connection.ConnectionFrame;
 import view.client.connection.ServerFullError;
-import view.client.game_frame.*;
+import view.client.game_frame.BulletView;
+import view.client.game_frame.CharacterView;
+import view.client.game_frame.GameFrame;
+import view.client.game_frame.PlatformView;
 import view.client.keyboard_actions.PressAction;
 import view.client.keyboard_actions.ReleaseAction;
 
@@ -113,15 +116,15 @@ class MainClient {
                 }
             }
             else {
-                while (gameClient == null || AskIPHost.isGoBack()) {
+                while (gameClient == null || ConnectionFrame.isGoBack()) {
                     try {
-                        serverIP = AskIPHost.getIPHost();
+                        serverIP = ConnectionFrame.getIPHost();
                         System.out.println("\nConnecting to the server... (" + serverIP + ")");
                         gameClient = new GameClient(serverIP);
                         break;
                     } catch (IOException e) {
                         System.out.println("No game server found with this IP on the network");
-                        AskIPHost.setGoBack(true);
+                        ConnectionFrame.setGoBack(true);
                     }
                 }
             }
@@ -354,7 +357,7 @@ class MainClient {
                         if (collisionOnBottom)
                             jumpKeyJustPressed = true;
                         yodelDetection = false;
-                    } else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(playableCharacter, new HomeView()).equals(PlayerCollisionSide.NONE))) {
+                    } else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(playableCharacter, new Home()).equals(PlayerCollisionSide.NONE))) {
                         gameFrame.getCardLayout().next(gameFrame.getContentPane());
 
                         if (playableCharacter.getMoney() >= 5)
@@ -706,13 +709,13 @@ class MainClient {
                     }
 
                     if (!yodelDetection) {
-                        if (!CollisionDetection.isCollisionBetween(playableCharacter, new YodelView("left")).equals(PlayerCollisionSide.NONE))
+                        if (!CollisionDetection.isCollisionBetween(playableCharacter, new Yodel("left")).equals(PlayerCollisionSide.NONE))
                             playerOnLeftYodel = true;
-                        else if (CollisionDetection.isCollisionBetween(playableCharacter, new YodelView("left")).equals(PlayerCollisionSide.NONE))
+                        else if (CollisionDetection.isCollisionBetween(playableCharacter, new Yodel("left")).equals(PlayerCollisionSide.NONE))
                             playerOnLeftYodel = false;
-                        if (!CollisionDetection.isCollisionBetween(playableCharacter, new YodelView("right")).equals(PlayerCollisionSide.NONE))
+                        if (!CollisionDetection.isCollisionBetween(playableCharacter, new Yodel("right")).equals(PlayerCollisionSide.NONE))
                             playerOnRightYodel = true;
-                        else if (CollisionDetection.isCollisionBetween(playableCharacter, new YodelView("right")).equals(PlayerCollisionSide.NONE))
+                        else if (CollisionDetection.isCollisionBetween(playableCharacter, new Yodel("right")).equals(PlayerCollisionSide.NONE))
                             playerOnRightYodel = false;
                     }
 

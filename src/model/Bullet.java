@@ -1,7 +1,5 @@
 package model;
 
-import model.SolidObject;
-
 public class Bullet extends SolidObject {
     private float speed  = 0.01f;
     private float movementX;

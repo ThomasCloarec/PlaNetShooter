@@ -1,7 +1,5 @@
 package view.client.game_frame;
 
-import view.client.home_frame.HomePanel;
-
 import javax.swing.*;
 import java.awt.*;
 

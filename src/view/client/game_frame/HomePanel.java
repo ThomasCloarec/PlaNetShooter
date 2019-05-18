@@ -1,4 +1,4 @@
-package view.client.home_frame;
+package view.client.game_frame;
 
 import model.characters.ClassCharacters;
 import model.characters.PlayableCharacter;
@@ -26,7 +26,7 @@ public class HomePanel extends JPanel {
     private final JPanel centerPanel = new JPanel(null);
     private final JPanel rightPanel = new JPanel(null);
 
-    public HomePanel() {
+    HomePanel() {
         super();
         this.setBackground(Color.lightGray);
         this.setFocusable(true);
