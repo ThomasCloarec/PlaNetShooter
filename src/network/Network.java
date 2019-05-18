@@ -5,9 +5,9 @@ import com.esotericsoftware.kryonet.EndPoint;
 import model.Bullet;
 import model.SolidObject;
 import model.Trampoline;
+import model.characters.Character;
 import model.characters.ClassCharacters;
 import model.characters.Hit;
-import model.characters.PlayableCharacter;
 import model.characters.SmallWave;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ public class Network {
         kryo.register(RegisterList.class);
         kryo.register(java.util.ArrayList.class);
         kryo.register(java.util.List.class);
-        kryo.register(PlayableCharacter.class);
+        kryo.register(Character.class);
         kryo.register(ClassCharacters.class);
         kryo.register(Bullet.class);
         kryo.register(SolidObject.class);

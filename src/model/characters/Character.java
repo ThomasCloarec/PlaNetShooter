@@ -1,12 +1,12 @@
 package model.characters;
 
-import model.SolidObject;
 import model.Bullet;
+import model.SolidObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayableCharacter extends SolidObject {
+public class Character extends SolidObject {
     private final static int MAX_BULLET_NUMBER_PER_PLAYER = 12;
     private float relativeMaxSpeed;
     private float relativeSpeedGrowth;
@@ -48,14 +48,14 @@ public class PlayableCharacter extends SolidObject {
     private String lastKiller = "";
     private long lastDeathTime = 0;
 
-    public PlayableCharacter() {
+    public Character() {
         super();
         for (int i = 0; i < 50; i ++) {
             hits.add(new Hit());
         }
     }
 
-    public PlayableCharacter(String name) {
+    public Character(String name) {
         this();
         this.name = name;
     }

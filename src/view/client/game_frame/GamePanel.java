@@ -3,8 +3,8 @@ package view.client.game_frame;
 import model.Home;
 import model.Trampoline;
 import model.Yodel;
+import model.characters.Character;
 import model.characters.ClassCharacters;
-import model.characters.PlayableCharacter;
 
 import javax.swing.*;
 import java.awt.*;
@@ -251,7 +251,7 @@ public class GamePanel extends JPanel {
         mapView.getMapLabel().setLocation(0,  0);
     }
 
-    public void otherPlayersPainting(List<PlayableCharacter> otherPlayers) {
+    public void otherPlayersPainting(List<Character> otherPlayers) {
         SwingUtilities.invokeLater(() -> {
             for (int i = 0; i < otherPlayers.size(); i++) {
                 if (this.otherPlayersViews.size() > i) {
@@ -313,7 +313,7 @@ public class GamePanel extends JPanel {
                             otherPlayers.get(i).getName(),
                             otherPlayers.get(i).getClassCharacter(),
                             otherPlayers.get(i).getHealth());
-                    for (int j = 0; j < PlayableCharacter.getMaxBulletNumberPerPlayer(); j++) {
+                    for (int j = 0; j < Character.getMaxBulletNumberPerPlayer(); j++) {
                         characterView.getBulletsViews().add(new BulletView(0, 0, 0, 0));
                     }
                     characterView.setHorizontalDirection(otherPlayers.get(i).getLastHorizontalDirection());

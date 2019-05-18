@@ -2,7 +2,7 @@ package network;
 
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Server;
-import model.characters.PlayableCharacter;
+import model.characters.Character;
 import view.server.PortAlreadyUsedError;
 
 import java.io.IOException;
@@ -47,9 +47,9 @@ public class GameServer extends Server {
             registerList.getNameList().add(registerName.name);
             registerList.getConnectionIDList().add(gameConnection.getID());
         }
-        if (object instanceof PlayableCharacter) {
-            PlayableCharacter playableCharacter = (PlayableCharacter)object;
-            this.sendToAllExceptUDP(gameConnection.getID(), playableCharacter);
+        if (object instanceof Character) {
+            Character character = (Character) object;
+            this.sendToAllExceptUDP(gameConnection.getID(), character);
         }
         if (object instanceof Network.UpdateBullet) {
             Network.UpdateBullet updateBullet = (Network.UpdateBullet)object;
