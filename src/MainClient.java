@@ -357,7 +357,7 @@ class MainClient {
                         if (collisionOnBottom)
                             jumpKeyJustPressed = true;
                         yodelDetection = false;
-                    } else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(character, new Home()).equals(PlayerCollisionSide.NONE))) {
+                    } else if (e.getKeyCode() == KeyEvent.VK_E && !(CollisionDetection.isCollisionBetween(character, new Home()).equals(CollisionSide.NONE))) {
                         gameFrame.getCardLayout().next(gameFrame.getContentPane());
 
                         if (character.getMoney() >= 5)
@@ -447,7 +447,7 @@ class MainClient {
     private static void botThinking() {
         if (collisionOnBottom) {
             for (Platform platform : platforms) {
-                if (CollisionDetection.isCollisionBetween(character, platform).equals(PlayerCollisionSide.BOTTOM)) {
+                if (CollisionDetection.isCollisionBetween(character, platform).equals(CollisionSide.BOTTOM)) {
                     if (Bot.getLastClosestPlatformAbove() != null) {
                         if (Bot.getActualJumpX() < Bot.getMaxJumpDistanceX())
                             Bot.setMaxJumpDistanceX(Bot.getActualJumpX());
@@ -530,13 +530,13 @@ class MainClient {
                     collisionTrampoline = false;
 
                     for (Platform platform : platforms) {
-                        if (CollisionDetection.isCollisionBetween(character, platform).equals(PlayerCollisionSide.TOP))
+                        if (CollisionDetection.isCollisionBetween(character, platform).equals(CollisionSide.TOP))
                             collisionOnTop = true;
-                        if (CollisionDetection.isCollisionBetween(character, platform).equals(PlayerCollisionSide.BOTTOM))
+                        if (CollisionDetection.isCollisionBetween(character, platform).equals(CollisionSide.BOTTOM))
                             collisionOnBottom = true;
-                        if (CollisionDetection.isCollisionBetween(character, platform).equals(PlayerCollisionSide.RIGHT))
+                        if (CollisionDetection.isCollisionBetween(character, platform).equals(CollisionSide.RIGHT))
                             collisionOnRight = true;
-                        if (CollisionDetection.isCollisionBetween(character, platform).equals(PlayerCollisionSide.LEFT))
+                        if (CollisionDetection.isCollisionBetween(character, platform).equals(CollisionSide.LEFT))
                             collisionOnLeft = true;
                     }
 
@@ -683,7 +683,7 @@ class MainClient {
                     for (Object object : character.getInventory()) {
                         if (object instanceof Trampoline) {
 
-                            if ((!CollisionDetection.isCollisionBetween(character, (Trampoline) object).equals(PlayerCollisionSide.NONE)) && (!collisionOnTop)) {
+                            if ((!CollisionDetection.isCollisionBetween(character, (Trampoline) object).equals(CollisionSide.NONE)) && (!collisionOnTop)) {
                                 collisionTrampoline = true;
                                 break;
                             }
@@ -694,7 +694,7 @@ class MainClient {
                         for (Character otherPlayer : gameClient.getOtherPlayers()) {
                             for (Object object : otherPlayer.getInventory()) {
                                 if (object instanceof Trampoline) {
-                                    if ((!CollisionDetection.isCollisionBetween(character, (Trampoline) object).equals(PlayerCollisionSide.NONE)) && (!collisionOnTop)) {
+                                    if ((!CollisionDetection.isCollisionBetween(character, (Trampoline) object).equals(CollisionSide.NONE)) && (!collisionOnTop)) {
                                         collisionTrampoline = true;
                                         break;
                                     }
@@ -707,13 +707,13 @@ class MainClient {
                     }
 
                     if (!yodelDetection) {
-                        if (!CollisionDetection.isCollisionBetween(character, new Yodel("left")).equals(PlayerCollisionSide.NONE))
+                        if (!CollisionDetection.isCollisionBetween(character, new Yodel("left")).equals(CollisionSide.NONE))
                             playerOnLeftYodel = true;
-                        else if (CollisionDetection.isCollisionBetween(character, new Yodel("left")).equals(PlayerCollisionSide.NONE))
+                        else if (CollisionDetection.isCollisionBetween(character, new Yodel("left")).equals(CollisionSide.NONE))
                             playerOnLeftYodel = false;
-                        if (!CollisionDetection.isCollisionBetween(character, new Yodel("right")).equals(PlayerCollisionSide.NONE))
+                        if (!CollisionDetection.isCollisionBetween(character, new Yodel("right")).equals(CollisionSide.NONE))
                             playerOnRightYodel = true;
-                        else if (CollisionDetection.isCollisionBetween(character, new Yodel("right")).equals(PlayerCollisionSide.NONE))
+                        else if (CollisionDetection.isCollisionBetween(character, new Yodel("right")).equals(CollisionSide.NONE))
                             playerOnRightYodel = false;
                     }
 
@@ -817,7 +817,7 @@ class MainClient {
                     }
 
                     for (Platform platform : platforms) {
-                        collisionOnBottom = CollisionDetection.isCollisionBetween(character, platform).equals(PlayerCollisionSide.BOTTOM);
+                        collisionOnBottom = CollisionDetection.isCollisionBetween(character, platform).equals(CollisionSide.BOTTOM);
                         if (collisionOnBottom) {
                             break;
                         }
@@ -828,7 +828,7 @@ class MainClient {
                             character.setRelativeY(character.getRelativeY() - 0.001f);
 
                             for (Platform platform : platforms) {
-                                collisionOnBottom = CollisionDetection.isCollisionBetween(character, platform).equals(PlayerCollisionSide.BOTTOM);
+                                collisionOnBottom = CollisionDetection.isCollisionBetween(character, platform).equals(CollisionSide.BOTTOM);
                                 if (collisionOnBottom) {
                                     break;
                                 }
@@ -884,7 +884,7 @@ class MainClient {
                                             bullet.setMovementY(0);
 
                                             for (Platform platform : platforms) {
-                                                if (!CollisionDetection.isCollisionBetween(bullet, platform).equals(PlayerCollisionSide.NONE)) {
+                                                if (!CollisionDetection.isCollisionBetween(bullet, platform).equals(CollisionSide.NONE)) {
                                                     SwingUtilities.invokeLater(() -> {
                                                         for (Bullet bullet1 : character.getBullets()) {
                                                             if (bullet1.getRelativeWidth() == 0 && bullet1.getRelativeHeight() == 0) {
@@ -1004,7 +1004,7 @@ class MainClient {
                             int bulletIndex = character.getBullets().indexOf(bullet);
 
                             for (Platform platform : platforms) {
-                                if (!CollisionDetection.isCollisionBetween(bullet, platform).equals(PlayerCollisionSide.NONE)) {
+                                if (!CollisionDetection.isCollisionBetween(bullet, platform).equals(CollisionSide.NONE)) {
                                     if (!(character.getClassCharacter().equals(ClassCharacters.BOB) && bullet.getRelativeWidth() == 0.05f)) {
                                         if (!(character.getClassCharacter().equals(ClassCharacters.MONK))) {
                                             if (!character.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
@@ -1036,7 +1036,7 @@ class MainClient {
                             }
 
                             for (Character otherPlayer : gameClient.getOtherPlayers()) {
-                                if (!CollisionDetection.isCollisionBetween(otherPlayer, bullet).equals(PlayerCollisionSide.NONE)) {
+                                if (!CollisionDetection.isCollisionBetween(otherPlayer, bullet).equals(CollisionSide.NONE)) {
                                     addHit(otherPlayer.getName(), bullet.getDamage());
                                     character.getBullets().get(bulletIndex).setRelativeWidth(0);
                                     character.getBullets().get(bulletIndex).setRelativeHeight(0);
@@ -1058,7 +1058,7 @@ class MainClient {
 
                         if (character.getClassCharacter().equals(ClassCharacters.TATITATOO) && character.isUltimate1Running()) {
                             for (Character otherPlayer : gameClient.getOtherPlayers()) {
-                                if (!CollisionDetection.isCollisionBetween(otherPlayer, character).equals(PlayerCollisionSide.NONE)) {
+                                if (!CollisionDetection.isCollisionBetween(otherPlayer, character).equals(CollisionSide.NONE)) {
                                     addHit(otherPlayer.getName(), 0.01f);
                                 }
                             }
@@ -1143,7 +1143,7 @@ class MainClient {
                 platformIndex = 5;
             }
 
-            if (CollisionDetection.isCollisionBetween(platforms[platformIndex], character).equals(PlayerCollisionSide.NONE)) {
+            if (CollisionDetection.isCollisionBetween(platforms[platformIndex], character).equals(CollisionSide.NONE)) {
                 character.setRelativeX(platforms[platformIndex].getCenterX() - character.getRelativeWidth() / 2);
                 character.setRelativeY(platforms[platformIndex].getRelativeY() - character.getRelativeHeight() - 0.01f);
                 character.setHorizontalDirection((Math.abs(character.getCenterX() - 0.5)) / (character.getCenterX() - 0.5));

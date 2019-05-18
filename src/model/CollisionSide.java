@@ -1,6 +1,6 @@
 package model;
 
-public enum PlayerCollisionSide {
+public enum CollisionSide {
     RIGHT,
     LEFT,
     TOP,
