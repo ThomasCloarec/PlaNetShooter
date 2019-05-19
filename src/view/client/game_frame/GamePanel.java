@@ -95,7 +95,7 @@ public class GamePanel extends JPanel {
                 {
                     characterView.getCharacterLabel().setLocation(characterView.getCharacterLabel().getLocation().x,  characterView.getCharacterLabel().getLocation().y + (int) (0.0075f * this.getHeight()));
                 }
-          }
+            }
 
             for (BulletView bulletView : Objects.requireNonNull(characterView).getBulletsViews()) {
                 if (bulletView != null) {
@@ -133,10 +133,11 @@ public class GamePanel extends JPanel {
                             bulletView.getBulletLabel().setLocation((int) (bulletView.getRelativeX() * this.getWidth()), (int) (bulletView.getRelativeY() * this.getHeight()));
                         }
                     }
-                    otherPlayerView.getCharacterLabel().setVisible(true);
 
                     otherPlayerView.setScaleWidthCharacter(otherPlayerView.getRelativeWidth() * this.getWidth() / otherPlayerView.getCharacterIconWidth());
                     otherPlayerView.setScaleHeightCharacter(otherPlayerView.getRelativeHeight() * this.getHeight() / otherPlayerView.getCharacterIconHeight());
+
+                    otherPlayerView.getCharacterLabel().setVisible(true);
 
                     if (otherPlayerView.getCharacterLabel().getParent() == null) {
                         this.add(otherPlayerView.getCharacterLabel());
