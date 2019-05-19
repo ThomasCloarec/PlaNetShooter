@@ -187,69 +187,101 @@ public class GamePanel extends JPanel {
             }
         }
 
-        g.setColor(new Color(255,0,28, 51));
-        g.fillRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()*characterView.getHealth()), (int)(0.01f*this.getHeight()));
-        g.setColor(new Color(255, 0, 28, 255));
-        g.drawRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.015f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()), (int)(0.01f*this.getHeight()));
-
-        if (characterView.getUltimateLoading() == 1) {
-            g.setColor(new Color(16, 255, 0, 51));
-            g.fillRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.03f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth() * characterView.getUltimateLoading()), (int)(0.01f*this.getHeight()));
-            g.setColor(new Color(16, 255, 0, 255));
-            g.drawRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.03f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()), (int)(0.01f*this.getHeight()));
-        }
-        else {
-            g.setColor(new Color(0, 153, 255, 51));
-            g.fillRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.03f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth() * characterView.getUltimateLoading()), (int)(0.01f*this.getHeight()));
-            g.setColor(new Color(0, 153, 255, 255));
-            g.drawRect((int)(characterView.getRelativeX()*this.getWidth()), (int)(characterView.getRelativeY()*this.getHeight() - 0.03f*this.getHeight()), (int)(characterView.getRelativeWidth()*this.getWidth()), (int)(0.01f*this.getHeight()));
-        }
-
         if (characterView.getNameLabel().getParent() == null) {
             this.add(characterView.getNameLabel());
+            this.revalidate();
+        }
+        if (characterView.getLifeBarLabel().getParent() == null) {
+            this.add(characterView.getLifeBarLabel());
+            this.revalidate();
+        }
+        if (characterView.getUltimateReadyBarLabel().getParent() == null) {
+            this.add(characterView.getUltimateReadyBarLabel());
+            this.revalidate();
+        }
+        if (characterView.getUltimateBarLabel().getParent() == null) {
+            this.add(characterView.getUltimateBarLabel());
+            this.revalidate();
+        }
+        if (characterView.getUnderLifeBarLabel().getParent() == null) {
+            this.add(characterView.getUnderLifeBarLabel());
+            this.revalidate();
+        }
+        if (characterView.getUnderUltimateBarLabel().getParent() == null) {
+            this.add(characterView.getUnderUltimateBarLabel());
             this.revalidate();
         }
 
         characterView.setScaleWidthName(0.024f * this.getWidth() / characterView.getNameIconWidth());
         characterView.setScaleHeightName(0.04f * this.getHeight() / characterView.getNameIconHeight());
-
         characterView.getNameLabel().setLocation((int) ((characterView.getRelativeX() + characterView.getRelativeWidth() / 2) * this.getWidth() - characterView.getNameIconWidth() * characterView.getScaleWidthName() / 2), (int) (characterView.getRelativeY() * this.getHeight() - 0.035f * this.getHeight() - characterView.getScaleHeightName() * characterView.getNameIconHeight()));
+
+        characterView.setScaleWidthLifeBar(characterView.getRelativeWidth() * this.getWidth() / characterView.getLifeBarIconWidth() * characterView.getHealth());
+        characterView.setScaleHeightLifeBar(0.01f * this.getHeight() / characterView.getLifeBarIconHeight());
+        characterView.getLifeBarLabel().setLocation((int) (characterView.getRelativeX() * this.getWidth()), (int) (characterView.getRelativeY() * this.getHeight() - 0.015f * this.getHeight()));
+
+        characterView.setScaleWidthUltimateBar(characterView.getRelativeWidth() * this.getWidth() / characterView.getUltimateBarIconWidth() * characterView.getUltimateLoading());
+        characterView.setScaleHeightUltimateBar(0.01f * this.getHeight() / characterView.getUltimateBarIconHeight());
+
+        if (characterView.getUltimateLoading() == 1) {
+            characterView.getUltimateReadyBarLabel().setLocation((int) (characterView.getRelativeX() * this.getWidth()), (int) (characterView.getRelativeY() * this.getHeight() - 0.03f * this.getHeight()));
+            characterView.getUltimateReadyBarLabel().setVisible(true);
+            characterView.getUltimateBarLabel().setVisible(false);
+        } else {
+            characterView.getUltimateBarLabel().setLocation((int) (characterView.getRelativeX() * this.getWidth()), (int) (characterView.getRelativeY() * this.getHeight() - 0.03f * this.getHeight()));
+            characterView.getUltimateBarLabel().setVisible(true);
+            characterView.getUltimateReadyBarLabel().setVisible(false);
+        }
+
+        characterView.setScaleWidthUnderBar(characterView.getRelativeWidth() * this.getWidth() / characterView.getUnderBarIconWidth());
+        characterView.setScaleHeightUnderBar(0.01f * this.getHeight() / characterView.getUnderBarIconHeight());
+        characterView.getUnderLifeBarLabel().setLocation((int) (characterView.getRelativeX() * this.getWidth()), (int) (characterView.getRelativeY() * this.getHeight() - 0.015f * this.getHeight()));
+        characterView.getUnderUltimateBarLabel().setLocation((int) (characterView.getRelativeX() * this.getWidth()), (int) (characterView.getRelativeY() * this.getHeight() - 0.03f * this.getHeight()));
 
         for (CharacterView otherPlayerView : otherPlayersViews) {
             if (otherPlayerView != null) {
-                g.setColor(new Color(255, 0, 28, 51));
-                g.fillRect((int) (otherPlayerView.getRelativeX() * this.getWidth()), (int) (otherPlayerView.getRelativeY() * this.getHeight() - 0.015f * this.getHeight()), (int) (otherPlayerView.getRelativeWidth() * this.getWidth() * otherPlayerView.getHealth() * 0.8f), (int) (0.01f * this.getHeight()));
-                g.setColor(new Color(255, 0, 28, 255));
-                g.drawRect((int) (otherPlayerView.getRelativeX() * this.getWidth()), (int) (otherPlayerView.getRelativeY() * this.getHeight() - 0.015f * this.getHeight()), (int) (otherPlayerView.getRelativeWidth() * this.getWidth() * 0.8f), (int) (0.01f * this.getHeight()));
-
-                if (otherPlayerView.getUltimateLoading() == 1) {
-                    g.setColor(new Color(16, 255, 0, 255));
-                    g.fillRect((int) (otherPlayerView.getRelativeX() * this.getWidth()) + (int) (otherPlayerView.getRelativeWidth() * this.getWidth() * 0.875f), (int) (otherPlayerView.getRelativeY() * this.getHeight() - 0.015f * this.getHeight()), (int) (otherPlayerView.getRelativeWidth() * this.getWidth() * 0.125f), (int) (0.01f * this.getHeight()));
-                }
-                g.setColor(new Color(0, 153, 255, 255));
-                g.drawRect((int) (otherPlayerView.getRelativeX() * this.getWidth()) + (int) (otherPlayerView.getRelativeWidth() * this.getWidth() * 0.875f), (int) (otherPlayerView.getRelativeY() * this.getHeight() - 0.015f * this.getHeight()), (int) (otherPlayerView.getRelativeWidth() * this.getWidth() * 0.125f), (int) (0.01f * this.getHeight()));
-
                 if (otherPlayerView.getNameLabel().getParent() == null) {
                     this.add(otherPlayerView.getNameLabel());
+                    this.revalidate();
+                }
+                if (otherPlayerView.getLifeBarLabel().getParent() == null) {
+                    this.add(otherPlayerView.getLifeBarLabel());
+                    this.revalidate();
+                }
+                if (otherPlayerView.getUnderLifeBarLabel().getParent() == null) {
+                    this.add(otherPlayerView.getUnderLifeBarLabel());
                     this.revalidate();
                 }
 
                 otherPlayerView.setScaleWidthName(0.024f * this.getWidth() / otherPlayerView.getNameIconWidth());
                 otherPlayerView.setScaleHeightName(0.04f * this.getHeight() / otherPlayerView.getNameIconHeight());
-
                 otherPlayerView.getNameLabel().setLocation((int) ((otherPlayerView.getRelativeX() + otherPlayerView.getRelativeWidth() / 2) * this.getWidth() - otherPlayerView.getNameIconWidth() * otherPlayerView.getScaleWidthName() / 2), (int) (otherPlayerView.getRelativeY() * this.getHeight() - 0.02f * this.getHeight() - otherPlayerView.getScaleHeightName() * otherPlayerView.getNameIconHeight()));
+
+                otherPlayerView.setScaleWidthLifeBar(otherPlayerView.getRelativeWidth() * this.getWidth() / otherPlayerView.getLifeBarIconWidth() * otherPlayerView.getHealth());
+                otherPlayerView.setScaleHeightLifeBar(0.01f * this.getHeight() / otherPlayerView.getLifeBarIconHeight());
+                otherPlayerView.getLifeBarLabel().setLocation((int) (otherPlayerView.getRelativeX() * this.getWidth()), (int) (otherPlayerView.getRelativeY() * this.getHeight() - 0.015f * this.getHeight()));
+
+                otherPlayerView.setScaleWidthUnderBar(otherPlayerView.getRelativeWidth() * this.getWidth() / otherPlayerView.getUnderBarIconWidth());
+                otherPlayerView.setScaleHeightUnderBar(0.01f * this.getHeight() / otherPlayerView.getUnderBarIconHeight());
+                otherPlayerView.getUnderLifeBarLabel().setLocation((int) (otherPlayerView.getRelativeX() * this.getWidth()), (int) (otherPlayerView.getRelativeY() * this.getHeight() - 0.015f * this.getHeight()));
             }
         }
 
-        mapView.setScaleWidthMap(this.getWidth() / mapView.getMapIconWidth());
-        mapView.setScaleHeightMap(this.getHeight() / mapView.getMapIconHeight());
+        if (!hitBoxMode) {
+            mapView.setScaleWidthMap(this.getWidth() / mapView.getMapIconWidth());
+            mapView.setScaleHeightMap(this.getHeight() / mapView.getMapIconHeight());
 
-        if (mapView.getMapLabel().getParent() == null) {
-            this.add(mapView.getMapLabel());
-            this.revalidate();
+            if (mapView.getMapLabel().getParent() == null) {
+                this.add(mapView.getMapLabel());
+                this.revalidate();
+            }
+
+            mapView.getMapLabel().setLocation(0, 0);
+
+            mapView.getMapLabel().setVisible(true);
+        } else {
+            mapView.getMapLabel().setVisible(false);
         }
-
-        mapView.getMapLabel().setLocation(0,  0);
     }
 
     public void otherPlayersPainting(List<Character> otherPlayers) {

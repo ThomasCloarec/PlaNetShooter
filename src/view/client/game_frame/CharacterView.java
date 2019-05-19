@@ -11,10 +11,21 @@ import java.util.List;
 public class CharacterView extends SolidObject {
     private final JLabel characterLabel = new JLabel();
     private final JLabel nameLabel = new JLabel();
+    private final JLabel underLifeBarLabel = new JLabel();
+    private final JLabel lifeBarLabel = new JLabel();
+    private final JLabel underUltimateBarLabel = new JLabel();
+    private final JLabel ultimateBarLabel = new JLabel();
+    private final JLabel ultimateReadyBarLabel = new JLabel();
     private double scaleWidthCharacter = 0;
     private double scaleHeightCharacter = 0;
     private double scaleWidthName = 0;
     private double scaleHeightName = 0;
+    private double scaleWidthUnderBar = 0;
+    private double scaleHeightUnderBar = 0;
+    private double scaleWidthLifeBar = 0;
+    private double scaleHeightLifeBar = 0;
+    private double scaleWidthUltimateBar = 0;
+    private double scaleHeightUltimateBar = 0;
     private double horizontalDirection = 1;
     private ClassCharacters classCharacter;
     private final List<BulletView> bulletsViews = new ArrayList<>();
@@ -23,6 +34,12 @@ public class CharacterView extends SolidObject {
     private float characterIconHeight;
     private float nameIconWidth;
     private float nameIconHeight;
+    private float underBarIconWidth;
+    private float underBarIconHeight;
+    private float ultimateBarIconWidth;
+    private float ultimateBarIconHeight;
+    private float lifeBarIconWidth;
+    private float lifeBarIconHeight;
     private Icon runCharacterIcon;
     private Icon idleCharacterIcon;
     private float ultimateLoading = 0;
@@ -42,19 +59,21 @@ public class CharacterView extends SolidObject {
         this.runCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/run.gif");
         this.idleCharacterIcon = new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/idle.gif");
         Icon nameCharacterIcon = new NameIcon("/view/resources/game/names/" + name + ".png");
-        nameLabel.setIcon(nameCharacterIcon);
+        this.nameLabel.setIcon(nameCharacterIcon);
+        Icon underLifeBarCharacterIcon = new UnderBarIcon("/view/resources/game/characters/bars/white.png");
+        this.underLifeBarLabel.setIcon(underLifeBarCharacterIcon);
+        Icon lifeBarCharacterIcon = new LifeBarIcon("/view/resources/game/characters/bars/red.png");
+        this.lifeBarLabel.setIcon(lifeBarCharacterIcon);
+        Icon underUltimateBarCharacterIcon = new UnderBarIcon("/view/resources/game/characters/bars/white.png");
+        this.underUltimateBarLabel.setIcon(underUltimateBarCharacterIcon);
+        Icon ultimateBarCharacterIcon = new UltimateBarIcon("/view/resources/game/characters/bars/blue.png");
+        this.ultimateBarLabel.setIcon(ultimateBarCharacterIcon);
+        Icon ultimateReadyBarCharacterIcon = new UltimateBarIcon("/view/resources/game/characters/bars/green.png");
+        this.ultimateReadyBarLabel.setIcon(ultimateReadyBarCharacterIcon);
     }
 
     public double getHorizontalDirection() {
         return horizontalDirection;
-    }
-
-    float getNameIconWidth() {
-        return nameIconWidth;
-    }
-
-    public JLabel getNameLabel() {
-        return nameLabel;
     }
 
     public JLabel getCharacterLabel() {
@@ -92,6 +111,82 @@ public class CharacterView extends SolidObject {
         return nameIconHeight;
     }
 
+    float getNameIconWidth() {
+        return nameIconWidth;
+    }
+
+    public JLabel getNameLabel() {
+        return nameLabel;
+    }
+
+    void setScaleWidthUnderBar(double scaleWidthUnderBar) {
+        this.scaleWidthUnderBar = scaleWidthUnderBar;
+    }
+
+    void setScaleHeightUnderBar(double scaleHeightUnderBar) {
+        this.scaleHeightUnderBar = scaleHeightUnderBar;
+    }
+
+    float getUnderBarIconHeight() {
+        return underBarIconHeight;
+    }
+
+    float getUnderBarIconWidth() {
+        return underBarIconWidth;
+    }
+
+    JLabel getUnderLifeBarLabel() {
+        return underLifeBarLabel;
+    }
+
+    JLabel getUnderUltimateBarLabel() {
+        return underUltimateBarLabel;
+    }
+
+    void setScaleWidthLifeBar(double scaleWidthLifeBar) {
+        this.scaleWidthLifeBar = scaleWidthLifeBar;
+    }
+
+    void setScaleHeightLifeBar(double scaleHeightLifeBar) {
+        this.scaleHeightLifeBar = scaleHeightLifeBar;
+    }
+
+    float getLifeBarIconHeight() {
+        return lifeBarIconHeight;
+    }
+
+    float getLifeBarIconWidth() {
+        return lifeBarIconWidth;
+    }
+
+    JLabel getLifeBarLabel() {
+        return lifeBarLabel;
+    }
+
+    void setScaleWidthUltimateBar(double scaleWidthUltimateBar) {
+        this.scaleWidthUltimateBar = scaleWidthUltimateBar;
+    }
+
+    void setScaleHeightUltimateBar(double scaleHeightUltimateBar) {
+        this.scaleHeightUltimateBar = scaleHeightUltimateBar;
+    }
+
+    float getUltimateBarIconHeight() {
+        return ultimateBarIconHeight;
+    }
+
+    float getUltimateBarIconWidth() {
+        return ultimateBarIconWidth;
+    }
+
+    JLabel getUltimateBarLabel() {
+        return ultimateBarLabel;
+    }
+
+    JLabel getUltimateReadyBarLabel() {
+        return ultimateReadyBarLabel;
+    }
+
     public void setHorizontalDirection(double horizontalDirection) {
         if (horizontalDirection == 0 && classCharacter.equals(ClassCharacters.TATITATOO) && ultimate1Running) {
             characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/tatitatoo/idle_ultimate1.png"));
@@ -119,25 +214,25 @@ public class CharacterView extends SolidObject {
     }
 
     public void ultimate1() {
-        ultimate1Running = true;
+        this.ultimate1Running = true;
         try {
-            characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/ultimate1.gif"));
+            this.characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" + this.classCharacter.name().toLowerCase() + "/ultimate1.gif"));
         } catch (NullPointerException ignored) {
         }
     }
 
     public void ultimate2() {
-        ultimate2Running = true;
+        this.ultimate2Running = true;
         try {
-            characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/ultimate2.gif"));
+            characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" + this.classCharacter.name().toLowerCase() + "/ultimate2.gif"));
         } catch (NullPointerException ignored) {
         }
     }
 
     public void ultimate3() {
-        ultimate3Running = true;
+        this.ultimate3Running = true;
         try {
-            characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" +classCharacter.name().toLowerCase()+ "/ultimate3.gif"));
+            this.characterLabel.setIcon(new CharacterIcon("/view/resources/game/characters/" + this.classCharacter.name().toLowerCase() + "/ultimate3.gif"));
         } catch (NullPointerException ignored) {
         }
     }
@@ -192,6 +287,51 @@ public class CharacterView extends SolidObject {
         public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
             Graphics2D g2 = (Graphics2D) g.create();
             g2.scale(scaleWidthName, scaleHeightName);
+            super.paintIcon(c, g2, x, y);
+        }
+    }
+
+    class LifeBarIcon extends ImageIcon {
+        LifeBarIcon(String filelifeBar) {
+            super(CharacterView.class.getResource(filelifeBar));
+            lifeBarIconWidth = this.getIconWidth();
+            lifeBarIconHeight = this.getIconHeight();
+        }
+
+        @Override
+        public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.scale(scaleWidthLifeBar, scaleHeightLifeBar);
+            super.paintIcon(c, g2, x, y);
+        }
+    }
+
+    class UltimateBarIcon extends ImageIcon {
+        UltimateBarIcon(String fileUltimateBar) {
+            super(CharacterView.class.getResource(fileUltimateBar));
+            ultimateBarIconWidth = this.getIconWidth();
+            ultimateBarIconHeight = this.getIconHeight();
+        }
+
+        @Override
+        public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.scale(scaleWidthUltimateBar, scaleHeightUltimateBar);
+            super.paintIcon(c, g2, x, y);
+        }
+    }
+
+    class UnderBarIcon extends ImageIcon {
+        UnderBarIcon(String fileUnderBar) {
+            super(CharacterView.class.getResource(fileUnderBar));
+            underBarIconWidth = this.getIconWidth();
+            underBarIconHeight = this.getIconHeight();
+        }
+
+        @Override
+        public synchronized void paintIcon(Component c, Graphics g, int x, int y) {
+            Graphics2D g2 = (Graphics2D) g.create();
+            g2.scale(scaleWidthUnderBar, scaleHeightUnderBar);
             super.paintIcon(c, g2, x, y);
         }
     }

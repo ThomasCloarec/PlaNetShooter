@@ -4,7 +4,6 @@ import javax.sound.sampled.*;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.MalformedURLException;
 
 public class Audio {
     private Clip clip;
@@ -16,22 +15,7 @@ public class Audio {
 
             clip = AudioSystem.getClip();
             clip.open(sound);
-        }
-        catch (MalformedURLException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Audio: Malformed URL: " + e);
-        }
-        catch (UnsupportedAudioFileException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Audio: Unsupported Audio File: " + e);
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Audio: Input/Output Error: " + e);
-        }
-        catch (LineUnavailableException e) {
-            e.printStackTrace();
-            throw new RuntimeException("Audio: Line Unavailable Exception Error: " + e);
+        } catch (IOException | UnsupportedAudioFileException | LineUnavailableException ignored) {
         }
     }
     public void play(){
