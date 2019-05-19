@@ -620,42 +620,37 @@ class MainClient {
                                 }
                             });
                             lastUltimateFire = System.currentTimeMillis();
-                        }
-                        else //noinspection StatementWithEmptyBody
-                            if (character.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
-
                         } else if (!character.getClassCharacter().equals(ClassCharacters.BOB) && !character.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
-                                if (!character.getClassCharacter().equals(ClassCharacters.MONK)) {
-                                    if (!character.isUltimate1Running() && !character.isUltimate2Running() && !character.isUltimate3Running()) {
-                                        character.ultimate1();
+                            if (!character.getClassCharacter().equals(ClassCharacters.MONK)) {
+                                if (!character.isUltimate1Running() && !character.isUltimate2Running() && !character.isUltimate3Running()) {
+                                    character.ultimate1();
                                     characterView.ultimate1();
-                                    } else if (character.isUltimate1Running()) {
-                                        if ((character.getClassCharacter().equals(ClassCharacters.TATITATOO)) && (cancelUltimate)) {
-                                            character.setClassCharacter(character.getClassCharacter());
-                                            characterView.setClassCharacter(character.getClassCharacter());
+                                } else if (character.isUltimate1Running()) {
+                                    if ((character.getClassCharacter().equals(ClassCharacters.TATITATOO)) && (cancelUltimate)) {
+                                        character.setClassCharacter(character.getClassCharacter());
+                                        characterView.setClassCharacter(character.getClassCharacter());
                                         ultimateClick = false;
                                         cancelUltimate = false;
                                     }
-
-                                        if (System.currentTimeMillis() - character.getUltimate1StartTimeMillis() > character.getUltimate1DurationMillis()) {
-                                            character.ultimate2();
+                                    if (System.currentTimeMillis() - character.getUltimate1StartTimeMillis() > character.getUltimate1DurationMillis()) {
+                                        character.ultimate2();
                                         characterView.ultimate2();
                                     }
-                                    } else if (character.isUltimate2Running()) {
-                                        if ((character.getClassCharacter().equals(ClassCharacters.MEDUSO)) && (character.getHealth() < 1f)) {
-                                            character.setHealth(character.getHealth() + 0.0013f);
+                                } else if (character.isUltimate2Running()) {
+                                    if ((character.getClassCharacter().equals(ClassCharacters.MEDUSO)) && (character.getHealth() < 1f)) {
+                                        character.setHealth(character.getHealth() + 0.0013f);
                                     }
-                                        if (((character.getClassCharacter().equals(ClassCharacters.ANGELO)) && (cancelUltimate)) || ((character.getClassCharacter().equals(ClassCharacters.MEDUSO)) && (cancelUltimate))) {
-                                            character.ultimate3();
+                                    if (((character.getClassCharacter().equals(ClassCharacters.ANGELO)) && (cancelUltimate)) || ((character.getClassCharacter().equals(ClassCharacters.MEDUSO)) && (cancelUltimate))) {
+                                        character.ultimate3();
                                         characterView.ultimate3();
-                                        } else if (System.currentTimeMillis() - character.getUltimate2StartTimeMillis() > character.getUltimate2DurationMillis()) {
-                                            character.ultimate3();
+                                    } else if (System.currentTimeMillis() - character.getUltimate2StartTimeMillis() > character.getUltimate2DurationMillis()) {
+                                        character.ultimate3();
                                         characterView.ultimate3();
                                     }
-                                    } else if (character.isUltimate3Running()) {
-                                        if (System.currentTimeMillis() - character.getUltimate3StartTimeMillis() > character.getUltimate3DurationMillis()) {
-                                            character.setClassCharacter(character.getClassCharacter());
-                                            characterView.setClassCharacter(character.getClassCharacter());
+                                } else if (character.isUltimate3Running()) {
+                                    if (System.currentTimeMillis() - character.getUltimate3StartTimeMillis() > character.getUltimate3DurationMillis()) {
+                                        character.setClassCharacter(character.getClassCharacter());
+                                        characterView.setClassCharacter(character.getClassCharacter());
 
                                         ultimateClick = false;
                                         cancelUltimate = false;
@@ -665,7 +660,8 @@ class MainClient {
                                     ultimateClick = false;
                                     cancelUltimate = false;
                                 }
-                                    character.setUltimateLoading(0f);
+
+                                character.setUltimateLoading(0f);
                             }
                         }
                     }
