@@ -609,7 +609,7 @@ class MainClient {
                             bullet.setMovementX(bulletMovementX);
                             bullet.setMovementY(bulletMovementY);
 
-                            bullet.setBulletRangeRatio(2f);
+                            bullet.setRange(0.4f);
 
                             SwingUtilities.invokeLater(() -> {
                                 for (Bullet bullet1 : character.getBullets()) {
@@ -941,12 +941,12 @@ class MainClient {
                                     float bulletSpeedRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f * ((float) gameFrame.getGamePanel().getHeight() / (float) gameFrame.getGamePanel().getWidth() - 372f / 768f) * 768f / 372f + 1f;
 
                                     if (character.getClassCharacter().equals(ClassCharacters.MONK)) {
-                                        normalBullet.setBulletRangeRatio(1.8f);
+                                        normalBullet.setRange(0.36f);
                                     } else if (character.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
-                                        normalBullet.setBulletRangeRatio(0.09f);
+                                        normalBullet.setRange(0.018f);
                                     }
                                     else {
-                                        normalBullet.setBulletRangeRatio(((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f);
+                                        normalBullet.setRange((((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f) * 0.2f);
                                     }
 
                                     normalBullet.setMovementX(bulletSpeedRatio * tempDeltaX / (tempDeltaX + tempDeltaY) * normalBullet.getSpeed() * ((relativeCursorGoX - normalBullet.getRelativeBulletStartX()) / tempDeltaX) * gameFrame.getGamePanel().getWidth());
@@ -965,8 +965,8 @@ class MainClient {
                                         bullet.setSpeed(normalBullet.getSpeed());
                                         bullet.setRelativeBulletStartX(normalBullet.getRelativeBulletStartX());
                                         bullet.setRelativeBulletStartY(normalBullet.getRelativeBulletStartY());
-                                        bullet.setBulletRangeRatio(normalBullet.getBulletRangeRatio());
-                                        bullet.setBulletRangeRatio(normalBullet.getBulletRangeRatio());
+                                        bullet.setRange(normalBullet.getRange());
+                                        bullet.setRange(normalBullet.getRange());
 
                                         bullet.setMovementX((float) (hypotenuse * Math.cos(Math.toRadians(shootingAngle - angleChangeInDegrees)) * sign));
                                         bullet.setMovementY((float) (hypotenuse * Math.sin(Math.toRadians(shootingAngle - angleChangeInDegrees)) * sign));
@@ -1014,12 +1014,12 @@ class MainClient {
                                         }
                                     }
                                     if (character.getClassCharacter().equals(ClassCharacters.MONK)) {
-                                        if (bullet.getBulletLifeTime() == 0) {
+                                        if (bullet.getLifeTime() == 0) {
                                             bullet.setDamage(0.04f);
                                             bullet.setSpeed(0);
                                             bullet.setMovementY(0);
                                             bullet.setMovementX(0);
-                                            bullet.setBulletLifeTime(System.currentTimeMillis());
+                                            bullet.setLifeTime(System.currentTimeMillis());
                                         }
                                     }
                                 }
@@ -1027,10 +1027,10 @@ class MainClient {
 
                             if (character.getClassCharacter().equals(ClassCharacters.MONK)) {
                                 if (bullet.getMovementX() == 0){
-                                    if (System.currentTimeMillis() - bullet.getBulletLifeTime() > 1000) {
+                                    if (System.currentTimeMillis() - bullet.getLifeTime() > 1000) {
                                         character.getBullets().get(bulletIndex).setRelativeWidth(0);
                                         character.getBullets().get(bulletIndex).setRelativeHeight(0);
-                                        bullet.setBulletLifeTime(0);
+                                        bullet.setLifeTime(0);
                                     }
                                 }
                             }
@@ -1047,7 +1047,7 @@ class MainClient {
                                     || (bullet.getRelativeX() > 1)
                                     || (bullet.getRelativeY() + bullet.getRelativeHeight() < 0)
                                     || (bullet.getRelativeY() > 1)
-                                    || (Math.sqrt(Math.pow(bullet.getRelativeX() - bullet.getRelativeBulletStartX(), 2) + Math.pow(bullet.getRelativeY() - bullet.getRelativeBulletStartY(), 2))) > Math.sqrt(2) * bullet.getRelativeMaxRange() * bullet.getBulletRangeRatio()) {
+                                    || (Math.sqrt(Math.pow(bullet.getRelativeX() - bullet.getRelativeBulletStartX(), 2) + Math.pow(bullet.getRelativeY() - bullet.getRelativeBulletStartY(), 2))) > Math.sqrt(2) * bullet.getRange()) {
 
                                 if (!character.getClassCharacter().equals(ClassCharacters.TATITATOO)) {
                                     character.getBullets().get(bulletIndex).setRelativeWidth(0);

@@ -6,9 +6,9 @@ public class Bullet extends SolidObject {
     private float movementY;
     private float relativeBulletStartX;
     private float relativeBulletStartY;
-    private float bulletRangeRatio;
+    private float range;
     private float damage = 0.1f;
-    private long bulletLifeTime = 0;
+    private long lifeTime = 0;
 
     public Bullet() {
         super();
@@ -16,9 +16,13 @@ public class Bullet extends SolidObject {
         this.relativeHeight = 0.01f * 768f / 372f;
     }
 
-    public void setBulletLifeTime(long bulletLifeTime) { this.bulletLifeTime = bulletLifeTime; }
+    public long getLifeTime() {
+        return lifeTime;
+    }
 
-    public long getBulletLifeTime() { return bulletLifeTime; }
+    public void setLifeTime(long lifeTime) {
+        this.lifeTime = lifeTime;
+    }
 
     public float getMovementY() {
         return movementY;
@@ -36,13 +40,8 @@ public class Bullet extends SolidObject {
         return relativeBulletStartY;
     }
 
-    @SuppressWarnings("SameReturnValue")
-    public float getRelativeMaxRange() {
-        return 0.2f;
-    }
-
-    public float getBulletRangeRatio() {
-        return bulletRangeRatio;
+    public float getRange() {
+        return range;
     }
 
     public void setMovementX(float movementX) {
@@ -53,8 +52,8 @@ public class Bullet extends SolidObject {
         this.movementY = movementY;
     }
 
-    public void setBulletRangeRatio(float bulletRangeRatio) {
-        this.bulletRangeRatio = bulletRangeRatio;
+    public void setRange(float range) {
+        this.range = range;
     }
 
     public void setRelativeBulletStartX(float relativeBulletStartX) {
