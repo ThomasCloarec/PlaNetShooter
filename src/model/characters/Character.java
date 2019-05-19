@@ -138,7 +138,6 @@ public class Character extends SolidObject {
             this.reloadTimeSmallWaves = 0.08f;
             this.smallWaves.add(new SmallWave());
             this.smallWaves.add(new SmallWave());
-            this.smallWaves.add(new SmallWave());
             this.reloadTimeMediumWaves = 0.4f;
             this.numberOfMediumWavesInLargeWaves = 3;
             this.reloadTimeLargeWaves = 1f;
