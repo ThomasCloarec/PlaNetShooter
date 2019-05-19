@@ -609,7 +609,7 @@ class MainClient {
                             bullet.setMovementX(bulletMovementX);
                             bullet.setMovementY(bulletMovementY);
 
-                            bullet.setRange(0.4f);
+                            bullet.setRange((((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f) * 0.4f);
 
                             SwingUtilities.invokeLater(() -> {
                                 for (Bullet bullet1 : character.getBullets()) {
@@ -941,9 +941,9 @@ class MainClient {
                                     float bulletSpeedRatio = ((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f * ((float) gameFrame.getGamePanel().getHeight() / (float) gameFrame.getGamePanel().getWidth() - 372f / 768f) * 768f / 372f + 1f;
 
                                     if (character.getClassCharacter().equals(ClassCharacters.MONK)) {
-                                        normalBullet.setRange(0.36f);
+                                        normalBullet.setRange((((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f) * 0.15f);
                                     } else if (character.getClassCharacter().equals(ClassCharacters.ELBOMBAS)) {
-                                        normalBullet.setRange(0.018f);
+                                        normalBullet.setRange((((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f) * 0.018f);
                                     }
                                     else {
                                         normalBullet.setRange((((float) Math.toDegrees(Math.atan(Math.abs(tempDeltaY / tempDeltaX)))) / 90f + 1f) * 0.2f);
