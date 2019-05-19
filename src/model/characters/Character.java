@@ -51,7 +51,7 @@ public class Character extends SolidObject {
     public Character() {
         super();
         for (int i = 0; i < 50; i ++) {
-            hits.add(new Hit());
+            this.hits.add(new Hit());
         }
     }
 
@@ -62,7 +62,7 @@ public class Character extends SolidObject {
 
     public void setClassCharacter(ClassCharacters classCharacter) {
         this.classCharacter = classCharacter;
-        smallWaves = new ArrayList<>();
+        this.smallWaves = new ArrayList<>();
 
         if (this.classCharacter.equals(ClassCharacters.BOB)) {
             this.relativeWidth = 0.04f;
@@ -95,10 +95,9 @@ public class Character extends SolidObject {
         else if (this.classCharacter.equals(ClassCharacters.ANGELO)) {
             this.relativeWidth = 0.03f;
             this.relativeHeight = 140f/80f * 0.035f * 768f/372f;
+            this.maxHealth = 1f;
             this.relativeMaxSpeed = 0.0035f;
             this.relativeJumpStrength = 0.013f;
-            this.maxHealth = 1f;
-            this.relativeMaxSpeed = 0.004f;
             this.reloadTimeSmallWaves = 0f;
             this.smallWaves.add(new SmallWave());
             this.reloadTimeMediumWaves = 0.7f;
@@ -151,7 +150,7 @@ public class Character extends SolidObject {
     }
 
     public void ultimate1() {
-        smallWaves = new ArrayList<>();
+        this.smallWaves = new ArrayList<>();
 
         if (classCharacter.equals(ClassCharacters.ANGELO)) {
             this.ultimate1DurationMillis = 1400;
@@ -165,7 +164,7 @@ public class Character extends SolidObject {
             this.relativeWidth = 0.04f;
             this.relativeHeight = 200f/200f * 0.04f * 768f/372f;
             this.relativeMaxSpeed = 0.0055f;
-            smallWaves.add(new SmallWave());
+            this.smallWaves.add(new SmallWave());
             this.maxHealth = 2f;
         }
         else if (classCharacter.equals(ClassCharacters.MEDUSO)) {
@@ -187,7 +186,7 @@ public class Character extends SolidObject {
     }
 
     public void ultimate2() {
-        smallWaves = new ArrayList<>();
+        this.smallWaves = new ArrayList<>();
 
         if (classCharacter.equals(ClassCharacters.ANGELO)) {
             this.ultimate2DurationMillis = 10_000;
@@ -216,7 +215,7 @@ public class Character extends SolidObject {
     }
 
     public void ultimate3() {
-        smallWaves = new ArrayList<>();
+        this.smallWaves = new ArrayList<>();
 
         if (classCharacter.equals(ClassCharacters.ANGELO)) {
             this.ultimate3DurationMillis = 1400;
@@ -284,7 +283,7 @@ public class Character extends SolidObject {
 
     public void setHorizontalDirection(double horizontalDirection) {
         if (horizontalDirection != 0) {
-            lastHorizontalDirection = horizontalDirection;
+            this.lastHorizontalDirection = horizontalDirection;
         }
 
         this.horizontalDirection = horizontalDirection;
