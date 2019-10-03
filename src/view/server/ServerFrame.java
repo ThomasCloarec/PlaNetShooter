@@ -27,7 +27,8 @@ public class ServerFrame extends JFrame {
             e.printStackTrace();
         }
 
-        this.createFrame();
+        System.out.println(ip);
+        //this.createFrame();
     }
 
     private void createFrame() {
