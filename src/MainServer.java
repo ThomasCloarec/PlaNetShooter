@@ -2,11 +2,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import com.esotericsoftware.minlog.Log;
 import network.GameServer;
-import view.server.ServerFrame;
 
-import javax.swing.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
 import java.net.SocketException;
@@ -57,7 +53,7 @@ class MainServer {
         });
     }
 
-    private static void launchServerFrame() {
+    /*private static void launchServerFrame() {
         ServerFrame serverFrame = new ServerFrame();
         serverFrame.addWindowListener(new WindowAdapter() {
             public void windowClosed (WindowEvent evt) {
@@ -67,5 +63,5 @@ class MainServer {
         });
 
         System.out.println("Server successfully started !");
-    }
+    }*/
 }
