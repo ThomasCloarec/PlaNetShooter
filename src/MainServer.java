@@ -7,6 +7,10 @@ import view.server.ServerFrame;
 import javax.swing.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.net.DatagramSocket;
+import java.net.InetAddress;
+import java.net.SocketException;
+import java.net.UnknownHostException;
 
 class MainServer {
     private static GameServer gameServer;
@@ -15,7 +19,22 @@ class MainServer {
         Log.set(Log.LEVEL_NONE);
         System.out.println("Starting server...");
         launchGameServer();
-        SwingUtilities.invokeLater(MainServer::launchServerFrame);
+
+        String ip = null;
+
+        try {
+            DatagramSocket socket = new DatagramSocket();
+            socket.connect(InetAddress.getByName("8.8.8.8"), 42873);
+            ip = socket.getLocalAddress().getHostAddress();
+            if (ip.equals("0.0.0.0"))
+                ip = "localhost";
+        }
+        catch (SocketException | UnknownHostException e) {
+            e.printStackTrace();
+        }
+
+        System.out.println(ip);
+        //SwingUtilities.invokeLater(MainServer::launchServerFrame);
     }
 
     private static void launchGameServer() {
