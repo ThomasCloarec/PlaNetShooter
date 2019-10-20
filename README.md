@@ -7,6 +7,8 @@ If YOU need a game to enjoy with your friends on an open source server based mul
 The version 2.0-beta is out !
 Releases here : [PlaNetShooter-releases](https://github.com/ThomasCloarec/PlaNetShooter/releases)
 
+![PlaNetShooter preview](https://image.noelshack.com/fichiers/2019/42/7/1571593758-planetshooter.png)
+
 After downloading, here are the steps :
 - Unzip the archive
 - Launch a Server ("Server-PlaNetShooter.jar" file)
