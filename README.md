@@ -4,7 +4,7 @@ If YOU need a game to enjoy with your friends on an open source server based mul
 ## Installation
 ###### *PlaNetShooter uses java (>= SE 8), if it is not installed on your computer : [Download Java](https://www.oracle.com/technetwork/es/java/javasebusiness/downloads/index.html)*
 
-The version 1.0-pre_alpha is out !
+The version 2.0-beta is out !
 Releases here : [PlaNetShooter-releases](https://github.com/ThomasCloarec/PlaNetShooter/releases)
 
 After downloading, here are the steps :
