@@ -1,5 +1,5 @@
 # PlaNetShooter
-PlaNetShooter is a platform shooter game with server-based network multiplayer.
+If YOU need a game to enjoy with your friends on an open source server based multiplayer LAN platformer shooter game, PlaNetShooter is exactly what you are searching for. INSTALLATION INSTRUCTIONS BELOW !
 
 ## Installation
 ###### *PlaNetShooter uses java (>= SE 8), if it is not installed on your computer : [Download Java](https://www.oracle.com/technetwork/es/java/javasebusiness/downloads/index.html)*
