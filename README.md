@@ -1,6 +1,12 @@
 # PlaNetShooter
 If YOU need a game to enjoy with your friends on an open source server based multiplayer LAN platformer shooter game, PlaNetShooter is exactly what you are searching for. INSTALLATION INSTRUCTIONS BELOW !
 
+PlaNetShooter (Platform Network Shooter) is a platform shooter game with server-based network multiplayer. For this project, I developed entirely from scratch a physic system (move, jump, gravity, friction and collisions) and a shooting system. 
+
+There are 6 characters available to play : Bob, Meduso, Angelo, Tatitatoo, Monk and Elbombas), they all got unique bullets, ultimates, sounds and way to be played. 
+
+The game also includes a house to change the current character and to see the ranking, a money system, a yodel system and a respawn system.
+
 ## Installation
 ###### *PlaNetShooter uses java (>= SE 8), if it is not installed on your computer : [Download Java](https://www.oracle.com/technetwork/es/java/javasebusiness/downloads/index.html)*
 
